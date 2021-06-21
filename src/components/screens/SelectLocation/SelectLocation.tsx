@@ -25,22 +25,19 @@ const SelectLocation: React.FC<SelectLocationProps> = () => {
 
   const _initUserLocation = async () => {
     try {
-      let a = await Location.getForegroundPermissionsAsync();
-      if (a.status === Location.PermissionStatus.GRANTED) {
-        let position = await Location.getCurrentPositionAsync({});
-        const {longitude, latitude} = position.coords;
-        setCurrentLocation((location) => {
-          setMarkerLocation({
-            longitude,
-            latitude,
-          });
-          return {
-            ...location,
-            longitude,
-            latitude,
-          };
+      let position = await Location.getCurrentPositionAsync({});
+      const {longitude, latitude} = position.coords;
+      setCurrentLocation((location) => {
+        setMarkerLocation({
+          longitude,
+          latitude,
         });
-      }
+        return {
+          ...location,
+          longitude,
+          latitude,
+        };
+      });
     } catch (error) {
       console.log(
         '🚀 ~ file: SelectLocation.tsx ~ line 52 ~ const_initUserLocation= ~ error',
@@ -50,31 +47,22 @@ const SelectLocation: React.FC<SelectLocationProps> = () => {
   };
 
   React.useEffect(() => {
-    const requestAndroidLocationPermission = async () => {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Food Delivery App Permission',
-          message:
-            'Food Delivery App needs access to your location ' +
-            'so you see where you are on the map.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        _initUserLocation();
-      } else {
-        console.log('Camera permission denied');
+    const requestPermission = async () => {
+      const permission = await Location.getForegroundPermissionsAsync();
+
+      if (permission.status !== Location.PermissionStatus.GRANTED) {
+        const res = await Location.requestForegroundPermissionsAsync();
+        if (!res.granted) {
+          console.log('Location permission is not granted');
+          return;
+        }
       }
+
+      _initUserLocation();
     };
 
-    if (Platform.OS === 'android') {
-      requestAndroidLocationPermission();
-    } else {
-      _initUserLocation();
-    }
+    requestPermission();
+    _initUserLocation();
   }, []);
 
   const _onMapViewPressed = (event: MapEvent) => {
