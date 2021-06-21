@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Platform, PermissionsAndroid} from 'react-native';
+import {View} from 'react-native';
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
