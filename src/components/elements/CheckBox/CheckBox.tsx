@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {View, TouchableOpacity} from 'react-native';
-import RNCheckBox from '@react-native-community/checkbox';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {useTheme} from '@react-navigation/native';
 import styles from './styles';
 import Container from '../Container';
@@ -26,18 +26,19 @@ const CheckBox: React.FC<CheckBoxProps> = ({label, onPress, rightElement}) => {
     <TouchableOpacity style={styles.button} onPress={_onPress}>
       <Container style={styles.checkBoxContainer}>
         <View>
-          <RNCheckBox
-            style={styles.checkBox}
-            value={checked}
-            onCheckColor="transparent"
-            onTintColor={primary}
-            onFillColor={primary}
-            tintColors={{
-              true: primary,
-              false: text,
+          <BouncyCheckbox
+            disableBuiltInState
+            isChecked={checked}
+            size={25}
+            fillColor={primary}
+            unfillColor="#FFFFFF"
+            iconStyle={{
+              borderColor: primary,
             }}
-            onAnimationType="bounce"
-            offAnimationType="bounce"
+            textStyle={{
+              color: text,
+            }}
+            onPress={_onPress}
           />
         </View>
         <View>

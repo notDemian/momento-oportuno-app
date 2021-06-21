@@ -3,7 +3,7 @@ import {View, TouchableOpacity} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import Container from '../Container';
 import Text from '../Text';
-import CheckBox from '@react-native-community/checkbox';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import styles from './styles';
 
 export type RadioOption = {
@@ -34,6 +34,8 @@ const RadioButton: React.FC<RadioButtonProps> = ({
     };
   };
 
+  const _handleOnCheckboxPress = () => {};
+
   return (
     <>
       {data.map((item) => {
@@ -49,18 +51,19 @@ const RadioButton: React.FC<RadioButtonProps> = ({
             <TouchableOpacity style={styles.button} onPress={_onPress(item)}>
               <Container style={styles.checkBoxContainer}>
                 <View>
-                  <CheckBox
-                    style={styles.checkBox}
-                    value={isChecked}
-                    onCheckColor="transparent"
-                    onTintColor={primary}
-                    onFillColor={primary}
-                    tintColors={{
-                      true: primary,
-                      false: text,
+                  <BouncyCheckbox
+                    disableBuiltInState
+                    isChecked={isChecked}
+                    size={25}
+                    fillColor={primary}
+                    unfillColor="#FFFFFF"
+                    iconStyle={{
+                      borderColor: primary,
                     }}
-                    onAnimationType="bounce"
-                    offAnimationType="bounce"
+                    textStyle={{
+                      color: text,
+                    }}
+                    onPress={_handleOnCheckboxPress}
                   />
                 </View>
                 <View>
