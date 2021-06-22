@@ -24,7 +24,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   defaultValue,
 }) => {
   const {
-    colors: {primary, border, text},
+    colors: {primary, border, text, card},
   } = useTheme();
   const [selectedValue, setSelectedValue] = React.useState<string>();
   const _onPress = (item: RadioOption) => {
@@ -56,7 +56,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
                     isChecked={isChecked}
                     size={25}
                     fillColor={primary}
-                    unfillColor="#FFFFFF"
+                    unfillColor={card}
                     iconStyle={{
                       borderColor: primary,
                     }}

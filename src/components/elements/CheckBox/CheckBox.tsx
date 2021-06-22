@@ -14,7 +14,7 @@ type CheckBoxProps = {
 
 const CheckBox: React.FC<CheckBoxProps> = ({label, onPress, rightElement}) => {
   const {
-    colors: {primary, text},
+    colors: {primary, text, card},
   } = useTheme();
   const [checked, setChecked] = React.useState<boolean>(false);
   const _onPress = () => {
@@ -31,7 +31,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({label, onPress, rightElement}) => {
             isChecked={checked}
             size={25}
             fillColor={primary}
-            unfillColor="#FFFFFF"
+            unfillColor={card}
             iconStyle={{
               borderColor: primary,
             }}
