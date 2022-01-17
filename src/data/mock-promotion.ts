@@ -1,6 +1,7 @@
 import {ImageSourcePropType} from 'react-native';
 
-const faker = require('faker');
+import Chance from 'chance'
+const chance = new Chance();
 
 export type Promotion = {
   id: string;
@@ -13,9 +14,11 @@ export type Promotion = {
 export const promotions: Promotion[] = Array(10)
   .fill(0)
   .map((_) => ({
-    id: faker.random.uuid(),
-    name: faker.lorem.lines(1),
-    description: faker.lorem.lines(1),
+    id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+    name: chance.name(),
+    description: chance.paragraph({
+      sentences: 5
+    }),
     tag: 'Limited Offer',
     image: require('../assets/promotions/promotion.png'),
   }));

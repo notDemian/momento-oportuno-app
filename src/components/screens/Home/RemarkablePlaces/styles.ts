@@ -5,6 +5,7 @@ export default StyleSheet.create({
     marginTop: 15,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+    minHeight: 880,
   },
   tabBarStyle: {
     borderTopLeftRadius: 25,

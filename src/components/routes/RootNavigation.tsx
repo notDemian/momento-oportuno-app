@@ -51,7 +51,11 @@ const RootNavigation = () => {
           }
           barStyle={theme === 'light' ? 'dark-content' : 'light-content'}
         />
-        <RootStack.Navigator mode="modal" screenOptions={screenOptions}>
+        <RootStack.Navigator
+          screenOptions={{
+            ...screenOptions,
+            presentation: 'modal',
+          }}>
           {userToken ? (
             <RootStack.Screen
               name="Main"

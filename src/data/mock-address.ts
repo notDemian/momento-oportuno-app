@@ -1,4 +1,5 @@
-const faker = require('faker');
+import Chance from 'chance'
+const chance = new Chance();
 
 export type Address = {
   id: string;
@@ -11,17 +12,17 @@ export type Address = {
 export const savedAddresses: Address[] = Array(15)
   .fill(0)
   .map((_) => ({
-    id: faker.random.uuid(),
-    name: `${faker.address.streetName()} - ${faker.address.city()}`,
-    description: faker.address.streetAddress(),
+    id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+    name: chance.street_suffix().name,
+    description: chance.street(),
   }));
 
 export const favoriteAddresses: Address[] = Array(2)
   .fill(0)
   .map((_, index) => ({
-    id: faker.random.uuid(),
+    id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
     name: index === 0 ? 'Home' : 'Work',
-    description: `${faker.address.streetAddress()} - ${faker.address.city()}`,
+    description: chance.paragraph({ sentences: 2 }),
     isHome: index === 0,
     isWork: index === 1,
   }));

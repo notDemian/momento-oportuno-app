@@ -1,4 +1,5 @@
-const faker = require('faker');
+import Chance from 'chance'
+const chance = new Chance();
 
 export type OrderDetail = {
   id: string;
@@ -21,39 +22,62 @@ export type ActivityHistory = {
 };
 
 export const activityHistoryDetail: ActivityHistory = {
-  bookingId: faker.random.uuid(),
-  date: new Date(faker.date.past()).toDateString(),
-  driverId: faker.random.uuid(),
-  from: `${faker.address.streetAddress()} - ${faker.address.state()} - ${faker.address.city()}`,
-  to: `${faker.address.streetAddress()} - ${faker.address.state()} - ${faker.address.city()}`,
-  restaurantName: faker.lorem.lines(1),
+  bookingId: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+  date: new Date(chance.date()).toDateString(),
+  driverId: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+  from: chance.street(),
+  to: chance.street(),
+  restaurantName: chance.company(),
   status: 'Delivered',
   orderDetail: {
-    id: faker.random.uuid(),
-    name: faker.commerce.productName(),
-    note: faker.lorem.lines(1),
-    price: faker.commerce.price(5, 60),
-    shippingFee: faker.random.number(5),
-    totalItems: faker.random.number(5),
+    id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+    name: chance.name(),
+    note: chance.word({
+      length: 20
+    }),
+    price: chance.floating({
+      min: 10,
+      max: 100
+    }),
+    shippingFee: chance.floating({
+      max: 5,
+      min: 1,
+    }),
+    totalItems: chance.floating({
+      max: 5,
+      min: 1,
+    }),
   },
 };
 
 export const activityHistoryList: ActivityHistory[] = Array(10)
   .fill(0)
   .map((_) => ({
-    bookingId: faker.random.uuid(),
-    date: new Date(faker.date.past()).toDateString(),
-    driverId: faker.random.uuid(),
-    from: faker.lorem.lines(1),
-    to: faker.lorem.lines(1),
-    restaurantName: faker.lorem.lines(1),
+    bookingId: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+    date: new Date(chance.date()).toDateString(),
+    driverId: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+    from: chance.word({
+      length: 20
+    }),
+    to: chance.word({
+      length: 20
+    }),
+    restaurantName: chance.company(),
     status: 'Delivered',
     orderDetail: {
-      id: faker.random.uuid(),
-      name: faker.commerce.productName(),
-      note: faker.lorem.lines(1),
-      price: faker.commerce.price(5, 60),
-      shippingFee: faker.random.number(5),
-      totalItems: faker.random.number(5),
+      id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+      name: chance.name(),
+      note: chance.word({
+        length: 20
+      }),
+      price: chance.floating(),
+      shippingFee: chance.floating({
+        max: 5,
+        min: 1,
+      }),
+      totalItems: chance.floating({
+        max: 5,
+        min: 1,
+      }),
     },
   }));

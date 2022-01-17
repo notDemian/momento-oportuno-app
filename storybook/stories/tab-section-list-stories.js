@@ -5,7 +5,8 @@ import {Container, Text, Divider} from '@src/components/elements';
 import {TabSectionList} from '@src/components/elements';
 import DishItem from '@src/components/common/DishItem';
 import {mockPlaceDetails} from '@src/data/mock-places';
-const faker = require('faker');
+import Chance from 'chance'
+const chance = new Chance();
 
 const styles = StyleSheet.create({
   container: {
@@ -39,9 +40,9 @@ const styles = StyleSheet.create({
 const data = Array(15)
   .fill(0)
   .map((_) => ({
-    id: faker.random.uuid(),
-    title: faker.lorem.sentence(4),
-    subTitle: faker.lorem.sentence(6),
+    id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+    title: chance.string(),
+    subTitle: chance.string(),
   }));
 
 storiesOf('TabSectionList', module).add('TabSectionList', () => (

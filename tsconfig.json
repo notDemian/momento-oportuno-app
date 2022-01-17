@@ -10,6 +10,7 @@
     "noEmit": true,
     "isolatedModules": true,
     "strict": true,
+    "noImplicitAny": false,
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
