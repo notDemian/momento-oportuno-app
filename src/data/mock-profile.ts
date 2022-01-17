@@ -1,6 +1,7 @@
 import {ImageSourcePropType} from 'react-native';
 
-const faker = require('faker');
+import Chance from 'chance'
+const chance = new Chance();
 
 export type Profile = {
   id: string;
@@ -12,10 +13,10 @@ export type Profile = {
 };
 
 export const profile: Profile = {
-  id: faker.random.uuid(),
-  name: faker.name.findName(),
-  email: faker.internet.email(),
-  phone: faker.phone.phoneNumber(),
+  id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+  name: chance.name(),
+  email: chance.email(),
+  phone: chance.phone(),
   avatar: require('../assets/profile/avatar.png'),
   coverPhoto: require('../assets/profile/cover-photo.jpg'),
 };

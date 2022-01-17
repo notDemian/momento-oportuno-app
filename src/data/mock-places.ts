@@ -1,6 +1,7 @@
 import {ImageSourcePropType} from 'react-native';
 
-const faker = require('faker');
+import Chance from 'chance'
+const chance = new Chance();
 
 export type Dish = {
   id: string;
@@ -34,10 +35,17 @@ export type RemarkablePlaceTab = {
 };
 
 export const mockDishDetails: Dish = {
-  id: faker.random.uuid(),
-  title: faker.commerce.productName(),
-  description: faker.lorem.lines(3),
-  price: faker.commerce.price(5, 60),
+  id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+  title: chance.sentence({
+    words: 5
+  }),
+  description: chance.paragraph({
+    sentences: 2
+  }),
+  price: chance.floating({
+    min: 5,
+    max: 60,
+  }).toString(),
   coverImage: require('@src/assets/dish-details/cover-photo.jpg'),
   sideDishes: [
     {
@@ -45,10 +53,17 @@ export const mockDishDetails: Dish = {
       data: Array(5)
         .fill(0)
         .map((_) => ({
-          id: faker.random.uuid(),
-          title: faker.commerce.productName(),
-          description: faker.lorem.lines(2),
-          price: faker.commerce.price(2, 10),
+          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          title: chance.sentence({
+            words: 5
+          }),
+          description: chance.paragraph({
+            sentences: 2
+          }),
+          price: chance.floating({
+            min: 2,
+            max: 10,
+          }).toString(),
           image: require('@src/assets/dish-details/dish-1.jpg'),
         })),
     },
@@ -57,10 +72,17 @@ export const mockDishDetails: Dish = {
       data: Array(3)
         .fill(0)
         .map((_) => ({
-          id: faker.random.uuid(),
-          title: faker.commerce.productName(),
-          description: faker.lorem.lines(2),
-          price: faker.commerce.price(2, 10),
+          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          title: chance.sentence({
+            words: 5
+          }),
+          description: chance.paragraph({
+            sentences: 2
+          }),
+          price: chance.floating({
+            min: 2,
+            max: 10,
+          }).toString(),
           image: require('@src/assets/dish-details/dish-2.jpg'),
         })),
     },
@@ -69,10 +91,17 @@ export const mockDishDetails: Dish = {
       data: Array(6)
         .fill(0)
         .map((_) => ({
-          id: faker.random.uuid(),
-          title: faker.commerce.productName(),
-          description: faker.lorem.lines(2),
-          price: faker.commerce.price(2, 10),
+          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          title: chance.sentence({
+            words: 5
+          }),
+          description: chance.paragraph({
+            sentences: 2
+          }),
+          price: chance.floating({
+            min: 2,
+            max: 10,
+          }).toString(),
           image: require('@src/assets/dish-details/dish-3.jpg'),
         })),
     },
@@ -94,10 +123,17 @@ export const mockPlaceDetails: Place = {
       data: Array(3)
         .fill(0)
         .map((_) => ({
-          id: faker.random.uuid(),
-          title: faker.commerce.productName(),
-          description: faker.lorem.lines(2),
-          price: faker.commerce.price(5, 60),
+          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          title: chance.sentence({
+            words: 5
+          }),
+          description: chance.paragraph({
+            sentences: 2
+          }),
+          price: chance.floating({
+            min: 5,
+            max: 60,
+          }).toString(),
           image: require('@src/assets/dish-details/dish-1.jpg'),
         })),
     },
@@ -106,10 +142,17 @@ export const mockPlaceDetails: Place = {
       data: Array(3)
         .fill(0)
         .map((_) => ({
-          id: faker.random.uuid(),
-          title: faker.commerce.productName(),
-          description: faker.lorem.lines(2),
-          price: faker.commerce.price(5, 60),
+          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          title: chance.sentence({
+            words: 5
+          }),
+          description: chance.paragraph({
+            sentences: 2
+          }),
+          price: chance.floating({
+            min: 5,
+            max: 60,
+          }).toString(),
           image: require('@src/assets/dish-details/dish-2.jpg'),
         })),
     },
@@ -118,10 +161,17 @@ export const mockPlaceDetails: Place = {
       data: Array(4)
         .fill(0)
         .map((_) => ({
-          id: faker.random.uuid(),
-          title: faker.commerce.productName(),
-          description: faker.lorem.lines(2),
-          price: faker.commerce.price(5, 60),
+          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          title: chance.sentence({
+            words: 5
+          }),
+          description: chance.paragraph({
+            sentences: 2
+          }),
+          price: chance.floating({
+            min: 5,
+            max: 60,
+          }).toString(),
           image: require('@src/assets/dish-details/dish-3.jpg'),
         })),
     },
@@ -130,10 +180,17 @@ export const mockPlaceDetails: Place = {
       data: Array(4)
         .fill(0)
         .map((_) => ({
-          id: faker.random.uuid(),
-          title: faker.commerce.productName(),
-          description: faker.lorem.lines(2),
-          price: faker.commerce.price(5, 60),
+          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          title: chance.sentence({
+            words: 5
+          }),
+          description: chance.paragraph({
+            sentences: 2
+          }),
+          price: chance.floating({
+            min: 5,
+            max: 60,
+          }).toString(),
           image: require('@src/assets/dish-details/dish-1.jpg'),
         })),
     },
@@ -142,10 +199,17 @@ export const mockPlaceDetails: Place = {
       data: Array(6)
         .fill(0)
         .map((_) => ({
-          id: faker.random.uuid(),
-          title: faker.commerce.productName(),
-          description: faker.lorem.lines(2),
-          price: faker.commerce.price(5, 60),
+          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          title: chance.sentence({
+            words: 5
+          }),
+          description: chance.paragraph({
+            sentences: 2
+          }),
+          price: chance.floating({
+            min: 5,
+            max: 60,
+          }).toString(),
           image: require('@src/assets/dish-details/dish-2.jpg'),
         })),
     },
@@ -157,10 +221,12 @@ export const mockPlaceList: Place[] = Array(10)
   .map((_) => {
     const image = require('@src/assets/place-details/main-photo.jpg');
     return {
-      id: faker.random.uuid(),
-      title: faker.commerce.department(),
+      id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+      title: chance.company(),
       image,
-      subTitle: faker.lorem.lines(2),
+      subTitle: chance.paragraph({
+        sentences: 2
+      }),
       distance: 75,
       time: 90,
       rating: 4,
@@ -172,10 +238,12 @@ export const mockPlaces: Place[] = Array(3)
   .map((_) => {
     const image = require('@src/assets/place-details/main-photo.jpg');
     return {
-      id: faker.random.uuid(),
-      title: faker.commerce.department(),
+      id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+      title: chance.company(),
       image,
-      subTitle: faker.lorem.lines(2),
+      subTitle: chance.paragraph({
+        sentences: 2
+      }),
       distance: 75,
       time: 90,
       rating: 4,

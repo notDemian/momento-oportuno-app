@@ -21,7 +21,7 @@
     "expo": "^43.0.0",
     "expo-location": "~13.0.4",
     "expo-status-bar": "~1.1.0",
-    "faker": "^4.1.0",
+    "chance": "^1.1.8",
     "lottie-ios": "3.1.8",
     "lottie-react-native": "4.0.3",
     "react": "17.0.1",
