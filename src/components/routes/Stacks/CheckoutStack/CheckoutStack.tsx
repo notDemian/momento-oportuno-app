@@ -48,7 +48,7 @@ const CheckoutStack: React.FC<CheckoutStackProps> = (props) => {
   return (
     <Stack.Navigator initialRouteName="CheckoutScreen">
       <Stack.Screen
-        name="CheckoutScreen"
+        name="CheckoutMainScreen"
         options={{
           headerLeftContainerStyle: styles.headerLeftContainer,
           headerLeft: _renderHeaderLeft,

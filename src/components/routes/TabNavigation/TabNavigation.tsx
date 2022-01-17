@@ -52,6 +52,7 @@ const TabNavigation: React.FC<TabNavigationProps> = () => {
           route: {name: routeName},
         } = props;
         return {
+          headerShown: false,
           tabBarIcon: renderTabBarIcon(routeName),
         };
       }}>
