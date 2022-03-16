@@ -54,6 +54,7 @@ export default StyleSheet.create({
     width: '100%',
     height: '100%',
     flex: 1,
+    backgroundColor: '#333333',
   },
   currentLocationMarkerContainer: {
     backgroundColor: 'white',

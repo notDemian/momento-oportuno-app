@@ -22,8 +22,10 @@ import ThemeContext from '@src/context/theme-context';
 import AuthProvider from '@src/components/common/AuthProvider/AuthProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AppReviewConfig} from '@src/constants';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const {USES_UNTIL_SHOW} = AppReviewConfig;
+const rootViewflex = 1;
 
 const App = () => {
   const appState = React.useRef(AppState.currentState);
@@ -76,21 +78,23 @@ const App = () => {
   }, []);
 
   return (
-    <AppearanceProvider>
-      <ThemeContext.Provider
-        value={{
-          theme: currentTheme,
-          useSystemTheme,
-          setTheme: _setTheme,
-          setUseSystemTheme,
-        }}>
-        <AuthProvider>
-          <CartProvider>
-            <RootNavigation />
-          </CartProvider>
-        </AuthProvider>
-      </ThemeContext.Provider>
-    </AppearanceProvider>
+    <GestureHandlerRootView style={{flex: rootViewflex}}>
+      <AppearanceProvider>
+        <ThemeContext.Provider
+          value={{
+            theme: currentTheme,
+            useSystemTheme,
+            setTheme: _setTheme,
+            setUseSystemTheme,
+          }}>
+          <AuthProvider>
+            <CartProvider>
+              <RootNavigation />
+            </CartProvider>
+          </AuthProvider>
+        </ThemeContext.Provider>
+      </AppearanceProvider>
+    </GestureHandlerRootView>
   );
 };
 
