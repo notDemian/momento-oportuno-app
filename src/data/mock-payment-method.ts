@@ -7,27 +7,27 @@ type PaymentMethod = {
 export const paymentMethods: PaymentMethod[] = [
   {
     id: '1',
-    name: 'Cash',
-    icon: 'money-bill-alt',
+    name: 'Cash On Delivery',
+    icon: 'cash',
   },
   {
     id: '2',
     name: 'ATM Card',
-    icon: 'credit-card',
+    icon: 'card',
   },
   {
     id: '3',
-    name: 'VISA / MASTER',
-    icon: 'cc-visa',
-  },
-  {
-    id: '4',
-    name: 'PayPal',
-    icon: 'cc-paypal',
+    name: 'Visa / Master',
+    icon: 'card-outline',
   },
   {
     id: '5',
     name: 'Apple Pay',
-    icon: 'cc-apple-pay',
+    icon: 'logo-apple',
+  },
+  {
+    id: '6',
+    name: 'Google Pay',
+    icon: 'logo-google',
   },
 ];

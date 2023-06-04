@@ -1,2 +1,1 @@
-import TabSectionList from './TabSectionList';
-export default TabSectionList;
+export * from './TabSectionList';

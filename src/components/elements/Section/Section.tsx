@@ -1,43 +1,46 @@
-import * as React from 'react';
-import {View} from 'react-native';
-import Button from '../Button';
-import Text from '../Text';
-import styles from './styles';
+import React from 'react';
+import { SectionProps } from './Section.type';
+import { Text } from '../Text';
+import { Box } from '../Box';
+import { Touchable } from '../Touchable';
+import { Divider } from '../Divider';
 
-interface SectionProps {
-  children?: React.ReactNode;
-  title?: string;
-  actionButtonText?: string;
-  onButtonActionPressed?: () => void;
-}
-
-const Section: React.FC<SectionProps> = ({
+export const Section: React.FC<SectionProps> = ({
   children,
   title,
   actionButtonText,
-  onButtonActionPressed,
+  hasDivider = true,
+  onButtonActionPress,
+  ...rest
 }) => {
-  const _onButtonActionPressed = () => {
-    if (onButtonActionPressed) {
-      onButtonActionPressed();
+  const handleButtonActionPress = () => {
+    if (onButtonActionPress) {
+      onButtonActionPress();
     }
   };
 
   return (
-    <View>
-      <View style={styles.sectionTitleContainer}>
-        {title && <Text style={styles.sectionTitle}>{title}</Text>}
-        {actionButtonText && (
-          <Button onPress={_onButtonActionPressed} isTransparent>
-            <Text style={styles.actionButtonText} isPrimary>
-              {actionButtonText}
+    <Box {...rest}>
+      {hasDivider && <Divider backgroundColor="background" />}
+      <Box
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="space-between"
+        padding="m">
+        {title ? (
+          <Box flex={1}>
+            <Text variant="subHeader" numberOfLines={2}>
+              {title}
             </Text>
-          </Button>
-        )}
-      </View>
+          </Box>
+        ) : null}
+        {actionButtonText ? (
+          <Touchable onPress={handleButtonActionPress} variant="transparent">
+            <Text variant="primary">{actionButtonText}</Text>
+          </Touchable>
+        ) : null}
+      </Box>
       {children}
-    </View>
+    </Box>
   );
 };
-
-export default Section;

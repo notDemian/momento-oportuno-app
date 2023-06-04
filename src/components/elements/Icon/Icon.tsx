@@ -1,36 +1,17 @@
-import * as React from 'react';
-import IconFontAwesome5, {
-  FontAwesome5IconProps,
-} from 'react-native-vector-icons/FontAwesome5';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useTheme} from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
+import { createBox } from '@shopify/restyle';
+import { Theme, fontSize, useAppTheme } from '@src/theme';
+import { IconProps } from './Icon.type';
 
-interface OwnProps {
-  isPrimary?: boolean;
-  useIonicons?: boolean;
-}
+const InnerIcon = createBox<Theme>(Ionicons);
 
-type IconProps = OwnProps & FontAwesome5IconProps;
-
-const Icon: React.FC<IconProps> = ({
-  isPrimary,
-  useIonicons,
-  color,
-  ...rest
-}) => {
-  const {
-    colors: {text, primary},
-  } = useTheme();
-  let iconColor = isPrimary ? primary : text;
-  if (color) {
-    iconColor = color;
-  }
-
-  return useIonicons ? (
-    <Ionicons {...rest} color={iconColor} />
-  ) : (
-    <IconFontAwesome5 {...rest} color={iconColor} />
+export const Icon: React.FC<IconProps> = ({ isPrimary, ...rest }) => {
+  const { colors } = useAppTheme();
+  return (
+    <InnerIcon
+      color={isPrimary ? colors.primary : colors.secondary}
+      size={fontSize.l}
+      {...rest}
+    />
   );
 };
-
-export default Icon;

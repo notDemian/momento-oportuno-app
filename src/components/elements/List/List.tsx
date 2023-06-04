@@ -1,43 +1,37 @@
-import * as React from 'react';
-import {FlatList, FlatListProps, ListRenderItem} from 'react-native';
-import {useScrollToTop} from '@react-navigation/native';
-import Divider from '../Divider';
-import useThemeColors from '@src/custom-hooks/useThemeColors';
-import ListRowItem, {ListRowItemProps} from './ListRowItem';
-import styles from './styles';
+import { useAppTheme } from '@src/theme';
+import { FlatList, FlatListProps } from 'react-native';
+import { Divider } from '../Divider';
+import React from 'react';
+import { useScrollToTop } from '@react-navigation/native';
+import { Text } from '../Text';
+import { Box } from '../Box';
 
-interface OwnProps {
-  data: ListRowItemProps[];
-}
+export function List<T>({ contentContainerStyle, ...rest }: FlatListProps<T>) {
+  const { colors } = useAppTheme();
+  const ref = React.useRef(null);
+  useScrollToTop(ref);
 
-type ListProps = OwnProps & Partial<FlatListProps<any>>;
-
-const List: React.FC<ListProps> = ({data, renderItem, ...rest}) => {
-  const {card} = useThemeColors();
-  const listRef = React.useRef(null);
-
-  useScrollToTop(listRef);
-
-  const _renderDefaultItem: ListRenderItem<ListRowItemProps> = ({item}) => {
-    return <ListRowItem {...item} />;
+  const renderDivider = () => {
+    return <Divider />;
   };
 
   return (
     <FlatList
-      {...rest}
-      ref={listRef}
-      keyExtractor={(item, index) => `${item.id} - ${index}`}
-      data={data}
+      ref={ref}
+      ItemSeparatorComponent={renderDivider}
+      ListEmptyComponent={
+        <Box flex={1} justifyContent="center" alignItems="center">
+          <Text variant="secondary">No data</Text>
+        </Box>
+      }
+      style={{ backgroundColor: colors.card }}
       contentContainerStyle={[
         {
-          backgroundColor: card,
+          backgroundColor: colors.card,
         },
-        styles.contentContainer,
+        contentContainerStyle,
       ]}
-      ItemSeparatorComponent={Divider}
-      renderItem={renderItem || _renderDefaultItem}
+      {...rest}
     />
   );
-};
-
-export default List;
+}

@@ -1,2 +1,2 @@
-import TabView from './TabView';
-export default TabView;
+export * from './TabView';
+export * from './TabView.type';

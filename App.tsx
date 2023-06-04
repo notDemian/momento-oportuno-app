@@ -1,101 +1,32 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
+import { RootNavigation } from '@src/navigation';
+import { AppThemeProvider } from '@src/theme/AppThemeProvider';
+import { StyleSheet } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { PortalProvider } from '@gorhom/portal';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AuthProvider } from '@src/auth';
+import { CartProvider } from '@src/cart';
 
-import 'react-native-gesture-handler';
-import React from 'react';
-import {AppState, AppStateStatus} from 'react-native';
-import {
-  AppearanceProvider,
-  useColorScheme,
-  ColorSchemeName,
-} from 'react-native-appearance';
-import RootNavigation from '@src/components/routes/RootNavigation';
-import CartProvider from '@src/components/common/CartProvider';
-import ThemeContext from '@src/context/theme-context';
-import AuthProvider from '@src/components/common/AuthProvider/AuthProvider';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AppReviewConfig} from '@src/constants';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
-const {USES_UNTIL_SHOW} = AppReviewConfig;
-const rootViewflex = 1;
-
-const App = () => {
-  const appState = React.useRef(AppState.currentState);
-  const [appStateVisible, setAppStateVisible] = React.useState(
-    appState.current,
-  );
-  const scheme = useColorScheme();
-  const [currentTheme, setCurrentTheme] = React.useState('dark');
-  const [useSystemTheme, setUseSystemTheme] = React.useState(false);
-
-  React.useEffect(() => {
-    AppState.addEventListener('change', _handleAppStateChange);
-
-    return () => {
-      AppState.removeEventListener('change', _handleAppStateChange);
-    };
-  }, []);
-
-  const _handleAppStateChange = (nextAppState: AppStateStatus) => {
-    appState.current = nextAppState;
-    setAppStateVisible(appState.current);
-  };
-
-  React.useEffect(() => {
-    if (appStateVisible !== 'active') {
-      return;
-    }
-    const handleGetUsesUntilShowAppReview = async () => {
-      const usesUntilShowAppReview = await AsyncStorage.getItem(
-        USES_UNTIL_SHOW,
-      );
-      if (!usesUntilShowAppReview) {
-        AsyncStorage.setItem(USES_UNTIL_SHOW, '1');
-        return;
-      }
-      const totalUses = parseInt(usesUntilShowAppReview, 10) + 1;
-      AsyncStorage.setItem(USES_UNTIL_SHOW, totalUses.toString());
-    };
-    handleGetUsesUntilShowAppReview();
-  }, [appStateVisible]);
-
-  React.useEffect(() => {
-    if (useSystemTheme) {
-      setCurrentTheme(scheme);
-    }
-  }, [scheme, useSystemTheme]);
-
-  const _setTheme = React.useCallback((theme: ColorSchemeName) => {
-    setCurrentTheme(theme);
-  }, []);
-
+export default function App() {
   return (
-    <GestureHandlerRootView style={{flex: rootViewflex}}>
-      <AppearanceProvider>
-        <ThemeContext.Provider
-          value={{
-            theme: currentTheme,
-            useSystemTheme,
-            setTheme: _setTheme,
-            setUseSystemTheme,
-          }}>
-          <AuthProvider>
-            <CartProvider>
-              <RootNavigation />
-            </CartProvider>
-          </AuthProvider>
-        </ThemeContext.Provider>
-      </AppearanceProvider>
+    <GestureHandlerRootView style={styles.container}>
+      <PortalProvider>
+        <SafeAreaProvider>
+          <AppThemeProvider>
+            <AuthProvider>
+              <CartProvider>
+                <RootNavigation />
+              </CartProvider>
+            </AuthProvider>
+          </AppThemeProvider>
+        </SafeAreaProvider>
+      </PortalProvider>
     </GestureHandlerRootView>
   );
-};
-
-export default App;
+}

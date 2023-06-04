@@ -1,86 +1,86 @@
-import * as React from 'react';
-import {View, TouchableOpacity} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import Container from '../Container';
-import Text from '../Text';
+import React from 'react';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import styles from './styles';
+import { RadioButtonProps, RadioOption } from './RadioButton.type';
+import { Box } from '../Box';
+import { Touchable } from '../Touchable';
+import { Text } from '../Text';
+import { useAppTheme } from '@src/theme';
 
-export type RadioOption = {
-  value: string;
-  label: string;
-  rightElement?: React.ReactElement;
-};
-
-type RadioButtonProps = {
-  data: RadioOption[];
-  defaultValue?: string;
-  onItemPressed: (option: RadioOption) => void;
-};
-
-const RadioButton: React.FC<RadioButtonProps> = ({
+export const RadioButton: React.FC<RadioButtonProps> = ({
   data,
-  onItemPressed,
+  onItemPress,
   defaultValue,
+  containerProps,
 }) => {
-  const {
-    colors: {primary, border, text, card},
-  } = useTheme();
-  const [selectedValue, setSelectedValue] = React.useState<string>();
-  const _onPress = (item: RadioOption) => {
+  const { colors } = useAppTheme();
+  const [selectedValue, setSelectedValue] =
+    React.useState<RadioOption['value']>();
+
+  const onPress = (item: RadioOption) => {
     return () => {
       setSelectedValue(item.value);
-      onItemPressed(item);
+      onItemPress(item);
     };
   };
-
-  const _handleOnCheckboxPress = () => {};
 
   return (
     <>
       {data.map((item) => {
-        const {value, label, rightElement} = item;
+        const { value, label, rightElement } = item;
         let isChecked = value === defaultValue;
         if (selectedValue) {
           isChecked = value === selectedValue;
         }
         return (
-          <Container
+          <Box
             key={value}
-            style={[styles.container, {borderBottomColor: border}]}>
-            <TouchableOpacity style={styles.button} onPress={_onPress(item)}>
-              <Container style={styles.checkBoxContainer}>
-                <View>
-                  <BouncyCheckbox
-                    disableBuiltInState
-                    isChecked={isChecked}
-                    size={25}
-                    fillColor={primary}
-                    unfillColor={card}
-                    iconStyle={{
-                      borderColor: primary,
-                    }}
-                    textStyle={{
-                      color: text,
-                    }}
-                    onPress={_handleOnCheckboxPress}
-                  />
-                </View>
-                <View>
-                  <Text>{label}</Text>
-                </View>
-              </Container>
-              {rightElement && (
-                <Container style={styles.rightElementContainer}>
-                  {rightElement}
-                </Container>
-              )}
-            </TouchableOpacity>
-          </Container>
+            flexDirection="row"
+            alignItems="center"
+            borderBottomWidth={1}
+            borderColor="border">
+            <Touchable
+              flex={1}
+              flexDirection="row"
+              justifyContent="space-between"
+              alignItems="center"
+              onPress={onPress(item)}>
+              <Box
+                width="100%"
+                flexDirection="row"
+                paddingHorizontal="s"
+                paddingVertical="m"
+                justifyContent="space-between"
+                alignItems="center"
+                {...containerProps}>
+                <Box flexDirection="row" alignItems="center">
+                  <Box>
+                    <BouncyCheckbox
+                      disableBuiltInState
+                      isChecked={isChecked}
+                      size={25}
+                      fillColor={colors.primary}
+                      unfillColor={colors.card}
+                      iconStyle={{
+                        borderColor: colors.primary,
+                      }}
+                      textStyle={{
+                        color: colors.text,
+                      }}
+                      onPress={onPress(item)}
+                    />
+                  </Box>
+                  <Box>
+                    <Text>{label}</Text>
+                  </Box>
+                </Box>
+                {rightElement ? (
+                  <Box alignItems="flex-end">{rightElement}</Box>
+                ) : null}
+              </Box>
+            </Touchable>
+          </Box>
         );
       })}
     </>
   );
 };
-
-export default RadioButton;

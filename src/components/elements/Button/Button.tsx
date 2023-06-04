@@ -1,99 +1,61 @@
-import * as React from 'react';
-import {useTheme} from '@react-navigation/native';
-import {
-  TouchableOpacity,
-  TouchableOpacityProps,
-  View,
-  ViewStyle,
-  StyleProp,
-  ActivityIndicator,
-} from 'react-native';
-import styles from './styles';
+import { LayoutProps } from '@shopify/restyle';
+import { Theme, extractSpacingProps } from '@src/theme';
+import { Text } from '../Text';
+import { ButtonProps } from './Button.type';
+import { getTextColor, getTextFontSize } from './Button.util';
+import { ButtonContainer } from './ButtonContainer';
+import { Touchable } from '../Touchable';
+import { Box } from '../Box';
 
-interface ButtonProps extends TouchableOpacityProps {
-  children: React.ReactNode;
-  backgroundColor?: string;
-  icon?: React.ReactElement;
-  isTransparent?: boolean;
-  isFullWidth?: boolean;
-  isChildrenCentered?: boolean;
-  isLoading?: boolean;
-  childrenContainerStyle?: StyleProp<ViewStyle>;
-}
-
-const Button: React.FC<ButtonProps> = ({
-  children,
-  icon,
-  backgroundColor,
-  isTransparent,
+export const Button: React.FC<ButtonProps> = ({
+  onPress,
+  label,
   isFullWidth,
-  isChildrenCentered = true,
-  isLoading,
-  style,
-  childrenContainerStyle,
+  textAlign = 'center',
+  variant,
+  buttonSize,
+  children,
+  borderRadius = 'l',
   ...rest
 }) => {
-  const {
-    colors: {primary: baseBackgroundColor},
-  } = useTheme();
-  let buttonBackgroundColor = backgroundColor || baseBackgroundColor;
-  let buttonBorderColor = backgroundColor || baseBackgroundColor;
-  let buttonBorderWidth = 1;
-  let padding = 15;
-  let width = 'auto';
-  let align:
-    | 'flex-start'
-    | 'center'
-    | 'flex-end'
-    | 'space-between'
-    | 'space-around'
-    | 'space-evenly'
-    | undefined = 'flex-start';
+  const alignSelf: LayoutProps<Theme>['alignSelf'] = isFullWidth
+    ? 'auto'
+    : 'flex-start';
+  const textColor = getTextColor(variant);
+  const fontSize = getTextFontSize(buttonSize);
+  const { spacingProps, rest: otherProps } = extractSpacingProps(rest);
 
-  if (isTransparent) {
-    buttonBackgroundColor = 'transparent';
-    buttonBorderWidth = 0;
-    padding = 0;
-  }
-  if (isFullWidth) {
-    width = '100%';
-  }
-  if (isChildrenCentered) {
-    align = 'center';
-  }
+  const renderContent = () => {
+    if (children) {
+      return children;
+    }
+    return (
+      <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
+        {label}
+      </Text>
+    );
+  };
 
   return (
-    <TouchableOpacity
-      style={[
-        styles.button,
-        {
-          backgroundColor: buttonBackgroundColor,
-          borderColor: buttonBorderColor,
-          borderWidth: buttonBorderWidth,
-          padding: padding,
-          width,
-        },
-        style,
-      ]}
-      {...rest}>
-      {icon && <View style={styles.iconContainer}>{icon}</View>}
-      <View
-        style={[
-          styles.buttonChildrenContainer,
-          {
-            width,
-            justifyContent: align,
-          },
-          childrenContainerStyle,
-        ]}>
-        {isLoading ? (
-          <ActivityIndicator size="small" color="white" />
-        ) : (
-          children
-        )}
-      </View>
-    </TouchableOpacity>
+    <Box
+      borderRadius={borderRadius}
+      overflow="hidden"
+      width={isFullWidth ? '100%' : undefined}
+      {...spacingProps}>
+      <Touchable
+        variant={variant}
+        alignSelf={alignSelf}
+        onPress={onPress}
+        activeOpacity={0.7}
+        borderRadius={borderRadius}
+        {...otherProps}>
+        <ButtonContainer
+          variant={variant}
+          buttonSize={buttonSize}
+          borderRadius={borderRadius}>
+          {renderContent()}
+        </ButtonContainer>
+      </Touchable>
+    </Box>
   );
 };
-
-export default Button;

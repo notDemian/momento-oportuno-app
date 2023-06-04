@@ -1,20 +1,26 @@
-import * as React from 'react';
-import {
-  Platform,
-  TouchableOpacity,
-  TouchableNativeFeedback,
-  TouchableNativeFeedbackProps,
-  TouchableOpacityProps,
-} from 'react-native';
+import { createBox } from '@shopify/restyle';
+import { Theme } from '@src/theme';
+import React from 'react';
+import { Platform, TouchableNativeFeedback } from 'react-native';
+import { ButtonProps } from '../Button';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-type TouchableProps = {} & TouchableNativeFeedbackProps & TouchableOpacityProps;
+export type TouchableProps = React.ComponentPropsWithoutRef<
+  typeof TouchableOpacity
+> &
+  React.ComponentPropsWithoutRef<typeof TouchableNativeFeedback> &
+  Pick<ButtonProps, 'variant' | 'children'>;
 
-const Touchable: React.FC<TouchableProps> = ({children, ...rest}) => {
-  return Platform.OS === 'ios' ? (
+export const InnerTouchable: React.FC<TouchableProps> = ({
+  children,
+  variant,
+  ...rest
+}) => {
+  return Platform.OS === 'ios' || variant === 'transparent' ? (
     <TouchableOpacity {...rest}>{children}</TouchableOpacity>
   ) : (
     <TouchableNativeFeedback {...rest}>{children}</TouchableNativeFeedback>
   );
 };
 
-export default Touchable;
+export const Touchable = createBox<Theme, TouchableProps>(InnerTouchable);

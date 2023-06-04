@@ -1,6 +1,5 @@
-import * as React from 'react';
+import React from 'react';
 import {
-  View,
   SectionList as RNSectionList,
   SectionListProps,
   ViewStyle,
@@ -9,8 +8,8 @@ import {
   Animated,
   StyleProp,
 } from 'react-native';
-import TabBar from './TabBar';
-import styles from './styles';
+import { TabBar } from './TabBar';
+import { Box } from '../Box';
 
 interface IProps extends SectionListProps<any> {
   scrollToLocationOffset?: number;
@@ -27,7 +26,7 @@ interface IState {
   currentIndex: number;
 }
 
-export default class SectionList extends React.PureComponent<IProps, IState> {
+export class TabSectionList extends React.PureComponent<IProps, IState> {
   state: IState = {
     currentIndex: 0,
   };
@@ -45,22 +44,22 @@ export default class SectionList extends React.PureComponent<IProps, IState> {
       onViewableItemsChangedCallback,
     } = this.props;
 
-    const prepareSections = sections.map((item, index) => ({...item, index}));
+    const prepareSections = sections.map((item, index) => ({ ...item, index }));
 
     return (
-      <View style={styles.tabSectionListContainer}>
+      <Box position="relative">
         <Animated.SectionList
           {...this.props}
           sections={prepareSections}
           onViewableItemsChanged={(info: any) => {
-            const {viewableItems} = info;
+            const { viewableItems } = info;
             if (!this.blockUpdateIndex && viewableItems[0]) {
               if (onViewableItemsChangedCallback) {
                 onViewableItemsChangedCallback(info);
               }
               const currentIndex = viewableItems[0].section.index;
               if (this.state.currentIndex !== currentIndex) {
-                this.setState({currentIndex});
+                this.setState({ currentIndex });
               }
             }
           }}
@@ -78,7 +77,7 @@ export default class SectionList extends React.PureComponent<IProps, IState> {
           tabBarScrollViewStyle={tabBarScrollViewStyle}
           currentIndex={this.state.currentIndex}
           onPress={(index: number) => {
-            this.setState({currentIndex: index});
+            this.setState({ currentIndex: index });
             this.blockUpdateIndex = true;
 
             const sectionList = this.sectionList.current;
@@ -92,7 +91,7 @@ export default class SectionList extends React.PureComponent<IProps, IState> {
             }
           }}
         />
-      </View>
+      </Box>
     );
   }
 }

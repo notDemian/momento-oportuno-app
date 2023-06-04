@@ -1,6 +1,5 @@
-import * as React from 'react';
+import React from 'react';
 import {
-  View,
   Dimensions,
   ScrollView,
   LayoutChangeEvent,
@@ -10,9 +9,12 @@ import {
   Animated,
   StyleProp,
 } from 'react-native';
-import Touchable from '../Touchable';
 const WindowWidth = Dimensions.get('window').width;
-import styles from './styles';
+import { Touchable } from '../Touchable';
+import styles from './TabBar.style';
+import { Box } from '../Box';
+import { BlurView } from '../BlurView';
+import { isIos } from '@src/utils';
 
 interface IProps {
   sections: SectionListData<any>[];
@@ -34,7 +36,7 @@ interface ITabsLayoutRectangle {
   [index: number]: ITabMeasurements;
 }
 
-export default class TabBar extends React.PureComponent<IProps, any> {
+export class TabBar extends React.PureComponent<IProps, any> {
   private scrollView: React.RefObject<ScrollView> = React.createRef();
   private _tabContainerMeasurements!: LayoutRectangle;
   private _tabsMeasurements: ITabsLayoutRectangle = {};
@@ -51,7 +53,7 @@ export default class TabBar extends React.PureComponent<IProps, any> {
   }
 
   getScrollAmount = () => {
-    const {currentIndex} = this.props;
+    const { currentIndex } = this.props;
     const position = currentIndex;
     const pageOffset = 0;
 
@@ -85,7 +87,7 @@ export default class TabBar extends React.PureComponent<IProps, any> {
   };
 
   onTabLayout = (key: number) => (ev: LayoutChangeEvent) => {
-    const {x, width, height} = ev.nativeEvent.layout;
+    const { x, width, height } = ev.nativeEvent.layout;
     this._tabsMeasurements[key] = {
       left: x,
       right: x + width,
@@ -95,7 +97,7 @@ export default class TabBar extends React.PureComponent<IProps, any> {
   };
 
   renderTab = (section: SectionListData<any>, key: number) => {
-    const {renderTab, onPress, currentIndex} = this.props;
+    const { renderTab, onPress, currentIndex } = this.props;
     const isActive: boolean = currentIndex === key;
 
     return (
@@ -103,28 +105,28 @@ export default class TabBar extends React.PureComponent<IProps, any> {
         onPress={() => onPress(key)}
         key={key}
         onLayout={this.onTabLayout(key)}>
-        {renderTab({isActive, ...section})}
+        {renderTab({ isActive, ...section })}
       </Touchable>
     );
   };
 
   render() {
-    const {sections, tabBarStyle, tabBarScrollViewStyle} = this.props;
+    const { sections, tabBarStyle, tabBarScrollViewStyle } = this.props;
 
     return (
-      <Animated.View style={[{width: WindowWidth}, tabBarStyle]}>
-        <ScrollView
-          ref={this.scrollView}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          style={tabBarScrollViewStyle}
-          contentContainerStyle={styles.tabBarScrollviewContainer}>
-          <View
-            onLayout={this.onTabContainerLayout}
-            style={styles.tabBarContainer}>
-            {sections.map(this.renderTab)}
-          </View>
-        </ScrollView>
+      <Animated.View style={[{ width: WindowWidth }, tabBarStyle]}>
+        <BlurView intensity={isIos ? 80 : 120} width="100%">
+          <ScrollView
+            ref={this.scrollView}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            style={tabBarScrollViewStyle}
+            contentContainerStyle={styles.tabBarScrollviewContainer}>
+            <Box flexDirection="row" onLayout={this.onTabContainerLayout}>
+              {sections.map(this.renderTab)}
+            </Box>
+          </ScrollView>
+        </BlurView>
       </Animated.View>
     );
   }

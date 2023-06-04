@@ -1,15 +1,7 @@
-import * as React from 'react';
-import {View, StyleProp, ViewStyle} from 'react-native';
-import useThemeColors from '@src/custom-hooks/useThemeColors';
-import styles from './styles';
+import { Theme } from '@src/theme';
+import { Box } from '../Box';
+import { BoxProps } from '@shopify/restyle';
 
-type DividerProps = {
-  style?: StyleProp<ViewStyle>;
+export const Divider: React.FC<BoxProps<Theme>> = (props) => {
+  return <Box height={1} backgroundColor="border" {...props} />;
 };
-
-const Divider: React.FC<DividerProps> = ({style}) => {
-  const {border} = useThemeColors();
-  return <View style={[styles.divider, {backgroundColor: border}, style]} />;
-};
-
-export default Divider;

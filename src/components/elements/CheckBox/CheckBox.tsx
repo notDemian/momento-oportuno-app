@@ -1,35 +1,43 @@
-import * as React from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import React from 'react';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import {useTheme} from '@react-navigation/native';
-import styles from './styles';
-import Container from '../Container';
-import Text from '../Text';
+import { useTheme } from '@react-navigation/native';
+import { Text } from '../Text';
+import { Box } from '../Box';
+import { Touchable } from '../Touchable';
+import { fontSize } from '@src/theme';
 
 type CheckBoxProps = {
   label: string;
-  onPress: (checked: boolean) => void;
-  rightElement?: React.ReactElement;
+  onChange: (checked: boolean) => void;
+  rightElement?: React.ReactNode;
 };
-
-const CheckBox: React.FC<CheckBoxProps> = ({label, onPress, rightElement}) => {
+export const CheckBox: React.FC<CheckBoxProps> = ({
+  label,
+  onChange,
+  rightElement,
+}) => {
   const {
-    colors: {primary, text, card},
+    colors: { primary, text, card },
   } = useTheme();
   const [checked, setChecked] = React.useState<boolean>(false);
-  const _onPress = () => {
+  const handleOnChange = () => {
     setChecked(!checked);
-    onPress(!checked);
+    onChange(!checked);
   };
 
   return (
-    <TouchableOpacity style={styles.button} onPress={_onPress}>
-      <Container style={styles.checkBoxContainer}>
-        <View>
+    <Touchable flex={1} onPress={handleOnChange}>
+      <Box
+        flex={1}
+        flexDirection="row"
+        justifyContent="space-between"
+        alignItems="center"
+        padding="m">
+        <Box flexDirection="row" alignItems="center" flex={2}>
           <BouncyCheckbox
             disableBuiltInState
             isChecked={checked}
-            size={25}
+            size={fontSize.xl}
             fillColor={primary}
             unfillColor={card}
             iconStyle={{
@@ -38,20 +46,16 @@ const CheckBox: React.FC<CheckBoxProps> = ({label, onPress, rightElement}) => {
             textStyle={{
               color: text,
             }}
-            onPress={_onPress}
+            onPress={handleOnChange}
           />
-        </View>
-        <View>
-          <Text>{label}</Text>
-        </View>
-      </Container>
-      {rightElement && (
-        <Container style={styles.rightElementContainer}>
-          {rightElement}
-        </Container>
-      )}
-    </TouchableOpacity>
+          <Text numberOfLines={1}>{label}</Text>
+        </Box>
+        {rightElement ? (
+          <Box flex={1} alignItems="flex-end">
+            {rightElement}
+          </Box>
+        ) : null}
+      </Box>
+    </Touchable>
   );
 };
-
-export default CheckBox;

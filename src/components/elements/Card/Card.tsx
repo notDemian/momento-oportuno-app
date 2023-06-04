@@ -1,100 +1,63 @@
-import * as React from 'react';
-import {
-  Image,
-  ViewProps,
-  StyleProp,
-  TextStyle,
-  ImageSourcePropType,
-} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import Touchable from '../Touchable';
-import Container from '../Container';
-import Text from '../Text';
-import styles from './styles';
-import {
-  ParallaxImage,
-  AdditionalParallaxProps,
-} from 'react-native-snap-carousel';
+import { createRestyleComponent, createVariant } from '@shopify/restyle';
+import { Theme } from '@src/theme';
+import { CardProps, CardVariants } from './Card.type';
+import { Box } from '../Box';
+import { CardContent } from './CardContent';
+import { Touchable } from '../Touchable';
+import { isIos } from '@src/utils';
 
-type OwnProps = {
-  coverImage?: ImageSourcePropType;
-  title?: string;
-  subTitle?: string;
-  parallaxProps?: AdditionalParallaxProps;
-  isSmallCover?: boolean;
-  titleStyle?: StyleProp<TextStyle>;
-  subTitleStyle?: StyleProp<TextStyle>;
-  onPress?: () => void;
-};
+const InnerCard = createRestyleComponent<
+  CardVariants & React.ComponentProps<typeof Box> & CardProps,
+  Theme
+>([createVariant({ themeKey: 'cardVariants' })], Box);
 
-type CardProps = OwnProps & ViewProps;
-
-const Card: React.FC<CardProps> = ({
-  coverImage,
+export const Card: React.FC<CardProps> = ({
   title,
   subTitle,
-  children,
-  parallaxProps,
-  isSmallCover,
+  titleProps,
+  subTitleProps,
+  coverImage,
+  variant,
   onPress,
-  titleStyle,
-  subTitleStyle,
-  style,
+  coverImageProps,
+  coverImageSize,
+  children,
   ...rest
 }) => {
-  const {
-    colors: {card},
-  } = useTheme();
-
-  const _renderCard = () => {
+  const renderCardContent = () => {
     return (
-      <Container
-        style={[{backgroundColor: card}, styles.card, style]}
-        {...rest}>
-        {coverImage && (
-          <Container
-            style={
-              isSmallCover
-                ? styles.coverImageSmallContainer
-                : styles.coverImageContainer
-            }>
-            {parallaxProps ? (
-              <ParallaxImage
-                parallaxFactor={0.4}
-                source={coverImage}
-                style={styles.coverImage}
-                containerStyle={styles.parallaxImageContainer}
-                {...parallaxProps}
-              />
-            ) : (
-              <Image source={coverImage} style={styles.coverImage} />
-            )}
-          </Container>
-        )}
-        <Container style={styles.cardBody}>
-          {title && (
-            <Text numberOfLines={1} style={[styles.cardTitle, titleStyle]}>
-              {title}
-            </Text>
-          )}
-          {subTitle && (
-            <Text
-              numberOfLines={1}
-              style={[styles.cardSubtitle, subTitleStyle]}>
-              {subTitle}
-            </Text>
-          )}
-          {children}
-        </Container>
-      </Container>
+      <CardContent
+        coverImageSource={coverImage}
+        coverImageSize={coverImageSize}
+        coverImageProps={coverImageProps}
+        title={title}
+        subTitle={subTitle}
+        titleProps={titleProps}
+        subTitleProps={subTitleProps}>
+        {children}
+      </CardContent>
     );
   };
 
-  return onPress ? (
-    <Touchable onPress={onPress}>{_renderCard()}</Touchable>
-  ) : (
-    _renderCard()
+  return (
+    <InnerCard
+      backgroundColor="card"
+      borderRadius="m"
+      variant={variant}
+      overflow={isIos ? undefined : 'hidden'}
+      shadowColor="black"
+      {...rest}>
+      {onPress ? (
+        <Touchable
+          activeOpacity={0.5}
+          shadowColor="black"
+          useForeground
+          onPress={onPress}>
+          <Box>{renderCardContent()}</Box>
+        </Touchable>
+      ) : (
+        renderCardContent()
+      )}
+    </InnerCard>
   );
 };
-
-export default Card;

@@ -1,16 +1,25 @@
-import {
-  IOSNativeProps,
-  AndroidNativeProps,
-} from '@react-native-community/datetimepicker';
-import * as React from 'react';
+import React from 'react';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
-import useThemeColors from '@src/custom-hooks/useThemeColors';
+import { Theme, useAppTheme } from '@src/theme';
+import { DateTimePickerProps } from './DateTimePicker.type';
+import { createBox } from '@shopify/restyle';
 
-type DateTimePickerProps = IOSNativeProps | AndroidNativeProps;
+const InnerDateTimePicker = createBox<Theme, DateTimePickerProps>(
+  RNDateTimePicker,
+);
 
-const DateTimePicker: React.FC<DateTimePickerProps> = (props) => {
-  const {text} = useThemeColors();
-  return <RNDateTimePicker {...props} textColor={text} />;
+export const DateTimePicker: React.FC<DateTimePickerProps> = ({
+  textColor,
+  accentColor,
+  ...rest
+}) => {
+  const { colors, colorScheme } = useAppTheme();
+  return (
+    <InnerDateTimePicker
+      textColor={textColor || colors.text}
+      accentColor={accentColor || colors.primary}
+      themeVariant={colorScheme === 'dark' ? 'dark' : 'light'}
+      {...rest}
+    />
+  );
 };
-
-export default DateTimePicker;
