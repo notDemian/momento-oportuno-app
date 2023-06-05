@@ -44,7 +44,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.jcstudio.foodstarexpoapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
