@@ -70,7 +70,7 @@ export type TabParamList = {
   ActivityHistoryTab: NavigatorScreenParams<ActivityHistoryStackParamList>;
   NotificationTab: NavigatorScreenParams<NotificationStackParamList>;
   AccountTab: NavigatorScreenParams<AccountStackParamList>;
-  DocumentationTab: NavigatorScreenParams<any>;
+  DocumentationTab: NavigatorScreenParams<unknown>;
 };
 
 // Screen Props

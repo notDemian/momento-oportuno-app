@@ -23,3 +23,4 @@ export * from './Account';
 export * from './EditProfile';
 export * from './Settings';
 export * from './SupportCenter';
+export * from './Documentation';

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
-import { useTheme } from '@react-navigation/native';
 import { TabView as RNTabView, TabBar, SceneMap } from 'react-native-tab-view';
 import { useStyles } from './TabView.style';
 import { Cenes, TabViewProps } from './TabView.type';
 import { Icon } from '../Icon';
+import { useAppTheme } from '@src/theme';
 
 export const TabView: React.FC<TabViewProps> = ({
   tabData,
@@ -14,7 +14,7 @@ export const TabView: React.FC<TabViewProps> = ({
 }) => {
   const {
     colors: { card, primary, text },
-  } = useTheme();
+  } = useAppTheme();
   const [navigationStateIndex, setNavigationStateIndex] = React.useState(0);
   const styles = useStyles();
 

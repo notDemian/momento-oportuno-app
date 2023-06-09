@@ -10,6 +10,7 @@ import { Icon, IconProps } from '@src/components';
 import { TabParamList } from '../types';
 import { fontSize } from '@src/theme';
 import styles from './TabNavigation.style';
+import { Documentation } from '@src/screens';
 
 type TabBarIconProps = {
   focused: boolean;
@@ -37,7 +38,7 @@ const renderTabBarIcon = (routeName: keyof TabParamList) => {
         iconName = 'person-circle';
         break;
       case 'DocumentationTab':
-        iconName = 'book';
+        iconName = 'logo-react';
         break;
       default:
         break;
@@ -86,6 +87,13 @@ const TabNavigation = () => {
         component={AccountStack}
         options={{
           title: 'Accounts',
+        }}
+      />
+      <Tab.Screen
+        name="DocumentationTab"
+        component={Documentation}
+        options={{
+          title: 'Storybook',
         }}
       />
     </Navigator>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { TextInput, I18nManager } from 'react-native';
-import { useTheme } from '@react-navigation/native';
 import { Box } from '../Box';
 import { InputRestyleProps, TextFieldProps } from './TextField.type';
 import {
@@ -14,7 +13,7 @@ import {
   typography,
   visible,
 } from '@shopify/restyle';
-import { Theme, fontSize } from '@src/theme';
+import { Theme, fontSize, useAppTheme } from '@src/theme';
 import { Icon } from '../Icon';
 
 const InnerTextInput = createRestyleComponent<
@@ -43,7 +42,7 @@ export const TextField: React.FC<TextFieldProps> = ({
 }) => {
   const {
     colors: { text },
-  } = useTheme();
+  } = useAppTheme();
   const [borderWidth, setBorderWidth] = React.useState(1);
   const handleOnFocus = (e) => {
     setBorderWidth(2);

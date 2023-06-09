@@ -1,10 +1,9 @@
 import React from 'react';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import { useTheme } from '@react-navigation/native';
 import { Text } from '../Text';
 import { Box } from '../Box';
 import { Touchable } from '../Touchable';
-import { fontSize } from '@src/theme';
+import { fontSize, useAppTheme } from '@src/theme';
 
 type CheckBoxProps = {
   label: string;
@@ -18,7 +17,7 @@ export const CheckBox: React.FC<CheckBoxProps> = ({
 }) => {
   const {
     colors: { primary, text, card },
-  } = useTheme();
+  } = useAppTheme();
   const [checked, setChecked] = React.useState<boolean>(false);
   const handleOnChange = () => {
     setChecked(!checked);
