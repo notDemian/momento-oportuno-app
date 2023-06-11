@@ -37,7 +37,8 @@ export const SearchDishes = () => {
             alignItems="center"
             padding="m">
             <TextField
-              leftElement="search"
+              leftIcon="search"
+              flex={1}
               inputProps={{
                 value: searchTerm,
                 placeholder: 'Search a dish name',

@@ -34,7 +34,7 @@ export const AddAddress = () => {
             inputProps={{
               placeholder: 'Enter Address',
             }}
-            leftElement="location"
+            leftIcon="location"
           />
         </Box>
         <Divider marginVertical="s" />

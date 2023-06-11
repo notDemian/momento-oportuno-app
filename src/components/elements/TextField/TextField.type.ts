@@ -10,6 +10,7 @@ import {
   TypographyProps,
 } from '@shopify/restyle';
 import { Theme } from '@src/theme';
+import { IconProps } from '../Icon';
 
 export type InputRestyleProps = SpacingProps<Theme> &
   ColorProps<Theme> &
@@ -21,8 +22,8 @@ export type InputRestyleProps = SpacingProps<Theme> &
   TypographyProps<Theme>;
 
 export type TextFieldProps = {
-  leftElement?: string;
-  leftElementSize?: number;
+  leftIcon?: IconProps['name'];
+  leftIconSize?: number;
   hasMargin?: boolean;
   inputProps: TextInputProps;
 } & InputRestyleProps;

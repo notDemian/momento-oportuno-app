@@ -11,7 +11,7 @@ import {
 import { TabBar } from './TabBar';
 import { Box } from '../Box';
 
-interface IProps extends SectionListProps<any> {
+export interface TabSectionListProps extends SectionListProps<any> {
   scrollToLocationOffset?: number;
   tabBarStyle?: Animated.WithAnimatedValue<StyleProp<ViewStyle>>;
   tabBarScrollViewStyle?: StyleProp<ViewStyle>;
@@ -26,7 +26,10 @@ interface IState {
   currentIndex: number;
 }
 
-export class TabSectionList extends React.PureComponent<IProps, IState> {
+export class TabSectionList extends React.PureComponent<
+  TabSectionListProps,
+  IState
+> {
   state: IState = {
     currentIndex: 0,
   };

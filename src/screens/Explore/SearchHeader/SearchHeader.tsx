@@ -6,7 +6,7 @@ export const SearchHeader = () => {
     <Box backgroundColor="card" padding="s">
       <TextField
         backgroundColor="background"
-        leftElement="search"
+        leftIcon="search"
         borderWidth={0}
         inputProps={{
           placeholder: 'Find places, dishes, restaurants, etc.',

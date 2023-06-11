@@ -55,6 +55,21 @@ const getStories = () => {
     "./src/components/elements/Card/Card.stories.tsx": require("../src/components/elements/Card/Card.stories.tsx"),
     "./src/components/elements/Carousel/Carousel.stories.tsx": require("../src/components/elements/Carousel/Carousel.stories.tsx"),
     "./src/components/elements/CheckBox/CheckBox.stories.tsx": require("../src/components/elements/CheckBox/CheckBox.stories.tsx"),
+    "./src/components/elements/DateTimePicker/DateTimePicker.stories.tsx": require("../src/components/elements/DateTimePicker/DateTimePicker.stories.tsx"),
+    "./src/components/elements/Divider/Divider.stories.tsx": require("../src/components/elements/Divider/Divider.stories.tsx"),
+    "./src/components/elements/Icon/Icon.stories.tsx": require("../src/components/elements/Icon/Icon.stories.tsx"),
+    "./src/components/elements/Image/Image.stories.tsx": require("../src/components/elements/Image/Image.stories.tsx"),
+    "./src/components/elements/List/List.stories.tsx": require("../src/components/elements/List/List.stories.tsx"),
+    "./src/components/elements/LottieView/LottieView.stories.tsx": require("../src/components/elements/LottieView/LottieView.stories.tsx"),
+    "./src/components/elements/RadioButton/RadioButton.stories.tsx": require("../src/components/elements/RadioButton/RadioButton.stories.tsx"),
+    "./src/components/elements/RatingView/RatingView.stories.tsx": require("../src/components/elements/RatingView/RatingView.stories.tsx"),
+    "./src/components/elements/Section/Section.stories.tsx": require("../src/components/elements/Section/Section.stories.tsx"),
+    "./src/components/elements/SectionList/SectionList.stories.tsx": require("../src/components/elements/SectionList/SectionList.stories.tsx"),
+    "./src/components/elements/TabSectionList/TabSectionList.stories.tsx": require("../src/components/elements/TabSectionList/TabSectionList.stories.tsx"),
+    "./src/components/elements/TabView/TabView.stories.tsx": require("../src/components/elements/TabView/TabView.stories.tsx"),
+    "./src/components/elements/Text/Text.stories.tsx": require("../src/components/elements/Text/Text.stories.tsx"),
+    "./src/components/elements/TextField/TextField.stories.tsx": require("../src/components/elements/TextField/TextField.stories.tsx"),
+    "./src/components/elements/Touchable/Touchable.stories.tsx": require("../src/components/elements/Touchable/Touchable.stories.tsx"),
   };
 };
 

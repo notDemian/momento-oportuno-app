@@ -4,13 +4,16 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
+    "start:android": "expo start --android",
+    "start:ios": "expo start --ios",
     "start:storybook-server": "(adb reverse tcp:7007 tcp:7007 || true) && react-native-storybook-server",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "build:ios": "eas build --platform ios",
+    "build:android": "eas build --platform android",
+    "publish:ios": "eas submit --platform ios",
+    "publish:android": "eas submit --platform android",
     "storybook:generate": "sb-rn-get-stories",
-    "storybook:watch": "sb-rn-watcher"
+    "storybook:watch": "sb-rn-watcher",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4",

@@ -39,7 +39,6 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
             borderBottomWidth={1}
             borderColor="border">
             <Touchable
-              flex={1}
               flexDirection="row"
               justifyContent="space-between"
               alignItems="center"

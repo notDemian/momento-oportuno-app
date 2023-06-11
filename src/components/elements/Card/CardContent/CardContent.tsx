@@ -1,4 +1,3 @@
-import { fontSize } from '@src/theme';
 import { Box } from '../../Box';
 import { Text } from '../../Text';
 import { CardCoverImage } from '../CardCoverImage';

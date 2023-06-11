@@ -36,7 +36,7 @@ export const Account: React.FC<AccountProps> = ({ navigation }) => {
     <ScrollView>
       <Box padding="m" backgroundColor="card">
         <TextField
-          leftElement="search"
+          leftIcon="search"
           inputProps={{
             value: searchTerm,
             placeholder: 'Search',
