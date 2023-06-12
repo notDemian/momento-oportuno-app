@@ -35,7 +35,7 @@ export const Promotion = () => {
     return (
       <Box paddingVertical="s" paddingHorizontal="m">
         <TextField
-          leftElement="search"
+          leftIcon="search"
           inputProps={{
             value: searchTerm,
             placeholder: 'Search promotion codes',

@@ -21,7 +21,9 @@ export const Section: React.FC<SectionProps> = ({
 
   return (
     <Box {...rest}>
-      {hasDivider && <Divider backgroundColor="background" />}
+      {hasDivider && (
+        <Divider backgroundColor="background" marginVertical="s" />
+      )}
       <Box
         flexDirection="row"
         alignItems="center"

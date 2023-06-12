@@ -2,14 +2,8 @@ import { createBox } from '@shopify/restyle';
 import { Theme } from '@src/theme';
 import React from 'react';
 import { Platform, TouchableNativeFeedback } from 'react-native';
-import { ButtonProps } from '../Button';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
-export type TouchableProps = React.ComponentPropsWithoutRef<
-  typeof TouchableOpacity
-> &
-  React.ComponentPropsWithoutRef<typeof TouchableNativeFeedback> &
-  Pick<ButtonProps, 'variant' | 'children'>;
+import { TouchableProps } from './Touchable.type';
 
 export const InnerTouchable: React.FC<TouchableProps> = ({
   children,

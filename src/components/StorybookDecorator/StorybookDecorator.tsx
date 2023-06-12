@@ -36,9 +36,9 @@ export const StorybookDecorator: React.FC<StorybookDecoratorProps> = ({
           onPress={onThemeIconPress}
         />
       </Box>
-      <ScrollView>
-        <Box padding="m">{children}</Box>
-      </ScrollView>
+      <Box flex={1} padding="m">
+        {children}
+      </Box>
     </Box>
   );
 };

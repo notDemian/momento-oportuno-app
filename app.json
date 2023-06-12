@@ -25,7 +25,7 @@
         "NSLocationAlwaysAndWhenInUseUsageDescription": "This app use location service to show user's position on map"
       },
       "supportsTablet": true,
-      "buildNumber": "2",
+      "buildNumber": "3",
       "bundleIdentifier": "com.jcstudio.foodstarexpoapp"
     },
     "android": {
