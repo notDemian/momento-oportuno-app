@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - production
 jobs:
   build:
     name: Install and build
@@ -22,4 +22,4 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build on EAS
-        run: eas build --platform all --non-interactive
+        run: eas build --platform all --non-interactive --auto-submit
