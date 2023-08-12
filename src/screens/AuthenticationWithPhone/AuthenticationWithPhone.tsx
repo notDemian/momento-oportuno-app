@@ -1,5 +1,5 @@
-import React from 'react';
-import { Alert } from 'react-native';
+import React from 'react'
+import { Alert } from 'react-native'
 import {
   AuthenticationLayout,
   BottomSheetModal,
@@ -7,50 +7,53 @@ import {
   Button,
   Text,
   TextField,
-} from '@src/components';
-import { fontSize } from '@src/theme';
-import { AuthenticationWithPhoneProps } from './AuthenticationWithPhone.type';
+} from '@src/components'
+import { fontSize } from '@src/theme'
+import { AuthenticationWithPhoneProps } from './AuthenticationWithPhone.type'
+import { wait } from '@src/utils/wait'
 
 export const AuthenticationWithPhone: React.FC<
   AuthenticationWithPhoneProps
 > = ({ navigation }) => {
-  const [phoneNumber, setPhoneNumber] = React.useState('');
-  const [isModalOpened, setIsModalOpened] = React.useState(false);
+  const [phoneNumber, setPhoneNumber] = React.useState('')
+  const [isModalOpened, setIsModalOpened] = React.useState(false)
 
   const onPhoneNumberFieldChange = (value: string) => {
-    setPhoneNumber(value);
-  };
+    setPhoneNumber(value)
+  }
 
   const hideModal = () => {
-    setIsModalOpened(false);
-  };
+    setIsModalOpened(false)
+  }
 
   const onNextButtonPress = () => {
     if (!phoneNumber) {
-      Alert.alert('Error', 'Please enter your phone number!');
-      return;
+      Alert.alert('Error', '¡Debes introducir un número telefónico!')
+      return
     }
-    setIsModalOpened(true);
-  };
+    setIsModalOpened(true)
+  }
 
-  const onConfirmButtonPress = () => {
-    navigation.navigate('AuthenticationCodeVerification');
-    hideModal();
-  };
+  const onConfirmButtonPress = async () => {
+    setIsModalOpened(false)
+    await wait(1000)
+    navigation.navigate('AuthenticationCodeVerification')
+  }
 
   return (
     <Box flex={1}>
       <AuthenticationLayout
-        title="Enter your phone number"
-        subtitle="Please enter your phone number to use our services"
+        title='Escribe tu número de teléfono'
+        subtitle='Te enviaremos un código de verificación por SMS'
         footer={
-          <Button isFullWidth label="Next" onPress={onNextButtonPress} />
-        }>
+          <Button isFullWidth label='Continuar' onPress={onNextButtonPress} />
+        }
+      >
         <TextField
           inputProps={{
             value: phoneNumber,
             onChangeText: onPhoneNumberFieldChange,
-            placeholder: 'Enter your phone number',
+            placeholder: 'Número de teléfono',
             keyboardType: 'phone-pad',
             autoFocus: true,
           }}
@@ -59,40 +62,39 @@ export const AuthenticationWithPhone: React.FC<
       <BottomSheetModal
         isOpened={isModalOpened}
         snapPoints={['40%']}
-        onClose={hideModal}>
-        <Box flex={1} alignItems="center" justifyContent="center">
-          <Text textAlign="center" variant="header">
-            Login with phone number
+        onClose={hideModal}
+      >
+        <Box flex={1} alignItems='center' justifyContent='center'>
+          <Text textAlign='center' variant='header'>
+            Iniciar sesión con número de teléfono
           </Text>
           <Text
-            variant="primary"
-            textAlign="center"
-            fontWeight="bold"
+            variant='primary'
+            textAlign='center'
+            fontWeight='bold'
             fontSize={fontSize.l}
-            marginVertical="m">
+            marginVertical='m'
+          >
             {phoneNumber}
           </Text>
-          <Text textAlign="center">
-            We will send the authentication code to the phone number you
-            entered.
-          </Text>
-          <Text textAlign="center" marginTop="s">
-            Do you want to continue?
+          <Text textAlign='center'>
+            Te enviaremos un código de verificación por SMS a este número de
+            teléfono
           </Text>
           <Button
-            marginTop="m"
+            marginTop='m'
             isFullWidth
             onPress={onConfirmButtonPress}
-            label="Confirm"
+            label='Continuar'
           />
           <Button
             isFullWidth
-            variant="transparent"
+            variant='transparent'
             onPress={hideModal}
-            label="Cancel"
+            label='Cancelar'
           />
         </Box>
       </BottomSheetModal>
     </Box>
-  );
-};
+  )
+}

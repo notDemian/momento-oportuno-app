@@ -1,5 +1,5 @@
-import { Dish } from '@src/data';
+import { RemarkablePlace } from '@src/data'
 
 export type DishItemProps = {
-  data: Dish;
-};
+  data: RemarkablePlace
+}

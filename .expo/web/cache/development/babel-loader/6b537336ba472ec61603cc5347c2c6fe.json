@@ -1,1 +1,0 @@
-{"ast":null,"code":"import Card from \"./Card\";\nexport default Card;","map":{"version":3,"names":["Card"],"sources":["/Users/vunguyen/Documents/work/jcstudio/food-star-expo-app-template/src/components/elements/Card/index.ts"],"sourcesContent":["import Card from './Card';\nexport default Card;\n"],"mappings":"AAAA,OAAOA,IAAI;AACX,eAAeA,IAAI"},"metadata":{},"sourceType":"module"}

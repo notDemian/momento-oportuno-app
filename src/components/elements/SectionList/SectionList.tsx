@@ -1,4 +1,4 @@
-import { useAppTheme } from '@src/theme'
+import { fontSize, useAppTheme } from '@src/theme'
 import {
   SectionList as RNSectionList,
   SectionListProps as RNSectionListProps,
@@ -8,6 +8,8 @@ import React from 'react'
 import { useScrollToTop } from '@react-navigation/native'
 import { Text } from '../Text'
 import { Box } from '../Box'
+import { Button } from '../Button'
+import { useExploreStackNavigation } from '@src/hooks'
 
 export function SectionList<T>({
   contentContainerStyle,
@@ -21,13 +23,33 @@ export function SectionList<T>({
     return <Divider />
   }
 
+  const nav = useExploreStackNavigation()
+
   return (
     <RNSectionList
       ref={ref}
       ItemSeparatorComponent={renderDivider}
       ListEmptyComponent={
         <Box flex={1} justifyContent='center' alignItems='center'>
-          <Text variant='secondary'>No data</Text>
+          <Text variant='secondary' fontSize={fontSize.xl}>
+            No encontramos lo que buscabas :(
+          </Text>
+          <Button
+            isFullWidth
+            padding={'xl'}
+            onPress={() => {
+              nav.goBack()
+            }}
+          >
+            <Text
+              variant='subHeader'
+              textAlign={'center'}
+              color={'white'}
+              fontSize={fontSize.xl}
+            >
+              Ir al inicio
+            </Text>
+          </Button>
         </Box>
       }
       style={{ backgroundColor: colors.background }}

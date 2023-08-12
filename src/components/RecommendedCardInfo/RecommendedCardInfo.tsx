@@ -22,8 +22,8 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
       alignItems='center'
       flexWrap='wrap'
     >
-      <Box paddingBottom='s'>
-        <Text color='primary' marginLeft='xs' fontSize={fontSize.xl}>
+      <Box>
+        <Text color='primary' marginLeft='xs' fontSize={fontSize.m}>
           {formatCurrency(price)}
         </Text>
       </Box>

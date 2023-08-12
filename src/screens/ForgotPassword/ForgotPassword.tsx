@@ -1,42 +1,43 @@
-import React from 'react';
-import { Alert } from 'react-native';
-import { TextField, Button } from '@src/components/elements';
-import { AuthenticationLayout } from '@src/components';
-import { ForgotPasswordProps } from './ForgotPassword.type';
-import { EmailSentModal } from './EmailSentModal';
+import React from 'react'
+import { Alert } from 'react-native'
+import { TextField, Button } from '@src/components/elements'
+import { AuthenticationLayout } from '@src/components'
+import { ForgotPasswordProps } from './ForgotPassword.type'
+import { EmailSentModal } from './EmailSentModal'
 
 export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
   navigation,
 }) => {
-  const [email, setEmail] = React.useState('');
+  const [email, setEmail] = React.useState('')
   const [sentEmailModalVisible, setSentEmailModalVisible] =
-    React.useState(false);
+    React.useState(false)
 
   const onPasswordFieldChange = (value: string) => {
-    setEmail(value);
-  };
+    setEmail(value)
+  }
 
   const onConfirmButtonPress = () => {
     if (!email) {
-      Alert.alert('Error', 'Please enter your email!');
-      return;
+      Alert.alert('Error', 'Please enter your email!')
+      return
     }
-    setSentEmailModalVisible(true);
-  };
+    setSentEmailModalVisible(true)
+  }
 
   return (
     <AuthenticationLayout
-      title="Forgot your password?"
-      subtitle="Please enter your email address and we'll send you a link to reset your password"
+      title='¿Olvidaste tu contraseña?'
+      subtitle='Introduce tu email y te enviaremos un enlace para restablecer tu contraseña'
       footer={
-        <Button isFullWidth label="Confirm" onPress={onConfirmButtonPress} />
-      }>
+        <Button isFullWidth label='Continuar' onPress={onConfirmButtonPress} />
+      }
+    >
       <TextField
         inputProps={{
           autoFocus: true,
           value: email,
           onChangeText: onPasswordFieldChange,
-          placeholder: 'Enter your email',
+          placeholder: 'Email',
           keyboardType: 'email-address',
         }}
       />
@@ -46,5 +47,5 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
         navigation={navigation}
       />
     </AuthenticationLayout>
-  );
-};
+  )
+}

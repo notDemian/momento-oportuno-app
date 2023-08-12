@@ -15,7 +15,7 @@ export type Dish = {
 
 export type DishSection = {
   title: string
-  data: Dish[]
+  data: RemarkablePlace[]
 }
 
 export type SimplePlace = {
@@ -43,103 +43,6 @@ export type RemarkablePlace = {
 
 export type RemarkablePlaceTab = {
   [name: string]: Place[]
-}
-
-export const mockDishDetails: Dish = {
-  id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
-  title: chance.sentence({
-    words: 5,
-  }),
-  description: chance.paragraph({
-    sentences: 2,
-  }),
-  price: chance
-    .floating({
-      min: 5,
-      max: 60,
-    })
-    .toString(),
-  coverImage: require('@src/assets/dish-details/cover-photo.jpg'),
-  sideDishes: [
-    {
-      title: 'Cake',
-      data: Array(5)
-        .fill(0)
-        .map((_) => ({
-          id: chance.string({
-            length: 8,
-            casing: 'upper',
-            alpha: true,
-            numeric: true,
-          }),
-          title: chance.sentence({
-            words: 5,
-          }),
-          description: chance.paragraph({
-            sentences: 2,
-          }),
-          price: chance
-            .floating({
-              min: 2,
-              max: 10,
-            })
-            .toString(),
-          image: require('@src/assets/dish-details/dish-1.jpg'),
-        })),
-    },
-    {
-      title: 'Drink',
-      data: Array(3)
-        .fill(0)
-        .map((_) => ({
-          id: chance.string({
-            length: 8,
-            casing: 'upper',
-            alpha: true,
-            numeric: true,
-          }),
-          title: chance.sentence({
-            words: 5,
-          }),
-          description: chance.paragraph({
-            sentences: 2,
-          }),
-          price: chance
-            .floating({
-              min: 2,
-              max: 10,
-            })
-            .toString(),
-          image: require('@src/assets/dish-details/dish-2.jpg'),
-        })),
-    },
-    {
-      title: 'Salad',
-      data: Array(6)
-        .fill(0)
-        .map((_) => ({
-          id: chance.string({
-            length: 8,
-            casing: 'upper',
-            alpha: true,
-            numeric: true,
-          }),
-          title: chance.sentence({
-            words: 5,
-          }),
-          description: chance.paragraph({
-            sentences: 2,
-          }),
-          price: chance
-            .floating({
-              min: 2,
-              max: 10,
-            })
-            .toString(),
-          image: require('@src/assets/dish-details/dish-3.jpg'),
-        })),
-    },
-  ],
 }
 
 export const mockRecommendedByState: RemarkablePlace[] = [
@@ -225,6 +128,29 @@ export const mockRecommendedByState: RemarkablePlace[] = [
   }
 })
 
+export const mockDishDetails: Dish = {
+  id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+  title: chance.sentence({
+    words: 5,
+  }),
+  description: chance.paragraph({
+    sentences: 2,
+  }),
+  price: chance
+    .floating({
+      min: 5,
+      max: 60,
+    })
+    .toString(),
+  coverImage: require('@src/assets/dish-details/cover-photo.jpg'),
+  sideDishes: [
+    {
+      title: 'Cake',
+      data: mockRecommendedByState,
+    },
+  ],
+}
+
 export const mockPlaceDetails: Place = {
   id: '1',
   title: 'Neapolitan pizza, Italy. Neapolitan pizza',
@@ -236,134 +162,29 @@ export const mockPlaceDetails: Place = {
   rating: 4,
   dishSection: [
     {
-      title: 'Burgers',
-      data: Array(3)
-        .fill(0)
-        .map((_) => ({
-          id: chance.string({
-            length: 8,
-            casing: 'upper',
-            alpha: true,
-            numeric: true,
-          }),
-          title: chance.sentence({
-            words: 5,
-          }),
-          description: chance.paragraph({
-            sentences: 2,
-          }),
-          price: chance
-            .floating({
-              min: 5,
-              max: 60,
-            })
-            .toString(),
-          image: require('@src/assets/dish-details/dish-1.jpg'),
-        })),
-    },
-    {
-      title: 'Pizza',
-      data: Array(3)
-        .fill(0)
-        .map((_) => ({
-          id: chance.string({
-            length: 8,
-            casing: 'upper',
-            alpha: true,
-            numeric: true,
-          }),
-          title: chance.sentence({
-            words: 5,
-          }),
-          description: chance.paragraph({
-            sentences: 2,
-          }),
-          price: chance
-            .floating({
-              min: 5,
-              max: 60,
-            })
-            .toString(),
-          image: require('@src/assets/dish-details/dish-2.jpg'),
-        })),
-    },
-    {
-      title: 'Sushi and rolls',
-      data: Array(4)
-        .fill(0)
-        .map((_) => ({
-          id: chance.string({
-            length: 8,
-            casing: 'upper',
-            alpha: true,
-            numeric: true,
-          }),
-          title: chance.sentence({
-            words: 5,
-          }),
-          description: chance.paragraph({
-            sentences: 2,
-          }),
-          price: chance
-            .floating({
-              min: 5,
-              max: 60,
-            })
-            .toString(),
-          image: require('@src/assets/dish-details/dish-3.jpg'),
-        })),
-    },
-    {
       title: 'Pasta',
-      data: Array(4)
-        .fill(0)
-        .map((_) => ({
-          id: chance.string({
-            length: 8,
-            casing: 'upper',
-            alpha: true,
-            numeric: true,
-          }),
-          title: chance.sentence({
-            words: 5,
-          }),
-          description: chance.paragraph({
-            sentences: 2,
-          }),
-          price: chance
-            .floating({
-              min: 5,
-              max: 60,
-            })
-            .toString(),
-          image: require('@src/assets/dish-details/dish-1.jpg'),
-        })),
-    },
-    {
-      title: 'Dessert',
-      data: Array(6)
-        .fill(0)
-        .map((_) => ({
-          id: chance.string({
-            length: 8,
-            casing: 'upper',
-            alpha: true,
-            numeric: true,
-          }),
-          title: chance.sentence({
-            words: 5,
-          }),
-          description: chance.paragraph({
-            sentences: 2,
-          }),
-          price: chance
-            .floating({
-              min: 5,
-              max: 60,
-            })
-            .toString(),
-          image: require('@src/assets/dish-details/dish-2.jpg'),
-        })),
+      data: mockRecommendedByState,
+      //   .map((_) => ({
+      //     id: chance.string({
+      //       length: 8,
+      //       casing: 'upper',
+      //       alpha: true,
+      //       numeric: true,
+      //     }),
+      //     title: chance.sentence({
+      //       words: 5,
+      //     }),
+      //     description: chance.paragraph({
+      //       sentences: 2,
+      //     }),
+      //     price: chance
+      //       .floating({
+      //         min: 5,
+      //         max: 60,
+      //       })
+      //       .toString(),
+      //     image: require('@src/assets/dish-details/dish-1.jpg'),
+      //   })),
     },
   ],
 }

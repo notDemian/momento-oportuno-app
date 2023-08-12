@@ -1,1 +1,0 @@
-{"ast":null,"code":"export * from \"./RootNavigation\";","map":{"version":3,"names":[],"sources":["/Users/vunguyen/Documents/work/jcstudio/food-star-expo-app-template/src/navigation/index.ts"],"sourcesContent":["export * from './RootNavigation';\n"],"mappings":"AAAA"},"metadata":{},"sourceType":"module","externalDependencies":[]}

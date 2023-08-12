@@ -49,7 +49,7 @@ export const SearchDishes = () => {
       <SectionList
         sections={!showEmpty ? mockPlaceDetails.dishSection || [] : []}
         keyExtractor={(item) => item.title}
-        stickySectionHeadersEnabled
+        ItemSeparatorComponent={() => null}
         ListHeaderComponent={
           <Box
             backgroundColor='card'

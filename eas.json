@@ -1,12 +1,16 @@
 {
   "cli": {
     "version": ">= 3.13.2",
-    "promptToConfigurePushNotifications": false
+    "promptToConfigurePushNotifications": false,
+    "requireCommit": true
   },
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
     },
     "preview": {
       "distribution": "internal",
@@ -14,7 +18,13 @@
         "buildType": "apk"
       }
     },
-    "production": {}
+    "production": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "channel": "production"
+    }
   },
   "submit": {
     "production": {}

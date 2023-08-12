@@ -30,7 +30,7 @@ export const Authentication: React.FC<
         contentFit='contain'
       />
       <Box
-        height={340}
+        // height={340}
         position={'absolute'}
         width={'100%'}
         bottom={0}
@@ -43,7 +43,7 @@ export const Authentication: React.FC<
           paddingBottom: bottom !== 0 ? bottom : undefined,
         }}
       >
-        <Text fontWeight='bold' variant='secondary' fontSize={fontSize.xl}>
+        <Text fontWeight='bold' variant='secondary' fontSize={fontSize.l}>
           ¿Buscas una manera fácil de vender tus cosas?
         </Text>
         <Text marginTop='xs' fontSize={fontSize.m}>

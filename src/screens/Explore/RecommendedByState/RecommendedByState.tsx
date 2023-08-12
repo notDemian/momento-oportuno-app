@@ -26,7 +26,7 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
   }, [state])
 
   const renderItem = (props: CarouselRenderItemInfo<RemarkablePlace>) => {
-    const { image, title, id, price, views } = props.item
+    const { image, title, id } = props.item
     return (
       <Card
         key={id}

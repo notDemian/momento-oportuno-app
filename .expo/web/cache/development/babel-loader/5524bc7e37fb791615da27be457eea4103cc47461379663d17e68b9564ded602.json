@@ -1,1 +1,0 @@
-{"ast":null,"code":"export * from \"./CheckBox\";","map":{"version":3,"names":[],"sources":["/Users/vunguyen/Documents/work/jcstudio/food-star-expo-app-template/src/components/CheckBox/index.ts"],"sourcesContent":["export * from './CheckBox';\n"],"mappings":"AAAA"},"metadata":{},"sourceType":"module","externalDependencies":[]}
