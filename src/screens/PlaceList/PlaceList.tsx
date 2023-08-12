@@ -1,6 +1,6 @@
-import React from 'react';
-import { Box, List, PlaceListItem } from '@src/components';
-import { mockPlaceList } from '@src/data';
+import React from 'react'
+import { Box, List, PlaceListItem } from '@src/components'
+import { mockPlaceList } from '@src/data'
 
 export const PlaceList: React.FC = () => {
   return (
@@ -8,9 +8,9 @@ export const PlaceList: React.FC = () => {
       <List
         data={mockPlaceList}
         renderItem={({ item }) => {
-          return <PlaceListItem key={item.id} data={item} hasDivider={false} />;
+          return <PlaceListItem key={item.id} data={item} hasDivider={false} />
         }}
       />
     </Box>
-  );
-};
+  )
+}

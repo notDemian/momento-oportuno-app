@@ -1,0 +1,1 @@
+{"ast":null,"code":"import Icon from \"./Icon\";\nexport default Icon;","map":{"version":3,"names":["Icon"],"sources":["/Users/vunguyen/Documents/work/jcstudio/food-star-expo-app-template/src/components/elements/Icon/index.ts"],"sourcesContent":["import Icon from './Icon';\nexport default Icon;\n"],"mappings":"AAAA,OAAOA,IAAI;AACX,eAAeA,IAAI"},"metadata":{},"sourceType":"module"}

@@ -1,48 +1,49 @@
-import React from 'react';
+import React from 'react'
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import {
   Authentication,
   AuthenticationCodeVerification,
   AuthenticationWithPhone,
   ForgotPassword,
   Login,
-} from '@src/screens';
-import { AuthStackParamList } from '@src/navigation/types';
-import { useTransparentHeaderOptions } from '@src/utils';
+} from '@src/screens'
+import { AuthStackParamList } from '@src/navigation/types'
+import { useTransparentHeaderOptions } from '@src/utils'
 
-const Stack = createNativeStackNavigator<AuthStackParamList>();
+const Stack = createNativeStackNavigator<AuthStackParamList>()
 
 export const AuthenticationStack = () => {
-  const transparentHeaderOptions = useTransparentHeaderOptions();
+  const transparentHeaderOptions = useTransparentHeaderOptions()
 
   return (
     <Stack.Navigator
-      initialRouteName="Authentication"
+      initialRouteName='Authentication'
       screenOptions={{
         headerShown: false,
-      }}>
-      <Stack.Screen name="Authentication" component={Authentication} />
+      }}
+    >
+      <Stack.Screen name='Authentication' component={Authentication} />
       <Stack.Screen
-        name="AuthenticationWithPhone"
+        name='AuthenticationWithPhone'
         component={AuthenticationWithPhone}
         options={transparentHeaderOptions}
       />
       <Stack.Screen
-        name="AuthenticationCodeVerification"
+        name='AuthenticationCodeVerification'
         component={AuthenticationCodeVerification}
         options={transparentHeaderOptions}
       />
       <Stack.Screen
-        name="Login"
+        name='Login'
         component={Login}
         options={transparentHeaderOptions}
       />
       <Stack.Screen
-        name="ForgotPassword"
+        name='ForgotPassword'
         component={ForgotPassword}
         options={transparentHeaderOptions}
       />
     </Stack.Navigator>
-  );
-};
+  )
+}

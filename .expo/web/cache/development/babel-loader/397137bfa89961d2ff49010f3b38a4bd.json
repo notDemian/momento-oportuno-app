@@ -1,0 +1,1 @@
+{"ast":null,"code":"import List from \"./List\";\nexport default List;","map":{"version":3,"names":["List"],"sources":["/Users/vunguyen/Documents/work/jcstudio/food-star-expo-app-template/src/components/elements/List/index.ts"],"sourcesContent":["import List from './List';\nexport default List;\n"],"mappings":"AAAA,OAAOA,IAAI;AACX,eAAeA,IAAI"},"metadata":{},"sourceType":"module"}

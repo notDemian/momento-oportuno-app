@@ -1,8 +1,8 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { BlurViewProps } from './BlurView.type';
-import { BlurView } from './BlurView';
-import { Box } from '../Box';
-import { Image } from '../Image';
+import { Meta, StoryObj } from '@storybook/react-native'
+import { BlurViewProps } from './BlurView.type'
+import { BlurView } from './BlurView'
+import { Box } from '../Box'
+import { Image } from '../Image'
 
 export default {
   title: 'BlurView',
@@ -10,15 +10,16 @@ export default {
   decorators: [
     (Story: React.FC) => (
       <Box
-        backgroundColor="primary"
-        width="100%"
+        backgroundColor='primary'
+        width='100%'
         height={300}
-        justifyContent="center"
-        alignItems="center">
+        justifyContent='center'
+        alignItems='center'
+      >
         <Image
           width={250}
           height={250}
-          position="absolute"
+          position='absolute'
           source={require('../../../assets/app/app_icon.png')}
         />
         <Story />
@@ -39,24 +40,24 @@ export default {
       options: ['light', 'dark'],
     },
   },
-} as Meta<BlurViewProps>;
+} as Meta<BlurViewProps>
 
-type Story = StoryObj<BlurViewProps>;
+type Story = StoryObj<BlurViewProps>
 
 export const LightTint: Story = {
   args: {
     tint: 'light',
   },
-};
+}
 
 export const DarkTint: Story = {
   args: {
     tint: 'dark',
   },
-};
+}
 
 export const BlurIntensity: Story = {
   args: {
     intensity: 80,
   },
-};
+}

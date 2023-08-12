@@ -1,7 +1,7 @@
-import { ColorSchemeName } from 'react-native/types';
-import { Theme, darkTheme, theme } from './theme';
-import { DarkTheme, DefaultTheme } from '@react-navigation/native';
-import { SpacingProps } from '@shopify/restyle';
+import { ColorSchemeName } from 'react-native/types'
+import { Theme, darkTheme, theme } from './theme'
+import { DarkTheme, DefaultTheme } from '@react-navigation/native'
+import { SpacingProps } from '@shopify/restyle'
 
 export const fontSize = {
   xs: 11,
@@ -11,13 +11,13 @@ export const fontSize = {
   xl: 24,
   xxl: 28,
   xxxl: 32,
-};
+}
 
 export const getNavigationTheme = (themeScheme: ColorSchemeName) => {
-  const appTheme = themeScheme === 'light' ? theme.colors : darkTheme.colors;
+  const appTheme = themeScheme === 'light' ? theme.colors : darkTheme.colors
 
   const defaultNavigationTheme =
-    themeScheme === 'light' ? DefaultTheme : DarkTheme;
+    themeScheme === 'light' ? DefaultTheme : DarkTheme
 
   return {
     ...defaultNavigationTheme,
@@ -29,8 +29,8 @@ export const getNavigationTheme = (themeScheme: ColorSchemeName) => {
       text: appTheme.text,
       border: appTheme.border,
     },
-  };
-};
+  }
+}
 
 export const extractSpacingProps = (prop: SpacingProps<Theme>) => {
   const {
@@ -49,7 +49,7 @@ export const extractSpacingProps = (prop: SpacingProps<Theme>) => {
     paddingTop,
     paddingVertical,
     ...rest
-  } = prop;
+  } = prop
   return {
     spacingProps: {
       margin,
@@ -68,5 +68,5 @@ export const extractSpacingProps = (prop: SpacingProps<Theme>) => {
       paddingVertical,
     },
     rest,
-  };
-};
+  }
+}

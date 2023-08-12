@@ -1,2 +1,2 @@
-export * from './RootNavigation';
-export * from './types';
+export * from './RootNavigation'
+export * from './types'

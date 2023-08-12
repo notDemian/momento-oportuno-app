@@ -1,49 +1,51 @@
-import React from 'react';
-import { Carousel, Section, Card } from '@src/components/elements';
-import { Dimensions } from 'react-native';
-import { mockPlaces, Place } from '@src/data';
-import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types';
-import { PlaceCardInfo } from '@src/components';
-import { RecommendedPlacesProps } from './RecommendedPlaces.type';
+import React from 'react'
+import { Carousel, Section, Card } from '@src/components/elements'
+import { Dimensions } from 'react-native'
+import { mockPlaces, Place } from '@src/data'
+import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types'
+import { PlaceCardInfo } from '@src/components'
+import { RecommendedPlacesProps } from './RecommendedPlaces.type'
 
 export const RecommendedPlaces: React.FC<RecommendedPlacesProps> = ({
   navigation,
 }) => {
   const renderItem = (props: CarouselRenderItemInfo<Place>) => {
-    const { image, title, subTitle } = props.item;
+    const { image, title, subTitle } = props.item
     return (
       <Card
         key={props.index}
         coverImage={image}
-        coverImageSize="s"
+        coverImageSize='s'
         title={title}
         subTitle={subTitle}
-        marginLeft="m"
+        marginLeft='m'
         titleProps={{
           numberOfLines: 1,
         }}
         subTitleProps={{
           numberOfLines: 2,
         }}
-        onPress={onPlaceItemPress}>
+        onPress={onPlaceItemPress}
+      >
         <PlaceCardInfo data={props.item} />
       </Card>
-    );
-  };
+    )
+  }
 
   const onButtonActionPress = () => {
-    navigation.navigate('PlaceList', { title: 'Recommended' });
-  };
+    navigation.navigate('PlaceList', { title: 'Recommended' })
+  }
 
   const onPlaceItemPress = () => {
-    navigation.navigate('PlaceDetails');
-  };
+    navigation.navigate('PlaceDetails')
+  }
 
   return (
     <Section
-      title="Recommended"
-      actionButtonText="View more"
-      onButtonActionPress={onButtonActionPress}>
+      title='Recommended'
+      actionButtonText='View more'
+      onButtonActionPress={onButtonActionPress}
+    >
       <Carousel
         numItemsPerSlide={1.8}
         data={mockPlaces}
@@ -52,5 +54,5 @@ export const RecommendedPlaces: React.FC<RecommendedPlacesProps> = ({
         height={250}
       />
     </Section>
-  );
-};
+  )
+}

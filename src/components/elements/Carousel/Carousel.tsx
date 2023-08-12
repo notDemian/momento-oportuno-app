@@ -1,13 +1,13 @@
-import React from 'react';
-import { CarouselProps } from './Carousel.type';
-import ReanimatedCarousel from 'react-native-reanimated-carousel';
+import React from 'react'
+import { CarouselProps } from './Carousel.type'
+import ReanimatedCarousel from 'react-native-reanimated-carousel'
 
 export const Carousel: React.FC<CarouselProps> = ({
   numItemsPerSlide,
   width = 0,
   ...rest
 }) => {
-  const carouselWidth = numItemsPerSlide ? width / numItemsPerSlide : width;
+  const carouselWidth = numItemsPerSlide ? width / numItemsPerSlide : width
 
   return (
     <ReanimatedCarousel
@@ -21,5 +21,5 @@ export const Carousel: React.FC<CarouselProps> = ({
       }}
       {...rest}
     />
-  );
-};
+  )
+}

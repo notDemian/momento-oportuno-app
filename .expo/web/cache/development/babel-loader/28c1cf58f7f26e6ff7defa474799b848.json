@@ -1,0 +1,1 @@
+{"ast":null,"code":"import Text from \"./Text\";\nexport default Text;","map":{"version":3,"names":["Text"],"sources":["/Users/vunguyen/Documents/work/jcstudio/food-star-expo-app-template/src/components/elements/Text/index.ts"],"sourcesContent":["import Text from './Text';\nexport default Text;\n"],"mappings":"AAAA,OAAOA,IAAI;AACX,eAAeA,IAAI"},"metadata":{},"sourceType":"module"}

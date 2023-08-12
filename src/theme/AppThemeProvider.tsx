@@ -1,28 +1,28 @@
-import React from 'react';
-import { ThemeProvider } from '@shopify/restyle';
-import { ColorSchemeName, useColorScheme } from 'react-native';
-import { ThemeContext } from './theme-context';
-import { darkTheme, theme } from './theme';
+import React from 'react'
+import { ThemeProvider } from '@shopify/restyle'
+import { ColorSchemeName, useColorScheme } from 'react-native'
+import { ThemeContext } from './theme-context'
+import { darkTheme, theme } from './theme'
 
 type AppThemeProviderProps = {
-  children?: React.ReactNode;
-};
+  children?: React.ReactNode
+}
 
 export const AppThemeProvider = ({ children }: AppThemeProviderProps) => {
-  const scheme = useColorScheme();
+  const scheme = useColorScheme()
   const [currentTheme, setCurrentTheme] =
-    React.useState<ColorSchemeName | null>('dark');
-  const [useSystemTheme, setUseSystemTheme] = React.useState(false);
+    React.useState<ColorSchemeName | null>('light')
+  const [useSystemTheme, setUseSystemTheme] = React.useState(false)
 
   React.useEffect(() => {
     if (useSystemTheme) {
-      setCurrentTheme(scheme);
+      setCurrentTheme('light')
     }
-  }, [scheme, useSystemTheme]);
+  }, [scheme, useSystemTheme])
 
   const setTheme = React.useCallback((newTheme: ColorSchemeName) => {
-    setCurrentTheme(newTheme);
-  }, []);
+    setCurrentTheme(newTheme)
+  }, [])
 
   return (
     <ThemeContext.Provider
@@ -31,10 +31,11 @@ export const AppThemeProvider = ({ children }: AppThemeProviderProps) => {
         useSystemTheme,
         setTheme: setTheme,
         setUseSystemTheme,
-      }}>
+      }}
+    >
       <ThemeProvider theme={currentTheme === 'dark' ? darkTheme : theme}>
         {children}
       </ThemeProvider>
     </ThemeContext.Provider>
-  );
-};
+  )
+}

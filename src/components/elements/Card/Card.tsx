@@ -1,15 +1,15 @@
-import { createRestyleComponent, createVariant } from '@shopify/restyle';
-import { Theme } from '@src/theme';
-import { CardProps, CardVariants } from './Card.type';
-import { Box } from '../Box';
-import { CardContent } from './CardContent';
-import { Touchable } from '../Touchable';
-import { isIos } from '@src/utils';
+import { createRestyleComponent, createVariant } from '@shopify/restyle'
+import { Theme } from '@src/theme'
+import { CardProps, CardVariants } from './Card.type'
+import { Box } from '../Box'
+import { CardContent } from './CardContent'
+import { Touchable } from '../Touchable'
+import { isIos } from '@src/utils'
 
 const InnerCard = createRestyleComponent<
   CardVariants & React.ComponentProps<typeof Box> & CardProps,
   Theme
->([createVariant({ themeKey: 'cardVariants' })], Box);
+>([createVariant({ themeKey: 'cardVariants' })], Box)
 
 export const Card: React.FC<CardProps> = ({
   title,
@@ -17,6 +17,7 @@ export const Card: React.FC<CardProps> = ({
   titleProps,
   subTitleProps,
   coverImage,
+  shouldFillCoverImage,
   variant,
   onPress,
   coverImageProps,
@@ -30,34 +31,47 @@ export const Card: React.FC<CardProps> = ({
         coverImageSource={coverImage}
         coverImageSize={coverImageSize}
         coverImageProps={coverImageProps}
+        shouldFillCoverImage={shouldFillCoverImage}
         title={title}
         subTitle={subTitle}
         titleProps={titleProps}
-        subTitleProps={subTitleProps}>
+        subTitleProps={subTitleProps}
+        // shouldRenderBody={false}
+      >
         {children}
       </CardContent>
-    );
-  };
+    )
+  }
 
-  return (
+  return onPress ? (
+    <Touchable shadowColor='black' onPress={onPress} borderRadius='l'>
+      <InnerCard
+        backgroundColor='background'
+        borderRadius='l'
+        variant={variant}
+        overflow={isIos ? undefined : 'hidden'}
+        shadowColor='black'
+        // height={'100%'}
+        flex={1}
+        marginBottom={'l'}
+        {...rest}
+      >
+        {renderCardContent()}
+      </InnerCard>
+    </Touchable>
+  ) : (
     <InnerCard
-      backgroundColor="card"
-      borderRadius="m"
+      backgroundColor='background'
+      borderRadius='l'
       variant={variant}
       overflow={isIos ? undefined : 'hidden'}
-      shadowColor="black"
-      {...rest}>
-      {onPress ? (
-        <Touchable
-          activeOpacity={0.5}
-          shadowColor="black"
-          useForeground
-          onPress={onPress}>
-          <Box>{renderCardContent()}</Box>
-        </Touchable>
-      ) : (
-        renderCardContent()
-      )}
+      shadowColor='black'
+      // height={'100%'}
+      flex={1}
+      marginBottom={'l'}
+      {...rest}
+    >
+      {renderCardContent()}
     </InnerCard>
-  );
-};
+  )
+}

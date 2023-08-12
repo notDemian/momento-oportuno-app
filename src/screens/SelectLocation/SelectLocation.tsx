@@ -1,86 +1,86 @@
-import React from 'react';
+import React from 'react'
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
   LatLng,
   Region,
   MarkerDragStartEndEvent,
-} from 'react-native-maps';
-import * as Location from 'expo-location';
-import styles from './SelectLocation.style';
-import { googleMapDarkModeStyles } from '@src/utils';
-import { Box } from '@src/components';
-import { useAppTheme } from '@src/theme';
+} from 'react-native-maps'
+import * as Location from 'expo-location'
+import styles from './SelectLocation.style'
+import { googleMapDarkModeStyles } from '@src/utils'
+import { Box } from '@src/components'
+import { useAppTheme } from '@src/theme'
 
 export const SelectLocation = () => {
-  const { colors, colorScheme } = useAppTheme();
+  const { colors, colorScheme } = useAppTheme()
   const [currentLocation, setCurrentLocation] = React.useState<Region>({
     longitude: 0,
     latitude: 0,
     longitudeDelta: 0.0022,
     latitudeDelta: 0.0031,
-  });
-  const [markerLocation, setMarkerLocation] = React.useState<LatLng>();
+  })
+  const [markerLocation, setMarkerLocation] = React.useState<LatLng>()
 
   const initUserLocation = async () => {
     try {
-      let position = await Location.getCurrentPositionAsync({});
-      const { longitude, latitude } = position.coords;
+      const position = await Location.getCurrentPositionAsync({})
+      const { longitude, latitude } = position.coords
       setCurrentLocation((location) => {
         setMarkerLocation({
           longitude,
           latitude,
-        });
+        })
         return {
           ...location,
           longitude,
           latitude,
-        };
-      });
+        }
+      })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   React.useEffect(() => {
     const requestPermission = async () => {
-      const permission = await Location.getForegroundPermissionsAsync();
+      const permission = await Location.getForegroundPermissionsAsync()
 
       if (permission.status !== Location.PermissionStatus.GRANTED) {
-        const res = await Location.requestForegroundPermissionsAsync();
+        const res = await Location.requestForegroundPermissionsAsync()
         if (!res.granted) {
-          console.log('Location permission is not granted');
-          return;
+          console.log('Location permission is not granted')
+          return
         }
       }
 
-      initUserLocation();
-    };
+      initUserLocation()
+    }
 
-    requestPermission();
-    initUserLocation();
-  }, []);
+    requestPermission()
+    initUserLocation()
+  }, [])
 
   const onMapViewPressed = (event: MarkerDragStartEndEvent) => {
     const {
       nativeEvent: {
         coordinate: { latitude, longitude },
       },
-    } = event;
+    } = event
 
     setMarkerLocation({
       latitude,
       longitude,
-    });
-  };
+    })
+  }
 
   const onRegionChangeComplete = (region: Region) => {
-    setCurrentLocation(region);
-  };
+    setCurrentLocation(region)
+  }
 
   const onMarkerDragEd = (event: MarkerDragStartEndEvent) => {
-    setMarkerLocation(event.nativeEvent.coordinate);
-  };
+    setMarkerLocation(event.nativeEvent.coordinate)
+  }
 
   return (
     <Box flex={1}>
@@ -100,7 +100,8 @@ export const SelectLocation = () => {
         zoomControlEnabled
         onRegionChangeComplete={onRegionChangeComplete}
         region={currentLocation}
-        onPress={onMapViewPressed}>
+        onPress={onMapViewPressed}
+      >
         {markerLocation && (
           <Marker
             draggable
@@ -110,5 +111,5 @@ export const SelectLocation = () => {
         )}
       </MapView>
     </Box>
-  );
-};
+  )
+}

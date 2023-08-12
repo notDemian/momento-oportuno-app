@@ -1,77 +1,83 @@
-import { OrderHistory } from './../data/mock-order-history';
 import {
   BottomTabNavigationProp,
   BottomTabScreenProps,
-} from '@react-navigation/bottom-tabs';
+} from '@react-navigation/bottom-tabs'
 import {
   CompositeNavigationProp,
   CompositeScreenProps,
   NavigatorScreenParams,
   ParamListBase,
-} from '@react-navigation/native';
+} from '@react-navigation/native'
 import {
   NativeStackScreenProps,
   NativeStackNavigationProp,
-} from '@react-navigation/native-stack';
+} from '@react-navigation/native-stack'
 
 // Stack Param List
 export type RootStackParamList = {
-  MainStacks: undefined;
-  AuthenticationStacks: undefined;
-  DishDetailsModal: undefined;
-  SearchDishesModal: undefined;
-};
+  MainStacks: undefined
+  AuthenticationStacks: undefined
+  DishDetailsModal: undefined
+  SearchDishesModal: undefined
+}
 
 export type AuthStackParamList = {
-  Authentication: undefined;
-  AuthenticationWithPhone: undefined;
-  AuthenticationCodeVerification: undefined;
-  Login: undefined;
-  ForgotPassword: undefined;
-};
+  Authentication: undefined
+  AuthenticationWithPhone: undefined
+  AuthenticationCodeVerification: undefined
+  Login: undefined
+  ForgotPassword: undefined
+}
 
 export type ExploreStackParamList = {
-  Explore: undefined;
-  PlaceDetails: undefined;
-  Checkout: undefined;
+  Explore: undefined
+  PlaceDetails: undefined
+  Checkout: undefined
   PlaceList: {
-    title?: string;
-  };
-  ChangeAddress: undefined;
-  SavedAddresses: undefined;
-  AddAddress: undefined;
-  SelectLocation: undefined;
-  PaymentMethod: undefined;
-  Promotion: undefined;
-  TrackOrder: undefined;
-};
+    title?: string
+  }
+  ChangeAddress: undefined
+  SavedAddresses: undefined
+  AddAddress: undefined
+  SelectLocation: undefined
+  PaymentMethod: undefined
+  Promotion: undefined
+  TrackOrder: undefined
+}
 
 export type ActivityHistoryStackParamList = {
-  ActivityHistory: undefined;
-  ActivityHistoryDetail: undefined;
-};
+  ActivityHistory: undefined
+  ActivityHistoryDetail: undefined
+}
+
+export type SearchStackParamList = {
+  Search: undefined
+  Filter: undefined
+}
 
 export type NotificationStackParamList = {
-  Notification: undefined;
-};
+  Notification: undefined
+}
 
 export type AccountStackParamList = {
-  Account: undefined;
-  EditProfile: undefined;
-  SavedAddresses: undefined;
-  AddAddress: undefined;
-  SelectLocation: undefined;
-  Settings: undefined;
-  SupportCenter: undefined;
-};
+  Account: undefined
+  EditProfile: undefined
+  SavedAddresses: undefined
+  AddAddress: undefined
+  SelectLocation: undefined
+  Settings: undefined
+  SupportCenter: undefined
+}
 
 export type TabParamList = {
-  ExploreTab: NavigatorScreenParams<ExploreStackParamList>;
-  ActivityHistoryTab: NavigatorScreenParams<ActivityHistoryStackParamList>;
-  NotificationTab: NavigatorScreenParams<NotificationStackParamList>;
-  AccountTab: NavigatorScreenParams<AccountStackParamList>;
-  DocumentationTab: NavigatorScreenParams<unknown>;
-};
+  ExploreTab: NavigatorScreenParams<ExploreStackParamList>
+  ActivityHistoryTab: NavigatorScreenParams<ActivityHistoryStackParamList>
+  SearchTab: NavigatorScreenParams<SearchStackParamList>
+  NotificationTab: NavigatorScreenParams<NotificationStackParamList>
+  AccountTab: NavigatorScreenParams<AccountStackParamList>
+  DocumentationTab: NavigatorScreenParams<unknown>
+  NoTab404: NavigatorScreenParams<undefined>
+}
 
 // Screen Props
 export type ExploreScreenProps = CompositeScreenProps<
@@ -80,7 +86,7 @@ export type ExploreScreenProps = CompositeScreenProps<
     NativeStackScreenProps<ExploreStackParamList>,
     NativeStackScreenProps<RootStackParamList>
   >
->;
+>
 
 export type ActivityHistoryScreenProps = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, 'ActivityHistoryTab'>,
@@ -88,7 +94,15 @@ export type ActivityHistoryScreenProps = CompositeScreenProps<
     NativeStackScreenProps<ActivityHistoryStackParamList>,
     NativeStackScreenProps<RootStackParamList>
   >
->;
+>
+
+export type SearchScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<TabParamList, 'SearchTab'>,
+  CompositeScreenProps<
+    NativeStackScreenProps<SearchStackParamList>,
+    NativeStackScreenProps<RootStackParamList>
+  >
+>
 
 export type NotificationScreenProps = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, 'NotificationTab'>,
@@ -96,7 +110,7 @@ export type NotificationScreenProps = CompositeScreenProps<
     NativeStackScreenProps<NotificationStackParamList>,
     NativeStackScreenProps<RootStackParamList>
   >
->;
+>
 
 export type AccountScreenProps = CompositeScreenProps<
   BottomTabScreenProps<TabParamList, 'AccountTab'>,
@@ -104,25 +118,30 @@ export type AccountScreenProps = CompositeScreenProps<
     NativeStackScreenProps<AccountStackParamList>,
     NativeStackScreenProps<RootStackParamList>
   >
->;
+>
 
 export type ScreenProps<
   T extends ParamListBase,
   K extends keyof T,
-> = NativeStackScreenProps<T, K>;
+> = NativeStackScreenProps<T, K>
 
 // Navigation Props
 export type ExploreStackNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, 'ExploreTab'>,
   NativeStackNavigationProp<RootStackParamList & ExploreStackParamList>
->;
+>
+
+export type SearchStackNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<TabParamList, 'SearchTab'>,
+  NativeStackNavigationProp<RootStackParamList & SearchStackParamList>
+>
 
 export type ActivityHistoryStackNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, 'ActivityHistoryTab'>,
   NativeStackNavigationProp<RootStackParamList & ActivityHistoryStackParamList>
->;
+>
 
 export type AccountStackNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, 'AccountTab'>,
   NativeStackNavigationProp<RootStackParamList & AccountStackParamList>
->;
+>

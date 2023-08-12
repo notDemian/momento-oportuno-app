@@ -1,4 +1,4 @@
-import { TextInputProps } from 'react-native/types';
+import { TextInputProps } from 'react-native/types'
 import {
   ColorProps,
   SpacingProps,
@@ -8,9 +8,9 @@ import {
   OpacityProps,
   BorderProps,
   TypographyProps,
-} from '@shopify/restyle';
-import { Theme } from '@src/theme';
-import { IconProps } from '../Icon';
+} from '@shopify/restyle'
+import { Theme } from '@src/theme'
+import { IconProps } from '../Icon'
 
 export type InputRestyleProps = SpacingProps<Theme> &
   ColorProps<Theme> &
@@ -19,11 +19,12 @@ export type InputRestyleProps = SpacingProps<Theme> &
   VisibleProps<Theme> &
   OpacityProps<Theme> &
   BorderProps<Theme> &
-  TypographyProps<Theme>;
+  TypographyProps<Theme>
 
 export type TextFieldProps = {
-  leftIcon?: IconProps['name'];
-  leftIconSize?: number;
-  hasMargin?: boolean;
-  inputProps: TextInputProps;
-} & InputRestyleProps;
+  leftIcon?: IconProps['name']
+  leftIconSize?: number
+  leftIconColor?: string
+  hasMargin?: boolean
+  inputProps: TextInputProps
+} & InputRestyleProps

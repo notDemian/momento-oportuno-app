@@ -1,35 +1,35 @@
-import React from 'react';
-import { Animated, SafeAreaView } from 'react-native';
-import { Box, Text, TabSectionList, Divider, DishItem } from '@src/components';
-import { mockPlaceDetails } from '@src/data';
-import styles from './PlaceDetails.style';
-import { BasketSummary } from './BasketSummary';
-import { PopularDishes } from './PopularDishes';
-import { HeadingInformation } from './HeadingInformation';
+import React from 'react'
+import { Animated, SafeAreaView } from 'react-native'
+import { Box, Text, TabSectionList, Divider, DishItem } from '@src/components'
+import { mockPlaceDetails } from '@src/data'
+import styles from './PlaceDetails.style'
+import { BasketSummary } from './BasketSummary'
+import { PopularDishes } from './PopularDishes'
+import { HeadingInformation } from './HeadingInformation'
 
 export const PlaceDetails = () => {
-  const [scrollY] = React.useState(new Animated.Value(0));
+  const [scrollY] = React.useState(new Animated.Value(0))
 
   const coverTranslateY = scrollY.interpolate({
     inputRange: [-4, 0, 10],
     outputRange: [-2, 0, 3],
-  });
+  })
 
   const coverScale = scrollY.interpolate({
     inputRange: [-200, 0],
     outputRange: [2, 1],
     extrapolateRight: 'clamp',
-  });
+  })
 
   const tabBarOpacity = scrollY.interpolate({
     inputRange: [200, 500],
     outputRange: [0, 1],
     extrapolate: 'clamp',
-  });
+  })
 
   const renderItemSeparator = () => (
-    <Divider height={0.5} marginVertical="none" />
-  );
+    <Divider height={0.5} marginVertical='none' />
+  )
 
   return (
     <SafeAreaView style={styles.rootContainer}>
@@ -47,7 +47,8 @@ export const PlaceDetails = () => {
                       },
                     ],
                   },
-                ]}>
+                ]}
+              >
                 {mockPlaceDetails.coverImage && (
                   <Animated.Image
                     source={mockPlaceDetails.coverImage}
@@ -75,25 +76,26 @@ export const PlaceDetails = () => {
           tabBarStyle={[styles.tabBar, { opacity: tabBarOpacity }]}
           ItemSeparatorComponent={renderItemSeparator}
           renderTab={({ title, isActive }) => {
-            const borderBottomWidth = isActive ? 2 : 0;
+            const borderBottomWidth = isActive ? 2 : 0
             return (
-              <Box borderBottomWidth={borderBottomWidth} borderColor="primary">
+              <Box borderBottomWidth={borderBottomWidth} borderColor='primary'>
                 <Text
                   color={isActive ? 'primary' : 'text'}
-                  padding="m"
-                  fontWeight="500">
+                  padding='m'
+                  fontWeight='500'
+                >
                   {title}
                 </Text>
               </Box>
-            );
+            )
           }}
           renderSectionHeader={({ section }) => (
-            <Text variant="subHeader" padding="m" textAlign="left">
+            <Text variant='subHeader' padding='m' textAlign='left'>
               {section.title}
             </Text>
           )}
           renderItem={({ item }) => {
-            return <DishItem data={item} />;
+            return <DishItem data={item} />
           }}
           onScroll={Animated.event(
             [
@@ -113,5 +115,5 @@ export const PlaceDetails = () => {
       </Box>
       <BasketSummary />
     </SafeAreaView>
-  );
-};
+  )
+}

@@ -1,3 +1,3 @@
-import { ExploreProps } from '../Explore.type';
+import { ExploreProps } from '../Explore.type'
 
-export type RecommendedPlacesProps = Pick<ExploreProps, 'navigation'>;
+export type RecommendedPlacesProps = Pick<ExploreProps, 'navigation'>

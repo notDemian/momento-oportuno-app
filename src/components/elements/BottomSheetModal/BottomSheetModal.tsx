@@ -4,12 +4,12 @@ import {
   BottomSheetBackdropProps,
   BottomSheetModalProvider,
   BottomSheetScrollView,
-} from '@gorhom/bottom-sheet';
-import { useAppTheme } from '@src/theme';
-import React from 'react';
-import { BottomSheetModalProps } from './BottomSheetModal.type';
-import { Box } from '../Box';
-import { Portal } from '@gorhom/portal';
+} from '@gorhom/bottom-sheet'
+import { useAppTheme } from '@src/theme'
+import React from 'react'
+import { BottomSheetModalProps } from './BottomSheetModal.type'
+import { Box } from '../Box'
+import { Portal } from '@gorhom/portal'
 
 export const BottomSheetModal: React.FC<BottomSheetModalProps> = (props) => {
   const {
@@ -19,17 +19,17 @@ export const BottomSheetModal: React.FC<BottomSheetModalProps> = (props) => {
     useScrollView,
     usePortal = true,
     ...rest
-  } = props;
-  const { colors, spacing } = useAppTheme();
-  const ref = React.useRef<GorhomBottomSheetModal>(null);
+  } = props
+  const { colors, spacing } = useAppTheme()
+  const ref = React.useRef<GorhomBottomSheetModal>(null)
 
   React.useEffect(() => {
     if (isOpened) {
-      ref?.current?.present();
+      ref?.current?.present()
     } else {
-      ref.current?.dismiss();
+      ref.current?.dismiss()
     }
-  }, [isOpened, ref]);
+  }, [isOpened, ref])
 
   const renderBackdrop = React.useCallback(
     (backdropProps: BottomSheetBackdropProps) => {
@@ -40,10 +40,10 @@ export const BottomSheetModal: React.FC<BottomSheetModalProps> = (props) => {
           disappearsOnIndex={-1}
           opacity={0.8}
         />
-      );
+      )
     },
     [],
-  );
+  )
 
   const renderContent = () => {
     if (useScrollView) {
@@ -55,18 +55,19 @@ export const BottomSheetModal: React.FC<BottomSheetModalProps> = (props) => {
           contentContainerStyle={{
             backgroundColor: colors.card,
             padding: spacing.m,
-          }}>
+          }}
+        >
           <>{children}</>
         </BottomSheetScrollView>
-      );
+      )
     }
 
     return (
-      <Box flex={1} backgroundColor="card" padding="m">
+      <Box flex={1} backgroundColor='card' padding='m'>
         <>{children}</>
       </Box>
-    );
-  };
+    )
+  }
 
   const renderBottomSheetModal = () => {
     return (
@@ -90,16 +91,17 @@ export const BottomSheetModal: React.FC<BottomSheetModalProps> = (props) => {
           onDismiss={onClose}
           detached
           bottomInset={spacing.xxl}
-          {...rest}>
+          {...rest}
+        >
           {renderContent()}
         </GorhomBottomSheetModal>
       </BottomSheetModalProvider>
-    );
-  };
+    )
+  }
 
   return usePortal ? (
-    <Portal hostName="rootPortal">{renderBottomSheetModal()}</Portal>
+    <Portal hostName='rootPortal'>{renderBottomSheetModal()}</Portal>
   ) : (
     renderBottomSheetModal()
-  );
-};
+  )
+}

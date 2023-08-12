@@ -1,0 +1,1 @@
+{"ast":null,"code":"export * from \"./Box\";","map":{"version":3,"names":[],"sources":["/Users/vunguyen/Documents/work/jcstudio/food-star-expo-app-template/src/components/Box/index.ts"],"sourcesContent":["export * from './Box';\n"],"mappings":"AAAA"},"metadata":{},"sourceType":"module","externalDependencies":[]}

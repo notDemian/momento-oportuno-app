@@ -1,51 +1,64 @@
-import {ImageSourcePropType} from 'react-native';
+import { ImageSourcePropType } from 'react-native'
 
 import Chance from 'chance'
-const chance = new Chance();
+const chance = new Chance()
 
 export type Dish = {
-  id: string;
-  title: string;
-  description: string;
-  price: string;
-  image?: ImageSourcePropType;
-  coverImage?: ImageSourcePropType;
-  sideDishes?: DishSection[];
-};
+  id: string
+  title: string
+  description: string
+  price: string
+  image?: ImageSourcePropType
+  coverImage?: ImageSourcePropType
+  sideDishes?: DishSection[]
+}
 
 export type DishSection = {
-  title: string;
-  data: Dish[];
-};
+  title: string
+  data: Dish[]
+}
 
-export type Place = {
-  id: string;
-  title: string;
-  coverImage?: ImageSourcePropType;
-  image: ImageSourcePropType;
-  subTitle: string;
-  distance: number;
-  time: number;
-  rating: number;
-  dishSection?: DishSection[];
-};
+export type SimplePlace = {
+  id: string
+  title: string
+  image: string
+}
+
+export type Place = SimplePlace & {
+  coverImage?: string
+  subTitle: string
+  distance: number
+  time: number
+  rating: number
+  dishSection?: DishSection[]
+}
+
+export type RemarkablePlace = {
+  id: string
+  title: string
+  image: string
+  price: number
+  views: number
+}
 
 export type RemarkablePlaceTab = {
-  [name: string]: Place[];
-};
+  [name: string]: Place[]
+}
 
 export const mockDishDetails: Dish = {
   id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
   title: chance.sentence({
-    words: 5
+    words: 5,
   }),
   description: chance.paragraph({
-    sentences: 2
+    sentences: 2,
   }),
-  price: chance.floating({
-    min: 5,
-    max: 60,
-  }).toString(),
+  price: chance
+    .floating({
+      min: 5,
+      max: 60,
+    })
+    .toString(),
   coverImage: require('@src/assets/dish-details/cover-photo.jpg'),
   sideDishes: [
     {
@@ -53,17 +66,24 @@ export const mockDishDetails: Dish = {
       data: Array(5)
         .fill(0)
         .map((_) => ({
-          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          id: chance.string({
+            length: 8,
+            casing: 'upper',
+            alpha: true,
+            numeric: true,
+          }),
           title: chance.sentence({
-            words: 5
+            words: 5,
           }),
           description: chance.paragraph({
-            sentences: 2
+            sentences: 2,
           }),
-          price: chance.floating({
-            min: 2,
-            max: 10,
-          }).toString(),
+          price: chance
+            .floating({
+              min: 2,
+              max: 10,
+            })
+            .toString(),
           image: require('@src/assets/dish-details/dish-1.jpg'),
         })),
     },
@@ -72,17 +92,24 @@ export const mockDishDetails: Dish = {
       data: Array(3)
         .fill(0)
         .map((_) => ({
-          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          id: chance.string({
+            length: 8,
+            casing: 'upper',
+            alpha: true,
+            numeric: true,
+          }),
           title: chance.sentence({
-            words: 5
+            words: 5,
           }),
           description: chance.paragraph({
-            sentences: 2
+            sentences: 2,
           }),
-          price: chance.floating({
-            min: 2,
-            max: 10,
-          }).toString(),
+          price: chance
+            .floating({
+              min: 2,
+              max: 10,
+            })
+            .toString(),
           image: require('@src/assets/dish-details/dish-2.jpg'),
         })),
     },
@@ -91,22 +118,112 @@ export const mockDishDetails: Dish = {
       data: Array(6)
         .fill(0)
         .map((_) => ({
-          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          id: chance.string({
+            length: 8,
+            casing: 'upper',
+            alpha: true,
+            numeric: true,
+          }),
           title: chance.sentence({
-            words: 5
+            words: 5,
           }),
           description: chance.paragraph({
-            sentences: 2
+            sentences: 2,
           }),
-          price: chance.floating({
-            min: 2,
-            max: 10,
-          }).toString(),
+          price: chance
+            .floating({
+              min: 2,
+              max: 10,
+            })
+            .toString(),
           image: require('@src/assets/dish-details/dish-3.jpg'),
         })),
     },
   ],
-};
+}
+
+export const mockRecommendedByState: RemarkablePlace[] = [
+  {
+    title: 'Cachorros pomerania',
+    image:
+      'https://clic.empresarialti.com/wp-content/uploads/2023/07/D_NQ_NP_2X_712308-MLM48098538893_112021-F-300x200.webp',
+  },
+  {
+    title: 'Renta casa moderna carretera carmen',
+    image:
+      'https://clic.empresarialti.com/wp-content/uploads/2023/07/3e3cd1aa-1032-4ccc-b3a4-a87813e72949-360x240.jpg',
+  },
+  {
+    title: 'Cachorros',
+    image:
+      'https://clic.empresarialti.com/wp-content/uploads/2022/10/card_6-300x200.jpg.webp',
+  },
+  {
+    title: 'Xiaomi Mi 10 5G',
+    image:
+      'https://clic.empresarialti.com/wp-content/uploads/2022/05/listing_3-300x200.jpg.webp',
+  },
+
+  {
+    title: 'Hyundai Ioniq 2019',
+    image:
+      'https://clic.empresarialti.com/wp-content/uploads/2023/07/KMHC75LC4KU141463-01-300x200.jpg',
+  },
+  {
+    title: 'Rottweiler gigante',
+    image:
+      'https://clic.empresarialti.com/wp-content/uploads/2023/07/D_NQ_NP_627963-MLM31981447132_082019-O-360x240.webp',
+  },
+  {
+    title: 'Cachorro viejo pastor inglés',
+    image:
+      'https://clic.empresarialti.com/wp-content/uploads/2023/07/D_NQ_NP_2X_966696-MLM69590994079_052023-F-360x240.webp',
+  },
+  {
+    title: 'Departamento moderno',
+    image:
+      'https://clic.empresarialti.com/wp-content/uploads/2021/10/apartments-3-300x200.jpg.webp',
+  },
+
+  {
+    title: 'Ingeniero / Ejecutivo de Ventas',
+    image:
+      'https://clic.empresarialti.com/wp-content/uploads/2022/05/team-300x200.jpg.webp',
+  },
+  {
+    title: 'Porsche Cayman 2.7',
+    image:
+      'https://clic.empresarialti.com/wp-content/uploads/2023/07/D_NQ_NP_687152-MLM69886534042_062023-O-360x240.webp',
+  },
+  {
+    title: 'Venta de Casa en Francisco Montejo',
+    image:
+      'https://clic.empresarialti.com/wp-content/uploads/2023/07/D_NQ_NP_2X_939974-MLM70282949233_072023-F-360x240.webp',
+  },
+  {
+    title: 'Control de Xbox Wireless',
+    image:
+      'https://clic.empresarialti.com/wp-content/uploads/2022/05/listing_1-300x200.jpg.webp',
+  },
+].map((_) => {
+  return {
+    id: chance.string({
+      length: 8,
+      casing: 'upper',
+      alpha: true,
+      numeric: true,
+    }),
+    price: chance.floating({
+      min: 5,
+      max: 60,
+    }),
+    views: chance.integer({
+      min: 100,
+      max: 1000,
+    }),
+    ..._,
+  }
+})
 
 export const mockPlaceDetails: Place = {
   id: '1',
@@ -123,17 +240,24 @@ export const mockPlaceDetails: Place = {
       data: Array(3)
         .fill(0)
         .map((_) => ({
-          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          id: chance.string({
+            length: 8,
+            casing: 'upper',
+            alpha: true,
+            numeric: true,
+          }),
           title: chance.sentence({
-            words: 5
+            words: 5,
           }),
           description: chance.paragraph({
-            sentences: 2
+            sentences: 2,
           }),
-          price: chance.floating({
-            min: 5,
-            max: 60,
-          }).toString(),
+          price: chance
+            .floating({
+              min: 5,
+              max: 60,
+            })
+            .toString(),
           image: require('@src/assets/dish-details/dish-1.jpg'),
         })),
     },
@@ -142,17 +266,24 @@ export const mockPlaceDetails: Place = {
       data: Array(3)
         .fill(0)
         .map((_) => ({
-          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          id: chance.string({
+            length: 8,
+            casing: 'upper',
+            alpha: true,
+            numeric: true,
+          }),
           title: chance.sentence({
-            words: 5
+            words: 5,
           }),
           description: chance.paragraph({
-            sentences: 2
+            sentences: 2,
           }),
-          price: chance.floating({
-            min: 5,
-            max: 60,
-          }).toString(),
+          price: chance
+            .floating({
+              min: 5,
+              max: 60,
+            })
+            .toString(),
           image: require('@src/assets/dish-details/dish-2.jpg'),
         })),
     },
@@ -161,17 +292,24 @@ export const mockPlaceDetails: Place = {
       data: Array(4)
         .fill(0)
         .map((_) => ({
-          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          id: chance.string({
+            length: 8,
+            casing: 'upper',
+            alpha: true,
+            numeric: true,
+          }),
           title: chance.sentence({
-            words: 5
+            words: 5,
           }),
           description: chance.paragraph({
-            sentences: 2
+            sentences: 2,
           }),
-          price: chance.floating({
-            min: 5,
-            max: 60,
-          }).toString(),
+          price: chance
+            .floating({
+              min: 5,
+              max: 60,
+            })
+            .toString(),
           image: require('@src/assets/dish-details/dish-3.jpg'),
         })),
     },
@@ -180,17 +318,24 @@ export const mockPlaceDetails: Place = {
       data: Array(4)
         .fill(0)
         .map((_) => ({
-          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          id: chance.string({
+            length: 8,
+            casing: 'upper',
+            alpha: true,
+            numeric: true,
+          }),
           title: chance.sentence({
-            words: 5
+            words: 5,
           }),
           description: chance.paragraph({
-            sentences: 2
+            sentences: 2,
           }),
-          price: chance.floating({
-            min: 5,
-            max: 60,
-          }).toString(),
+          price: chance
+            .floating({
+              min: 5,
+              max: 60,
+            })
+            .toString(),
           image: require('@src/assets/dish-details/dish-1.jpg'),
         })),
     },
@@ -199,56 +344,80 @@ export const mockPlaceDetails: Place = {
       data: Array(6)
         .fill(0)
         .map((_) => ({
-          id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+          id: chance.string({
+            length: 8,
+            casing: 'upper',
+            alpha: true,
+            numeric: true,
+          }),
           title: chance.sentence({
-            words: 5
+            words: 5,
           }),
           description: chance.paragraph({
-            sentences: 2
+            sentences: 2,
           }),
-          price: chance.floating({
-            min: 5,
-            max: 60,
-          }).toString(),
+          price: chance
+            .floating({
+              min: 5,
+              max: 60,
+            })
+            .toString(),
           image: require('@src/assets/dish-details/dish-2.jpg'),
         })),
     },
   ],
-};
+}
 
 export const mockPlaceList: Place[] = Array(10)
   .fill(0)
   .map((_) => {
-    const image = require('@src/assets/place-details/main-photo.jpg');
+    const image =
+      'https://clic.empresarialti.com/wp-content/uploads/2022/06/content_v4.jpeg.webp'
     return {
-      id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
+      id: chance.string({
+        length: 8,
+        casing: 'upper',
+        alpha: true,
+        numeric: true,
+      }),
       title: chance.company(),
       image,
       subTitle: chance.paragraph({
-        sentences: 2
+        sentences: 2,
       }),
       distance: 75,
       time: 90,
       rating: 4,
-    };
-  });
+    }
+  })
 
 export const mockPlaces: Place[] = Array(3)
   .fill(0)
-  .map((_) => {
-    const image = require('@src/assets/place-details/main-photo.jpg');
+  .map((_, index) => {
+    const images = [
+      'https://clicdelsureste.empresarialti.com/wp-content/uploads/assets/portada_qroo.jpeg',
+      'https://clicdelsureste.empresarialti.com/wp-content/uploads/assets/portada_campeche.jpeg',
+      'https://clicdelsureste.empresarialti.com/wp-content/uploads/assets/portada_yucatan.jpeg',
+    ]
+
+    const titles = ['Quintana Roo', 'Campeche', 'Yucatán']
     return {
-      id: chance.string({ length: 8, casing: 'upper', alpha: true, numeric: true }),
-      title: chance.company(),
-      image,
+      id: chance.string({
+        length: 8,
+        casing: 'upper',
+        alpha: true,
+        numeric: true,
+      }),
+      title: titles[index],
+      image: images[index],
       subTitle: chance.paragraph({
-        sentences: 2
+        sentences: 2,
       }),
       distance: 75,
       time: 90,
       rating: 4,
-    };
-  });
+    }
+  })
 
 export const mockRemarkablePlace: RemarkablePlaceTab = {
   featured: [
@@ -500,4 +669,4 @@ export const mockRemarkablePlace: RemarkablePlaceTab = {
       rating: 5,
     },
   ],
-};
+}

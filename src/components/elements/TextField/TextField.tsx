@@ -1,7 +1,7 @@
-import React from 'react';
-import { TextInput, I18nManager } from 'react-native';
-import { Box } from '../Box';
-import { InputRestyleProps, TextFieldProps } from './TextField.type';
+import React from 'react'
+import { TextInput, I18nManager } from 'react-native'
+import { Box } from '../Box'
+import { InputRestyleProps, TextFieldProps } from './TextField.type'
 import {
   backgroundColor,
   border,
@@ -12,9 +12,9 @@ import {
   spacing,
   typography,
   visible,
-} from '@shopify/restyle';
-import { Theme, fontSize, useAppTheme } from '@src/theme';
-import { Icon } from '../Icon';
+} from '@shopify/restyle'
+import { Theme, fontSize, useAppTheme } from '@src/theme'
+import { Icon } from '../Icon'
 
 const InnerTextInput = createRestyleComponent<
   InputRestyleProps & React.ComponentProps<typeof TextInput>,
@@ -31,60 +31,66 @@ const InnerTextInput = createRestyleComponent<
     typography,
   ],
   TextInput,
-);
+)
 
 export const TextField: React.FC<TextFieldProps> = ({
   leftIcon,
   leftIconSize = fontSize.l,
+  leftIconColor,
   hasMargin,
   inputProps: { onFocus, onBlur, ...restInputProps },
   ...rest
 }) => {
-  const { colors } = useAppTheme();
-  const [borderWidth, setBorderWidth] = React.useState(1);
+  const { colors } = useAppTheme()
+  const [borderWidth, setBorderWidth] = React.useState(1)
   const handleOnFocus = (e) => {
-    setBorderWidth(2);
-    onFocus?.(e);
-  };
+    setBorderWidth(2)
+    onFocus?.(e)
+  }
 
   const handleOnBlur = (e) => {
-    setBorderWidth(1);
-    onBlur?.(e);
-  };
+    setBorderWidth(1)
+    onBlur?.(e)
+  }
 
   return (
     <Box
-      flexDirection="row"
-      justifyContent="center"
-      alignItems="center"
-      borderRadius="l"
-      backgroundColor="card"
+      flexDirection='row'
+      justifyContent='center'
+      alignItems='center'
+      borderRadius='l'
+      backgroundColor='card'
       borderWidth={borderWidth}
-      borderColor="border"
+      borderColor='border'
       height={55}
       {...rest}
-      margin={hasMargin ? 's' : undefined}>
+      margin={hasMargin ? 's' : undefined}
+    >
       {leftIcon ? (
-        <Box paddingLeft="m" paddingRight={I18nManager.isRTL ? 's' : 'none'}>
-          <Icon name={leftIcon} size={leftIconSize} color={colors.text} />
+        <Box paddingLeft='m' paddingRight={I18nManager.isRTL ? 's' : 'none'}>
+          <Icon
+            name={leftIcon}
+            size={leftIconSize}
+            color={leftIconColor ?? colors.text}
+          />
         </Box>
       ) : null}
       <InnerTextInput
-        color="text"
+        color='text'
         fontSize={fontSize.m}
         placeholderTextColor={colors.secondary}
-        underlineColorAndroid="transparent"
+        underlineColorAndroid='transparent'
         flex={1}
-        padding="m"
-        paddingHorizontal="m"
+        padding='m'
+        paddingHorizontal='m'
         paddingLeft={leftIcon ? 's' : undefined}
-        borderRadius="l"
-        backgroundColor="transparent"
-        height="100%"
+        borderRadius='l'
+        backgroundColor='transparent'
+        height='100%'
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
         {...restInputProps}
       />
     </Box>
-  );
-};
+  )
+}

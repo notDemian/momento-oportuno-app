@@ -1,71 +1,91 @@
-import React from 'react';
+import React from 'react'
 import {
   BlurView,
   Box,
   Button,
   DishItem,
+  Icon,
   SectionList,
   Text,
   TextField,
-} from '@src/components';
-import { mockPlaceDetails } from '@src/data';
-import { isIos } from '@src/utils';
-import { useExploreStackNavigation } from '@src/hooks';
+} from '@src/components'
+import { mockPlaceDetails } from '@src/data'
+import { isIos } from '@src/utils'
+import { useSearchStackNavigation } from '@src/hooks'
+import { useFilterContext } from '@src/filterContext/filter'
 
 export const SearchDishes = () => {
-  const [searchTerm, setSearchTerm] = React.useState('');
-  const navigation = useExploreStackNavigation();
+  const [searchTerm, setSearchTerm] = React.useState('')
+  const navigation = useSearchStackNavigation()
 
-  const onCloseButtonPress = () => {
-    navigation.goBack();
-  };
+  const onFilter = () => {
+    navigation.navigate('Filter')
+  }
 
   const onSearch = (e: string) => {
-    setSearchTerm(e);
-  };
+    setSearchTerm(e)
+  }
+
+  const filterContext = useFilterContext()
+
+  const [showEmpty, setShowEmpty] = React.useState(false)
 
   return (
     <Box flex={1}>
+      <Box
+        paddingHorizontal='m'
+        paddingVertical='s'
+        alignItems='center'
+        justifyContent='center'
+      >
+        <Button
+          isFullWidth
+          label={'Mostrar vacío'}
+          onPress={() => {
+            setShowEmpty((p) => !p)
+          }}
+        />
+      </Box>
       <SectionList
-        sections={mockPlaceDetails.dishSection || []}
+        sections={!showEmpty ? mockPlaceDetails.dishSection || [] : []}
         keyExtractor={(item) => item.title}
         stickySectionHeadersEnabled
         ListHeaderComponent={
           <Box
-            backgroundColor="card"
-            flexDirection="row"
-            alignItems="center"
-            padding="m">
+            backgroundColor='card'
+            flexDirection='row'
+            alignItems='center'
+            padding='m'
+          >
             <TextField
-              leftIcon="search"
+              leftIcon='search'
               flex={1}
               inputProps={{
                 value: searchTerm,
-                placeholder: 'Search a dish name',
+                placeholder: '¿Buscas algo?',
                 onChangeText: onSearch,
               }}
             />
-            <Box width={70} alignItems="flex-end">
+            <Box
+              width={70}
+              alignItems='flex-end'
+              ml={'l'}
+              flexDirection={'row'}
+            >
+              <Icon name='filter' />
               <Button
-                variant="transparent"
-                buttonSize="xs"
-                label="Cancel"
-                onPress={onCloseButtonPress}
+                variant='transparent'
+                buttonSize='xs'
+                label='Filtro'
+                onPress={onFilter}
               />
             </Box>
           </Box>
         }
-        renderSectionHeader={({ section }) => (
-          <BlurView intensity={isIos ? 80 : 120}>
-            <Text variant="subHeader" textAlign="left" padding="m">
-              {section.title}
-            </Text>
-          </BlurView>
-        )}
         renderItem={({ item }) => {
-          return <DishItem data={item} />;
+          return <DishItem data={item} />
         }}
       />
     </Box>
-  );
-};
+  )
+}

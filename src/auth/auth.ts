@@ -1,17 +1,18 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-empty-function */
+import React from 'react'
 
 type AuthState = {
-  userToken: string | null;
-  signIn: () => void;
-  signOut: () => void;
-  signUp: () => void;
-};
+  userToken: string | null
+  signIn: () => void
+  signOut: () => void
+  signUp: () => void
+}
 
 const initialAutthState: AuthState = {
   userToken: null,
   signIn: () => {},
   signOut: () => {},
   signUp: () => {},
-};
+}
 
-export const AuthContext = React.createContext(initialAutthState);
+export const AuthContext = React.createContext(initialAutthState)

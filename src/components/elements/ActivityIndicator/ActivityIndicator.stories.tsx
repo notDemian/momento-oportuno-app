@@ -1,6 +1,6 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { ActivityIndicator } from './ActivityIndicator';
-import { ActivityIndicatorProps } from './ActivityIndicator.type';
+import { Meta, StoryObj } from '@storybook/react-native'
+import { ActivityIndicator } from './ActivityIndicator'
+import { ActivityIndicatorProps } from './ActivityIndicator.type'
 
 export default {
   title: 'ActivityIndicator',
@@ -17,25 +17,25 @@ export default {
       options: ['small', 'large'],
     },
   },
-} as Meta<ActivityIndicatorProps>;
+} as Meta<ActivityIndicatorProps>
 
-type Story = StoryObj<ActivityIndicatorProps>;
+type Story = StoryObj<ActivityIndicatorProps>
 
 export const Basic: Story = {
   args: {
     size: 'small',
   },
-};
+}
 
 export const Large: Story = {
   args: {
     size: 'large',
   },
-};
+}
 
 export const CustomColor: Story = {
   args: {
     size: 'large',
     color: 'green',
   },
-};
+}

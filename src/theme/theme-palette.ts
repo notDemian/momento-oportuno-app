@@ -1,6 +1,10 @@
 export const palette = {
   orange: '#FC6A57',
+  azulAmistoso: '#494ddc',
+  verdeMarcatextos: '#cefc00',
+  acentoCereza: '#ff5b52',
   white: '#FFF',
+  blanquecino: '',
   black: '#000000',
   yellow: '#eab308',
   red: '#ef4444',
@@ -21,4 +25,4 @@ export const palette = {
   },
   facebook: '#3b5998',
   google: '#db4437',
-};
+} as const

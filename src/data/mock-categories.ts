@@ -1,50 +1,38 @@
-import {ImageSourcePropType} from 'react-native';
-
 type Category = {
-  id: string;
-  name: string;
-  image: ImageSourcePropType;
-};
+  id: string
+  name: string
+  icon: string
+}
 
 export const mockCategories: Category[] = [
   {
     id: '1',
-    name: 'Lunch Box',
-    image: require('@src/assets/categories/category-1.png'),
+    name: 'Mascotas',
+    icon: 'pets',
   },
   {
     id: '2',
-    name: 'Drink',
-    image: require('@src/assets/categories/category-2.png'),
+    name: 'Electrónicos',
+    icon: 'computer',
   },
   {
     id: '3',
-    name: 'Salad',
-    image: require('@src/assets/categories/category-3.png'),
+    name: 'Inmuebles',
+    icon: 'house',
   },
   {
     id: '4',
-    name: 'Hamburger',
-    image: require('@src/assets/categories/category-4.png'),
+    name: 'Vehículos',
+    icon: 'directions-car',
   },
   {
     id: '5',
-    name: 'Pizza',
-    image: require('@src/assets/categories/category-5.png'),
+    name: 'Empleos',
+    icon: 'work',
   },
   {
     id: '6',
-    name: 'Sushi',
-    image: require('@src/assets/categories/category-6.png'),
+    name: 'Más',
+    icon: 'more',
   },
-  {
-    id: '7',
-    name: 'Icecream',
-    image: require('@src/assets/categories/category-7.png'),
-  },
-  {
-    id: '8',
-    name: 'Donuts',
-    image: require('@src/assets/categories/category-8.png'),
-  },
-];
+]

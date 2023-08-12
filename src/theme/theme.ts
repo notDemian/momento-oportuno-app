@@ -1,5 +1,6 @@
-import { createTheme } from '@shopify/restyle';
-import { palette } from './theme-palette';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { createTheme } from '@shopify/restyle'
+import { palette } from './theme-palette'
 
 export const theme = createTheme({
   borderRadii: {
@@ -27,9 +28,9 @@ export const theme = createTheme({
     '50%': '50%',
   },
   colors: {
-    primary: palette.orange,
-    secondary: palette.gray[500],
-    background: palette.gray[100],
+    primary: palette.azulAmistoso,
+    secondary: palette.acentoCereza,
+    background: palette.gray[50],
     card: palette.white,
     text: palette.gray[900],
     border: palette.gray[300],
@@ -38,10 +39,12 @@ export const theme = createTheme({
     success: palette.green,
     info: palette.blue,
     black: palette.black,
+    yellow: palette.verdeMarcatextos,
     white: palette.white,
     transparent: 'transparent',
     facebook: palette.facebook,
     google: palette.google,
+    gray: palette.gray[500],
   },
   breakpoints: {
     phone: 0,
@@ -85,6 +88,9 @@ export const theme = createTheme({
     },
     warning: {
       backgroundColor: 'warning',
+    },
+    secondary: {
+      backgroundColor: 'secondary',
     },
     success: {
       backgroundColor: 'success',
@@ -158,18 +164,23 @@ export const theme = createTheme({
       height: 150,
     },
   },
-});
+})
 
-export type Theme = typeof theme;
+export type Theme = typeof theme
 
 export const darkTheme: Theme = {
   ...theme,
   colors: {
     ...theme.colors,
+    // @ts-ignore
     text: palette.gray[100],
+    // @ts-ignore
     secondary: palette.gray[400],
+    // @ts-ignore
     background: palette.gray[950],
+    // @ts-ignore
     card: palette.gray[800],
+    // @ts-ignore
     border: palette.gray[600],
   },
-};
+}
