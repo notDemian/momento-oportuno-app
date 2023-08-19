@@ -28,7 +28,7 @@ export const ExploreStack: React.FC<ExploreScreenProps> = ({ navigation }) => {
       <Button
         variant='transparent'
         buttonSize='xs'
-        onPress={() => navigation.navigate('SearchDishesModal')}
+        onPress={() => navigation.navigate('SearchTab', { screen: 'Search' })}
       >
         <Icon name='search' size={fontSize.l} isPrimary />
       </Button>
@@ -52,9 +52,7 @@ export const ExploreStack: React.FC<ExploreScreenProps> = ({ navigation }) => {
         options={() => {
           return {
             title: '',
-            // headerTitleAlign: 'left',
             headerTransparent: true,
-            // headerLeft: renderExploreHeaderLeft,
           }
         }}
         name='Explore'

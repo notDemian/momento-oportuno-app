@@ -14,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "config": {
         "googleMapsApiKey": "AIzaSyD7_x-IaDtLZle9C37GEnizuCkEOSnkkBg"
@@ -57,6 +55,12 @@
         "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Allow Food Star to use your location."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
     ],

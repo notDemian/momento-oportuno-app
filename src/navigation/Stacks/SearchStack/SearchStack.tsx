@@ -5,8 +5,8 @@ import type {
   SearchScreenProps,
   SearchStackParamList,
 } from '@src/navigation/types'
-import { SearchDishes, Filter } from '@src/screens'
-import { Button, Icon, Text } from '@src/components'
+import { SearchScreen, Filter, AnuncioDetails } from '@src/screens'
+import { Button, Icon as _, Text } from '@src/components'
 
 const Stack = createNativeStackNavigator<SearchStackParamList>()
 
@@ -20,7 +20,7 @@ export const SearchStack: React.FC<SearchScreenProps> = () => {
           }
         }}
         name='Search'
-        component={SearchDishes}
+        component={SearchScreen}
       />
       <Stack.Screen
         options={({ navigation }) => {
@@ -44,6 +44,15 @@ export const SearchStack: React.FC<SearchScreenProps> = () => {
         }}
         name='Filter'
         component={Filter}
+      />
+      <Stack.Screen
+        options={{
+          headerTransparent: true,
+          title: '',
+          headerBackTitleVisible: false,
+        }}
+        name='AnuncioDetailsModal'
+        component={AnuncioDetails}
       />
     </Stack.Navigator>
   )

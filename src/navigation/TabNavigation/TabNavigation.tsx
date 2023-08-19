@@ -1,19 +1,15 @@
-import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import {
   AccountStack,
-  ActivityHistoryStack,
   ExploreStack,
   NotificationStack,
+  SearchStack,
+  NewAnuncioStack,
 } from '../Stacks'
-import { Box, Button, Icon, IconProps } from '@src/components'
+import { Button, Icon, IconProps } from '@src/components'
 import { TabParamList } from '../types'
 import { fontSize, useAppTheme } from '@src/theme'
 import styles from './TabNavigation.style'
-import { Documentation } from '@src/screens'
-import { NoTab404 } from '@src/screens/404'
-import { useExploreStackNavigation } from '@src/hooks'
-import { SearchStack } from '../Stacks/SearchStack'
 
 type TabBarIconProps = {
   focused: boolean
@@ -52,7 +48,6 @@ const renderTabBarIcon = (routeName: keyof TabParamList) => {
 
 const TabNavigation = () => {
   const theme = useAppTheme()
-  const nav = useExploreStackNavigation()
   return (
     <Navigator
       initialRouteName='ExploreTab'
@@ -66,6 +61,18 @@ const TabNavigation = () => {
           tabBarItemStyle: styles.tabItem,
           tabBarInactiveTintColor: theme.colors.gray,
           tabBarActiveTintColor: theme.colors.secondary,
+          tabBarStyle: {
+            backgroundColor: theme.colors.white,
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 0,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
+          },
+          tabBarHideOnKeyboard: true,
         }
       }}
     >
@@ -85,27 +92,27 @@ const TabNavigation = () => {
       />
       {/* <Tab.Screen /> */}
       <Tab.Screen
-        name='NoTab404'
-        component={NoTab404}
-        options={{
-          tabBarButton: (_props) => {
-            return (
-              <Button
-                variant={'secondary'}
-                flex={1}
-                onPress={() => {
-                  nav.navigate('AddAddress')
-                }}
-              >
-                <Icon
-                  name='add'
-                  type='MaterialIcons'
-                  size={fontSize.m}
-                  color={theme.colors.white}
-                />
-              </Button>
-            )
-          },
+        name='NewAnuncioTab'
+        component={NewAnuncioStack}
+        options={({ navigation }) => {
+          return {
+            tabBarButton: (_props) => {
+              return (
+                <Button
+                  variant={'secondary'}
+                  flex={1}
+                  onPress={() => navigation.navigate('NewAnuncioTab')}
+                >
+                  <Icon
+                    name='add'
+                    type='MaterialIcons'
+                    size={fontSize.m}
+                    color={theme.colors.white}
+                  />
+                </Button>
+              )
+            },
+          }
         }}
       />
       <Tab.Screen
@@ -122,13 +129,6 @@ const TabNavigation = () => {
           title: 'Cuenta',
         }}
       />
-      {/* <Tab.Screen
-        name='DocumentationTab'
-        component={Documentation}
-        options={{
-          title: 'Storybook',
-        }}
-      /> */}
     </Navigator>
   )
 }

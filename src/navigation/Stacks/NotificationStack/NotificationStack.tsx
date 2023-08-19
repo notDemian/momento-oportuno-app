@@ -1,14 +1,14 @@
-import React from 'react';
-import { Alert, AlertButton } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react'
+import { Alert, AlertButton } from 'react-native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import {
   NotificationScreenProps,
   NotificationStackParamList,
-} from '@src/navigation/types';
-import { Icon } from '@src/components';
-import { Notification } from '@src/screens';
+} from '@src/navigation/types'
+import { Icon } from '@src/components'
+import { Notification } from '@src/screens'
 
-const Stack = createNativeStackNavigator<NotificationStackParamList>();
+const Stack = createNativeStackNavigator<NotificationStackParamList>()
 
 export const NotificationStack: React.FC<NotificationScreenProps> = () => {
   const alertButtons: AlertButton[] = [
@@ -17,12 +17,12 @@ export const NotificationStack: React.FC<NotificationScreenProps> = () => {
       style: 'cancel',
     },
     { text: 'OK' },
-  ];
+  ]
 
   const renderAddAddressHeaderRight = () => {
     return (
       <Icon
-        name="trash"
+        name='trash'
         isPrimary
         onPress={() =>
           Alert.alert(
@@ -32,21 +32,21 @@ export const NotificationStack: React.FC<NotificationScreenProps> = () => {
           )
         }
       />
-    );
-  };
+    )
+  }
 
   return (
-    <Stack.Navigator initialRouteName="Notification">
+    <Stack.Navigator initialRouteName='Notification'>
       <Stack.Screen
         options={() => {
           return {
             title: 'Notifications',
             headerRight: renderAddAddressHeaderRight,
-          };
+          }
         }}
-        name="Notification"
+        name='Notification'
         component={Notification}
       />
     </Stack.Navigator>
-  );
-};
+  )
+}

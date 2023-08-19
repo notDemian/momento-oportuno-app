@@ -39,5 +39,7 @@ export type ButtonProps = ButtonRestyleProps &
     isFullWidth?: boolean
     label?: string
     textAlign?: TextProps<Theme>['textAlign']
+    isDisabled?: boolean
+    disabledText?: string
     children?: React.ReactNode
   }

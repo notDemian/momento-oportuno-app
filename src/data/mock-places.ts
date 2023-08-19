@@ -212,6 +212,11 @@ export const mockPlaceList: Place[] = Array(10)
     }
   })
 
+export const ESTADOS_APROBADOS = [
+  'Quintana Roo',
+  'Campeche',
+  'Yucatán',
+] as const
 export const mockPlaces: Place[] = Array(3)
   .fill(0)
   .map((_, index) => {
@@ -221,7 +226,6 @@ export const mockPlaces: Place[] = Array(3)
       'https://clicdelsureste.empresarialti.com/wp-content/uploads/assets/portada_yucatan.jpeg',
     ]
 
-    const titles = ['Quintana Roo', 'Campeche', 'Yucatán']
     return {
       id: chance.string({
         length: 8,
@@ -229,7 +233,7 @@ export const mockPlaces: Place[] = Array(3)
         alpha: true,
         numeric: true,
       }),
-      title: titles[index],
+      title: ESTADOS_APROBADOS[index],
       image: images[index],
       subTitle: chance.paragraph({
         sentences: 2,

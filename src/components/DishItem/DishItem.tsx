@@ -2,15 +2,19 @@ import React from 'react'
 import { DishItemProps } from './DishItem.type'
 import { Box, Text, Touchable, Image } from '../elements'
 import { formatCurrency } from '@src/utils'
-import { useExploreStackNavigation } from '@src/hooks'
+import { useSearchStackNavigation } from '@src/hooks'
 import { fontSize } from '@src/theme'
 
 export const DishItem: React.FC<DishItemProps> = ({ data }) => {
   const { price, title, image, views } = data
-  const navigation = useExploreStackNavigation()
+  const navigation = useSearchStackNavigation()
 
   const onPlaceItemPress = () => {
-    navigation.navigate('DishDetailsModal')
+    navigation.navigate('AnuncioDetailsModal', {
+      data: {
+        id: +data.id,
+      },
+    })
   }
 
   return (

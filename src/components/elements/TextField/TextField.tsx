@@ -36,7 +36,9 @@ const InnerTextInput = createRestyleComponent<
 export const TextField: React.FC<TextFieldProps> = ({
   leftIcon,
   leftIconSize = fontSize.l,
+  lefIconOnPress = () => {},
   leftIconColor,
+  required = false,
   hasMargin,
   inputProps: { onFocus, onBlur, ...restInputProps },
   ...rest
@@ -72,6 +74,7 @@ export const TextField: React.FC<TextFieldProps> = ({
             name={leftIcon}
             size={leftIconSize}
             color={leftIconColor ?? colors.text}
+            onPress={lefIconOnPress}
           />
         </Box>
       ) : null}
@@ -89,8 +92,26 @@ export const TextField: React.FC<TextFieldProps> = ({
         height='100%'
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
+        onChangeText={restInputProps.onChangeText}
         {...restInputProps}
       />
+      {required ? (
+        <Box
+          position='absolute'
+          right={0}
+          top={10}
+          justifyContent='center'
+          alignItems='center'
+          paddingHorizontal='s'
+        >
+          <Icon
+            name={'asterisk' as 'card'}
+            size={fontSize.s * 0.7}
+            color={colors.primary}
+            type='Fontisto'
+          />
+        </Box>
+      ) : null}
     </Box>
   )
 }

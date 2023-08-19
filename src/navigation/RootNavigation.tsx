@@ -10,17 +10,16 @@ import {
 } from '@src/theme'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import TabNavigation from './TabNavigation'
-import { AuthContext } from '@src/auth'
 import { AuthenticationStack } from './Stacks'
 import { RootStackParamList } from './types'
 import { PortalHost } from '@gorhom/portal'
-import { DishDetails, SearchDishes } from '@src/screens'
+import { useAppSelector } from '@src/hooks'
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
 
 export const RootNavigation = () => {
   const { theme } = useContext(ThemeContext)
-  const { userToken } = useContext(AuthContext)
+  const userToken = useAppSelector((s) => s.auth.user)
 
   const navigationTheme = React.useMemo(() => {
     return getNavigationTheme(theme)
@@ -57,22 +56,6 @@ export const RootNavigation = () => {
               component={AuthenticationStack}
             />
           )}
-          <RootStack.Screen
-            options={{
-              headerTransparent: true,
-              title: '',
-              headerBackTitleVisible: false,
-            }}
-            name='DishDetailsModal'
-            component={DishDetails}
-          />
-          <RootStack.Screen
-            options={{
-              headerShown: false,
-            }}
-            name='SearchDishesModal'
-            component={SearchDishes}
-          />
         </RootStack.Navigator>
       </NavigationContainer>
       <PortalHost name='rootPortal' />

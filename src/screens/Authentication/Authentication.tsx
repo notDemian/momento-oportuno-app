@@ -1,5 +1,4 @@
 import React from 'react'
-import { AuthContext } from '@src/auth'
 import { Box, Button, Image, Text } from '@src/components'
 import { AuthStackParamList, ScreenProps } from '@src/navigation/types'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -10,14 +9,13 @@ import { fontSize } from '@src/theme'
 export const Authentication: React.FC<
   ScreenProps<AuthStackParamList, 'Authentication'>
 > = ({ navigation }) => {
-  const { signIn } = React.useContext(AuthContext)
   const { bottom } = useSafeAreaInsets()
 
-  const onConnectWithPhoneNumberButtonPress = () => {
-    navigation.navigate('AuthenticationWithPhone')
+  const onJoinUs = () => {
+    navigation.navigate('Login')
   }
   const onSocialNetworkConnectButtonPress = () => {
-    signIn()
+    navigation.navigate('Login')
   }
 
   return (
@@ -52,11 +50,7 @@ export const Authentication: React.FC<
           mismo!
         </Text>
         <Box marginTop='l'>
-          <Button
-            label='Regístrate sin costo'
-            isFullWidth
-            onPress={onConnectWithPhoneNumberButtonPress}
-          />
+          <Button label='Únetenos' isFullWidth onPress={onJoinUs} />
           <Button
             label='Conéctate con Facebook'
             isFullWidth

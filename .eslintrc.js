@@ -19,7 +19,7 @@ module.exports = {
     jest: true,
   },
   rules: {
-    indent: ['error', 2, { SwitchCase: 1 }],
+    indent: ['warn', 2, { SwitchCase: 1, ignoredNodes: ['JSXElement'] }],
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     '@typescript-eslint/explicit-module-boundary-types': 'off',

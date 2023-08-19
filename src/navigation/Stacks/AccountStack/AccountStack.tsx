@@ -35,7 +35,7 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
       <Stack.Screen
         options={() => {
           return {
-            title: 'Account',
+            title: 'Cuenta',
           }
         }}
         name='Account'
@@ -44,38 +44,38 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
       <Stack.Screen
         options={() => {
           return {
-            title: 'Edit Profile',
+            title: 'Editar perfil',
           }
         }}
         name='EditProfile'
         component={EditProfile}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name='SavedAddresses'
         options={{
-          headerTitle: 'Saved Address',
+          headerTitle: 'ASd',
         }}
         component={SavedAddresses}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         name='AddAddress'
         options={{
           headerTitle: 'Add An Address',
           headerRight: renderAddAddressHeaderRight,
         }}
         component={AddAddress}
-      />
+      /> */}
       <Stack.Screen
         name='Settings'
         options={{
-          headerTitle: 'Settings',
+          headerTitle: 'Configuración',
         }}
         component={Settings}
       />
       <Stack.Screen
         name='SupportCenter'
         options={{
-          headerTitle: 'Support Center',
+          headerTitle: 'Soporte',
         }}
         component={SupportCenter}
       />

@@ -7,7 +7,10 @@ import { PopularCategoriesProps } from './PopularCategories.type'
 export const PopularCategories: React.FC<PopularCategoriesProps> = ({
   navigation,
 }) => {
-  const itemsPerRow = mockCategories.length / 2
+  const itemsPerRow = 3
+  console.log({
+    itemsPerRow,
+  })
 
   const onCategoryItemPress = (name: string) => {
     return () => {

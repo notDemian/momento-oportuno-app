@@ -10,6 +10,7 @@ import {
 } from '@src/screens'
 import { AuthStackParamList } from '@src/navigation/types'
 import { useTransparentHeaderOptions } from '@src/utils'
+import { Register } from '@src/screens/Register'
 
 const Stack = createNativeStackNavigator<AuthStackParamList>()
 
@@ -39,6 +40,12 @@ export const AuthenticationStack = () => {
         component={Login}
         options={transparentHeaderOptions}
       />
+      <Stack.Screen
+        name='Register'
+        component={Register}
+        options={transparentHeaderOptions}
+      />
+
       <Stack.Screen
         name='ForgotPassword'
         component={ForgotPassword}

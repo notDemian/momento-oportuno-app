@@ -1,24 +1,24 @@
-import {
+import type {
   BottomTabNavigationProp,
   BottomTabScreenProps,
 } from '@react-navigation/bottom-tabs'
-import {
+import type {
   CompositeNavigationProp,
   CompositeScreenProps,
   NavigatorScreenParams,
   ParamListBase,
 } from '@react-navigation/native'
-import {
+import type {
   NativeStackScreenProps,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack'
+import type { Anuncio } from '@src/api'
+import { NewAnuncioCategorias } from '@src/data'
 
 // Stack Param List
 export type RootStackParamList = {
   MainStacks: undefined
   AuthenticationStacks: undefined
-  DishDetailsModal: undefined
-  SearchDishesModal: undefined
 }
 
 export type AuthStackParamList = {
@@ -26,6 +26,7 @@ export type AuthStackParamList = {
   AuthenticationWithPhone: undefined
   AuthenticationCodeVerification: undefined
   Login: undefined
+  Register: undefined
   ForgotPassword: undefined
 }
 
@@ -45,6 +46,17 @@ export type ExploreStackParamList = {
   TrackOrder: undefined
 }
 
+export type NewAnuncioStackParamList = {
+  NewAnuncioForm: undefined
+  NewAnuncioFormByCat: {
+    categoria: NewAnuncioCategorias
+  }
+  NewAnuncioDetails: undefined
+  NewAnuncioLocation: undefined
+  NewAnuncioPayment: undefined
+  NewAnuncioConfirmation: undefined
+}
+
 export type ActivityHistoryStackParamList = {
   ActivityHistory: undefined
   ActivityHistoryDetail: undefined
@@ -53,6 +65,9 @@ export type ActivityHistoryStackParamList = {
 export type SearchStackParamList = {
   Search: undefined
   Filter: undefined
+  AnuncioDetailsModal: {
+    data: Anuncio | Pick<Anuncio, 'id'>
+  }
 }
 
 export type NotificationStackParamList = {
@@ -76,6 +91,7 @@ export type TabParamList = {
   NotificationTab: NavigatorScreenParams<NotificationStackParamList>
   AccountTab: NavigatorScreenParams<AccountStackParamList>
   DocumentationTab: NavigatorScreenParams<unknown>
+  NewAnuncioTab: NavigatorScreenParams<NewAnuncioStackParamList>
   NoTab404: NavigatorScreenParams<undefined>
 }
 
@@ -120,6 +136,14 @@ export type AccountScreenProps = CompositeScreenProps<
   >
 >
 
+export type NewAnuncioScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<TabParamList, 'NewAnuncioTab'>,
+  CompositeScreenProps<
+    NativeStackScreenProps<NewAnuncioStackParamList>,
+    NativeStackScreenProps<RootStackParamList>
+  >
+>
+
 export type ScreenProps<
   T extends ParamListBase,
   K extends keyof T,
@@ -144,4 +168,9 @@ export type ActivityHistoryStackNavigationProp = CompositeNavigationProp<
 export type AccountStackNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, 'AccountTab'>,
   NativeStackNavigationProp<RootStackParamList & AccountStackParamList>
+>
+
+export type NotificationStackNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<TabParamList, 'NotificationTab'>,
+  NativeStackNavigationProp<RootStackParamList & NotificationStackParamList>
 >

@@ -4,13 +4,13 @@ import {
   RadioButton,
   RadioOption,
   Text,
-} from '@src/components';
-import React from 'react';
+} from '@src/components'
+import React from 'react'
 
 type ChangeLanguageModalProps = {
-  isVisible: boolean;
-  hideModal: () => void;
-};
+  isVisible: boolean
+  hideModal: () => void
+}
 
 const languageOptions: RadioOption[] = [
   {
@@ -25,27 +25,28 @@ const languageOptions: RadioOption[] = [
     label: 'French',
     value: 'French',
   },
-];
+]
 
 export const ChangeLanguageModal: React.FC<ChangeLanguageModalProps> = ({
   isVisible,
   hideModal,
 }) => {
   const onItemPress = (item: RadioOption) => {
-    console.log('onItemPress -> item', item);
-  };
+    console.log('onItemPress -> item', item)
+  }
 
   return (
     <BottomSheetModal
       isOpened={isVisible}
       useScrollView
       snapPoints={['40%']}
-      onClose={hideModal}>
+      onClose={hideModal}
+    >
       <Box>
-        <Text textAlign="center" variant="header">
+        <Text textAlign='center' variant='header'>
           Change Appearance
         </Text>
-        <Box marginTop="m">
+        <Box marginTop='m'>
           <RadioButton
             defaultValue={languageOptions[0].value}
             data={languageOptions}
@@ -54,5 +55,5 @@ export const ChangeLanguageModal: React.FC<ChangeLanguageModalProps> = ({
         </Box>
       </Box>
     </BottomSheetModal>
-  );
-};
+  )
+}

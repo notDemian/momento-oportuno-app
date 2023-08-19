@@ -1,48 +1,53 @@
-import React from 'react';
-import { Carousel, Section, Card, PlaceCardInfo } from '@src/components';
-import { Dimensions } from 'react-native';
-import { mockPlaces, Place } from '@src/data';
-import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types';
-import { useExploreStackNavigation } from '@src/hooks';
+import React from 'react'
+import { Carousel, Section, Card, PlaceCardInfo } from '@src/components'
+import { Dimensions } from 'react-native'
+import { mockPlaces, Place } from '@src/data'
+import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types'
+import { useSearchStackNavigation } from '@src/hooks'
 
 export const PopularDishes = () => {
-  const navigation = useExploreStackNavigation();
+  const navigation = useSearchStackNavigation()
 
   const onButtonActionPress = () => {
-    navigation.navigate('PlaceList', { title: "What's Popular Here" });
-  };
+    navigation.navigate('ExploreTab', { screen: 'PlaceDetails' })
+  }
 
-  const onPlaceItemPress = () => {
-    navigation.navigate('DishDetailsModal');
-  };
+  const onPlaceItemPress = (id: number) => () => {
+    navigation.navigate('SearchTab', {
+      screen: 'AnuncioDetailsModal',
+      params: { data: { id } },
+    })
+  }
 
   const renderItem = (props: CarouselRenderItemInfo<Place>) => {
-    const { image, title, subTitle } = props.item;
+    const { image, title, subTitle } = props.item
     return (
       <Card
         key={props.index}
         coverImage={image}
-        coverImageSize="m"
+        coverImageSize='m'
         title={title}
         subTitle={subTitle}
-        marginLeft="m"
+        marginLeft='m'
         titleProps={{
           numberOfLines: 1,
         }}
         subTitleProps={{
           numberOfLines: 2,
         }}
-        onPress={onPlaceItemPress}>
+        onPress={onPlaceItemPress(+props.item.id)}
+      >
         <PlaceCardInfo data={props.item} />
       </Card>
-    );
-  };
+    )
+  }
 
   return (
     <Section
       title="What's Popular Here"
-      actionButtonText="View more"
-      onButtonActionPress={onButtonActionPress}>
+      actionButtonText='View more'
+      onButtonActionPress={onButtonActionPress}
+    >
       <Carousel
         width={Dimensions.get('window').width}
         height={255}
@@ -52,5 +57,5 @@ export const PopularDishes = () => {
         renderItem={renderItem}
       />
     </Section>
-  );
-};
+  )
+}

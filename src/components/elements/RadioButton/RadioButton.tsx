@@ -1,10 +1,10 @@
-import React from 'react';
-import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import { RadioButtonProps, RadioOption } from './RadioButton.type';
-import { Box } from '../Box';
-import { Touchable } from '../Touchable';
-import { Text } from '../Text';
-import { useAppTheme } from '@src/theme';
+import React from 'react'
+import BouncyCheckbox from 'react-native-bouncy-checkbox'
+import { RadioButtonProps, RadioOption } from './RadioButton.type'
+import { Box } from '../Box'
+import { Touchable } from '../Touchable'
+import { Text } from '../Text'
+import { useAppTheme } from '@src/theme'
 
 export const RadioButton: React.FC<RadioButtonProps> = ({
   data,
@@ -12,46 +12,49 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   defaultValue,
   containerProps,
 }) => {
-  const { colors } = useAppTheme();
+  const { colors } = useAppTheme()
   const [selectedValue, setSelectedValue] =
-    React.useState<RadioOption['value']>();
+    React.useState<RadioOption['value']>()
 
   const onPress = (item: RadioOption) => {
     return () => {
-      setSelectedValue(item.value);
-      onItemPress(item);
-    };
-  };
+      setSelectedValue(item.value)
+      onItemPress(item)
+    }
+  }
 
   return (
     <>
       {data.map((item) => {
-        const { value, label, rightElement } = item;
-        let isChecked = value === defaultValue;
+        const { value, label, rightElement } = item
+        let isChecked = value === defaultValue
         if (selectedValue) {
-          isChecked = value === selectedValue;
+          isChecked = value === selectedValue
         }
         return (
           <Box
             key={value}
-            flexDirection="row"
-            alignItems="center"
+            flexDirection='row'
+            alignItems='center'
             borderBottomWidth={1}
-            borderColor="border">
+            borderColor='border'
+          >
             <Touchable
-              flexDirection="row"
-              justifyContent="space-between"
-              alignItems="center"
-              onPress={onPress(item)}>
+              flexDirection='row'
+              justifyContent='space-between'
+              alignItems='center'
+              onPress={onPress(item)}
+            >
               <Box
-                width="100%"
-                flexDirection="row"
-                paddingHorizontal="s"
-                paddingVertical="m"
-                justifyContent="space-between"
-                alignItems="center"
-                {...containerProps}>
-                <Box flexDirection="row" alignItems="center">
+                width='100%'
+                flexDirection='row'
+                paddingHorizontal='s'
+                paddingVertical='m'
+                justifyContent='space-between'
+                alignItems='center'
+                {...containerProps}
+              >
+                <Box flexDirection='row' alignItems='center'>
                   <Box>
                     <BouncyCheckbox
                       disableBuiltInState
@@ -73,13 +76,13 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
                   </Box>
                 </Box>
                 {rightElement ? (
-                  <Box alignItems="flex-end">{rightElement}</Box>
+                  <Box alignItems='flex-end'>{rightElement}</Box>
                 ) : null}
               </Box>
             </Touchable>
           </Box>
-        );
+        )
       })}
     </>
-  );
-};
+  )
+}

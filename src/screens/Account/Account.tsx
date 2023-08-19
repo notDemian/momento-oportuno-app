@@ -1,89 +1,65 @@
-import React from 'react';
-import {
-  Box,
-  Divider,
-  TextField,
-  Button,
-  ListRowItem,
-  Image,
-} from '@src/components';
-import { ScrollView, Alert, AlertButton } from 'react-native';
-import { profile } from '@src/data/mock-profile';
-import { AuthContext } from '@src/auth';
-import { AccountProps } from './Account.type';
+import React from 'react'
+import { Box, Divider, Button, ListRowItem } from '@src/components'
+import { ScrollView, Alert, AlertButton } from 'react-native'
+import { AccountProps } from './Account.type'
+import { useAppDispatch } from '@src/hooks'
+import { logOutAction } from '@src/redux'
+import { useUser } from '@src/hooks/useUser'
 
 export const Account: React.FC<AccountProps> = ({ navigation }) => {
-  const [searchTerm, setSearchTerm] = React.useState('');
-  const { signOut } = React.useContext(AuthContext);
+  const dispatch = useAppDispatch()
+
+  const [user, logOutFunction] = useUser()
 
   const alertButtons: AlertButton[] = [
     {
-      text: 'Cancel',
+      text: 'Cancelar',
       style: 'cancel',
     },
-    { text: 'OK', onPress: () => signOut() },
-  ];
-
-  const onSearch = (e: string) => {
-    setSearchTerm(e);
-  };
+    { text: 'Confirmar', onPress: logOutFunction },
+  ]
 
   const onLogoutButtonPress = () => {
-    Alert.alert('Confirm', 'Are you sure you want to logout?', alertButtons);
-  };
+    Alert.alert(
+      'Confirmación',
+      '¿Seguro que deseas cerrar sesión?',
+      alertButtons,
+    )
+  }
 
   return (
     <ScrollView>
-      <Box padding="m" backgroundColor="card">
-        <TextField
-          leftIcon="search"
-          inputProps={{
-            value: searchTerm,
-            placeholder: 'Search',
-            onChangeText: onSearch,
-          }}
-        />
-      </Box>
-      <Divider />
-      <Box backgroundColor="card">
+      <Box backgroundColor='card'>
         <ListRowItem
-          title={profile.name}
-          subTitle="Edit Profile"
+          title={user.user_display_name}
+          subTitle='Editar perfil'
           onPress={() => navigation.navigate('EditProfile')}
-          leftElement={<Image source={profile.avatar} width={60} height={60} />}
+          // leftElement={<Image source={avatar} width={60} height={60} />}
           hasChevron
         />
       </Box>
-      <Box backgroundColor="card" marginTop="m">
+      <Box backgroundColor='card' marginTop='m'>
         <Divider />
         <ListRowItem
-          title="Delivery Address"
-          onPress={() => navigation.navigate('SavedAddresses')}
-          hasChevron
-        />
-        <Divider />
-        <ListRowItem
-          title="Settings"
+          title='Configuración'
           onPress={() => navigation.navigate('Settings')}
           hasChevron
         />
         <Divider />
         <ListRowItem
-          title="Support Center"
+          title='Soporte'
           onPress={() => navigation.navigate('SupportCenter')}
           hasChevron
         />
-        <Divider />
-        <ListRowItem title="Share Feedback" hasChevron />
       </Box>
-      <Box padding="m">
+      <Box padding='m'>
         <Button
-          label="Logout"
+          label='Cerrar sesión'
           isFullWidth
-          variant="transparent"
+          variant='transparent'
           onPress={onLogoutButtonPress}
         />
       </Box>
     </ScrollView>
-  );
-};
+  )
+}

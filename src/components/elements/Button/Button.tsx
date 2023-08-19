@@ -1,11 +1,12 @@
 import { LayoutProps } from '@shopify/restyle'
-import { Theme, extractSpacingProps } from '@src/theme'
+import { Theme, extractSpacingProps, palette } from '@src/theme'
 import { Text } from '../Text'
 import { ButtonProps } from './Button.type'
 import { getTextColor, getTextFontSize } from './Button.util'
 import { ButtonContainer } from './ButtonContainer'
 import { Touchable } from '../Touchable'
 import { Box } from '../Box'
+import { ActivityIndicator } from '../ActivityIndicator'
 
 export const Button: React.FC<ButtonProps> = ({
   onPress,
@@ -15,6 +16,7 @@ export const Button: React.FC<ButtonProps> = ({
   variant,
   buttonSize,
   children,
+  isDisabled = false,
   borderRadius = 'l',
   ...rest
 }) => {
@@ -31,7 +33,11 @@ export const Button: React.FC<ButtonProps> = ({
     }
     return (
       <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
-        {label}
+        {!isDisabled ? (
+          label
+        ) : (
+          <ActivityIndicator color={palette.blanquecino} />
+        )}
       </Text>
     )
   }
@@ -49,6 +55,7 @@ export const Button: React.FC<ButtonProps> = ({
         onPress={onPress}
         activeOpacity={0.7}
         borderRadius={borderRadius}
+        disabled={isDisabled}
         {...otherProps}
       >
         <ButtonContainer

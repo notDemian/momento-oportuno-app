@@ -1,13 +1,13 @@
-import Chance from 'chance';
-const chance = new Chance();
+import Chance from 'chance'
+const chance = new Chance()
 
 export type Address = {
-  id: string;
-  name: string;
-  description: string;
-  isHome?: boolean;
-  isWork?: boolean;
-};
+  id: string
+  name: string
+  description: string
+  isHome?: boolean
+  isWork?: boolean
+}
 
 export const savedAddresses: Address[] = Array(10)
   .fill(0)
@@ -20,7 +20,7 @@ export const savedAddresses: Address[] = Array(10)
     }),
     name: chance.street(),
     description: chance.paragraph({ sentences: 1 }),
-  }));
+  }))
 
 export const favoriteAddresses: Address[] = Array(2)
   .fill(0)
@@ -35,4 +35,4 @@ export const favoriteAddresses: Address[] = Array(2)
     description: chance.paragraph({ sentences: 1 }),
     isHome: index === 0,
     isWork: index === 1,
-  }));
+  }))

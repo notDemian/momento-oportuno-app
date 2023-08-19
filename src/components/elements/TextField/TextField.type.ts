@@ -24,7 +24,9 @@ export type InputRestyleProps = SpacingProps<Theme> &
 export type TextFieldProps = {
   leftIcon?: IconProps['name']
   leftIconSize?: number
+  lefIconOnPress?: () => void
   leftIconColor?: string
   hasMargin?: boolean
   inputProps: TextInputProps
+  required?: boolean
 } & InputRestyleProps

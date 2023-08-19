@@ -1,7 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { LottieViewProps } from './LottieView.type';
-import { LottieView } from './LottieView';
-import { Box } from '../Box';
+import { Meta, StoryObj } from '@storybook/react-native'
+import { LottieViewProps } from './LottieView.type'
+import { LottieView } from './LottieView'
+import { Box } from '../Box'
 
 export default {
   title: 'LottieView',
@@ -9,10 +9,11 @@ export default {
   decorators: [
     (Story: React.FC) => (
       <Box
-        width="100%"
+        width='100%'
         height={300}
-        justifyContent="center"
-        alignItems="center">
+        justifyContent='center'
+        alignItems='center'
+      >
         <Story />
       </Box>
     ),
@@ -44,29 +45,29 @@ export default {
       options: ['cover', 'contain', 'center'],
     },
   },
-} as Meta<LottieViewProps>;
+} as Meta<LottieViewProps>
 
-type Story = StoryObj<LottieViewProps>;
+type Story = StoryObj<LottieViewProps>
 
 export const Basic: Story = {
   args: {},
-};
+}
 
 export const Loop: Story = {
   args: {
     loop: true,
   },
-};
+}
 
 export const RenderMode: Story = {
   args: {
     renderMode: 'HARDWARE',
   },
-};
+}
 
 export const Speed: Story = {
   args: {
     loop: true,
     speed: 10,
   },
-};
+}

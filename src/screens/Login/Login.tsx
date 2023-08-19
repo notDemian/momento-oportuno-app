@@ -1,29 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Alert } from 'react-native'
-import { AuthContext } from '@src/auth'
 import { AuthStackParamList, ScreenProps } from '@src/navigation/types'
-import { AuthenticationLayout, Button, TextField } from '@src/components'
+import { AuthenticationLayout, Box, Button, TextField } from '@src/components'
+import { useLogIn } from '@src/hooks'
 
 export const Login: React.FC<ScreenProps<AuthStackParamList, 'Login'>> = ({
   navigation,
 }) => {
-  const { signIn } = React.useContext(AuthContext)
-  const [password, setPassword] = React.useState('')
+  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('')
+  const [mutateLogIn, { isLoading }] = useLogIn((d) => {
+    Alert.alert('Inicio de sesión exitoso', `Bienvenido ${d.user_nicename}`)
+  })
 
   const onPasswordFieldChange = (value: string) => {
     setPassword(value)
   }
 
-  const onSignIn = () => {
-    if (!password) {
+  const onUsernameFieldChange = (value: string) => {
+    setUsername(value)
+  }
+
+  const onSignIn = async () => {
+    if (!password || !username) {
       Alert.alert('Error', 'Please enter your password!')
       return
     }
-    signIn()
+    mutateLogIn({
+      username,
+      password,
+    })
+    // signIn()
   }
 
-  const onForgotPassword = () => {
-    navigation.navigate('ForgotPassword')
+  const onRegister = () => {
+    navigation.navigate('Register')
   }
 
   return (
@@ -32,25 +43,39 @@ export const Login: React.FC<ScreenProps<AuthStackParamList, 'Login'>> = ({
       subtitle='Por favor introduce tus credenciales para usar nuestro producto'
       footer={
         <>
-          <Button label='Iniciar sesión' isFullWidth onPress={onSignIn} />
           <Button
-            label='¿Olvidaste tu contraseña?'
+            label='Iniciar sesión'
+            isFullWidth
+            onPress={onSignIn}
+            isDisabled={isLoading}
+          />
+          <Button
+            label='No tengo cuenta'
             isFullWidth
             variant='transparent'
-            onPress={onForgotPassword}
+            onPress={onRegister}
           />
         </>
       }
     >
-      <TextField
-        inputProps={{
-          autoFocus: true,
-          value: password,
-          onChangeText: onPasswordFieldChange,
-          placeholder: 'Contraseña',
-          secureTextEntry: true,
-        }}
-      />
+      <Box gap={'m'}>
+        <TextField
+          inputProps={{
+            autoFocus: true,
+            value: username,
+            onChangeText: onUsernameFieldChange,
+            placeholder: 'Email o usuario',
+          }}
+        />
+        <TextField
+          inputProps={{
+            value: password,
+            onChangeText: onPasswordFieldChange,
+            placeholder: 'Contraseña',
+            secureTextEntry: true,
+          }}
+        />
+      </Box>
     </AuthenticationLayout>
   )
 }

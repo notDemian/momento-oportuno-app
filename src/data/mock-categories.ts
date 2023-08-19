@@ -30,9 +30,4 @@ export const mockCategories: Category[] = [
     name: 'Empleos',
     icon: 'work',
   },
-  {
-    id: '6',
-    name: 'Más',
-    icon: 'more',
-  },
 ]
