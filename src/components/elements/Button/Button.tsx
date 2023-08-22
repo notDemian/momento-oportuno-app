@@ -7,6 +7,7 @@ import { ButtonContainer } from './ButtonContainer'
 import { Touchable } from '../Touchable'
 import { Box } from '../Box'
 import { ActivityIndicator } from '../ActivityIndicator'
+import { Icon } from '../Icon'
 
 export const Button: React.FC<ButtonProps> = ({
   onPress,
@@ -18,6 +19,8 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   isDisabled = false,
   borderRadius = 'l',
+  leftIcon,
+  isModal = false,
   ...rest
 }) => {
   const alignSelf: LayoutProps<Theme>['alignSelf'] = isFullWidth
@@ -32,13 +35,35 @@ export const Button: React.FC<ButtonProps> = ({
       return children
     }
     return (
-      <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
-        {!isDisabled ? (
-          label
+      <>
+        {isModal ? (
+          <Box marginRight={'s'} flexDirection={'row'}>
+            <Icon
+              name='keyboard-arrow-down'
+              type='MaterialIcons'
+              color={palette.white}
+            />
+            <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
+              {!isDisabled ? (
+                label
+              ) : (
+                <ActivityIndicator color={palette.blanquecino} />
+              )}
+            </Text>
+          </Box>
         ) : (
-          <ActivityIndicator color={palette.blanquecino} />
+          <>
+            {leftIcon && <Box marginRight='s'>{leftIcon}</Box>}
+            <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
+              {!isDisabled ? (
+                label
+              ) : (
+                <ActivityIndicator color={palette.blanquecino} />
+              )}
+            </Text>
+          </>
         )}
-      </Text>
+      </>
     )
   }
 

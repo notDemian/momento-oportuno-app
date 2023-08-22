@@ -19,7 +19,7 @@ const MaterialIconsIcons = createBox<Theme>(MaterialIcons)
 export const Icon: React.FC<IconProps> = ({
   isPrimary,
   type = 'Ionicons',
-  // size = fontSize.l,
+
   ...rest
 }) => {
   const { colors } = useAppTheme()

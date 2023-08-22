@@ -6,11 +6,12 @@ import {
   Text,
   Carousel,
   Image,
+  Icon,
 } from '@src/components'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
 import { ESTADOS_APROBADOS, NEW_ANUNCIO_CATEGORIAS } from '@src/data'
 import { NewAnuncioStackParamList, ScreenProps } from '@src/navigation'
-import { fontSize } from '@src/theme'
+import { fontSize, palette } from '@src/theme'
 import { useCallback, useState } from 'react'
 import * as ImagePicker from 'expo-image-picker'
 import { Dimensions } from 'react-native'
@@ -145,7 +146,6 @@ export const NewAnuncioForm: React.FC<
             inputProps={{
               placeholder: 'Precio (MXN)',
               keyboardType: 'numeric',
-              defaultValue: '0',
             }}
             required
             width={'45%'}
@@ -156,6 +156,7 @@ export const NewAnuncioForm: React.FC<
               onPress={showCiudadModalHandler}
               flex={1}
               label={selectedCiudad.toString() || 'Seleccionar ciudad'}
+              isModal
             />
           </Box>
         </Box>

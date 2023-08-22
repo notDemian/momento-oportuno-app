@@ -1,0 +1,24 @@
+diff --git a/node_modules/rn-checkbox-list/src/checkList.d.ts b/node_modules/rn-checkbox-list/src/checkList.d.ts
+index c801a4b..74e2579 100644
+--- a/node_modules/rn-checkbox-list/src/checkList.d.ts
++++ b/node_modules/rn-checkbox-list/src/checkList.d.ts
+@@ -13,7 +13,7 @@ export interface CheckBoxProps {
+   listItemStyle?: StyleProp<ViewStyle>;
+   checkboxProp?: object;
+   headerStyle?: StyleProp<ViewStyle>;
+-  onChange?: () => void;
++  onChange?: (data: {"ids": string[], "items": listItem[]}) => void;
+   onLoading?: () => void;
+   theme?: StyleProp<ColorValue>;
+   renderItem?: () => void;
+diff --git a/node_modules/rn-checkbox-list/src/checkbox.js b/node_modules/rn-checkbox-list/src/checkbox.js
+index 6b83dab..51bd375 100644
+--- a/node_modules/rn-checkbox-list/src/checkbox.js
++++ b/node_modules/rn-checkbox-list/src/checkbox.js
+@@ -1,5 +1,5 @@
+ import React from 'react';
+-import CheckBox from '@react-native-community/checkbox';
++import CheckBox from 'expo-checkbox';
+ import PropTypes from 'prop-types';
+ import { Platform } from 'react-native';
+ 

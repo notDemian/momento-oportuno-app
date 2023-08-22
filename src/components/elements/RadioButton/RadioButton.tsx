@@ -60,7 +60,7 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
                       disableBuiltInState
                       isChecked={isChecked}
                       size={25}
-                      fillColor={colors.primary}
+                      fillColor={colors.yellow}
                       unfillColor={colors.card}
                       iconStyle={{
                         borderColor: colors.primary,

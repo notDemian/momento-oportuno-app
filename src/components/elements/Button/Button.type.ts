@@ -42,4 +42,6 @@ export type ButtonProps = ButtonRestyleProps &
     isDisabled?: boolean
     disabledText?: string
     children?: React.ReactNode
+    leftIcon?: React.ReactNode
+    isModal?: boolean
   }

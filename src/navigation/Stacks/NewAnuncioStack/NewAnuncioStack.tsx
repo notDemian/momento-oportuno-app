@@ -62,7 +62,6 @@ export const NewAnuncioStack: React.FC<NewAnuncioScreenProps> = ({
         options={(params) => {
           return {
             title: 'Categoría',
-            headerRight: renderExtraData,
           }
         }}
         name='NewAnuncioFormByCat'

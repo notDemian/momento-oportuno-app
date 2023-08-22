@@ -8,7 +8,11 @@ import {
   RadioButton,
 } from '@src/components'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
-import { ESTADOS_APROBADOS, NEW_ANUNCIO_CATEGORIAS } from '@src/data'
+import {
+  ESTADOS_APROBADOS,
+  NEW_ANUNCIO_CATEGORIAS,
+  NEW_ANUNCIO_CATEGORIAS_OBJ,
+} from '@src/data'
 import { fontSize } from '@src/theme'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import * as ImagePicker from 'expo-image-picker'
@@ -16,44 +20,24 @@ import { Dimensions } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import { NewAnuncioStackParamList, ScreenProps } from '@src/navigation'
 import { FC } from 'react'
+import {
+  CheckboxList,
+  type CheckBoxListItem,
+} from '@src/components/CheckboxList'
+import { getArrays } from './helper'
 
-import MultiSelect from 'react-native-multiple-select'
 const items = [
   {
-    id: '92iijs7yta',
-    name: 'Ondo',
+    id: '1',
+    label: 'Ondo',
   },
   {
-    id: 'a0s0a8ssbsd',
-    name: 'Ogun',
+    id: '2',
+    label: 'Ondo',
   },
   {
-    id: '16hbajsabsd',
-    name: 'Calabar',
-  },
-  {
-    id: 'nahs75a5sg',
-    name: 'Lagos',
-  },
-  {
-    id: '667atsas',
-    name: 'Maiduguri',
-  },
-  {
-    id: 'hsyasajs',
-    name: 'Anambra',
-  },
-  {
-    id: 'djsjudksjd',
-    name: 'Benue',
-  },
-  {
-    id: 'sdhyaysdj',
-    name: 'Kaduna',
-  },
-  {
-    id: 'suudydjsjd',
-    name: 'Abuja',
+    id: '3',
+    label: 'Ondo',
   },
 ]
 
@@ -64,162 +48,123 @@ export const NewAnuncioFormByCat: FC<
   const [subCategoriaSelected, setSubCategoriaSelected] = useState('')
 
   const [subCategoriaData, setSubCategoriaData] = useState<string[]>([])
+  const [checkboxData, setCheckboxData] = useState<CheckBoxListItem[]>([])
+  const [checkListTitle, setCheckListTitle] = useState('')
 
   useEffect(() => {
-    let newData: string[] = []
-    switch (params.categoria) {
-      case 'Inmuebles':
-        newData = ['Apartamentos', 'Comercial', 'Casas', 'Terrenos', 'Oficinas']
-        break
-      case 'Vehículos':
-        newData = [
-          'Aeronaves',
-          'Botes',
-          'Carros',
-          'Construcción',
-          'Motos',
-          'Camiones',
-          'Vans',
-        ]
-        break
-      case 'Empleos':
-        newData = [
-          'Contabilidad',
-          'Empleos de mercadotecnia',
-          'Pasantías',
-          'Trabajos de limpieza',
-          'Trabajos de limpieza',
-          'Trabajos de TI',
-        ]
-        break
-      case 'Servicios':
-        newData = [
-          'Servicios Automotrices',
-          'Belleza',
-          'Servicios de limpieza',
-          'Servicios financieros',
-          'Jardinería',
-          'Servicios para el hogar',
-          'Bodas',
-        ]
-        break
-      case 'Comunidad':
-        newData = [
-          'Anuncios',
-          'Artículos buscados',
-          'Cosas gratis',
-          'Perdido y encontrado',
-          'Voluntarios',
-        ]
-        break
-      case 'Electrónicos':
-        newData = [
-          'Celulares',
-          'Equipos de Cómputo',
-          'Juegos y Videoconsolas',
-          'Software',
-        ]
-        break
-      case 'Mascotas':
-        newData = ['Aves', 'Gatos', 'Perros', 'Peces', 'Pequeños peludos']
-        break
-      case 'Moda':
-        newData = [
-          'Joyería',
-          'Ropa de hombre',
-          'Bolsos de mujer',
-          'Ropa de mujer',
-        ]
-        break
-      case 'Para niños':
-        newData = [
-          'Accesorios para niños',
-          'Ropa de niños',
-          'Cochecitos y sillas de paseo',
-          'Juguetes',
-        ]
-        break
-      default:
-        params.categoria
-        break
-    }
-    setSubCategoriaData(newData)
+    const {
+      checkboxData: newCheckboxData,
+      subCategoriaData: newSubCategoriaData,
+      title: newTitle,
+    } = getArrays(params.categoria)
+    setSubCategoriaData(newSubCategoriaData)
+    setCheckboxData(newCheckboxData)
+    setCheckListTitle(newTitle)
   }, [params])
 
   const [selectedLanguage, setSelectedLanguage] = useState()
 
-  const [selectedItems, setSelectedItems] = useState<any[]>([])
+  const [selectedItems, setSelectedItems] = useState<string[]>([])
 
-  const onSelectedItemsChange = (selectedItems: Array<any>) => {
+  const onSelectedItemsChange = useCallback((selectedItems: Array<string>) => {
     setSelectedItems(selectedItems)
-  }
+  }, [])
 
-  const multiSelectRef = useRef<MultiSelect>(null)
-
-  const RenderContent = () => {
-    // useCallback(
+  const RenderExtraContent = useCallback(() => {
     switch (params.categoria) {
       case 'Inmuebles':
-        return <></>
+        return (
+          <>
+            <TextField
+              inputProps={{
+                placeholder: 'Año de construcción',
+                keyboardType: 'numeric',
+              }}
+              required
+            />
+            <TextField
+              inputProps={{
+                placeholder: 'Medida de la propiedad',
+                keyboardType: 'numeric',
+              }}
+              required
+            />
+            <TextField
+              inputProps={{
+                placeholder: 'Baños',
+                keyboardType: 'numeric',
+              }}
+              required
+            />
+            <TextField
+              inputProps={{
+                placeholder: 'Recámaras',
+                keyboardType: 'numeric',
+              }}
+              required
+            />
+          </>
+        )
       case 'Vehículos':
-        return <></>
+        return (
+          <>
+            <TextField
+              inputProps={{
+                placeholder: 'Año',
+                keyboardType: 'numeric',
+              }}
+              required
+            />
+            <TextField
+              inputProps={{
+                placeholder: 'Kilometraje',
+                keyboardType: 'numeric',
+              }}
+              required
+            />
+            <TextField
+              inputProps={{
+                placeholder: 'Modelo',
+              }}
+              required
+            />
+            <TextField
+              inputProps={{
+                placeholder: 'Marca',
+              }}
+              required
+            />
+          </>
+        )
       case 'Empleos':
-        return <></>
+        return (
+          <>
+            <TextField
+              inputProps={{
+                placeholder: 'Nivel de trabajo',
+              }}
+              required
+            />
+            <TextField
+              inputProps={{
+                placeholder: 'Horas',
+              }}
+              required
+            />
+            <TextField
+              inputProps={{
+                placeholder: 'Tipo de reclutamiento',
+              }}
+              required
+            />
+          </>
+        )
       case 'Servicios':
         return <></>
       case 'Comunidad':
-        return (
-          <>
-            <RadioButton
-              data={[
-                { label: 'uno', value: '1' },
-                {
-                  label: 'dos',
-                  value: '2',
-                },
-                {
-                  label: 'tres',
-                  value: '3',
-                },
-              ]}
-              onItemPress={() => {}}
-            />
-            {/* <Picker
-              selectedValue={selectedLanguage}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedLanguage(itemValue)
-              }
-            >
-              <Picker.Item label='Java' value='java' />
-              <Picker.Item label='JavaScript' value='js' />
-            </Picker> */}
-            <MultiSelect
-              ref={multiSelectRef}
-              items={items}
-              onSelectedItemsChange={onSelectedItemsChange}
-              selectedItems={selectedItems}
-              hideTags
-              uniqueKey='id'
-              selectText='Pick Items'
-              searchInputPlaceholderText='Search Items...'
-              onChangeInput={(text) => console.log(text)}
-              tagRemoveIconColor='#CCC'
-              tagBorderColor='#CCC'
-              tagTextColor='#CCC'
-              selectedItemTextColor='#CCC'
-              selectedItemIconColor='#CCC'
-              itemTextColor='#000'
-              displayKey='name'
-              searchInputStyle={{ display: 'none' }}
-              hideSubmitButton
-            />
-            <Text>
-              {multiSelectRef.current?.getSelectedItemsExt(selectedItems)}
-            </Text>
-          </>
-        )
+        return null
       case 'Electrónicos':
-        return <></>
+        return null
       case 'Mascotas':
         return <></>
       case 'Moda':
@@ -230,12 +175,11 @@ export const NewAnuncioFormByCat: FC<
         params.categoria
         return null
     }
-  }
-  // }, [params, selectedItems])
+  }, [params])
 
   return (
     <NewAnucioLayout
-      title={`Categoría seleccionada: ${params.categoria}`}
+      title={`${params.categoria}`}
       footer={
         <Button
           label='Continuar'
@@ -249,12 +193,25 @@ export const NewAnuncioFormByCat: FC<
           title='Subcategoría'
           isVisible={showSubCategoriaModal}
           hideModal={() => setShowSubCategoriaModal(false)}
-          onPressItem={() => {}}
+          onPressItem={(item) => {
+            setSubCategoriaSelected(item.label)
+            setShowSubCategoriaModal(false)
+          }}
           data={subCategoriaData.map((c) => ({ label: c, value: c }))}
         />
       )}
       <Box gap={'m'}>
-        <RenderContent />
+        <Button
+          label={
+            subCategoriaSelected.trim() === ''
+              ? 'Elegir subcategoría'
+              : subCategoriaSelected
+          }
+          onPress={() => setShowSubCategoriaModal(true)}
+        />
+        <RenderExtraContent />
+        <Text variant={'subHeader'}>{checkListTitle}</Text>
+        <CheckboxList items={checkboxData} onChange={onSelectedItemsChange} />
       </Box>
     </NewAnucioLayout>
   )
