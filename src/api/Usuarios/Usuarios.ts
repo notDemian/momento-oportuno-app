@@ -25,16 +25,22 @@ const UsuariosServices = {
     return data
   },
   async register(params: registerParams): Promise<registerRes> {
-    console.log({ paramsOnregister: params })
     const paramsValidated = registerParamsSchema.parse(params)
-    console.log({ paramsValidatedOnregister: paramsValidated.username })
-    const { data } = await api.post<registerRes>('/register', paramsValidated, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
-
-    return data
+    try {
+      const { data } = await api.post<registerRes>(
+        '/register',
+        paramsValidated,
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        },
+      )
+      return data
+    } catch (error: any) {
+      console.log({ errorOnRegister: error.response?.data })
+      throw error
+    }
   },
 }
 

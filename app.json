@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "clic-sureste",
+    "name": "Click del Sureste",
     "slug": "clic-sureste",
     "version": "0.0.1",
     "orientation": "portrait",
@@ -41,7 +41,11 @@
         "android.permission.FOREGROUND_SERVICE"
       ],
       "versionCode": 1,
-      "package": "com.jcstudio.foodstarexpoapp"
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#494ddc"
+      },
+      "package": "com.clicksur.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"

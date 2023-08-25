@@ -1,4 +1,4 @@
-package com.jcstudio.foodstarexpoapp;
+package com.clicksur.app;
 
 import android.os.Build;
 import android.os.Bundle;

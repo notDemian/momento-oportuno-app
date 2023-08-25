@@ -74,10 +74,14 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete, onPress: _ }) => {
 
   return (
     <Box
-      backgroundColor='primary'
+      backgroundColor='card'
       flexDirection='row'
       alignItems='center'
+      margin='m'
       padding='m'
+      elevation={3}
+      shadowColor='gray'
+      borderRadius='m'
     >
       <Text variant='header'>{paquete.title.rendered}</Text>
       {/* <Box width={70} alignItems='flex-end' ml={'l'} flexDirection={'row'}>

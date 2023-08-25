@@ -1,10 +1,12 @@
 import type { Anuncio } from '@src/api/Anuncios/Anuncios.type'
 import {
+  ActivityIndicator,
   Box,
   Button,
   Icon,
   List,
   LoadingPageModal,
+  RefreshControl,
   Text,
   TextField,
 } from '@src/components'
@@ -26,7 +28,23 @@ export const SearchScreen = () => {
 
   const _filterContext = useFilterContext()
 
-  const { isLoading, isSuccess, data } = useAnuncios()
+  const {
+    isLoading,
+    isSuccess,
+    data,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    refetch: refresh,
+  } = useAnuncios()
+
+  const fetchMore = useCallback(() => {
+    if (hasNextPage) {
+      fetchNextPage()
+    }
+  }, [hasNextPage, fetchNextPage])
+
+  const flattenData = data?.pages.flatMap((page) => page.data) ?? []
 
   const ListHeaderComponent = useCallback(() => {
     return (
@@ -66,15 +84,20 @@ export const SearchScreen = () => {
       {isLoading && <LoadingPageModal loading />}
       {isSuccess ? (
         <List<Anuncio>
-          data={data}
+          data={flattenData}
           keyExtractor={keyExtractor}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={refresh} />
+          }
           ItemSeparatorComponent={() => null}
           renderItem={({ item }) => {
             return <AnuncioItem data={item} />
           }}
           contentContainerStyle={{ backgroundColor: colors.background }}
+          onEndReached={fetchMore}
         />
       ) : null}
+      {isFetchingNextPage && <ActivityIndicator />}
     </Box>
   )
 }

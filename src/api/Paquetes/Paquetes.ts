@@ -5,14 +5,20 @@ import { type GetALlPaquetesRes } from './Paquetes.type'
 const api = Request(Constants.ENDPOINTS.PRODUCT)
 
 const PaquetesServices = {
-  async getAllPaquetes(opts?: {
+  async getAllPaquetes({
+    page = 1,
+    per_page = 12,
+  }: {
     page?: number
     per_page?: number
-  }): Promise<GetALlPaquetesRes> {
+  }): Promise<{
+    data: GetALlPaquetesRes
+    nextPage: number
+  }> {
     const { data } = await api.get<GetALlPaquetesRes>(
-      `?per_page=${opts?.per_page ?? 25}`,
+      `?page=${page}&per_page=${per_page}`,
     )
-    return data
+    return { data, nextPage: page + 1 }
   },
   // async logIn(params: logInParams): Promise<logInRes> {
   //   const paramsValidated = logInParamsSchema.parse(params)

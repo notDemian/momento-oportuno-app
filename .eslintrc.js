@@ -50,15 +50,3 @@ module.exports = {
     'react/display-name': 'off',
   },
 }
-
-// {
-//   root: true,
-//   extends: '@react-native-community',
-//   parser: '@typescript-eslint/parser',
-//   plugins: ['@typescript-eslint'],
-//   rules: {
-//     'react/react-in-jsx-scope': 'off',
-//     semi: 'off',
-//     'prettier/prettier': 'off',
-//   },
-// }

@@ -4,10 +4,21 @@ import { Main_Anuncios, getAnuncioRes } from './Anuncios.type'
 const api = Request('/listings')
 
 const AnunciosServices = {
-  async getAllAnuncios(): Promise<Main_Anuncios> {
-    const { data } = await api.get<Main_Anuncios>('/')
+  async getAllAnuncios({
+    page = 1,
+    per_page = 12,
+  }: {
+    page?: number
+    per_page?: number
+  }): Promise<{
+    data: Main_Anuncios
+    nextPage: number
+  }> {
+    const { data } = await api.get<Main_Anuncios>(
+      `?page=${page}&per_page=${per_page}`,
+    )
 
-    return data
+    return { data, nextPage: page + 1 }
   },
   async getAnuncio(id: string | number): Promise<getAnuncioRes> {
     const { data } = await api.get<getAnuncioRes>(`/${id}`)
