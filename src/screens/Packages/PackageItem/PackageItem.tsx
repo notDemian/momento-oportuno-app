@@ -1,4 +1,4 @@
-import { Box, Text, Button } from '@src/components'
+import { Box, Text, Button as _ } from '@src/components'
 import { useAppTheme } from '@src/theme'
 import {} from 'react-native'
 import { PackageItemProps } from './PackageItem.type'
@@ -69,8 +69,8 @@ import { FC } from 'react'
 
 // migrate this to react native using the components Box, Text, Button and useAppTheme hook
 
-export const PackageItem: FC<PackageItemProps> = ({ paquete, onPress }) => {
-  const theme = useAppTheme()
+export const PackageItem: FC<PackageItemProps> = ({ paquete, onPress: _ }) => {
+  const _theme = useAppTheme()
 
   return (
     <Box
