@@ -1,12 +1,13 @@
-import { UseMutateFunction, useMutation, useQueryClient } from 'react-query'
-// import { UsersQuerys } from './users.query'
-import { User, registerParams } from '@src/api/Usuarios'
+import { UseMutateFunction, useMutation } from 'react-query'
+import { registerParams, registerRes } from '@src/api/Usuarios'
 import UsuariosServices from '@src/api/Usuarios/Usuarios'
+import { useAuthStackNavigation } from '@src/hooks/useStackNavigation'
+import { AxiosError } from 'axios'
 import { Alert } from 'react-native'
 
-type callbackFn = (data: User) => void
+type callbackFn = (data: registerRes) => void
 type IUseRegister = [
-  UseMutateFunction<User, unknown, registerParams, unknown>,
+  UseMutateFunction<registerRes, unknown, registerParams, unknown>,
   {
     isLoading: boolean
     error: unknown
@@ -15,20 +16,27 @@ type IUseRegister = [
 
 export function useRegister(callbackFnOn?: callbackFn): IUseRegister {
   // const queryClient = useQueryClient()
+  const nav = useAuthStackNavigation()
 
   const {
     mutate: signUpMutation,
     isLoading,
     error,
-  } = useMutation<User, unknown, registerParams, unknown>(
+  } = useMutation<registerRes, unknown, registerParams, unknown>(
     (params) => UsuariosServices.register(params),
     {
       onSuccess: (data) => {
-        // TODO: save the user in the state
+        Alert.alert(
+          'Inicio de sesión exitoso',
+          `${data.title}\nPor favor, inicia sesión`,
+        )
+        nav.navigate('Login')
         callbackFnOn?.(data)
       },
       onError: (_error) => {
         // TODO: on error signup
+        if (!(_error instanceof AxiosError)) return
+
         Alert.alert('Error', 'Error al registrar el usuario')
       },
     },

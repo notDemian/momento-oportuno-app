@@ -1,46 +1,62 @@
-import React from 'react'
+import { HeaderBackground } from '@react-navigation/elements'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Icon } from '@src/components'
-import {
-  Account,
-  AddAddress,
-  EditProfile,
-  SavedAddresses,
-  SelectLocation,
-  Settings,
-  SupportCenter,
-} from '@src/screens'
 import {
   AccountScreenProps,
   AccountStackParamList,
 } from '@src/navigation/types'
+import {
+  Account,
+  EditProfile,
+  Packages,
+  SelectLocation,
+  Settings,
+  SupportCenter,
+} from '@src/screens'
+import { useAppTheme } from '@src/theme'
+import React from 'react'
 
 const Stack = createNativeStackNavigator<AccountStackParamList>()
 
 export const AccountStack: React.FC<AccountScreenProps> = (props) => {
   const { navigation } = props
-  const renderAddAddressHeaderRight = () => {
-    return (
-      <Icon
-        name='map'
-        size={18}
-        isPrimary
-        onPress={() => navigation.navigate('SelectLocation')}
-      />
-    )
-  }
+
+  const { colors } = useAppTheme()
 
   return (
-    <Stack.Navigator initialRouteName='Account'>
+    <Stack.Navigator
+      initialRouteName='Account'
+      // screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen
         options={() => {
           return {
             title: 'Cuenta',
+            headerBackground: () => (
+              <HeaderBackground style={{ backgroundColor: colors.primary }} />
+            ),
+            headerTintColor: colors.white,
+            // headerShown: false,
           }
         }}
         name='Account'
         component={Account}
       />
+      <Stack.Screen
+        options={() => {
+          return {
+            title: 'Cuenta',
+            headerBackground: () => (
+              <HeaderBackground style={{ backgroundColor: colors.primary }} />
+            ),
+            headerTintColor: colors.white,
+            // headerShown: false,
+          }
+        }}
+        name='Package'
+        component={Packages}
+      />
+
       <Stack.Screen
         options={() => {
           return {
@@ -50,21 +66,6 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
         name='EditProfile'
         component={EditProfile}
       />
-      {/* <Stack.Screen
-        name='SavedAddresses'
-        options={{
-          headerTitle: 'ASd',
-        }}
-        component={SavedAddresses}
-      /> */}
-      {/* <Stack.Screen
-        name='AddAddress'
-        options={{
-          headerTitle: 'Add An Address',
-          headerRight: renderAddAddressHeaderRight,
-        }}
-        component={AddAddress}
-      /> */}
       <Stack.Screen
         name='Settings'
         options={{

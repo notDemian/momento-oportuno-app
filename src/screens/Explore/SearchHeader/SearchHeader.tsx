@@ -15,7 +15,7 @@ export const SearchHeader = () => {
         backgroundColor='white'
         leftIcon='search'
         inputProps={{
-          placeholder: 'Busca el anuncio que buscas',
+          placeholder: 'Estoy buscando ...',
           placeholderTextColor: colors.text,
         }}
         leftIconColor={colors.secondary}

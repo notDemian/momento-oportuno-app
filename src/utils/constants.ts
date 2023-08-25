@@ -19,6 +19,7 @@ export const Constants = {
     LISTINGS: '/listings',
     USERS: '/users',
     REGISTER: '/register',
+    PRODUCT: '/product',
   },
   CUSTOM_ENDPOINTS: {
     logIn: '/jwt-auth/v1/token',

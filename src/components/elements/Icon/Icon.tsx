@@ -3,6 +3,8 @@ import {
   MaterialCommunityIcons,
   Fontisto,
   MaterialIcons,
+  Feather,
+  FontAwesome5,
 } from '@expo/vector-icons'
 import { createBox } from '@shopify/restyle'
 import { Theme, fontSize, useAppTheme } from '@src/theme'
@@ -15,6 +17,10 @@ const MaCommunityIcons = createBox<Theme>(MaterialCommunityIcons)
 const FontistoIcons = createBox<Theme>(Fontisto)
 
 const MaterialIconsIcons = createBox<Theme>(MaterialIcons)
+
+const FeatherIcons = createBox<Theme>(Feather)
+
+const FontAwesome5Icons = createBox<Theme>(FontAwesome5)
 
 export const Icon: React.FC<IconProps> = ({
   isPrimary,
@@ -35,6 +41,14 @@ export const Icon: React.FC<IconProps> = ({
 
     case 'MaterialIcons':
       ICon = MaterialIconsIcons
+      break
+
+    case 'Feather':
+      ICon = FeatherIcons
+      break
+
+    case 'FontAwesome5':
+      ICon = FontAwesome5Icons
       break
 
     default:

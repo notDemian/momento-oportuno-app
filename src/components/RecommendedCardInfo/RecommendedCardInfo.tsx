@@ -1,6 +1,6 @@
 import React from 'react'
 import { Place, RemarkablePlace } from '@src/data'
-import { fontSize } from '@src/theme'
+import { fontSize, useAppTheme } from '@src/theme'
 import { Box, Icon, RatingView, Text } from '../elements'
 import { formatCurrency } from '@src/utils'
 
@@ -14,6 +14,8 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
   ratingStarBackgroundColor,
 }) => {
   const { price, views, title } = data
+
+  const { colors } = useAppTheme()
 
   return (
     <Box
@@ -31,16 +33,17 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
         <Box
           flexDirection='row'
           borderWidth={1}
-          borderColor='primary'
+          borderColor='secondary'
+          backgroundColor={'secondary'}
           alignItems='center'
           paddingHorizontal='s'
           paddingVertical='xxs'
           borderRadius='l'
           marginRight='s'
         >
-          <Icon name='eye' size={fontSize.xs} isPrimary />
+          <Icon name='eye' size={fontSize.xs} color={colors.white} />
           <Text
-            color='primary'
+            color='white'
             marginLeft='xs'
             fontSize={fontSize.xs}
           >{`${views} vistas`}</Text>

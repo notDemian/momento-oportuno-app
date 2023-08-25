@@ -4,6 +4,7 @@ import Request, { CustomRequest } from '../request'
 import {
   logInRes,
   type logInParams,
+  type registerRes,
   logInParamsSchema,
   registerParams,
   registerParamsSchema,
@@ -23,9 +24,15 @@ const UsuariosServices = {
 
     return data
   },
-  async register(params: registerParams): Promise<logInRes> {
+  async register(params: registerParams): Promise<registerRes> {
+    console.log({ paramsOnregister: params })
     const paramsValidated = registerParamsSchema.parse(params)
-    const { data } = await api.post<logInRes>('/register', paramsValidated)
+    console.log({ paramsValidatedOnregister: paramsValidated.username })
+    const { data } = await api.post<registerRes>('/register', paramsValidated, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    })
 
     return data
   },

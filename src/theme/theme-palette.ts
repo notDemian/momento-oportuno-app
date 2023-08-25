@@ -4,6 +4,7 @@ export const palette = {
   verdeMarcatextos: '#cefc00',
   acentoCereza: '#ff5b52',
   white: '#FFF',
+  grisaceo: '#F7FAFD',
   blanquecino: '',
   black: '#000000',
   yellow: '#eab308',

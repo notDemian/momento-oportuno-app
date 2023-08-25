@@ -3,6 +3,9 @@ import {
   ActivityHistoryStackNavigationProp,
   ExploreStackNavigationProp,
   SearchStackNavigationProp,
+  AuthStackNavigationProp,
+  NewAnuncioStackNavigationProp,
+  AccountStackNavigationProp,
 } from '@src/navigation'
 
 export const useExploreStackNavigation = () => {
@@ -15,4 +18,16 @@ export const useSearchStackNavigation = () => {
 
 export const useActivityHistoryStackNavigation = () => {
   return useNavigation<ActivityHistoryStackNavigationProp>()
+}
+
+export const useAuthStackNavigation = () => {
+  return useNavigation<AuthStackNavigationProp>()
+}
+
+export const useNewAdStackNavigation = () => {
+  return useNavigation<NewAnuncioStackNavigationProp>()
+}
+
+export const useAccountStackNavigation = () => {
+  return useNavigation<AccountStackNavigationProp>()
 }

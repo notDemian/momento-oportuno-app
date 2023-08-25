@@ -4,17 +4,21 @@ import { Box, TabView, TabViewData } from '@src/components'
 import styles from './HighlightTabs.style'
 
 const tabData: TabViewData = [
-  { key: '0', title: 'Featured', content: FeaturedTab },
+  { key: '0', title: 'Mis Avisos', content: FeaturedTab },
   {
     key: '1',
-    title: 'Newest',
+    title: 'Favoritos',
     content: NewTab,
   },
   {
-    key: '3',
-    title: 'Trending',
+    key: '2',
+    title: 'Mensajes',
     content: TrendingTab,
   },
+  { key: '3', title: 'Mis ordenes', content: FeaturedTab },
+  { key: '4', title: 'Ajustes', content: FeaturedTab },
+  { key: '5', title: 'Paquete actual', content: FeaturedTab },
+  { key: '6', title: 'Selecciona un paquete', content: FeaturedTab },
 ]
 
 export const HighlightTabs = () => {

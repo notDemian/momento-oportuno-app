@@ -7,6 +7,7 @@ export default function Request(service: ENDPOINTS): AxiosInstance {
   return axios.create({
     baseURL: `${url}${service}`,
     timeout: 1000,
+    maxBodyLength: Infinity,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -21,6 +22,7 @@ export function CustomRequest(url: string): AxiosInstance {
   return axios.create({
     baseURL: `${fullUrl}${url}`,
     timeout: 1000,
+    maxBodyLength: Infinity,
     headers: {
       'Content-Type': 'application/json',
     },

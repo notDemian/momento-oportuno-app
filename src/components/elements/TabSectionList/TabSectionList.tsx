@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   SectionList as RNSectionList,
   SectionListProps,
@@ -7,23 +7,23 @@ import {
   ViewToken,
   Animated,
   StyleProp,
-} from 'react-native';
-import { TabBar } from './TabBar';
-import { Box } from '../Box';
+} from 'react-native'
+import { TabBar } from './TabBar'
+import { Box } from '../Box'
 
 export interface TabSectionListProps extends SectionListProps<any> {
-  scrollToLocationOffset?: number;
-  tabBarStyle?: Animated.WithAnimatedValue<StyleProp<ViewStyle>>;
-  tabBarScrollViewStyle?: StyleProp<ViewStyle>;
-  renderTab: (section: SectionListData<any>) => React.ReactNode;
+  scrollToLocationOffset?: number
+  tabBarStyle?: Animated.WithAnimatedValue<StyleProp<ViewStyle>>
+  tabBarScrollViewStyle?: StyleProp<ViewStyle>
+  renderTab: (section: SectionListData<any>) => React.ReactNode
   onViewableItemsChangedCallback?: (info: {
-    viewableItems: Array<ViewToken>;
-    changed: Array<ViewToken>;
-  }) => void;
+    viewableItems: Array<ViewToken>
+    changed: Array<ViewToken>
+  }) => void
 }
 
 interface IState {
-  currentIndex: number;
+  currentIndex: number
 }
 
 export class TabSectionList extends React.PureComponent<
@@ -32,10 +32,10 @@ export class TabSectionList extends React.PureComponent<
 > {
   state: IState = {
     currentIndex: 0,
-  };
+  }
 
-  private blockUpdateIndex: boolean = false;
-  private sectionList: React.RefObject<RNSectionList<any>> = React.createRef();
+  private blockUpdateIndex = false
+  private sectionList: React.RefObject<RNSectionList<any>> = React.createRef()
 
   render() {
     const {
@@ -45,24 +45,24 @@ export class TabSectionList extends React.PureComponent<
       tabBarScrollViewStyle,
       scrollToLocationOffset,
       onViewableItemsChangedCallback,
-    } = this.props;
+    } = this.props
 
-    const prepareSections = sections.map((item, index) => ({ ...item, index }));
+    const prepareSections = sections.map((item, index) => ({ ...item, index }))
 
     return (
-      <Box position="relative">
+      <Box position='relative'>
         <Animated.SectionList
           {...this.props}
           sections={prepareSections}
           onViewableItemsChanged={(info: any) => {
-            const { viewableItems } = info;
+            const { viewableItems } = info
             if (!this.blockUpdateIndex && viewableItems[0]) {
               if (onViewableItemsChangedCallback) {
-                onViewableItemsChangedCallback(info);
+                onViewableItemsChangedCallback(info)
               }
-              const currentIndex = viewableItems[0].section.index;
+              const currentIndex = viewableItems[0].section.index
               if (this.state.currentIndex !== currentIndex) {
-                this.setState({ currentIndex });
+                this.setState({ currentIndex })
               }
             }
           }}
@@ -80,21 +80,21 @@ export class TabSectionList extends React.PureComponent<
           tabBarScrollViewStyle={tabBarScrollViewStyle}
           currentIndex={this.state.currentIndex}
           onPress={(index: number) => {
-            this.setState({ currentIndex: index });
-            this.blockUpdateIndex = true;
+            this.setState({ currentIndex: index })
+            this.blockUpdateIndex = true
 
-            const sectionList = this.sectionList.current;
+            const sectionList = this.sectionList.current
             if (sectionList && sectionList.scrollToLocation) {
               sectionList.scrollToLocation({
                 animated: true,
                 itemIndex: 0,
                 viewOffset: scrollToLocationOffset || 0,
                 sectionIndex: index,
-              });
+              })
             }
           }}
         />
       </Box>
-    );
+    )
   }
 }

@@ -30,7 +30,7 @@ export const theme = createTheme({
   colors: {
     primary: palette.azulAmistoso,
     secondary: palette.acentoCereza,
-    background: palette.gray[50],
+    background: palette.grisaceo,
     card: palette.white,
     text: palette.gray[900],
     border: palette.gray[300],

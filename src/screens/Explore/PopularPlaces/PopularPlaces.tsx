@@ -1,11 +1,11 @@
 import React from 'react'
-import { Carousel, Section, Card, PlaceCardInfo } from '@src/components'
+import { Carousel, Section, Card } from '@src/components'
 import { Dimensions } from 'react-native'
 import { type SimplePlace, mockPlaces } from '@src/data'
 import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types'
-import { PopularPlacesProps } from './PopularPlaces.type'
+import { useExploreStackNavigation } from '@src/hooks'
 
-export const PopularPlaces: React.FC<PopularPlacesProps> = ({ navigation }) => {
+export const PopularPlaces: React.FC = () => {
   const renderItem = (props: CarouselRenderItemInfo<SimplePlace>) => {
     const { image, title, id } = props.item
     return (
@@ -24,19 +24,21 @@ export const PopularPlaces: React.FC<PopularPlacesProps> = ({ navigation }) => {
     )
   }
 
-  const onButtonActionPress = () => {
-    navigation.navigate('PlaceList', { title: 'Popular Near You' })
-  }
+  const nav = useExploreStackNavigation()
+
+  // const onButtonActionPress = () => {
+  //   navigation.navigate('PlaceList', { title: 'Popular Near You' })
+  // }
 
   const onPlaceItemPress = () => {
-    navigation.navigate('PlaceDetails')
+    nav.navigate('SearchTab', { screen: 'Search' })
   }
 
   return (
     <Section
       title='Lugares'
-      actionButtonText='Ver todos'
-      onButtonActionPress={onButtonActionPress}
+      // actionButtonText='Ver todos'
+      // onButtonActionPress={onButtonActionPress}
     >
       <Carousel
         width={Dimensions.get('window').width}

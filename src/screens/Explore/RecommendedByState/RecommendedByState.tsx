@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { Carousel, Section, Card } from '@src/components/elements'
 import { Dimensions } from 'react-native'
 import { mockRecommendedByState, type RemarkablePlace } from '@src/data'
@@ -25,35 +25,38 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
     }
   }, [state])
 
-  const renderItem = (props: CarouselRenderItemInfo<RemarkablePlace>) => {
-    const { image, title, id } = props.item
-    return (
-      <Card
-        key={id}
-        coverImage={image}
-        coverImageSize='l'
-        title={title}
-        marginLeft='m'
-        titleProps={{
-          numberOfLines: 1,
-        }}
-        subTitleProps={{
-          numberOfLines: 2,
-        }}
-        onPress={onPlaceItemPress}
-      >
-        <RecommendedCardInfo data={props.item} />
-      </Card>
-    )
-  }
+  const renderItem = useCallback(
+    (props: CarouselRenderItemInfo<RemarkablePlace>) => {
+      const { image, title, id } = props.item
+      return (
+        <Card
+          key={id}
+          coverImage={image}
+          coverImageSize='l'
+          title={title}
+          marginLeft='m'
+          titleProps={{
+            numberOfLines: 1,
+          }}
+          subTitleProps={{
+            numberOfLines: 2,
+          }}
+          onPress={onPlaceItemPress}
+        >
+          <RecommendedCardInfo data={props.item} />
+        </Card>
+      )
+    },
+    [],
+  )
 
-  const onButtonActionPress = () => {
-    navigation.navigate('PlaceList', { title: state })
-  }
+  const onButtonActionPress = useCallback(() => {
+    // navigation.navigate('PlaceList', { title: state })
+  }, [state])
 
-  const onPlaceItemPress = () => {
-    navigation.navigate('PlaceDetails')
-  }
+  const onPlaceItemPress = useCallback(() => {
+    // navigation.navigate('PlaceDetails')
+  }, [])
 
   return (
     <Section

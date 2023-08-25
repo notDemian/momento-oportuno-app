@@ -2,11 +2,12 @@ import type {
   BottomTabNavigationProp,
   BottomTabScreenProps,
 } from '@react-navigation/bottom-tabs'
-import type {
-  CompositeNavigationProp,
-  CompositeScreenProps,
-  NavigatorScreenParams,
-  ParamListBase,
+import {
+  useNavigation,
+  type CompositeNavigationProp,
+  type CompositeScreenProps,
+  type NavigatorScreenParams,
+  type ParamListBase,
 } from '@react-navigation/native'
 import type {
   NativeStackScreenProps,
@@ -51,6 +52,7 @@ export type NewAnuncioStackParamList = {
   NewAnuncioFormByCat: {
     categoria: NewAnuncioCategorias
   }
+
   NewAnuncioDetails: undefined
   NewAnuncioLocation: undefined
   NewAnuncioPayment: undefined
@@ -82,6 +84,9 @@ export type AccountStackParamList = {
   SelectLocation: undefined
   Settings: undefined
   SupportCenter: undefined
+
+  MyPackages: undefined
+  Package: undefined
 }
 
 export type TabParamList = {
@@ -170,7 +175,25 @@ export type AccountStackNavigationProp = CompositeNavigationProp<
   NativeStackNavigationProp<RootStackParamList & AccountStackParamList>
 >
 
+export type NewAnuncioStackNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<TabParamList, 'NewAnuncioTab'>,
+  NativeStackNavigationProp<RootStackParamList & NewAnuncioStackParamList>
+>
+
+export type AuthStackNavigationProp = NativeStackNavigationProp<
+  RootStackParamList & AuthStackParamList
+>
+
 export type NotificationStackNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList, 'NotificationTab'>,
   NativeStackNavigationProp<RootStackParamList & NotificationStackParamList>
 >
+
+export const useGlobalNavigation = () => {
+  return useNavigation<
+    CompositeNavigationProp<
+      BottomTabNavigationProp<TabParamList>,
+      NativeStackNavigationProp<RootStackParamList>
+    >
+  >()
+}

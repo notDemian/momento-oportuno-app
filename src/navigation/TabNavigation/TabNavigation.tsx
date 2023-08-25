@@ -25,13 +25,13 @@ const renderTabBarIcon = (routeName: keyof TabParamList) => {
     let iconName: IconProps['name'] = 'compass'
     switch (routeName) {
       case 'ExploreTab':
-        iconName = 'compass'
+        iconName = 'home'
         break
-      case 'ActivityHistoryTab':
-        iconName = 'timer'
+      case 'SearchTab':
+        iconName = 'search'
         break
       case 'NotificationTab':
-        iconName = 'notifications'
+        iconName = 'heart'
         break
       case 'AccountTab':
         iconName = 'person-circle'
@@ -87,7 +87,7 @@ const TabNavigation = () => {
         name='SearchTab'
         component={SearchStack}
         options={{
-          title: 'Publicaciones',
+          title: 'Anuncios',
         }}
       />
       {/* <Tab.Screen /> */}
@@ -119,7 +119,7 @@ const TabNavigation = () => {
         name='NotificationTab'
         component={NotificationStack}
         options={{
-          title: 'Whishlist',
+          title: 'Favoritos',
         }}
       />
       <Tab.Screen
@@ -127,6 +127,7 @@ const TabNavigation = () => {
         component={AccountStack}
         options={{
           title: 'Cuenta',
+          headerShown: false,
         }}
       />
     </Navigator>

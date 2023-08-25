@@ -14,6 +14,7 @@ import { useAnuncios } from '@src/hooks'
 import { keyExtractor } from '@src/utils/keyExtractor'
 import React, { useCallback } from 'react'
 import { AnuncioItem } from './AnuncioItem/AnuncioItem'
+import { useAppTheme } from '@src/theme'
 
 export const SearchScreen = () => {
   const [_searchTerm, setSearchTerm] = React.useState('')
@@ -30,7 +31,7 @@ export const SearchScreen = () => {
   const ListHeaderComponent = useCallback(() => {
     return (
       <Box
-        backgroundColor='card'
+        backgroundColor='primary'
         flexDirection='row'
         alignItems='center'
         padding='m'
@@ -48,17 +49,16 @@ export const SearchScreen = () => {
           }}
         />
         <Box width={70} alignItems='flex-end' ml={'l'} flexDirection={'row'}>
-          <Icon name='filter' />
-          <Button
-            variant='transparent'
-            buttonSize='xs'
-            label='Filtro'
-            onPress={onFilter}
-          />
+          <Icon name='filter' color={colors.yellow} />
+          <Button variant='transparent' buttonSize='xs' onPress={onFilter}>
+            <Text color={'white'}>Filtro</Text>
+          </Button>
         </Box>
       </Box>
     )
   }, [])
+
+  const { colors } = useAppTheme()
 
   return (
     <Box flex={1}>
@@ -72,6 +72,7 @@ export const SearchScreen = () => {
           renderItem={({ item }) => {
             return <AnuncioItem data={item} />
           }}
+          contentContainerStyle={{ backgroundColor: colors.background }}
         />
       ) : null}
     </Box>

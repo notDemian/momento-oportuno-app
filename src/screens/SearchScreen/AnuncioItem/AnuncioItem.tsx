@@ -9,7 +9,8 @@ export const AnuncioItem: React.FC<AnuncioProps> = ({ data }) => {
   const {
     listivo_145,
     listivo_130,
-    listivo_2863,
+    listivo_14: categorias,
+    listivo_10934: estados,
     title: { rendered },
   } = data
   const navigation = useSearchStackNavigation()
@@ -23,25 +24,29 @@ export const AnuncioItem: React.FC<AnuncioProps> = ({ data }) => {
   }
 
   return (
-    <Touchable onPress={onPlaceItemPress} activeOpacity={0.5} borderWidth={0}>
+    <Touchable onPress={onPlaceItemPress} activeOpacity={0.5}>
       <Box
         flexDirection='row'
-        padding='m'
+        padding='s'
         backgroundColor='card'
-        borderWidth={0}
+        borderWidth={1}
+        elevation={3}
+        borderColor='card'
+        borderRadius='m'
+        margin='s'
       >
         {listivo_145 && listivo_145[0] && (
           <Image
-            width={70}
-            height={70}
+            width={120}
+            height={120}
             borderRadius='m'
             marginRight='m'
             source={listivo_145[0]}
           />
         )}
-        <Box flex={1}>
+        <Box flex={1} justifyContent={'center'}>
           <Box>
-            <Text fontWeight='bold' fontSize={fontSize.s}>
+            <Text fontWeight='bold' fontSize={fontSize.s} color={'primary'}>
               {rendered}
             </Text>
             <Text
@@ -50,9 +55,26 @@ export const AnuncioItem: React.FC<AnuncioProps> = ({ data }) => {
               marginBottom='s'
               numberOfLines={3}
             >
-              {listivo_2863[0]}
+              {estados.join(', ')}
             </Text>
-            <Text fontWeight='bold' color='primary'>
+            <Box flexDirection={'row'} gap={'s'}>
+              {categorias.map((cat) => {
+                return (
+                  <Box
+                    key={cat.toString()}
+                    backgroundColor={'secondary'}
+                    borderRadius={'s'}
+                    paddingHorizontal={'s'}
+                    overflow={'hidden'}
+                  >
+                    <Text fontWeight='bold' color='white' fontSize={10}>
+                      {cat}
+                    </Text>
+                  </Box>
+                )
+              })}
+            </Box>
+            <Text fontWeight='normal' color='black' fontSize={fontSize.s}>
               {listivo_130[0]}
             </Text>
           </Box>

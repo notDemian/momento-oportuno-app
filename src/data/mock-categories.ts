@@ -1,7 +1,7 @@
 type Category = {
   id: string
   name: string
-  icon: string
+  icon: mockCategoriesIcons
 }
 
 export const mockCategories: Category[] = [
@@ -31,3 +31,10 @@ export const mockCategories: Category[] = [
     icon: 'work',
   },
 ]
+
+export type mockCategoriesIcons =
+  | 'pets'
+  | 'computer'
+  | 'house'
+  | 'directions-car'
+  | 'work'

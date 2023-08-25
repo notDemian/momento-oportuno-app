@@ -18,6 +18,9 @@ import styles from './AnuncioDetails.style'
 import { AnuncioProps } from './AnuncioDetails.type'
 import { HeadingInformation } from './HeadingInformation'
 
+import RenderHtml from 'react-native-render-html'
+import { useWindowDimensions } from 'react-native'
+
 export const AnuncioDetails: FC<AnuncioProps> = ({
   route: { params },
   navigation: _nav,
@@ -70,6 +73,8 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
     outputRange: [0, 1],
     extrapolate: 'clamp',
   })
+
+  const { width } = useWindowDimensions()
 
   return (
     <Box
@@ -153,26 +158,15 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
                 )}
               </Animated.View>
               <HeadingInformation data={data} />
-              {/* <SideDishes
-                data={mockDishDetails}
-                addSideDishToBasket={addSideDishToBasket}
-              /> */}
-              <Text>{data.content.rendered}</Text>
-              <AddToBasketForm updateTotalDishAmount={updateTotalDishAmount} />
+              <Box paddingHorizontal={'m'} backgroundColor={'card'}>
+                <RenderHtml
+                  contentWidth={width}
+                  source={{ html: data.content.rendered }}
+                />
+              </Box>
             </Animated.ScrollView>
           </KeyboardAvoidingView>
-          <Box
-            paddingHorizontal='m'
-            paddingVertical='s'
-            alignItems='center'
-            justifyContent='center'
-          >
-            <Button
-              isFullWidth
-              label={'Agregar al carrito'}
-              onPress={addToCart}
-            />
-          </Box>
+
           <Animated.View
             style={[
               styles.header,

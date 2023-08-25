@@ -7,6 +7,7 @@ import {
 } from '@src/navigation/types'
 import { Icon } from '@src/components'
 import { Notification } from '@src/screens'
+import Favoritos from '@src/screens/Account/AccountViews/Favoritos'
 
 const Stack = createNativeStackNavigator<NotificationStackParamList>()
 
@@ -22,7 +23,7 @@ export const NotificationStack: React.FC<NotificationScreenProps> = () => {
   const renderAddAddressHeaderRight = () => {
     return (
       <Icon
-        name='trash'
+        name='heart'
         isPrimary
         onPress={() =>
           Alert.alert(
@@ -40,12 +41,12 @@ export const NotificationStack: React.FC<NotificationScreenProps> = () => {
       <Stack.Screen
         options={() => {
           return {
-            title: 'Notifications',
+            title: 'Favoritos',
             headerRight: renderAddAddressHeaderRight,
           }
         }}
         name='Notification'
-        component={Notification}
+        component={Favoritos}
       />
     </Stack.Navigator>
   )

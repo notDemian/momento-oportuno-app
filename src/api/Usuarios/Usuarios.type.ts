@@ -9,6 +9,8 @@ export interface User {
 
 export type logInRes = User
 
+export type registerRes = { message: string; title: string }
+
 export const logInParamsSchema = z.object({
   username: z.string(),
   password: z.string(),

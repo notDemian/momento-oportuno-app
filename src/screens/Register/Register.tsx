@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { Alert } from 'react-native'
 import { AuthStackParamList, ScreenProps } from '@src/navigation/types'
 import { AuthenticationLayout, Box, Button, TextField } from '@src/components'
-import { useLogIn, useRegister } from '@src/hooks'
+import { useRegister } from '@src/hooks'
 
 export const Register: React.FC<
   ScreenProps<AuthStackParamList, 'Register'>
@@ -25,21 +25,16 @@ export const Register: React.FC<
 
   const [showPassword, setShowPassword] = useState(false)
 
-  const [mutateLogIn, { isLoading }] = useRegister((d) => {
-    Alert.alert('Inicio de sesión exitoso', `Bienvenido ${d.user_nicename}`)
-  })
+  const [mutateLogIn, { isLoading }] = useRegister()
 
-  const onSignIn = async () => {
-    // if (!password || !username) {
-    //   Alert.alert('Error', 'Please enter your password!')
-    //   return
-    // }
-    // signIn()
-  }
+  const onSignIn = useCallback(async () => {
+    console.log(params)
+    mutateLogIn(params)
+  }, [params])
 
-  const onBack = () => {
+  const onBack = useCallback(() => {
     navigation.goBack()
-  }
+  }, [])
 
   return (
     <AuthenticationLayout
@@ -73,18 +68,24 @@ export const Register: React.FC<
         <TextField
           inputProps={{
             placeholder: 'Email',
+            keyboardType: 'email-address',
+            onChangeText: setParam('email'),
+            autoCapitalize: 'none',
           }}
         />
         <TextField
           inputProps={{
             placeholder: 'Teléfono',
             keyboardType: 'phone-pad',
+            maxLength: 10,
+            onChangeText: setParam('phone'),
           }}
         />
         <TextField
           inputProps={{
             placeholder: 'Contraseña',
             secureTextEntry: !showPassword,
+            onChangeText: setParam('password'),
           }}
           leftIcon={showPassword ? 'eye-off' : 'eye'}
           lefIconOnPress={() => {
