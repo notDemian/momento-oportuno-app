@@ -1,15 +1,16 @@
-import { fontSize, useAppTheme } from '@src/theme'
+import React from 'react'
 import {
   SectionList as RNSectionList,
   SectionListProps as RNSectionListProps,
 } from 'react-native'
-import { Divider } from '../Divider'
-import React from 'react'
-import { useScrollToTop } from '@react-navigation/native'
-import { Text } from '../Text'
 import { Box } from '../Box'
 import { Button } from '../Button'
+import { Divider } from '../Divider'
+import { Text } from '../Text'
+
+import { useScrollToTop } from '@react-navigation/native'
 import { useExploreStackNavigation } from '@src/hooks'
+import { fontSize, useAppTheme } from '@src/theme'
 
 export function SectionList<T>({
   contentContainerStyle,

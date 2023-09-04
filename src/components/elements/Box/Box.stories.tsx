@@ -1,8 +1,10 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { Box } from './Box';
-import { BoxProps } from '@shopify/restyle';
-import { Theme } from '@src/theme';
-import { Text } from '../Text';
+import { Text } from '../Text'
+
+import { Box } from './Box'
+
+import { BoxProps } from '@shopify/restyle'
+import { Theme } from '@src/theme'
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'Box',
@@ -11,7 +13,7 @@ export default {
     width: 150,
     height: 150,
   },
-} as Meta<BoxProps<Theme>>;
+} as Meta<BoxProps<Theme>>
 
 type Story = StoryObj<BoxProps<Theme>>;
 
@@ -19,7 +21,7 @@ export const Basic: Story = {
   args: {
     backgroundColor: 'primary',
   },
-};
+}
 
 export const Flex: Story = {
   render: (args) => (
@@ -83,4 +85,4 @@ export const Flex: Story = {
       </Box>
     </>
   ),
-};
+}

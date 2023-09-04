@@ -1,18 +1,18 @@
+import { TouchableProps } from '../Touchable'
+
 import {
-  ColorProps,
-  SpacingProps,
   BackgroundColorProps,
-  VariantProps,
-  LayoutProps,
-  VisibleProps,
-  OpacityProps,
   BorderProps,
-  TextProps,
+  ColorProps,
+  LayoutProps,
+  OpacityProps,
   PositionProps,
+  SpacingProps,
+  TextProps,
+  VariantProps,
+  VisibleProps,
 } from '@shopify/restyle'
 import { Theme } from '@src/theme'
-
-import { TouchableProps } from '../Touchable'
 
 export type ButtonRestyleProps = SpacingProps<Theme> &
   ColorProps<Theme> &

@@ -1,9 +1,10 @@
+import { Alert } from 'react-native'
 import { UseMutateFunction, useMutation } from 'react-query'
+
 import { registerParams, registerRes } from '@src/api/Usuarios'
 import UsuariosServices from '@src/api/Usuarios/Usuarios'
 import { useAuthStackNavigation } from '@src/hooks/useStackNavigation'
 import { AxiosError } from 'axios'
-import { Alert } from 'react-native'
 
 type callbackFn = (data: registerRes) => void
 type IUseRegister = [

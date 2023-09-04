@@ -1,1 +1,1 @@
-export * from './BasketSummary';
+export * from './BasketSummary'

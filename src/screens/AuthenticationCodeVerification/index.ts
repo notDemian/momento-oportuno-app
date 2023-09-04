@@ -1,1 +1,1 @@
-export * from './AuthenticationCodeVerification';
+export * from './AuthenticationCodeVerification'

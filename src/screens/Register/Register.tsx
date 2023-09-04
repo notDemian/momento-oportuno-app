@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react'
-import { Alert } from 'react-native'
-import { AuthStackParamList, ScreenProps } from '@src/navigation/types'
+
 import { AuthenticationLayout, Box, Button, TextField } from '@src/components'
 import { useRegister } from '@src/hooks'
+import { AuthStackParamList, ScreenProps } from '@src/navigation/types'
 
 export const Register: React.FC<
   ScreenProps<AuthStackParamList, 'Register'>

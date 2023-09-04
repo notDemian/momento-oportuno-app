@@ -1,4 +1,4 @@
-import { OrderDetail } from '@src/data';
+import { OrderDetail } from '@src/data'
 
 export type OrderSummaryProps = {
   orderDetail: OrderDetail;

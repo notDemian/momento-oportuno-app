@@ -1,8 +1,9 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { CardProps } from './Card.type';
-import { Card } from './Card';
-import { PlaceCardInfo } from '@src/components';
-import { mockPlaces } from '@src/data';
+import { Card } from './Card'
+import { CardProps } from './Card.type'
+
+import { PlaceCardInfo } from '@src/components'
+import { mockPlaces } from '@src/data'
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'Card',
@@ -26,7 +27,7 @@ export default {
       options: [undefined, 'flat'],
     },
   },
-} as Meta<CardProps>;
+} as Meta<CardProps>
 
 type Story = StoryObj<CardProps>;
 
@@ -34,14 +35,14 @@ export const Basic: Story = {
   args: {
     title: 'Basic Card Title',
   },
-};
+}
 
 export const Flat: Story = {
   args: {
     title: 'Basic Card Title',
     variant: 'flat',
   },
-};
+}
 
 export const SmallHeader: Story = {
   args: {
@@ -49,7 +50,7 @@ export const SmallHeader: Story = {
     coverImageSize: 's',
     width: 200,
   },
-};
+}
 
 export const LargeHeader: Story = {
   args: {
@@ -58,4 +59,4 @@ export const LargeHeader: Story = {
     height: 260,
     children: <PlaceCardInfo data={mockPlaces[0]} />,
   },
-};
+}

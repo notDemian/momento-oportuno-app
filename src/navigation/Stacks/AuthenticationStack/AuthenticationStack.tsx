@@ -1,6 +1,6 @@
-import React from 'react'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { AuthStackParamList } from '@src/navigation/types'
 import {
   Authentication,
   AuthenticationCodeVerification,
@@ -8,9 +8,8 @@ import {
   ForgotPassword,
   Login,
 } from '@src/screens'
-import { AuthStackParamList } from '@src/navigation/types'
-import { useTransparentHeaderOptions } from '@src/utils'
 import { Register } from '@src/screens/Register'
+import { useTransparentHeaderOptions } from '@src/utils'
 
 const Stack = createNativeStackNavigator<AuthStackParamList>()
 

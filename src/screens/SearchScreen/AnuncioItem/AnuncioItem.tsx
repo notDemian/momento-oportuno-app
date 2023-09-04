@@ -1,7 +1,8 @@
 import React from 'react'
-import { AnuncioProps } from './AnuncioItem.type'
-import { Box, Text, Touchable, Image } from '@src/components'
 
+import { AnuncioProps } from './AnuncioItem.type'
+
+import { Box, Image,Text, Touchable } from '@src/components'
 import { useSearchStackNavigation } from '@src/hooks'
 import { fontSize } from '@src/theme'
 

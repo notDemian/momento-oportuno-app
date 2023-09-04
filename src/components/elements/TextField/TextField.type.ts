@@ -1,16 +1,17 @@
 import { TextInputProps } from 'react-native/types'
+import { IconProps } from '../Icon'
+
 import {
-  ColorProps,
-  SpacingProps,
   BackgroundColorProps,
-  LayoutProps,
-  VisibleProps,
-  OpacityProps,
   BorderProps,
+  ColorProps,
+  LayoutProps,
+  OpacityProps,
+  SpacingProps,
   TypographyProps,
+  VisibleProps,
 } from '@shopify/restyle'
 import { Theme } from '@src/theme'
-import { IconProps } from '../Icon'
 
 export type InputRestyleProps = SpacingProps<Theme> &
   ColorProps<Theme> &

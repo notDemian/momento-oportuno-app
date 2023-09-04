@@ -1,14 +1,15 @@
+import { IconProps } from './Icon.type'
+
 import {
-  Ionicons,
-  MaterialCommunityIcons,
-  Fontisto,
-  MaterialIcons,
   Feather,
   FontAwesome5,
+  Fontisto,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
 } from '@expo/vector-icons'
 import { createBox } from '@shopify/restyle'
-import { Theme, fontSize, useAppTheme } from '@src/theme'
-import { IconProps } from './Icon.type'
+import { fontSize, Theme, useAppTheme } from '@src/theme'
 
 const InnerDefaultIcon = createBox<Theme>(Ionicons)
 

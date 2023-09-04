@@ -1,11 +1,13 @@
 import { FC, ReactNode, useCallback } from 'react'
-import RangeSlider from 'rn-range-slider'
-import Thumb from './Thumb'
-import Rail from './Rail'
-import RailSelected from './RailSelected'
+import { StyleSheet, ViewProps } from 'react-native'
+
 import Label from './Label'
 import Notch from './Notch'
-import { StyleSheet, ViewProps } from 'react-native'
+import Rail from './Rail'
+import RailSelected from './RailSelected'
+import Thumb from './Thumb'
+
+import RangeSlider from 'rn-range-slider'
 
 type RangeSlideProps = {
   handleValueChange: (low: number, high: number) => void

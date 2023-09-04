@@ -1,16 +1,18 @@
 import React from 'react'
 import MapView, {
-  PROVIDER_GOOGLE,
-  Marker,
   LatLng,
-  Region,
+  Marker,
   MarkerDragStartEndEvent,
+  PROVIDER_GOOGLE,
+  Region,
 } from 'react-native-maps'
-import * as Location from 'expo-location'
+
 import styles from './SelectLocation.style'
-import { googleMapDarkModeStyles } from '@src/utils'
+
 import { Box } from '@src/components'
 import { useAppTheme } from '@src/theme'
+import { googleMapDarkModeStyles } from '@src/utils'
+import * as Location from 'expo-location'
 
 export const SelectLocation = () => {
   const { colors, colorScheme } = useAppTheme()

@@ -1,9 +1,10 @@
-import React from 'react';
-import { SectionProps } from './Section.type';
-import { Text } from '../Text';
-import { Box } from '../Box';
-import { Touchable } from '../Touchable';
-import { Divider } from '../Divider';
+import React from 'react'
+import { Box } from '../Box'
+import { Divider } from '../Divider'
+import { Text } from '../Text'
+import { Touchable } from '../Touchable'
+
+import { SectionProps } from './Section.type'
 
 export const Section: React.FC<SectionProps> = ({
   children,
@@ -15,9 +16,9 @@ export const Section: React.FC<SectionProps> = ({
 }) => {
   const handleButtonActionPress = () => {
     if (onButtonActionPress) {
-      onButtonActionPress();
+      onButtonActionPress()
     }
-  };
+  }
 
   return (
     <Box {...rest}>
@@ -44,5 +45,5 @@ export const Section: React.FC<SectionProps> = ({
       </Box>
       {children}
     </Box>
-  );
-};
+  )
+}

@@ -1,8 +1,8 @@
-import React from 'react';
-import StepIndicator from 'react-native-step-indicator';
-import { StepIndicatorStyles } from 'react-native-step-indicator/lib/typescript/src/types';
-import { fontSize, useAppTheme } from '@src/theme';
-import { Box } from '@src/components';
+import StepIndicator from 'react-native-step-indicator'
+import { StepIndicatorStyles } from 'react-native-step-indicator/lib/typescript/src/types'
+
+import { Box } from '@src/components'
+import { fontSize, useAppTheme } from '@src/theme'
 
 const labels = [
   'Order submitted',
@@ -11,10 +11,10 @@ const labels = [
   'Order is ready at the restaurant',
   'Driver is picking up your order',
   'Order completed',
-];
+]
 
 export const DeliveryStep = () => {
-  const { colors } = useAppTheme();
+  const { colors } = useAppTheme()
 
   const stepIndicatorStyles: StepIndicatorStyles = {
     stepStrokeCurrentColor: colors.primary,
@@ -32,7 +32,7 @@ export const DeliveryStep = () => {
     labelAlign: 'flex-start',
     currentStepLabelColor: colors.primary,
     labelSize: fontSize.m,
-  };
+  }
 
   return (
     <Box paddingHorizontal="m" flex={1}>
@@ -44,5 +44,5 @@ export const DeliveryStep = () => {
         stepCount={labels.length}
       />
     </Box>
-  );
-};
+  )
+}

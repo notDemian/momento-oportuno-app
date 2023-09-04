@@ -1,10 +1,12 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { CarouselProps } from './Carousel.type';
-import { Carousel } from './Carousel';
-import { Dimensions } from 'react-native';
-import { mockPlaces } from '@src/data';
-import { Card } from '../Card';
-import { PlaceCardInfo } from '@src/components';
+import { Dimensions } from 'react-native'
+import { Card } from '../Card'
+
+import { Carousel } from './Carousel'
+import { CarouselProps } from './Carousel.type'
+
+import { PlaceCardInfo } from '@src/components'
+import { mockPlaces } from '@src/data'
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'Carousel',
@@ -17,12 +19,12 @@ export default {
     snapEnabled: true,
     pagingEnabled: true,
   },
-} as Meta<CarouselProps>;
+} as Meta<CarouselProps>
 
 type Story = StoryObj<CarouselProps>;
 
 const renderItem = (props) => {
-  const { image, title, subTitle } = props.item;
+  const { image, title, subTitle } = props.item
   return (
     <Card
       key={props.index}
@@ -39,8 +41,8 @@ const renderItem = (props) => {
       }}>
       <PlaceCardInfo data={props.item} />
     </Card>
-  );
-};
+  )
+}
 
 export const Basic: Story = {
   args: {
@@ -48,27 +50,27 @@ export const Basic: Story = {
     pagingEnabled: false,
     renderItem,
   },
-};
+}
 
 export const PagingAndSnap: Story = {
   args: {
     renderItem,
   },
-};
+}
 
 export const AutoPlay: Story = {
   args: {
     autoPlay: true,
     renderItem,
   },
-};
+}
 
 export const Loop: Story = {
   args: {
     loop: true,
     renderItem,
   },
-};
+}
 
 export const HorizontalStack: Story = {
   args: {
@@ -80,7 +82,7 @@ export const HorizontalStack: Story = {
     },
     mode: 'horizontal-stack',
   },
-};
+}
 
 export const VerticalStack: Story = {
   args: {
@@ -92,4 +94,4 @@ export const VerticalStack: Story = {
     },
     mode: 'vertical-stack',
   },
-};
+}

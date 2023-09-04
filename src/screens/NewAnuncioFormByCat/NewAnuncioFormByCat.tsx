@@ -1,30 +1,21 @@
+import { useCallback, useEffect, useState } from 'react'
+import { FC } from 'react'
+
+import { getArrays } from './helper'
+
 import {
   Box,
   Button,
   NewAnucioLayout,
-  TextField,
   Text,
-  Image,
-  RadioButton,
+  TextField,
 } from '@src/components'
-import { ModalRadioButton } from '@src/components/ModalRadioButton'
-import {
-  ESTADOS_APROBADOS,
-  NEW_ANUNCIO_CATEGORIAS,
-  NEW_ANUNCIO_CATEGORIAS_OBJ,
-} from '@src/data'
-import { fontSize } from '@src/theme'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import * as ImagePicker from 'expo-image-picker'
-import { Dimensions } from 'react-native'
-import { Picker } from '@react-native-picker/picker'
-import { NewAnuncioStackParamList, ScreenProps } from '@src/navigation'
-import { FC } from 'react'
 import {
   CheckboxList,
   type CheckBoxListItem,
 } from '@src/components/CheckboxList'
-import { getArrays } from './helper'
+import { ModalRadioButton } from '@src/components/ModalRadioButton'
+import { NewAnuncioStackParamList, ScreenProps } from '@src/navigation'
 
 const items = [
   {

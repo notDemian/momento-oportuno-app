@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
   BottomSheetModal,
   Box,
@@ -5,7 +7,6 @@ import {
   RadioOption,
   Text,
 } from '@src/components'
-import React from 'react'
 
 type ChangeLanguageModalProps = {
   isVisible: boolean

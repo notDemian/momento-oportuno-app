@@ -1,15 +1,17 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import {
   AccountStack,
   ExploreStack,
+  NewAnuncioStack,
   NotificationStack,
   SearchStack,
-  NewAnuncioStack,
 } from '../Stacks'
-import { Button, Icon, IconProps } from '@src/components'
 import { TabParamList } from '../types'
-import { fontSize, useAppTheme } from '@src/theme'
+
 import styles from './TabNavigation.style'
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { Button, Icon, IconProps } from '@src/components'
+import { fontSize, useAppTheme } from '@src/theme'
 
 type TabBarIconProps = {
   focused: boolean

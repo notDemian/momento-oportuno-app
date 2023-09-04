@@ -1,8 +1,10 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { Touchable } from './Touchable';
-import { TouchableProps } from './Touchable.type';
-import { Card } from '../Card';
-import { Text } from '../Text';
+import { Card } from '../Card'
+import { Text } from '../Text'
+
+import { Touchable } from './Touchable'
+import { TouchableProps } from './Touchable.type'
+
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'Touchable',
@@ -10,7 +12,7 @@ export default {
   args: {
     onPress: () => console.log('Touchable Pressed'),
   },
-} as Meta<TouchableProps>;
+} as Meta<TouchableProps>
 
 type Story = StoryObj<TouchableProps>;
 
@@ -23,4 +25,4 @@ export const Basic: Story = {
       </Card>
     </Touchable>
   ),
-};
+}

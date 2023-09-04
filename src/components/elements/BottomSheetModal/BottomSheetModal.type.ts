@@ -1,4 +1,4 @@
-import { BottomSheetModalProps as GorhomBottomSheetModalProps } from '@gorhom/bottom-sheet';
+import { BottomSheetModalProps as GorhomBottomSheetModalProps } from '@gorhom/bottom-sheet'
 
 export type BottomSheetModalProps = {
   useScrollView?: boolean;

@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native'
 import {
-  ActivityHistoryStackNavigationProp,
-  ExploreStackNavigationProp,
-  SearchStackNavigationProp,
-  AuthStackNavigationProp,
-  NewAnuncioStackNavigationProp,
   AccountStackNavigationProp,
+  ActivityHistoryStackNavigationProp,
+  AuthStackNavigationProp,
+  ExploreStackNavigationProp,
+  NewAnuncioStackNavigationProp,
+  SearchStackNavigationProp,
 } from '@src/navigation'
 
 export const useExploreStackNavigation = () => {

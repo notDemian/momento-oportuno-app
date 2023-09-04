@@ -1,15 +1,16 @@
 import React, { useCallback } from 'react'
 import { Dimensions } from 'react-native'
-import { mockCategories, mockCategoriesIcons } from '@src/data'
-import { Box, Icon, Image, Text, Touchable } from '@src/components'
-import { useExploreStackNavigation } from '@src/hooks'
+
+import { Box, Text, Touchable } from '@src/components'
 import {
   SvgAutosIcon,
+  SvgEmpleosIcon,
   SvgInmuebleIcon,
   SvgMascotasIcon,
   SvgNiñosIcon,
-  SvgEmpleosIcon,
 } from '@src/components/svgs'
+import { mockCategories, mockCategoriesIcons } from '@src/data'
+import { useExploreStackNavigation } from '@src/hooks'
 
 export const PopularCategories: React.FC = () => {
   const itemsPerRow = 3

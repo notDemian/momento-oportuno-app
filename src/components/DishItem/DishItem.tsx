@@ -1,9 +1,11 @@
 import React from 'react'
+import { Box, Image,Text, Touchable } from '../elements'
+
 import { DishItemProps } from './DishItem.type'
-import { Box, Text, Touchable, Image } from '../elements'
-import { formatCurrency } from '@src/utils'
+
 import { useSearchStackNavigation } from '@src/hooks'
 import { fontSize } from '@src/theme'
+import { formatCurrency } from '@src/utils'
 
 export const DishItem: React.FC<DishItemProps> = ({ data }) => {
   const { price, title, image, views } = data

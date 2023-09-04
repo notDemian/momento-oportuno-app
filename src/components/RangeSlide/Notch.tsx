@@ -1,5 +1,5 @@
 import { FC, memo } from 'react'
-import { View, StyleSheet, ViewProps } from 'react-native'
+import { StyleSheet, View, ViewProps } from 'react-native'
 
 type NotchProps = ViewProps
 

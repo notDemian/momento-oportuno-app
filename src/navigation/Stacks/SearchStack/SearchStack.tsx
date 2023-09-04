@@ -1,12 +1,12 @@
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { Button, Text } from '@src/components'
 import type {
   SearchScreenProps,
   SearchStackParamList,
 } from '@src/navigation/types'
-import { SearchScreen, Filter, AnuncioDetails } from '@src/screens'
-import { Button, Icon as _, Text } from '@src/components'
+import { AnuncioDetails,Filter, SearchScreen } from '@src/screens'
 
 const Stack = createNativeStackNavigator<SearchStackParamList>()
 

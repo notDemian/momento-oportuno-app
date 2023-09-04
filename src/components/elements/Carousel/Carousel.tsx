@@ -1,6 +1,7 @@
 import React from 'react'
-import { CarouselProps } from './Carousel.type'
 import ReanimatedCarousel from 'react-native-reanimated-carousel'
+
+import { CarouselProps } from './Carousel.type'
 
 export const Carousel: React.FC<CarouselProps> = ({
   numItemsPerSlide,

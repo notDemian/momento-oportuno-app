@@ -1,14 +1,16 @@
-import React from 'react';
-import { Card, Box, Text, Icon } from '@src/components';
-import styles from './HeadingInformation.style';
-import { PlaceCardInfo } from '@src/components';
-import { HeadingInformationProps } from './HeadingInformation.type';
-import { fontSize } from '@src/theme';
+import React from 'react'
+
+import styles from './HeadingInformation.style'
+import { HeadingInformationProps } from './HeadingInformation.type'
+
+import { Box, Card, Icon,Text } from '@src/components'
+import { PlaceCardInfo } from '@src/components'
+import { fontSize } from '@src/theme'
 
 export const HeadingInformation: React.FC<HeadingInformationProps> = ({
   data,
 }) => {
-  const { title, subTitle } = data;
+  const { title, subTitle } = data
   return (
     <Card
       backgroundColor="card"
@@ -63,5 +65,5 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
         </Box>
       </Box>
     </Card>
-  );
-};
+  )
+}

@@ -1,7 +1,8 @@
-import { useHeaderHeight } from '@react-navigation/elements'
-import { useAppTheme } from '@src/theme'
 import { StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
+import { useHeaderHeight } from '@react-navigation/elements'
+import { useAppTheme } from '@src/theme'
 
 export const useSafeAreaScrollViewStyles = (
   hasExtraPadding = false,

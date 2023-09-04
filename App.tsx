@@ -1,16 +1,16 @@
-import { RootNavigation } from '@src/navigation'
-import { AppThemeProvider } from '@src/theme/AppThemeProvider'
 import { StyleSheet } from 'react-native'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { PortalProvider } from '@gorhom/portal'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { FilterProvider } from '@src/filterContext'
 import { Text } from 'react-native'
-
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
+
+import { PortalProvider } from '@gorhom/portal'
+import { FilterProvider } from '@src/filterContext'
+import { RootNavigation } from '@src/navigation'
 import { persistor, store } from '@src/redux'
+import { AppThemeProvider } from '@src/theme/AppThemeProvider'
+import { PersistGate } from 'redux-persist/integration/react'
 
 const styles = StyleSheet.create({
   container: {

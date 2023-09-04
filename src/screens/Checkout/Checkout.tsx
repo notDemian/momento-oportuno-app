@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 import { ScrollView } from 'react-native'
+
 import { OrderSummary } from './OrderSummary'
 import { PaymentMethod } from './PaymentMethod'
 import { PlaceOrder } from './PlaceOrder'
+
 import { Box } from '@src/components'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
-import { PaymentMethods } from '@src/data'
-const SHIPPING_FEE = 5
 
 type CheckoutProps = ScreenProps<AccountStackParamList, 'Checkout'>
 

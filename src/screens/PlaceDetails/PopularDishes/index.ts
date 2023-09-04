@@ -1,1 +1,1 @@
-export * from './PopularDishes';
+export * from './PopularDishes'

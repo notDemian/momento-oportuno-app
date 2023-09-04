@@ -1,5 +1,7 @@
 import { ColorSchemeName } from 'react-native/types'
-import { Theme, darkTheme, theme } from './theme'
+
+import { darkTheme, Theme, theme } from './theme'
+
 import { DarkTheme, DefaultTheme } from '@react-navigation/native'
 import { SpacingProps } from '@shopify/restyle'
 
@@ -76,7 +78,7 @@ import type { BoxProps } from '@shopify/restyle'
 export function getShadowBoxProps(): Pick<
   BoxProps<Theme>,
   'elevation' | 'shadowColor'
-> {
+  > {
   return {
     elevation: 3,
     shadowColor: 'gray',

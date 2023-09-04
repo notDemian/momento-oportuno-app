@@ -1,8 +1,8 @@
-import React from 'react'
-import { Carousel, Section, Card, PlaceCardInfo } from '@src/components'
 import { Dimensions } from 'react-native'
-import { mockPlaces, Place } from '@src/data'
 import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types'
+
+import { Card, Carousel, PlaceCardInfo,Section } from '@src/components'
+import { mockPlaces, Place } from '@src/data'
 import { useSearchStackNavigation } from '@src/hooks'
 
 export const PopularDishes = () => {

@@ -1,7 +1,9 @@
-import React from 'react';
-import { Text, Image, Box } from '@src/components';
-import styles from './HeadingInformation.style';
-import { HeadingInformationProps } from './HeadingInformation.type';
+import React from 'react'
+
+import styles from './HeadingInformation.style'
+import { HeadingInformationProps } from './HeadingInformation.type'
+
+import { Box,Image, Text } from '@src/components'
 
 export const HeadingInformation: React.FC<HeadingInformationProps> = ({
   profile,
@@ -27,5 +29,5 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
         </Box>
       </Box>
     </Box>
-  );
-};
+  )
+}

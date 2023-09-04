@@ -1,8 +1,8 @@
-import React from 'react'
 import { Dimensions, I18nManager } from 'react-native'
-import { mockMerchantCaimpaigns, MerchantCampaign } from '@src/data'
-import { Box, Carousel, Image, Text } from '@src/components'
 import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types'
+
+import { Box, Carousel, Image, Text } from '@src/components'
+import { MerchantCampaign,mockMerchantCaimpaigns } from '@src/data'
 
 export const MerchantCampaigns = () => {
   const renderItem = (props: CarouselRenderItemInfo<MerchantCampaign>) => {

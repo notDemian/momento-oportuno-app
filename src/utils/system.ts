@@ -1,4 +1,5 @@
 import { Platform } from 'react-native'
+
 import { Constants } from './constants'
 
 export const isIos = Platform.OS === 'ios'

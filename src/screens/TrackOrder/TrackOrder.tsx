@@ -1,22 +1,24 @@
-import React from 'react';
-import { DeliveryTime } from './DeliveryTime';
-import { DeliveryStep } from './DeliveryStep';
-import { DriverInformation } from './DriverInformation';
-import { Divider, Box, Button } from '@src/components/elements';
-import { useExploreStackNavigation } from '@src/hooks';
-import { DeliveryMapView } from './DeliveryMapView';
+import React from 'react'
+
+import { DeliveryMapView } from './DeliveryMapView'
+import { DeliveryStep } from './DeliveryStep'
+import { DeliveryTime } from './DeliveryTime'
+import { DriverInformation } from './DriverInformation'
+
+import { Box, Button,Divider } from '@src/components/elements'
+import { useExploreStackNavigation } from '@src/hooks'
 
 export const TrackOrder = () => {
-  const navigation = useExploreStackNavigation();
-  const [isMapViewVisible, setIsMapViewVisible] = React.useState(false);
+  const navigation = useExploreStackNavigation()
+  const [isMapViewVisible, setIsMapViewVisible] = React.useState(false)
 
   const onOrderSomethingElseButtonPress = () => {
-    navigation.navigate('Explore');
-  };
+    navigation.navigate('Explore')
+  }
 
   const onMapViewButtonPress = () => {
-    setIsMapViewVisible(!isMapViewVisible);
-  };
+    setIsMapViewVisible(!isMapViewVisible)
+  }
 
   return (
     <Box flex={1}>
@@ -46,5 +48,5 @@ export const TrackOrder = () => {
         />
       </Box>
     </Box>
-  );
-};
+  )
+}

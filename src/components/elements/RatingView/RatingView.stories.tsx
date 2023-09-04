@@ -1,6 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { RatingViewProps } from './RatingView.type';
-import { RatingView } from './RatingView';
+import { RatingView } from './RatingView'
+import { RatingViewProps } from './RatingView.type'
+
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'RatingView',
@@ -11,16 +12,16 @@ export default {
     ratingStarBackgroundColor: 'black',
     readonly: false,
   },
-} as Meta<RatingViewProps>;
+} as Meta<RatingViewProps>
 
 type Story = StoryObj<RatingViewProps>;
 
 export const Basic: Story = {
   args: {},
-};
+}
 
 export const ReadOnly: Story = {
   args: {
     readonly: true,
   },
-};
+}

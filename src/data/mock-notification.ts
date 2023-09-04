@@ -1,5 +1,5 @@
-import Chance from 'chance';
-const chance = new Chance();
+import Chance from 'chance'
+const chance = new Chance()
 
 export type Notification = {
   id: string;
@@ -22,4 +22,4 @@ export const notifications: Notification[] = Array(15)
     subTitle: chance.paragraph({
       sentences: 1,
     }),
-  }));
+  }))

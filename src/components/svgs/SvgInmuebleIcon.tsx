@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import Svg, { G, Circle, Path, type SvgProps } from 'react-native-svg'
+import Svg, { Circle, G, Path, type SvgProps } from 'react-native-svg'
 
 type Props = SvgProps
 

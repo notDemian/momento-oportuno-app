@@ -1,6 +1,7 @@
-import React from 'react';
-import { Box, TextField, Text, Button, Divider } from '@src/components';
-import { Profile } from '@src/data';
+import React from 'react'
+
+import { Box, Button, Divider,Text, TextField } from '@src/components'
+import { Profile } from '@src/data'
 
 type ContactInformationFormProps = {
   profile: Profile;
@@ -37,5 +38,5 @@ export const ContactInformationForm: React.FC<ContactInformationFormProps> = ({
       </Text>
       <Button label="Save" isFullWidth />
     </Box>
-  );
-};
+  )
+}

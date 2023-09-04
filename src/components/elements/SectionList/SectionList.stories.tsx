@@ -1,9 +1,11 @@
-import { SectionListProps } from 'react-native';
-import { Meta, StoryObj } from '@storybook/react-native';
-import { SectionList } from './SectionList';
-import { mockPlaceDetails } from '@src/data';
-import { BlurView, DishItem, Text } from '@src/components';
-import { isIos } from '@src/utils';
+import { SectionListProps } from 'react-native'
+
+import { SectionList } from './SectionList'
+
+import { BlurView, DishItem, Text } from '@src/components'
+import { mockPlaceDetails } from '@src/data'
+import { isIos } from '@src/utils'
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'SectionList',
@@ -12,14 +14,14 @@ export default {
     sections: mockPlaceDetails.dishSection,
     stickySectionHeadersEnabled: true,
   },
-} as Meta<SectionListProps<any>>;
+} as Meta<SectionListProps<any>>
 
 type Story = StoryObj<SectionListProps<any>>;
 
 export const Basic: Story = {
   args: {
     renderItem: ({ item }) => {
-      return <DishItem data={item} />;
+      return <DishItem data={item} />
     },
     renderSectionHeader: ({ section }) => (
       <BlurView intensity={isIos ? 80 : 120}>
@@ -29,4 +31,4 @@ export const Basic: Story = {
       </BlurView>
     ),
   },
-};
+}

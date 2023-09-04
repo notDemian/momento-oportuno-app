@@ -1,30 +1,30 @@
-import React from 'react';
+import { ListRenderItemInfo } from 'react-native'
+
 import {
-  TextField,
-  List,
-  Divider,
-  ListRowItemProps,
-  ListRowItem,
   Box,
-} from '@src/components';
-import { ListRenderItemInfo } from 'react-native';
-import { savedAddresses, Address } from '@src/data/mock-address';
+  Divider,
+  List,
+  ListRowItem,
+  ListRowItemProps,
+  TextField,
+} from '@src/components'
+import { Address,savedAddresses } from '@src/data/mock-address'
 
 export const AddAddress = () => {
   const prepareListData = (addresses: Address[]) => {
     return addresses.map((item) => {
-      const { id, description, name } = item;
+      const { id, description, name } = item
       return {
         id,
         title: name,
         subTitle: description,
-      };
-    });
-  };
+      }
+    })
+  }
 
   const renderItem = (props: ListRenderItemInfo<ListRowItemProps>) => {
-    return <ListRowItem key={props.index} {...props.item} />;
-  };
+    return <ListRowItem key={props.index} {...props.item} />
+  }
 
   const renderListHeader = () => {
     return (
@@ -39,8 +39,8 @@ export const AddAddress = () => {
         </Box>
         <Divider marginVertical="s" />
       </>
-    );
-  };
+    )
+  }
 
   return (
     <List
@@ -48,5 +48,5 @@ export const AddAddress = () => {
       ListHeaderComponent={renderListHeader()}
       renderItem={renderItem}
     />
-  );
-};
+  )
+}

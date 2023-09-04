@@ -1,7 +1,8 @@
 import React from 'react'
+import { Box, Icon, RatingView, Text } from '../elements'
+
 import { Place } from '@src/data'
 import { fontSize } from '@src/theme'
-import { Box, Icon, RatingView, Text } from '../elements'
 
 type PlaceCardInfoProps = {
   data: Place

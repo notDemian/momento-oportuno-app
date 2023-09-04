@@ -1,8 +1,10 @@
-import { useTheme } from '@shopify/restyle'
-import { Theme } from './theme'
 import { useContext } from 'react'
-import { ThemeContext } from './theme-context'
 import { ColorSchemeName } from 'react-native/types'
+
+import { Theme } from './theme'
+import { ThemeContext } from './theme-context'
+
+import { useTheme } from '@shopify/restyle'
 
 type AppTheme = Theme & {
   colorScheme: ColorSchemeName

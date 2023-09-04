@@ -1,7 +1,8 @@
 import React from 'react'
-import { Place, RemarkablePlace } from '@src/data'
+import { Box, Icon, Text } from '../elements'
+
+import { RemarkablePlace } from '@src/data'
 import { fontSize, useAppTheme } from '@src/theme'
-import { Box, Icon, RatingView, Text } from '../elements'
 import { formatCurrency } from '@src/utils'
 
 type RecommendedCardInfoProps = {

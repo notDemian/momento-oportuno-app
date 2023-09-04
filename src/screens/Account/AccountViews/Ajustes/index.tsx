@@ -1,16 +1,13 @@
+import { memo, useCallback } from 'react'
+import { type ListRenderItem } from 'react-native'
+
 import { Anuncio } from '@src/api'
 import {
   AccordionItem,
   Box,
-  Button,
-  List,
   Text,
-  AccordionList,
 } from '@src/components'
-import { SvgEmptyBox } from '@src/components/svgs'
 import { useNewAdStackNavigation } from '@src/hooks'
-import { memo, useCallback } from 'react'
-import { type ListRenderItem } from 'react-native'
 
 const Ajustes = () => {
   const nav = useNewAdStackNavigation()

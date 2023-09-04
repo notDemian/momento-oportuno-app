@@ -1,9 +1,11 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { Button } from './Button';
-import { ButtonProps } from './Button.type';
-import { Icon } from '../Icon';
-import { Text } from '../Text';
-import { Box } from '../Box';
+import { Box } from '../Box'
+import { Icon } from '../Icon'
+import { Text } from '../Text'
+
+import { Button } from './Button'
+import { ButtonProps } from './Button.type'
+
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'Button',
@@ -39,7 +41,7 @@ export default {
       ],
     },
   },
-} as Meta<ButtonProps>;
+} as Meta<ButtonProps>
 
 type Story = StoryObj<ButtonProps>;
 
@@ -48,63 +50,63 @@ export const Primary: Story = {
     variant: 'primary',
     label: 'Primary',
   },
-};
+}
 
 export const Danger: Story = {
   args: {
     variant: 'danger',
     label: 'Danger',
   },
-};
+}
 
 export const Warning: Story = {
   args: {
     variant: 'warning',
     label: 'Warning',
   },
-};
+}
 
 export const Success: Story = {
   args: {
     variant: 'success',
     label: 'Success',
   },
-};
+}
 
 export const Info: Story = {
   args: {
     variant: 'info',
     label: 'Info',
   },
-};
+}
 
 export const Outline: Story = {
   args: {
     variant: 'outline',
     label: 'Outline',
   },
-};
+}
 
 export const Transparent: Story = {
   args: {
     variant: 'transparent',
     label: 'Transparent',
   },
-};
+}
 
 export const Facebook: Story = {
   args: {
     variant: 'facebook',
     label: 'Facebook',
   },
-};
+}
 
 export const Google: Story = {
   args: {
     variant: 'google',
     label: 'Google',
   },
-};
+}
 
 export const WithCustomChildren: Story = {
   args: {
@@ -116,4 +118,4 @@ export const WithCustomChildren: Story = {
       </Box>
     ),
   },
-};
+}

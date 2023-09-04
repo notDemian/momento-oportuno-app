@@ -21,7 +21,7 @@ export const BasketSummary = () => {
             <Text fontWeight='bold' color='white' padding='xxs' marginRight='s'>
               View Basket
             </Text>
-            <Text color='white'>{`${2} ${2 > 1 ? 'items' : 'item'}`}</Text>
+            <Text color='white'>{`${2} items`}</Text>
           </Box>
           <Text fontWeight='bold' color='white'>
             {formatCurrency(0)}

@@ -1,11 +1,12 @@
 import React, { useCallback, useMemo } from 'react'
-import { Carousel, Section, Card } from '@src/components/elements'
 import { Dimensions } from 'react-native'
-import { mockRecommendedByState, type RemarkablePlace } from '@src/data'
 import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types'
-import { PlaceCardInfo } from '@src/components'
+
 import { RecommendedByStateProps } from './RecommendedByState.type'
+
+import { Card,Carousel, Section } from '@src/components/elements'
 import { RecommendedCardInfo } from '@src/components/RecommendedCardInfo'
+import { mockRecommendedByState, type RemarkablePlace } from '@src/data'
 
 export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
   navigation,

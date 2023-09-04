@@ -1,2 +1,2 @@
-export * from './FilterProvider.type'
 export * from './FilterProvider'
+export * from './FilterProvider.type'

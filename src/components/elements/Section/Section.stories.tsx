@@ -1,8 +1,10 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { SectionProps } from './Section.type';
-import { Section } from './Section';
-import { Text } from '../Text';
-import { Box } from '../Box';
+import { Box } from '../Box'
+import { Text } from '../Text'
+
+import { Section } from './Section'
+import { SectionProps } from './Section.type'
+
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'Section',
@@ -19,7 +21,7 @@ export default {
       </Box>
     ),
   ],
-} as Meta<SectionProps>;
+} as Meta<SectionProps>
 
 type Story = StoryObj<SectionProps>;
 
@@ -39,6 +41,6 @@ export const Basic: Story = {
           </Box>
         </Section>
       </>
-    );
+    )
   },
-};
+}

@@ -1,9 +1,11 @@
 import React, { useCallback, useMemo } from 'react'
 import { Dimensions } from 'react-native'
-import { TabView as RNTabView, TabBar, SceneMap } from 'react-native-tab-view'
+import { SceneMap,TabBar, TabView as RNTabView } from 'react-native-tab-view'
+import { Icon } from '../Icon'
+
 import { useStyles } from './TabView.style'
 import { Cenes, TabViewProps } from './TabView.type'
-import { Icon } from '../Icon'
+
 import { useAppTheme } from '@src/theme'
 const { height, width } = Dimensions.get('window')
 

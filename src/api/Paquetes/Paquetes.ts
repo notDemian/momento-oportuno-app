@@ -1,6 +1,8 @@
-import { Constants } from '@src/utils/constants'
 import Request from '../request'
+
 import { type GetALlPaquetesRes } from './Paquetes.type'
+
+import { Constants } from '@src/utils/constants'
 
 const api = Request(Constants.ENDPOINTS.PRODUCT)
 

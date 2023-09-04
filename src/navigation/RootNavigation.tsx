@@ -1,19 +1,21 @@
-import 'react-native-gesture-handler'
 import React, { useContext } from 'react'
 import { StatusBar } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
-import {
-  theme as defaultTheme,
-  darkTheme,
-  ThemeContext,
-  getNavigationTheme,
-} from '@src/theme'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import TabNavigation from './TabNavigation'
+
 import { AuthenticationStack } from './Stacks'
+import TabNavigation from './TabNavigation'
 import { RootStackParamList } from './types'
+
+import 'react-native-gesture-handler'
 import { PortalHost } from '@gorhom/portal'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { useAppSelector } from '@src/hooks'
+import {
+  darkTheme,
+  getNavigationTheme,
+  theme as defaultTheme,
+  ThemeContext,
+} from '@src/theme'
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
 

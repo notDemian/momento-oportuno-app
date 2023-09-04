@@ -1,5 +1,6 @@
-import { isIos } from '@src/utils'
 import { StyleSheet } from 'react-native'
+
+import { isIos } from '@src/utils'
 
 export default StyleSheet.create({
   tabItem: {

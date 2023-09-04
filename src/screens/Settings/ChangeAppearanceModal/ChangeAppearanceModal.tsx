@@ -1,14 +1,16 @@
-import React from 'react';
+import React from 'react'
+import { ColorSchemeName } from 'react-native'
+
+import { ChangeAppearanceModalProps } from './ChangeAppearanceModal.type'
+
 import {
   BottomSheetModal,
   Box,
   RadioButton,
   RadioOption,
   Text,
-} from '@src/components';
-import { ThemeContext } from '@src/theme';
-import { ColorSchemeName } from 'react-native';
-import { ChangeAppearanceModalProps } from './ChangeAppearanceModal.type';
+} from '@src/components'
+import { ThemeContext } from '@src/theme'
 
 const appearanceOptions: RadioOption[] = [
   {
@@ -23,30 +25,30 @@ const appearanceOptions: RadioOption[] = [
     label: 'System',
     value: '',
   },
-];
+]
 
 export const ChangeAppearanceModal: React.FC<ChangeAppearanceModalProps> = ({
   isVisible,
   hideModal,
 }) => {
   const { setTheme, theme, useSystemTheme, setUseSystemTheme } =
-    React.useContext(ThemeContext);
+    React.useContext(ThemeContext)
 
-  let defaultValue = theme;
+  let defaultValue = theme
   if (useSystemTheme) {
-    defaultValue = null;
+    defaultValue = null
   }
 
   const onItemPress = (item: RadioOption) => {
-    const selectedTheme = item.value;
+    const selectedTheme = item.value
     if (selectedTheme !== '') {
-      setTheme(selectedTheme as ColorSchemeName);
-      setUseSystemTheme(false);
+      setTheme(selectedTheme as ColorSchemeName)
+      setUseSystemTheme(false)
     } else {
-      setTheme(null);
-      setUseSystemTheme(true);
+      setTheme(null)
+      setUseSystemTheme(true)
     }
-  };
+  }
 
   return (
     <BottomSheetModal
@@ -67,5 +69,5 @@ export const ChangeAppearanceModal: React.FC<ChangeAppearanceModalProps> = ({
         </Box>
       </Box>
     </BottomSheetModal>
-  );
-};
+  )
+}

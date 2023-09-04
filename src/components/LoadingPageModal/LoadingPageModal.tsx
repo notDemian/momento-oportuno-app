@@ -1,7 +1,8 @@
-import { palette } from '@src/theme/theme-palette'
 import type { FC } from 'react'
 import { StyleSheet } from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
+
+import { palette } from '@src/theme/theme-palette'
 
 interface LoadingPageModalProps {
   loading: boolean

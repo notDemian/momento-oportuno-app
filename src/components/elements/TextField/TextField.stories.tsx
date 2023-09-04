@@ -1,6 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { TextField } from './TextField';
-import { TextFieldProps } from './TextField.type';
+import { TextField } from './TextField'
+import { TextFieldProps } from './TextField.type'
+
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'TextField',
@@ -11,13 +12,13 @@ export default {
       placeholder: 'Please enter text',
     },
   },
-} as Meta<TextFieldProps>;
+} as Meta<TextFieldProps>
 
 type Story = StoryObj<TextFieldProps>;
 
 export const Basic: Story = {
   args: {},
-};
+}
 
 export const WithLeftIcon: Story = {
   args: {
@@ -26,4 +27,4 @@ export const WithLeftIcon: Story = {
       placeholder: 'Search',
     },
   },
-};
+}

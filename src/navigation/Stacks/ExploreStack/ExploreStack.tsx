@@ -1,24 +1,22 @@
 import React from 'react'
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import {
-  AddAddress,
-  ChangeAddress,
-  Checkout,
-  Explore,
-  PaymentMethod,
-  PlaceDetails,
-  PlaceList,
-  Promotion,
-  SavedAddresses,
-  SelectLocation,
-  TrackOrder,
-} from '@src/screens'
-import { fontSize } from '@src/theme'
 import { Button, Icon } from '@src/components'
 import {
   ExploreScreenProps,
   ExploreStackParamList,
 } from '@src/navigation/types'
+import {
+  AddAddress,
+  ChangeAddress,
+  Explore,
+  PlaceDetails,
+  PlaceList,
+  SavedAddresses,
+  SelectLocation,
+  TrackOrder,
+} from '@src/screens'
+import { fontSize } from '@src/theme'
 
 const Stack = createNativeStackNavigator<ExploreStackParamList>()
 

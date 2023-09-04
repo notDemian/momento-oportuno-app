@@ -1,13 +1,15 @@
-import { LayoutProps } from '@shopify/restyle'
-import { Theme, extractSpacingProps, palette } from '@src/theme'
+import { ActivityIndicator } from '../ActivityIndicator'
+import { Box } from '../Box'
+import { Icon } from '../Icon'
 import { Text } from '../Text'
+import { Touchable } from '../Touchable'
+
 import { ButtonProps } from './Button.type'
 import { getTextColor, getTextFontSize } from './Button.util'
 import { ButtonContainer } from './ButtonContainer'
-import { Touchable } from '../Touchable'
-import { Box } from '../Box'
-import { ActivityIndicator } from '../ActivityIndicator'
-import { Icon } from '../Icon'
+
+import { LayoutProps } from '@shopify/restyle'
+import { extractSpacingProps, palette,Theme } from '@src/theme'
 
 export const Button: React.FC<ButtonProps> = ({
   onPress,

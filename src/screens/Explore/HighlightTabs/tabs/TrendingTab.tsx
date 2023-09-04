@@ -1,6 +1,5 @@
-import React from 'react'
-import { Place, mockRemarkablePlace } from '@src/data'
 import { Box, PlaceListItem } from '@src/components'
+import { mockRemarkablePlace,Place } from '@src/data'
 
 export const TrendingTab = () => {
   return (

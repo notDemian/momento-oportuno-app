@@ -1,8 +1,10 @@
-import { Meta, StoryObj } from '@storybook/react-native'
-import { BlurViewProps } from './BlurView.type'
-import { BlurView } from './BlurView'
 import { Box } from '../Box'
 import { Image } from '../Image'
+
+import { BlurView } from './BlurView'
+import { BlurViewProps } from './BlurView.type'
+
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'BlurView',

@@ -1,6 +1,8 @@
 import { ScrollView } from 'react-native'
-import type { NewAnuncioLayout } from './NewAnuncioLayout.type'
 import { Box, Text } from '../elements'
+
+import type { NewAnuncioLayout } from './NewAnuncioLayout.type'
+
 import { useSafeAreaScrollViewStyles } from '@src/hooks'
 
 export const NewAnucioLayout = ({

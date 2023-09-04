@@ -1,5 +1,8 @@
 import React from 'react'
 import { Alert } from 'react-native'
+
+import { AuthenticationWithPhoneProps } from './AuthenticationWithPhone.type'
+
 import {
   AuthenticationLayout,
   BottomSheetModal,
@@ -9,7 +12,6 @@ import {
   TextField,
 } from '@src/components'
 import { fontSize } from '@src/theme'
-import { AuthenticationWithPhoneProps } from './AuthenticationWithPhone.type'
 import { wait } from '@src/utils/wait'
 
 export const AuthenticationWithPhone: React.FC<

@@ -1,6 +1,7 @@
+import React from 'react'
+
 import { HeaderBackground } from '@react-navigation/elements'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Icon } from '@src/components'
 import {
   AccountScreenProps,
   AccountStackParamList,
@@ -17,7 +18,6 @@ import {
   SupportCenter,
 } from '@src/screens'
 import { useAppTheme } from '@src/theme'
-import React from 'react'
 
 const Stack = createNativeStackNavigator<AccountStackParamList>()
 

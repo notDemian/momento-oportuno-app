@@ -1,1 +1,1 @@
-export * from './ChangeAddress';
+export * from './ChangeAddress'

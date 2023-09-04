@@ -1,12 +1,14 @@
-import React from 'react';
-import { Meta, StoryObj } from '@storybook/react-native';
-import { BottomSheetModalProps } from './BottomSheetModal.type';
-import { BottomSheetModal } from './BottomSheetModal';
-import { Box } from '../Box';
-import { mockPlaces } from '@src/data';
-import { Button } from '../Button';
-import { Card } from '../Card';
-import { Divider, PlaceCardInfo } from '@src/components';
+import React from 'react'
+import { Box } from '../Box'
+import { Button } from '../Button'
+import { Card } from '../Card'
+
+import { BottomSheetModal } from './BottomSheetModal'
+import { BottomSheetModalProps } from './BottomSheetModal.type'
+
+import { Divider, PlaceCardInfo } from '@src/components'
+import { mockPlaces } from '@src/data'
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'BottomSheetModal',
@@ -22,13 +24,13 @@ export default {
       options: ['light', 'dark'],
     },
   },
-} as Meta<BottomSheetModalProps>;
+} as Meta<BottomSheetModalProps>
 
 type Story = StoryObj<BottomSheetModalProps>;
 
 const BasicComponent = (props: BottomSheetModalProps) => {
-  const { useScrollView, snapPoints } = props;
-  const [isOpened, setIsOpened] = React.useState(false);
+  const { useScrollView, snapPoints } = props
+  const [isOpened, setIsOpened] = React.useState(false)
   return (
     <Box flex={1}>
       <Button label="Toggle Modal" onPress={() => setIsOpened(!isOpened)} />
@@ -48,12 +50,12 @@ const BasicComponent = (props: BottomSheetModalProps) => {
         </Card>
       </BottomSheetModal>
     </Box>
-  );
-};
+  )
+}
 
 const WithScrollViewComponent = (props: BottomSheetModalProps) => {
-  const { useScrollView, snapPoints } = props;
-  const [isOpened, setIsOpened] = React.useState(false);
+  const { useScrollView, snapPoints } = props
+  const [isOpened, setIsOpened] = React.useState(false)
   return (
     <Box flex={1}>
       <Button
@@ -67,7 +69,7 @@ const WithScrollViewComponent = (props: BottomSheetModalProps) => {
         isOpened={isOpened}
         onClose={() => setIsOpened(false)}>
         {mockPlaces.map((item, index) => {
-          const { image, title, subTitle } = item;
+          const { image, title, subTitle } = item
           return (
             <>
               <Card
@@ -87,18 +89,18 @@ const WithScrollViewComponent = (props: BottomSheetModalProps) => {
               </Card>
               <Divider marginVertical="s" backgroundColor="card" />
             </>
-          );
+          )
         })}
       </BottomSheetModal>
     </Box>
-  );
-};
+  )
+}
 
 export const Basic: Story = {
   render: (props) => {
-    return <BasicComponent {...props} />;
+    return <BasicComponent {...props} />
   },
-};
+}
 
 export const WithScrollView: Story = {
   args: {
@@ -106,6 +108,6 @@ export const WithScrollView: Story = {
     snapPoints: ['70%'],
   },
   render: (props) => {
-    return <WithScrollViewComponent {...props} />;
+    return <WithScrollViewComponent {...props} />
   },
-};
+}

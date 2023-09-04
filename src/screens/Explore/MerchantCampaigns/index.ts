@@ -1,1 +1,1 @@
-export * from './MerchantCampaigns';
+export * from './MerchantCampaigns'

@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Button, Icon } from '@src/components'
 import {
@@ -6,7 +8,6 @@ import {
 } from '@src/navigation/types'
 import { NewAnuncioForm, NewAnuncioFormByCat } from '@src/screens'
 import { fontSize } from '@src/theme'
-import React from 'react'
 
 const Stack = createNativeStackNavigator<NewAnuncioStackParamList>()
 

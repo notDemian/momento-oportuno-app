@@ -1,12 +1,13 @@
 import React from 'react'
-import { createRestyleComponent, createVariant } from '@shopify/restyle'
+import { Image } from '../../Image'
+
 import {
   CardCoverImageProps,
   CardCoverImageSizeVariants,
 } from './CardCoverImage.type'
+
+import { createRestyleComponent, createVariant } from '@shopify/restyle'
 import { Theme } from '@src/theme'
-import { Image } from '../../Image'
-import { Box } from '../../Box'
 
 const CoverImage = createRestyleComponent<
   CardCoverImageSizeVariants & React.ComponentProps<typeof Image>,
@@ -31,8 +32,8 @@ export const CardCoverImage: React.FC<CardCoverImageProps> = ({
     ...(shouldFill
       ? { width: '100%', height: '100%' }
       : {
-          size,
-        }),
+        size,
+      }),
   }
   return (
     <CoverImage

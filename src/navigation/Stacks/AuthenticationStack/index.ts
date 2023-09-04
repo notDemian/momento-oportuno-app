@@ -1,1 +1,1 @@
-export * from './AuthenticationStack';
+export * from './AuthenticationStack'

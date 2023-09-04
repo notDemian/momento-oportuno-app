@@ -1,7 +1,10 @@
 import React from 'react'
-import { TextInput, I18nManager } from 'react-native'
+import { I18nManager,TextInput } from 'react-native'
 import { Box } from '../Box'
+import { Icon } from '../Icon'
+
 import { InputRestyleProps, TextFieldProps } from './TextField.type'
+
 import {
   backgroundColor,
   border,
@@ -13,8 +16,7 @@ import {
   typography,
   visible,
 } from '@shopify/restyle'
-import { Theme, fontSize, useAppTheme } from '@src/theme'
-import { Icon } from '../Icon'
+import { fontSize, Theme, useAppTheme } from '@src/theme'
 
 const InnerTextInput = createRestyleComponent<
   InputRestyleProps & React.ComponentProps<typeof TextInput>,

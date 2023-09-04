@@ -1,9 +1,11 @@
+import { FC, useCallback, useMemo } from 'react'
+
+import { PackageItemProps } from './PackageItem.type'
+
 import { Box, Button, Text } from '@src/components'
 import { SvgCheck } from '@src/components/svgs'
 import { useAccountStackNavigation } from '@src/hooks'
 import { fontSize, getShadowBoxProps, useAppTheme } from '@src/theme'
-import { FC, useCallback, useMemo } from 'react'
-import { PackageItemProps } from './PackageItem.type'
 export const PackageItem: FC<PackageItemProps> = ({ paquete, onPress: _ }) => {
   const _theme = useAppTheme()
 

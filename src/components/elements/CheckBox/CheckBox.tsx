@@ -1,8 +1,9 @@
 import React from 'react'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
-import { Text } from '../Text'
 import { Box } from '../Box'
+import { Text } from '../Text'
 import { Touchable } from '../Touchable'
+
 import { fontSize, useAppTheme } from '@src/theme'
 
 type CheckBoxProps = {

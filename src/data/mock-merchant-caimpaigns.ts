@@ -1,4 +1,4 @@
-import {ImageSourcePropType} from 'react-native';
+import {ImageSourcePropType} from 'react-native'
 
 export type MerchantCampaign = {
   id: string;
@@ -37,4 +37,4 @@ export const mockMerchantCaimpaigns: MerchantCampaign[] = [
     image: require('@src/assets/campaigns/campaign-4.png'),
     backgroundColor: '#28BBC7',
   },
-];
+]

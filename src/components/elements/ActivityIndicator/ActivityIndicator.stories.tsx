@@ -1,6 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react-native'
 import { ActivityIndicator } from './ActivityIndicator'
 import { ActivityIndicatorProps } from './ActivityIndicator.type'
+
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'ActivityIndicator',

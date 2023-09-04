@@ -1,10 +1,11 @@
-import { useAppTheme } from '@src/theme'
-import { FlatList, FlatListProps } from 'react-native'
-import { Divider } from '../Divider'
 import React from 'react'
-import { useScrollToTop } from '@react-navigation/native'
-import { Text } from '../Text'
+import { FlatList, FlatListProps } from 'react-native'
 import { Box } from '../Box'
+import { Divider } from '../Divider'
+import { Text } from '../Text'
+
+import { useScrollToTop } from '@react-navigation/native'
+import { useAppTheme } from '@src/theme'
 
 export function List<T>({ contentContainerStyle, ...rest }: FlatListProps<T>) {
   const { colors } = useAppTheme()

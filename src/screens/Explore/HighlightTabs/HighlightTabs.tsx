@@ -1,7 +1,7 @@
-import React from 'react'
-import { FeaturedTab, NewTab, TrendingTab } from './tabs'
-import { Box, TabView, TabViewData } from '@src/components'
 import styles from './HighlightTabs.style'
+import { FeaturedTab, NewTab, TrendingTab } from './tabs'
+
+import { Box, TabView, TabViewData } from '@src/components'
 
 const tabData: TabViewData = [
   { key: '0', title: 'Mis Avisos', content: FeaturedTab },

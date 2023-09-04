@@ -1,12 +1,14 @@
-import { createRestyleComponent, createVariant } from '@shopify/restyle'
 import React from 'react'
+import { Box } from '../Box'
+
 import {
   ButtonProps,
   ButtonRestyleProps,
   ButtonSizeVariants,
   ButtonVariants,
 } from './Button.type'
-import { Box } from '../Box'
+
+import { createRestyleComponent, createVariant } from '@shopify/restyle'
 import { Theme } from '@src/theme'
 
 export const ButtonContainer = createRestyleComponent<

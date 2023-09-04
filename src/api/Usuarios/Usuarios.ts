@@ -1,14 +1,16 @@
-import { Constants } from '@src/utils/constants'
 import Request, { CustomRequest } from '../request'
+
 // import { Main_Anuncios, getAnuncioRes } from './Anuncios.type'
 import {
-  logInRes,
   type logInParams,
-  type registerRes,
   logInParamsSchema,
+  logInRes,
   registerParams,
   registerParamsSchema,
+  type registerRes,
 } from './Usuarios.type'
+
+import { Constants } from '@src/utils/constants'
 
 const apiCustom = CustomRequest('/')
 

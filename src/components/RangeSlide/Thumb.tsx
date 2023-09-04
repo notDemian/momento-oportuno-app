@@ -1,6 +1,7 @@
-import { useAppTheme } from '@src/theme'
 import { type FC, memo } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { StyleSheet,View } from 'react-native'
+
+import { useAppTheme } from '@src/theme'
 
 const THUMB_RADIUS_LOW = 12
 const THUMB_RADIUS_HIGH = 16

@@ -1,11 +1,13 @@
 import React from 'react'
 import { Animated, SafeAreaView } from 'react-native'
-import { Box, Text, TabSectionList, Divider, DishItem } from '@src/components'
-import { mockPlaceDetails } from '@src/data'
-import styles from './PlaceDetails.style'
-import { BasketSummary } from './BasketSummary'
-import { PopularDishes } from './PopularDishes'
+import {} from '../404'
+
 import { HeadingInformation } from './HeadingInformation'
+import styles from './PlaceDetails.style'
+import { PopularDishes } from './PopularDishes'
+
+import { Box, DishItem, Divider, TabSectionList, Text } from '@src/components'
+import { mockPlaceDetails } from '@src/data'
 
 export const PlaceDetails = () => {
   const [scrollY] = React.useState(new Animated.Value(0))

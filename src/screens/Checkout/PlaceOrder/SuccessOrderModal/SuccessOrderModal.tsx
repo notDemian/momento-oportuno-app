@@ -1,13 +1,15 @@
 import React from 'react'
 import { Animated } from 'react-native'
-import {
-  Box,
-  Text,
-  Button,
-  BottomSheetModal,
-  LottieView,
-} from '@src/components'
+
 import styles from './SuccessOrderModal.style'
+
+import {
+  BottomSheetModal,
+  Box,
+  Button,
+  LottieView,
+  Text,
+} from '@src/components'
 import { useExploreStackNavigation } from '@src/hooks'
 
 type OrderSuccessModalProps = {
@@ -84,7 +86,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
               Thank you for your order.
             </Text>
             <Text textAlign='center' marginTop='s'>
-              You can track the delivery in the "Orders" section.
+              You can track the delivery in the Orders section.
             </Text>
           </Animated.View>
         </Box>

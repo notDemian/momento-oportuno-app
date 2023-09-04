@@ -1,9 +1,10 @@
 import React from 'react'
+import { Dimensions } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
+import { Images } from '@src/assets'
 import { Box, Button, Image, Text } from '@src/components'
 import { AuthStackParamList, ScreenProps } from '@src/navigation/types'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Images } from '@src/assets'
-import { Dimensions } from 'react-native'
 import { fontSize } from '@src/theme'
 
 export const Authentication: React.FC<

@@ -1,6 +1,6 @@
 import { TouchableNativeFeedback } from 'react-native'
-import { ButtonProps } from '../Button'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { ButtonProps } from '../Button'
 
 export type TouchableProps = React.ComponentPropsWithoutRef<
   typeof TouchableOpacity

@@ -1,1 +1,1 @@
-export * from './RecommendedPlaces';
+export * from './RecommendedPlaces'

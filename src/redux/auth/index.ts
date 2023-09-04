@@ -2,9 +2,11 @@ export * from './auth'
 export { default as LogOutAction } from './auth'
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Slices } from '../store.helper'
+
 import { AuthState } from './auth.type'
+
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: AuthState = {
   token: '',

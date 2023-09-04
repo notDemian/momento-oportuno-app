@@ -1,1 +1,1 @@
-export * from './SupportCenter';
+export * from './SupportCenter'

@@ -1,4 +1,4 @@
-import { ForgotPasswordProps } from '../ForgotPassword.type';
+import { ForgotPasswordProps } from '../ForgotPassword.type'
 
 export type EmailSentModalProps = {
   isVisible: boolean;

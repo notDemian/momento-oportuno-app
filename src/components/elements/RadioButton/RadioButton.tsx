@@ -1,9 +1,11 @@
 import React from 'react'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
-import { RadioButtonProps, RadioOption } from './RadioButton.type'
 import { Box } from '../Box'
-import { Touchable } from '../Touchable'
 import { Text } from '../Text'
+import { Touchable } from '../Touchable'
+
+import { RadioButtonProps, RadioOption } from './RadioButton.type'
+
 import { useAppTheme } from '@src/theme'
 
 export const RadioButton: React.FC<RadioButtonProps> = ({

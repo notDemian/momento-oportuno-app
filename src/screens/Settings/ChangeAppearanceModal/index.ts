@@ -1,1 +1,1 @@
-export * from './ChangeAppearanceModal';
+export * from './ChangeAppearanceModal'

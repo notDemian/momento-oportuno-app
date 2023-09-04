@@ -1,3 +1,3 @@
 export * from './anuncios.query'
-export * from './useAnuncios'
 export * from './useAnuncio'
+export * from './useAnuncios'

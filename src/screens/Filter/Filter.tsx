@@ -1,12 +1,13 @@
-import { Box, Button, Text, Touchable } from '@src/components'
-import { useFilterContext } from '@src/filterContext/filter'
 import { useCallback, useState } from 'react'
+import { ScrollView } from 'react-native-gesture-handler'
+
+import { FilterCategories, FilterSizes, FilterStyles } from './Filter.mock'
 import { FilterProps } from './Filter.type'
 
+import { Box, Button, Text, Touchable } from '@src/components'
 import { RangeSlide } from '@src/components/RangeSlide/RangeSlide'
+import { useFilterContext } from '@src/filterContext/filter'
 import { fontSize } from '@src/theme'
-import { ScrollView } from 'react-native-gesture-handler'
-import { FilterCategories, FilterSizes, FilterStyles } from './Filter.mock'
 
 export const Filter: React.FC<FilterProps> = ({ navigation }) => {
   const [low, setLow] = useState(0)

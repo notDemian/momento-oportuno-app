@@ -1,4 +1,4 @@
-import { type ENDPOINTS, Constants } from '@src/utils/constants'
+import { Constants,type ENDPOINTS } from '@src/utils/constants'
 import axios, { type AxiosInstance } from 'axios'
 
 export default function Request(service: ENDPOINTS): AxiosInstance {

@@ -1,10 +1,11 @@
-import { UseMutateFunction, useMutation, useQueryClient } from 'react-query'
 // import { UsersQuerys } from './users.query'
-import { User, logInParams } from '@src/api/Usuarios'
-import UsuariosServices from '@src/api/Usuarios/Usuarios'
-import { useDispatch } from 'react-redux'
-import { setUser } from '@src/redux'
 import { Alert } from 'react-native'
+import { UseMutateFunction, useMutation } from 'react-query'
+import { useDispatch } from 'react-redux'
+
+import { logInParams,User } from '@src/api/Usuarios'
+import UsuariosServices from '@src/api/Usuarios/Usuarios'
+import { setUser } from '@src/redux'
 
 type IUseLogIn = [
   UseMutateFunction<User, unknown, logInParams, unknown>,

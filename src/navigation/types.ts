@@ -3,15 +3,15 @@ import type {
   BottomTabScreenProps,
 } from '@react-navigation/bottom-tabs'
 import {
-  useNavigation,
   type CompositeNavigationProp,
   type CompositeScreenProps,
   type NavigatorScreenParams,
   type ParamListBase,
+  useNavigation,
 } from '@react-navigation/native'
 import type {
-  NativeStackScreenProps,
   NativeStackNavigationProp,
+  NativeStackScreenProps,
 } from '@react-navigation/native-stack'
 import type { Anuncio } from '@src/api'
 import { NewAnuncioCategorias } from '@src/data'

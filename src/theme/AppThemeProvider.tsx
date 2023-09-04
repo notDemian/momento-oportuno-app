@@ -1,8 +1,10 @@
 import React from 'react'
-import { ThemeProvider } from '@shopify/restyle'
 import { ColorSchemeName, useColorScheme } from 'react-native'
-import { ThemeContext } from './theme-context'
+
 import { darkTheme, theme } from './theme'
+import { ThemeContext } from './theme-context'
+
+import { ThemeProvider } from '@shopify/restyle'
 
 type AppThemeProviderProps = {
   children?: React.ReactNode

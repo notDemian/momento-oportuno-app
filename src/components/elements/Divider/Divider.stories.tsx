@@ -1,10 +1,12 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { Divider } from './Divider';
-import { Theme } from '@src/theme';
-import { BoxProps } from '@shopify/restyle';
-import { mockPlaces } from '@src/data';
-import { Card } from '../Card';
-import React from 'react';
+import React from 'react'
+import { Card } from '../Card'
+
+import { Divider } from './Divider'
+
+import { BoxProps } from '@shopify/restyle'
+import { mockPlaces } from '@src/data'
+import { Theme } from '@src/theme'
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'Divider',
@@ -12,7 +14,7 @@ export default {
   args: {
     marginVertical: 's',
   },
-} as Meta<BoxProps<Theme>>;
+} as Meta<BoxProps<Theme>>
 
 type Story = StoryObj<BoxProps<Theme>>;
 
@@ -33,4 +35,4 @@ export const Basic: Story = {
       ))}
     </>
   ),
-};
+}

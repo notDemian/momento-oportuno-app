@@ -1,7 +1,8 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { TabSectionList, TabSectionListProps } from './TabSectionList';
-import { mockPlaceDetails } from '@src/data';
-import { Box, DishItem, Text } from '@src/components';
+import { TabSectionList, TabSectionListProps } from './TabSectionList'
+
+import { Box, DishItem, Text } from '@src/components'
+import { mockPlaceDetails } from '@src/data'
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'TabSectionList',
@@ -25,14 +26,14 @@ export default {
       paddingTop: 50,
     },
   },
-} as Meta<TabSectionListProps>;
+} as Meta<TabSectionListProps>
 
 type Story = StoryObj<TabSectionListProps>;
 
 export const Basic: Story = {
   args: {
     renderTab: ({ title, isActive }) => {
-      const borderBottomWidth = isActive ? 2 : 0;
+      const borderBottomWidth = isActive ? 2 : 0
       return (
         <Box borderBottomWidth={borderBottomWidth} borderColor="primary">
           <Text
@@ -42,10 +43,10 @@ export const Basic: Story = {
             {title}
           </Text>
         </Box>
-      );
+      )
     },
     renderItem: ({ item }) => {
-      return <DishItem data={item} />;
+      return <DishItem data={item} />
     },
   },
-};
+}

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Alert, AlertButton } from 'react-native'
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { Icon } from '@src/components'
 import {
   NotificationScreenProps,
   NotificationStackParamList,
 } from '@src/navigation/types'
-import { Icon } from '@src/components'
-import { Notification } from '@src/screens'
 import Favoritos from '@src/screens/Account/AccountViews/Favoritos'
 
 const Stack = createNativeStackNavigator<NotificationStackParamList>()

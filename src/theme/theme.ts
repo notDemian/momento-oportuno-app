@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { createTheme } from '@shopify/restyle'
 import { palette } from './theme-palette'
+
+import { createTheme } from '@shopify/restyle'
 
 export const theme = createTheme({
   borderRadii: {

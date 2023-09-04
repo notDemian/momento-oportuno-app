@@ -1,6 +1,7 @@
-import { palette } from '@src/theme/theme-palette'
 import { memo } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { StyleSheet,View } from 'react-native'
+
+import { palette } from '@src/theme/theme-palette'
 
 const Rail = () => {
   return <View style={styles.root} />

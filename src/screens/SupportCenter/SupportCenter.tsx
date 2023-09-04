@@ -1,15 +1,15 @@
-import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView } from 'react-native'
+
 import {
-  Section,
-  ListRowItem,
-  Text,
-  Button,
-  Divider,
   Box,
+  Button,
   Card,
+  Divider,
+  ListRowItem,
   LottieView,
-} from '@src/components';
+  Section,
+  Text,
+} from '@src/components'
 
 export const SupportCenter = () => {
   return (
@@ -47,5 +47,5 @@ export const SupportCenter = () => {
         <ListRowItem title="How can I contact with my drivers" hasChevron />
       </Section>
     </ScrollView>
-  );
-};
+  )
+}

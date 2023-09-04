@@ -1,10 +1,12 @@
 import React from 'react'
-import { Carousel, Section, Card } from '@src/components/elements'
 import { Dimensions } from 'react-native'
-import { mockPlaces, Place } from '@src/data'
 import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types'
-import { PlaceCardInfo } from '@src/components'
+
 import { RecommendedPlacesProps } from './RecommendedPlaces.type'
+
+import { PlaceCardInfo } from '@src/components'
+import { Card,Carousel, Section } from '@src/components/elements'
+import { mockPlaces, Place } from '@src/data'
 
 export const RecommendedPlaces: React.FC<RecommendedPlacesProps> = ({
   navigation,

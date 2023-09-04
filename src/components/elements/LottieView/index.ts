@@ -1,1 +1,1 @@
-export * from './LottieView';
+export * from './LottieView'

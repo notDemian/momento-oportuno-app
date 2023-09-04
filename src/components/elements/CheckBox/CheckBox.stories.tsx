@@ -1,7 +1,9 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { CheckBoxProps } from './CheckBox.type';
-import { CheckBox } from './CheckBox';
-import { Icon } from '../Icon';
+import { Icon } from '../Icon'
+
+import { CheckBox } from './CheckBox'
+import { CheckBoxProps } from './CheckBox.type'
+
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'CheckBox',
@@ -10,16 +12,16 @@ export default {
     label: 'My CheckBox',
     onChange: () => console.log('checked'),
   },
-} as Meta<CheckBoxProps>;
+} as Meta<CheckBoxProps>
 
 type Story = StoryObj<CheckBoxProps>;
 
 export const Basic: Story = {
   args: {},
-};
+}
 
 export const WithRightElement: Story = {
   args: {
     rightElement: <Icon name="logo-react" isPrimary />,
   },
-};
+}

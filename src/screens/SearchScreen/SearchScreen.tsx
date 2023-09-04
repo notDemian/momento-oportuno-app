@@ -1,3 +1,7 @@
+import React, { useCallback } from 'react'
+
+import { AnuncioItem } from './AnuncioItem/AnuncioItem'
+
 import type { Anuncio } from '@src/api/Anuncios/Anuncios.type'
 import {
   ActivityIndicator,
@@ -13,10 +17,8 @@ import {
 import { useFilterContext } from '@src/filterContext/filter'
 import { useSearchStackNavigation } from '@src/hooks'
 import { useAnuncios } from '@src/hooks'
-import { keyExtractor } from '@src/utils/keyExtractor'
-import React, { useCallback } from 'react'
-import { AnuncioItem } from './AnuncioItem/AnuncioItem'
 import { useAppTheme } from '@src/theme'
+import { keyExtractor } from '@src/utils/keyExtractor'
 
 export const SearchScreen = () => {
   const [_searchTerm, setSearchTerm] = React.useState('')

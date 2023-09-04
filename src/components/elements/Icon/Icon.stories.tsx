@@ -1,6 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { IconProps } from './Icon.type';
-import { Icon } from './Icon';
+import { Icon } from './Icon'
+import { IconProps } from './Icon.type'
+
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'Icon',
@@ -10,20 +11,20 @@ export default {
     isPrimary: false,
     size: 64,
   },
-} as Meta<IconProps>;
+} as Meta<IconProps>
 
 type Story = StoryObj<IconProps>;
 
-export const Basic: Story = {};
+export const Basic: Story = {}
 
 export const Primary: Story = {
   args: {
     isPrimary: true,
   },
-};
+}
 
 export const CustomSize: Story = {
   args: {
     size: 128,
   },
-};
+}

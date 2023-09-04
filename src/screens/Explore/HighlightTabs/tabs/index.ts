@@ -1,3 +1,3 @@
-export * from './FeatureTab';
-export * from './NewTab';
-export * from './TrendingTab';
+export * from './FeatureTab'
+export * from './NewTab'
+export * from './TrendingTab'

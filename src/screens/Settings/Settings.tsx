@@ -1,18 +1,19 @@
 import React from 'react'
-import { Switch, ScrollView, Linking, I18nManager, Alert } from 'react-native'
-import {
-  Text,
-  Icon,
-  Divider,
-  Section,
-  ListRowItem,
-  Box,
-  IconProps,
-} from '@src/components'
+import { I18nManager,ScrollView } from 'react-native'
+
 import { ChangeAppearanceModal } from './ChangeAppearanceModal'
 import { ChangeLanguageModal } from './ChangeLanguageModal'
+
+import {
+  Box,
+  Divider,
+  Icon,
+  IconProps,
+  ListRowItem,
+  Section,
+  Text,
+} from '@src/components'
 import { ThemeContext } from '@src/theme'
-import { getStoreURL } from '@src/utils'
 
 export const Settings = () => {
   const { theme, useSystemTheme } = React.useContext(ThemeContext)

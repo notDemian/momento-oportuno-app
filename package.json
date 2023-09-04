@@ -12,7 +12,8 @@
     "build:android": "eas build --platform android -e production",
     "publish:ios": "eas submit --platform ios",
     "publish:android": "eas submit --platform android",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
     "@babel/runtime": "^7.22.11",
@@ -90,6 +91,8 @@
     "@typescript-eslint/parser": "^5.43.0",
     "babel-loader": "^8.3.0",
     "eslint": "^8.28.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "prettier": "^2.7.1",
     "react-dom": "18.2.0"
   },

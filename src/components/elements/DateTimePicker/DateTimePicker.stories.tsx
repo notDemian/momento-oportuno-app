@@ -1,10 +1,12 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { DateTimePickerProps } from './DateTimePicker.type';
-import { DateTimePicker } from './DateTimePicker';
-import React from 'react';
-import { Box } from '../Box';
-import { Button } from '../Button';
-import { isIos } from '@src/utils';
+import React from 'react'
+import { Box } from '../Box'
+import { Button } from '../Button'
+
+import { DateTimePicker } from './DateTimePicker'
+import { DateTimePickerProps } from './DateTimePicker.type'
+
+import { isIos } from '@src/utils'
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'DateTimePicker',
@@ -28,20 +30,20 @@ export default {
       options: ['default', 'spinner'],
     },
   },
-} as Meta<DateTimePickerProps>;
+} as Meta<DateTimePickerProps>
 
 type Story = StoryObj<DateTimePickerProps>;
 
 const DateTimePickerComponent: React.FC<DateTimePickerProps> = (props) => {
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = React.useState(false)
 
   const onChange = (e) => {
-    console.log(e.nativeEvent.timestamp);
-    setVisible(false);
-  };
+    console.log(e.nativeEvent.timestamp)
+    setVisible(false)
+  }
 
   if (isIos) {
-    return <DateTimePicker {...props} onChange={onChange} />;
+    return <DateTimePicker {...props} onChange={onChange} />
   }
 
   return (
@@ -52,31 +54,31 @@ const DateTimePickerComponent: React.FC<DateTimePickerProps> = (props) => {
       />
       {visible && <DateTimePicker {...props} onChange={onChange} />}
     </Box>
-  );
-};
+  )
+}
 
 export const Basic: Story = {
   args: {},
   render: (props) => <DateTimePickerComponent {...props} />,
-};
+}
 
 export const DateMode: Story = {
   args: {
     mode: 'date',
   },
   render: (props) => <DateTimePickerComponent {...props} />,
-};
+}
 
 export const TimeMode: Story = {
   args: {
     mode: 'time',
   },
   render: (props) => <DateTimePickerComponent {...props} />,
-};
+}
 
 export const SpinnerDisplay: Story = {
   args: {
     display: 'spinner',
   },
   render: (props) => <DateTimePickerComponent {...props} />,
-};
+}

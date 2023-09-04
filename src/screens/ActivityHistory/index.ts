@@ -1,1 +1,1 @@
-export * from './ActivityHistory';
+export * from './ActivityHistory'

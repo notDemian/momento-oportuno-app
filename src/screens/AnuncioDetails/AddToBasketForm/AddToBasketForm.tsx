@@ -1,5 +1,6 @@
 import React from 'react'
-import { Box, Text, TextField, Button, Icon } from '@src/components'
+
+import { Box, Button, Icon,Text } from '@src/components'
 import { fontSize } from '@src/theme'
 
 type AddToBasketFormProps = {

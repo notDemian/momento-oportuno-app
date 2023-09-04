@@ -1,9 +1,11 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { List } from './List';
-import { FlatListProps, ListRenderItem } from 'react-native';
-import { mockPlaceList } from '@src/data';
-import { Card } from '../Card';
-import { PlaceCardInfo } from '@src/components';
+import { FlatListProps, ListRenderItem } from 'react-native'
+import { Card } from '../Card'
+
+import { List } from './List'
+
+import { PlaceCardInfo } from '@src/components'
+import { mockPlaceList } from '@src/data'
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'List',
@@ -12,12 +14,12 @@ export default {
   args: {
     data: mockPlaceList,
   },
-} as Meta<FlatListProps<any>>;
+} as Meta<FlatListProps<any>>
 
 type Story = StoryObj<FlatListProps<any>>;
 
 const renderItem: ListRenderItem<any> = (props) => {
-  const { title, subTitle } = props.item;
+  const { title, subTitle } = props.item
   return (
     <Card
       key={props.index}
@@ -30,11 +32,11 @@ const renderItem: ListRenderItem<any> = (props) => {
       onPress={() => console.log('item pressed')}>
       <PlaceCardInfo data={props.item} />
     </Card>
-  );
-};
+  )
+}
 
 const renderHorizontalItem: ListRenderItem<any> = (props) => {
-  const { title, subTitle } = props.item;
+  const { title, subTitle } = props.item
   return (
     <Card
       variant="flat"
@@ -49,14 +51,14 @@ const renderHorizontalItem: ListRenderItem<any> = (props) => {
       onPress={() => console.log('item pressed')}>
       <PlaceCardInfo data={props.item} />
     </Card>
-  );
-};
+  )
+}
 
 export const Basic: Story = {
   args: {
     renderItem,
   },
-};
+}
 
 export const Horizontal: Story = {
   args: {
@@ -64,4 +66,4 @@ export const Horizontal: Story = {
     horizontal: true,
     contentContainerStyle: { height: 180, padding: 16 },
   },
-};
+}

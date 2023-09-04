@@ -1,24 +1,23 @@
+import { useCallback, useState } from 'react'
+import { Dimensions } from 'react-native'
+import {
+  CarouselRenderItem,
+} from 'react-native-reanimated-carousel/lib/typescript/types'
+
 import {
   Box,
   Button,
-  NewAnucioLayout,
-  TextField,
-  Text,
   Carousel,
   Image,
-  Icon,
+  NewAnucioLayout,
+  Text,
+  TextField,
 } from '@src/components'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
 import { ESTADOS_APROBADOS, NEW_ANUNCIO_CATEGORIAS } from '@src/data'
 import { NewAnuncioStackParamList, ScreenProps } from '@src/navigation'
-import { fontSize, palette } from '@src/theme'
-import { useCallback, useState } from 'react'
+import { fontSize } from '@src/theme'
 import * as ImagePicker from 'expo-image-picker'
-import { Dimensions } from 'react-native'
-import {
-  CarouselRenderItem,
-  CarouselRenderItemInfo,
-} from 'react-native-reanimated-carousel/lib/typescript/types'
 
 export const NewAnuncioForm: React.FC<
   ScreenProps<NewAnuncioStackParamList, 'NewAnuncioForm'>

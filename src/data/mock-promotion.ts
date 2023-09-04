@@ -1,7 +1,7 @@
-import { ImageSourcePropType } from 'react-native';
+import { ImageSourcePropType } from 'react-native'
 
-import Chance from 'chance';
-const chance = new Chance();
+import Chance from 'chance'
+const chance = new Chance()
 
 export type Promotion = {
   id: string;
@@ -26,4 +26,4 @@ export const promotions: Promotion[] = Array(10)
     }),
     tag: 'Limited Offer',
     image: require('../assets/promotions/promotion.png'),
-  }));
+  }))

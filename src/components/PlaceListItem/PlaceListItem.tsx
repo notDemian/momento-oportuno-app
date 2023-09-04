@@ -1,7 +1,8 @@
 import React from 'react'
-import { Place } from '@src/data'
 import { Box, Divider, Image, Text, Touchable } from '../elements'
 import { PlaceCardInfo } from '../PlaceCardInfo'
+
+import { Place } from '@src/data'
 import { useExploreStackNavigation } from '@src/hooks'
 
 type PlaceListItemProps = {

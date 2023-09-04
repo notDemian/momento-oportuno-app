@@ -1,1 +1,1 @@
-export * from './PopularPlaces';
+export * from './PopularPlaces'

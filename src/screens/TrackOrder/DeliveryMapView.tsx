@@ -1,36 +1,38 @@
-import React from 'react';
+import React from 'react'
 import MapBox, {
-  PROVIDER_GOOGLE,
   Marker,
   MarkerDragStartEndEvent,
-  Region,
   Polyline,
-} from 'react-native-maps';
-import styles from './TrackOrder.style';
-import { useAppTheme } from '@src/theme';
-import { googleMapDarkModeStyles } from '@src/utils';
-import { Box, Image } from '@src/components';
+  PROVIDER_GOOGLE,
+  Region,
+} from 'react-native-maps'
+
+import styles from './TrackOrder.style'
+
+import { Box, Image } from '@src/components'
+import { useAppTheme } from '@src/theme'
+import { googleMapDarkModeStyles } from '@src/utils'
 
 export const DeliveryMapView = () => {
-  const { colors, colorScheme } = useAppTheme();
+  const { colors, colorScheme } = useAppTheme()
   const [currentLocation, setCurrentLocation] = React.useState<Region>({
     longitude: -122.406417,
     latitude: 37.785834,
     longitudeDelta: 0.0022,
     latitudeDelta: 0.0031,
-  });
+  })
 
   const onRegionChangeComplete = (region: Region) => {
-    setCurrentLocation(region);
-  };
+    setCurrentLocation(region)
+  }
 
   const onMapBoxPress = (event: MarkerDragStartEndEvent) => {
     const {
       nativeEvent: { coordinate },
-    } = event;
+    } = event
 
-    console.log('_onMapBoxPress -> coordinate', coordinate);
-  };
+    console.log('_onMapBoxPress -> coordinate', coordinate)
+  }
 
   return (
     <Box height="100%">
@@ -90,5 +92,5 @@ export const DeliveryMapView = () => {
         />
       </MapBox>
     </Box>
-  );
-};
+  )
+}

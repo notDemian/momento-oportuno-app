@@ -1,6 +1,15 @@
+import { type FC,useCallback, useState } from 'react'
+import { Animated, KeyboardAvoidingView, Platform } from 'react-native'
+import { useWindowDimensions } from 'react-native'
+import RenderHtml from 'react-native-render-html'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+
+import styles from './AnuncioDetails.style'
+import { AnuncioProps } from './AnuncioDetails.type'
+import { HeadingInformation } from './HeadingInformation'
+
 import {
   Box,
-  Button,
   ContentLoader,
   LoadingPageModal,
   RefreshControl,
@@ -10,16 +19,6 @@ import { Dish, mockDishDetails } from '@src/data'
 import { useAnuncio, useAppDispatch, useAppSelector } from '@src/hooks'
 import { incrementCount } from '@src/redux'
 import { useAppTheme } from '@src/theme'
-import { useCallback, useState, type FC } from 'react'
-import { Animated, KeyboardAvoidingView, Platform } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { AddToBasketForm } from './AddToBasketForm'
-import styles from './AnuncioDetails.style'
-import { AnuncioProps } from './AnuncioDetails.type'
-import { HeadingInformation } from './HeadingInformation'
-
-import RenderHtml from 'react-native-render-html'
-import { useWindowDimensions } from 'react-native'
 
 export const AnuncioDetails: FC<AnuncioProps> = ({
   route: { params },

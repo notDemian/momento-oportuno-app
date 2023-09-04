@@ -1,10 +1,11 @@
-import React from 'react';
-import { Touchable } from '../Touchable';
-import { Box } from '../Box';
-import { Text } from '../Text';
-import { ListRowItemProps } from './ListRowItem.type';
-import { Icon, IconProps } from '../Icon';
-import { I18nManager } from 'react-native';
+import React from 'react'
+import { I18nManager } from 'react-native'
+import { Box } from '../Box'
+import { Icon, IconProps } from '../Icon'
+import { Text } from '../Text'
+import { Touchable } from '../Touchable'
+
+import { ListRowItemProps } from './ListRowItem.type'
 
 export const ListRowItem: React.FC<ListRowItemProps> = ({
   id,
@@ -23,7 +24,7 @@ export const ListRowItem: React.FC<ListRowItemProps> = ({
 }) => {
   const chevronIconName: IconProps['name'] = I18nManager.isRTL
     ? 'chevron-back'
-    : 'chevron-forward';
+    : 'chevron-forward'
 
   const handleOnPress = () => {
     onPress?.({
@@ -32,8 +33,8 @@ export const ListRowItem: React.FC<ListRowItemProps> = ({
       subTitle,
       leftElement,
       rightElement,
-    });
-  };
+    })
+  }
 
   const renderContent = () => {
     return (
@@ -77,12 +78,12 @@ export const ListRowItem: React.FC<ListRowItemProps> = ({
         </Box>
         {footer && <Box>{footer}</Box>}
       </Box>
-    );
-  };
-
-  if (!onPress) {
-    return renderContent();
+    )
   }
 
-  return <Touchable onPress={handleOnPress}>{renderContent()}</Touchable>;
-};
+  if (!onPress) {
+    return renderContent()
+  }
+
+  return <Touchable onPress={handleOnPress}>{renderContent()}</Touchable>
+}

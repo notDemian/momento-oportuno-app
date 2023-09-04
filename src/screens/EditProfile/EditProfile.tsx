@@ -1,9 +1,10 @@
-import React from 'react';
-import { ScrollView } from 'react-native';
-import { profile } from '@src/data';
-import { HeadingInformation } from './HeadingInformation';
-import { ContactInformationForm } from './ContactInformationForm';
-import { LinkedAccounts } from './LinkedAccounts';
+import { ScrollView } from 'react-native'
+
+import { ContactInformationForm } from './ContactInformationForm'
+import { HeadingInformation } from './HeadingInformation'
+import { LinkedAccounts } from './LinkedAccounts'
+
+import { profile } from '@src/data'
 
 export const EditProfile = () => {
   return (
@@ -12,5 +13,5 @@ export const EditProfile = () => {
       <ContactInformationForm profile={profile} />
       <LinkedAccounts />
     </ScrollView>
-  );
-};
+  )
+}

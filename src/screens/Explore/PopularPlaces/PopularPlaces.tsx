@@ -1,8 +1,9 @@
 import React from 'react'
-import { Carousel, Section, Card } from '@src/components'
 import { Dimensions } from 'react-native'
-import { type SimplePlace, mockPlaces } from '@src/data'
 import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types'
+
+import { Card,Carousel, Section } from '@src/components'
+import { mockPlaces,type SimplePlace } from '@src/data'
 import { useExploreStackNavigation } from '@src/hooks'
 
 export const PopularPlaces: React.FC = () => {

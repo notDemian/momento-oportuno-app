@@ -1,13 +1,13 @@
+import { logOutType } from './auth'
+import AuthSlice from './auth'
+import CartSlice from './cart'
+import { AllSlices, type SlicesReducers } from './store.helper'
+import TestSlice from './test'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { AnyAction, combineReducers, configureStore } from '@reduxjs/toolkit'
 import { Constants } from '@src/utils/constants'
-import { persistStore, persistReducer } from 'redux-persist'
-import { logOutType } from './auth'
-import { AllSlices, type SlicesReducers } from './store.helper'
-
-import TestSlice from './test'
-import AuthSlice from './auth'
-import CartSlice from './cart'
+import { persistReducer,persistStore } from 'redux-persist'
 
 // Persist config
 const persistConfig = {

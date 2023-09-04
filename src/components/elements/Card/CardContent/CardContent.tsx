@@ -1,6 +1,7 @@
 import { Box } from '../../Box'
 import { Text } from '../../Text'
 import { CardCoverImage } from '../CardCoverImage'
+
 import { CardContentProps } from './CardContent.type'
 
 export const CardContent: React.FC<CardContentProps> = ({

@@ -1,1 +1,1 @@
-export * from './EmailSentModal';
+export * from './EmailSentModal'

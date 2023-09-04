@@ -1,5 +1,6 @@
 import Request from '../request'
-import { Main_Anuncios, getAnuncioRes } from './Anuncios.type'
+
+import { getAnuncioRes,Main_Anuncios } from './Anuncios.type'
 
 const api = Request('/listings')
 

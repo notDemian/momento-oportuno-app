@@ -1,5 +1,5 @@
 import Chance from 'chance'
-const chance = new Chance();
+const chance = new Chance()
 
 export type OrderHistory = {
   id: string;
@@ -22,4 +22,4 @@ export const orderHistoryList: OrderHistory[] = Array(10)
     totalItems: chance.integer({
       max: 5
     }),
-  }));
+  }))

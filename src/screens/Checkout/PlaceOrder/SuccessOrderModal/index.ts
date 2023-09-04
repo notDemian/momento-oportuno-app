@@ -1,1 +1,1 @@
-export * from './SuccessOrderModal';
+export * from './SuccessOrderModal'

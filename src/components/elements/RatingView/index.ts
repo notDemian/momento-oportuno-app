@@ -1,1 +1,1 @@
-export * from './RatingView';
+export * from './RatingView'

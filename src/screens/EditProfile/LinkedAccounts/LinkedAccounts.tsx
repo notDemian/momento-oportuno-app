@@ -1,14 +1,15 @@
-import React from 'react';
-import { Section, Icon, Divider, ListRowItem } from '@src/components';
-import { Switch } from 'react-native';
-import { fontSize } from '@src/theme';
+import React from 'react'
+import { Switch } from 'react-native'
+
+import { Divider, Icon, ListRowItem,Section } from '@src/components'
+import { fontSize } from '@src/theme'
 
 export const LinkedAccounts = () => {
   const [isGoogleAccountLinked, setIsGoogleAccountLinked] =
-    React.useState(false);
+    React.useState(false)
   const [isFacebookAccountLinked, setIsFacebookAccountLinked] =
-    React.useState(true);
-  const [isAppleAccountLinked, setIsAppleAccountLinked] = React.useState(false);
+    React.useState(true)
+  const [isAppleAccountLinked, setIsAppleAccountLinked] = React.useState(false)
 
   return (
     <Section title="Linked Accounts">
@@ -45,5 +46,5 @@ export const LinkedAccounts = () => {
         }
       />
     </Section>
-  );
-};
+  )
+}

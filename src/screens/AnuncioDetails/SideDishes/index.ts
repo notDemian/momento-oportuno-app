@@ -1,1 +1,1 @@
-export * from './SideDishes';
+export * from './SideDishes'

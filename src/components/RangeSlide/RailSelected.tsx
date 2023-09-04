@@ -1,6 +1,7 @@
-import { useAppTheme } from '@src/theme'
 import { memo } from 'react'
 import { StyleSheet, View } from 'react-native'
+
+import { useAppTheme } from '@src/theme'
 
 const RailSelected = () => {
   const {

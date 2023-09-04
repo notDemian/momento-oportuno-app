@@ -6,9 +6,11 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field'
+
+import { AuthenticationCodeVerificationProps } from './AuthenticationCodeVerification.type'
+
 import { AuthenticationLayout, Box, Button, Text } from '@src/components'
 import { fontSize } from '@src/theme'
-import { AuthenticationCodeVerificationProps } from './AuthenticationCodeVerification.type'
 
 const CELL_COUNT = 5
 const CODE_FIELD_SIZE = 60

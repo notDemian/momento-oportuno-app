@@ -1,1 +1,1 @@
-export * from './AddToBasketForm';
+export * from './AddToBasketForm'

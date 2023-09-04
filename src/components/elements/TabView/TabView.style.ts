@@ -1,10 +1,11 @@
-import { useAppTheme } from '@src/theme';
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
+
+import { useAppTheme } from '@src/theme'
 
 export const useStyles = () => {
   const {
     spacing: { m },
-  } = useAppTheme();
+  } = useAppTheme()
 
   return StyleSheet.create({
     tabBarLabel: {
@@ -16,5 +17,5 @@ export const useStyles = () => {
       borderTopLeftRadius: m,
       borderTopRightRadius: m,
     },
-  });
-};
+  })
+}

@@ -1,1 +1,1 @@
-export * from './HotDeals';
+export * from './HotDeals'

@@ -1,5 +1,3 @@
-import { createBox } from '@shopify/restyle'
-import { Theme } from '@src/theme'
 import React from 'react'
 import {
   Platform,
@@ -7,7 +5,11 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import {} from 'react-native-gesture-handler'
+
 import { TouchableProps } from './Touchable.type'
+
+import { createBox } from '@shopify/restyle'
+import { Theme } from '@src/theme'
 
 export const InnerTouchable: React.FC<TouchableProps> = ({
   children,

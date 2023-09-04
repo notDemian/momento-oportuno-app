@@ -1,8 +1,10 @@
-import { VariantProps, BoxProps } from '@shopify/restyle'
-import { Theme } from '@src/theme'
 import { ImageSourcePropType, StyleProp, ViewStyle } from 'react-native/types'
-import { CardCoverImageProps } from './CardCoverImage/CardCoverImage.type'
 import { TextProps } from '../Text/Text.type'
+
+import { CardCoverImageProps } from './CardCoverImage/CardCoverImage.type'
+
+import { BoxProps,VariantProps } from '@shopify/restyle'
+import { Theme } from '@src/theme'
 
 export type CardVariants = VariantProps<Theme, 'cardVariants'>
 

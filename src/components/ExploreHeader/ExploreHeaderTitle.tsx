@@ -1,4 +1,5 @@
 import { Box, Icon, Text } from '../elements'
+
 import { fontSize } from '@src/theme'
 
 export const ExploreHeaderTitle = () => {

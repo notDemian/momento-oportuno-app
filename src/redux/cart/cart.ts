@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { CartState } from './cart.type'
 import { Slices } from '../store.helper'
+
+import { CartState } from './cart.type'
+
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: CartState = {
   paymentMethod: 'Efectivo',

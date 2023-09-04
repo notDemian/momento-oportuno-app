@@ -1,23 +1,24 @@
-import React from 'react';
-import { ScrollView } from 'react-native';
-import { activityHistoryDetail } from '@src/data/mock-activity-history';
+import { ScrollView } from 'react-native'
+import StepIndicator from 'react-native-step-indicator'
+import { StepIndicatorStyles } from 'react-native-step-indicator/lib/typescript/src/types'
+
+import { OrderSummary } from './OrderSummary'
+
 import {
-  Divider,
   Box,
-  Icon,
   Button,
-  ListRowItem,
+  Divider,
+  Icon,
   Image,
-} from '@src/components';
-import StepIndicator from 'react-native-step-indicator';
-import { StepIndicatorStyles } from 'react-native-step-indicator/lib/typescript/src/types';
-import { OrderSummary } from './OrderSummary';
-import { fontSize, useAppTheme } from '@src/theme';
+  ListRowItem,
+} from '@src/components'
+import { activityHistoryDetail } from '@src/data/mock-activity-history'
+import { fontSize, useAppTheme } from '@src/theme'
 
 export const ActivityHistoryDetail = () => {
-  const { colors } = useAppTheme();
+  const { colors } = useAppTheme()
 
-  const labels = [activityHistoryDetail.from, activityHistoryDetail.to];
+  const labels = [activityHistoryDetail.from, activityHistoryDetail.to]
 
   const stepIndicatorStyles: StepIndicatorStyles = {
     stepStrokeCurrentColor: colors.primary,
@@ -35,19 +36,19 @@ export const ActivityHistoryDetail = () => {
     labelAlign: 'flex-start',
     currentStepLabelColor: colors.primary,
     labelSize: fontSize.m,
-  };
+  }
 
   const renderLabel = (params: { position: number; stepStatus: string }) => {
-    const { position } = params;
+    const { position } = params
     switch (position) {
       case 0:
-        return <Icon name="restaurant" size={fontSize.m} isPrimary />;
+        return <Icon name="restaurant" size={fontSize.m} isPrimary />
       case 1:
-        return <Icon name="location" size={fontSize.m} isPrimary />;
+        return <Icon name="location" size={fontSize.m} isPrimary />
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   return (
     <ScrollView>
@@ -79,5 +80,5 @@ export const ActivityHistoryDetail = () => {
         <Button isFullWidth label="Contact Us" />
       </Box>
     </ScrollView>
-  );
-};
+  )
+}

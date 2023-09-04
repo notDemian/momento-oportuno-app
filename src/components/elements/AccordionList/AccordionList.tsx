@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { FlatList } from 'react-native'
 import { AccordionItem } from '../AccordionItem'
 import { AccordionItemProps } from '../AccordionItem/AccordionItem.type'
-import { AccordionListProps } from './AccordionList.type'
 import { Text } from '../Text'
+
+import { AccordionListProps } from './AccordionList.type'
 
 type AccordionItem = Pick<
   AccordionItemProps,

@@ -1,6 +1,8 @@
 import React from 'react'
-import { Box, Text } from '@src/components/elements'
+
 import { HeadingInformationProps } from './HeadingInformation.type'
+
+import { Box, Text } from '@src/components/elements'
 
 export const HeadingInformation: React.FC<HeadingInformationProps> = ({
   data,

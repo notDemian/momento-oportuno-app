@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { TestState } from './test.type'
 import { Slices } from '../store.helper'
+
+import { TestState } from './test.type'
+
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: TestState = {
   token: '',

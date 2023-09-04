@@ -1,2 +1,2 @@
-export * from './TabView';
-export * from './TabView.type';
+export * from './TabView'
+export * from './TabView.type'

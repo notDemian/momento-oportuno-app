@@ -1,6 +1,6 @@
-import React from 'react'
 import { ListRenderItemInfo } from 'react-native'
-import { Icon, ListRowItem, ListRowItemProps, List, Box } from '@src/components'
+
+import { Box,Icon, List, ListRowItem, ListRowItemProps } from '@src/components'
 import { notifications } from '@src/data/mock-notification'
 
 export const Notification = () => {

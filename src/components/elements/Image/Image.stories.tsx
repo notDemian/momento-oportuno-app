@@ -1,7 +1,9 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { ImageProps } from './Image.type';
-import { Image } from './Image';
-import { Box } from '../Box';
+import { Box } from '../Box'
+
+import { Image } from './Image'
+import { ImageProps } from './Image.type'
+
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'Image',
@@ -24,26 +26,26 @@ export default {
     height: '100%',
     contentFit: 'contain',
   },
-} as Meta<ImageProps>;
+} as Meta<ImageProps>
 
 type Story = StoryObj<ImageProps>;
 
-export const Basic: Story = {};
+export const Basic: Story = {}
 
 export const BlurRadius: Story = {
   args: {
     blurRadius: 20,
   },
-};
+}
 
 export const ContentPosition: Story = {
   args: {
     contentPosition: 'top left',
   },
-};
+}
 
 export const ContentFill: Story = {
   args: {
     contentFit: 'cover',
   },
-};
+}

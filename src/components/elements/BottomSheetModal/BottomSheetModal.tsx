@@ -1,15 +1,17 @@
+import React from 'react'
+import { Box } from '../Box'
+
+import { BottomSheetModalProps } from './BottomSheetModal.type'
+
 import {
-  BottomSheetModal as GorhomBottomSheetModal,
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
+  BottomSheetModal as GorhomBottomSheetModal,
   BottomSheetModalProvider,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet'
-import { useAppTheme } from '@src/theme'
-import React from 'react'
-import { BottomSheetModalProps } from './BottomSheetModal.type'
-import { Box } from '../Box'
 import { Portal } from '@gorhom/portal'
+import { useAppTheme } from '@src/theme'
 
 export const BottomSheetModal: React.FC<BottomSheetModalProps> = (props) => {
   const {

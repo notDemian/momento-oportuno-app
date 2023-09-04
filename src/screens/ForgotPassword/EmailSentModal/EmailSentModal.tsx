@@ -1,5 +1,8 @@
 import React from 'react'
+import Animated, { FadeInUp } from 'react-native-reanimated'
+
 import { EmailSentModalProps } from './EmailSentModal.type'
+
 import {
   BottomSheetModal,
   Box,
@@ -7,7 +10,6 @@ import {
   LottieView,
   Text,
 } from '@src/components'
-import Animated, { FadeInUp } from 'react-native-reanimated'
 
 export const EmailSentModal: React.FC<EmailSentModalProps> = ({
   isVisible,

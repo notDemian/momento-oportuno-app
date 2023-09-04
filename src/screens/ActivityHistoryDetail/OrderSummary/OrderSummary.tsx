@@ -1,12 +1,14 @@
-import React from 'react';
-import { Box, Text, Section, Divider } from '@src/components';
-import { formatCurrency } from '@src/utils';
-import { OrderSummaryProps } from './OrderSummary.type';
+import React from 'react'
+
+import { OrderSummaryProps } from './OrderSummary.type'
+
+import { Box, Divider,Section, Text } from '@src/components'
+import { formatCurrency } from '@src/utils'
 
 export const OrderSummary: React.FC<OrderSummaryProps> = ({
   orderDetail: { name, price, shippingFee, totalItems },
 }) => {
-  const totalPrice = price * totalItems;
+  const totalPrice = price * totalItems
 
   return (
     <Section title="Order Summary">
@@ -41,5 +43,5 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
         </Box>
       </Box>
     </Section>
-  );
-};
+  )
+}

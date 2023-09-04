@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react'
 import { ScrollView } from 'react-native'
+
 import {
-  RadioButton,
-  Icon,
-  RadioOption,
-  type IconProps,
   Box,
+  Icon,
+  type IconProps,
+  RadioButton,
+  RadioOption,
 } from '@src/components'
 import { PaymentMethods, paymentMethods } from '@src/data/mock-payment-method'
 import { useAppDispatch, useAppSelector } from '@src/hooks'

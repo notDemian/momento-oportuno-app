@@ -1,6 +1,8 @@
 import React from 'react'
-import { Box, Text, Button } from '@src/components'
+
 import { OrderSuccessModal } from './SuccessOrderModal'
+
+import { Box, Button,Text } from '@src/components'
 import { formatCurrency } from '@src/utils'
 
 type PlaceOrderProps = {

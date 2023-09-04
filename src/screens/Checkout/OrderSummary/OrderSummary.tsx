@@ -1,8 +1,8 @@
 import React from 'react'
-import { Box, Text, Section, Divider } from '@src/components'
-import { formatCurrency } from '@src/utils'
-import { useExploreStackNavigation } from '@src/hooks'
+
+import { Box, Divider, Section, Text } from '@src/components'
 import type { PackageFakeData } from '@src/screens/Packages/mocks/package.type'
+import { formatCurrency } from '@src/utils'
 
 type OrderSummaryProps = {
   order: PackageFakeData

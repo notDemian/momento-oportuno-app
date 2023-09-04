@@ -1,9 +1,10 @@
-import { Anuncio } from '@src/api'
-import { Box, Button, List, Text } from '@src/components'
-import { SvgEmptyMsg } from '@src/components/svgs'
-import { useNewAdStackNavigation } from '@src/hooks'
 import { memo, useCallback } from 'react'
 import { ListRenderItem } from 'react-native'
+
+import { Anuncio } from '@src/api'
+import { Box, List, Text } from '@src/components'
+import { SvgEmptyMsg } from '@src/components/svgs'
+import { useNewAdStackNavigation } from '@src/hooks'
 
 const Mensajes = () => {
   const nav = useNewAdStackNavigation()

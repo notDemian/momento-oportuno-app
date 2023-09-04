@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Alert } from 'react-native'
-import { AuthStackParamList, ScreenProps } from '@src/navigation/types'
+
 import { AuthenticationLayout, Box, Button, TextField } from '@src/components'
 import { useLogIn } from '@src/hooks'
+import { AuthStackParamList, ScreenProps } from '@src/navigation/types'
 
 export const Login: React.FC<ScreenProps<AuthStackParamList, 'Login'>> = ({
   navigation,

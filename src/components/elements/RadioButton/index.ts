@@ -1,2 +1,2 @@
-export * from './RadioButton';
-export * from './RadioButton.type';
+export * from './RadioButton'
+export * from './RadioButton.type'

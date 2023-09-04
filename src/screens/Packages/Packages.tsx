@@ -1,12 +1,11 @@
-import { ContentLoader, List, LoadingPageModal, Section } from '@src/components'
-import { usePaquetes } from '@src/hooks'
-import { CLOG } from '@src/utils'
+import { ListRenderItem } from 'react-native'
+
+import { FAKE_PAQUETES, PackageFakeData } from './mocks/package.type'
 import { PackageItem } from './PackageItem/PackageItem'
 import { PackageScreenProps } from './Packages.type'
-import { useCallback } from 'react'
+
+import { List, Section } from '@src/components'
 import { useAppTheme } from '@src/theme'
-import { ListRenderItem } from 'react-native'
-import { FAKE_PAQUETES, PackageFakeData } from './mocks/package.type'
 
 export const Packages: React.FC<PackageScreenProps> = ({ navigation: _ }) => {
   // const {

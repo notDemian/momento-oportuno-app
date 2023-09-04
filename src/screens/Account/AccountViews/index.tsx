@@ -1,13 +1,15 @@
 import { useCallback } from 'react'
 import { Alert, AlertButton } from 'react-native'
-import { Box, TabView, type TabViewData, Text } from '@src/components'
-import { useUser } from '@src/hooks/useUser'
-import MisAvisos from './MisAvisos'
+
+import Ajustes from './Ajustes'
 import Favoritos from './Favoritos'
 import Mensajes from './Mensajes'
+import MisAvisos from './MisAvisos'
 import MisOrdenes from './MisOrdenes'
-import Ajustes from './Ajustes'
+
+import { Box, TabView, type TabViewData, Text } from '@src/components'
 import { useAccountStackNavigation } from '@src/hooks'
+import { useUser } from '@src/hooks/useUser'
 
 const PlaceHolder = () => {
   return (

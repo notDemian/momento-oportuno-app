@@ -1,19 +1,21 @@
 import React from 'react'
 import {
+  Animated,
   Dimensions,
-  ScrollView,
   LayoutChangeEvent,
   LayoutRectangle,
+  ScrollView,
   SectionListData,
-  ViewStyle,
-  Animated,
   StyleProp,
+  ViewStyle,
 } from 'react-native'
 const WindowWidth = Dimensions.get('window').width
-import { Touchable } from '../Touchable'
-import styles from './TabBar.style'
-import { Box } from '../Box'
 import { BlurView } from '../BlurView'
+import { Box } from '../Box'
+import { Touchable } from '../Touchable'
+
+import styles from './TabBar.style'
+
 import { isIos } from '@src/utils'
 
 interface IProps {

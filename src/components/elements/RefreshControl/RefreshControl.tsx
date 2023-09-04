@@ -1,6 +1,8 @@
 import type { FC } from 'react'
-import { RefreshControllerProps } from './RefreshControl.type'
 import { RefreshControl as RNRefreshControl } from 'react-native-gesture-handler'
+
+import { RefreshControllerProps } from './RefreshControl.type'
+
 import { useAppTheme } from '@src/theme'
 
 export const RefreshControl: FC<RefreshControllerProps> = ({

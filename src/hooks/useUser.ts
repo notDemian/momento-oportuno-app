@@ -1,9 +1,10 @@
-import { User } from '@src/api/Usuarios'
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+
 import { useAppSelector } from './useAppRedux'
 
+import { User } from '@src/api/Usuarios'
 import { useActivityHistoryStackNavigation } from '@src/hooks'
-import { useDispatch } from 'react-redux'
 import { logOutAction } from '@src/redux'
 
 type logOutFunction = () => void

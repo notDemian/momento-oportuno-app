@@ -1,9 +1,11 @@
 import React from 'react'
 import { Alert } from 'react-native'
-import { TextField, Button } from '@src/components/elements'
-import { AuthenticationLayout } from '@src/components'
-import { ForgotPasswordProps } from './ForgotPassword.type'
+
 import { EmailSentModal } from './EmailSentModal'
+import { ForgotPasswordProps } from './ForgotPassword.type'
+
+import { AuthenticationLayout } from '@src/components'
+import { Button,TextField } from '@src/components/elements'
 
 export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
   navigation,

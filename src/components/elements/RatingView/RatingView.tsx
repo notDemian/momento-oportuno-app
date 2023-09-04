@@ -1,7 +1,9 @@
-import { useAppTheme } from '@src/theme'
 import React from 'react'
 import { Rating } from 'react-native-ratings'
+
 import { RatingProps } from './RatingView.type'
+
+import { useAppTheme } from '@src/theme'
 
 export const RatingView: React.FC<RatingProps> = ({
   value = 1,

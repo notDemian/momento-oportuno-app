@@ -1,6 +1,7 @@
-import {ImageSourcePropType} from 'react-native';
+import {ImageSourcePropType} from 'react-native'
+
 import Chance from 'chance'
-const chance = new Chance();
+const chance = new Chance()
 
 export type Driver = {
   id: string;
@@ -16,4 +17,4 @@ export const driver: Driver = {
   ratings: '144',
   averageRating: '4.6',
   avatar: require('@src/assets/drivers/avatar.png'),
-};
+}

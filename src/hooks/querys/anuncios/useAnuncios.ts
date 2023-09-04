@@ -1,6 +1,8 @@
-import AnunciosServices from '@src/api/Anuncios/Anuncios'
 import { useInfiniteQuery } from 'react-query'
+
 import { AnunciosQuerys } from './anuncios.query'
+
+import AnunciosServices from '@src/api/Anuncios/Anuncios'
 
 const useAnuncios = () => {
   return useInfiniteQuery({

@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
-import { Section, Box, Text, Icon, Button } from '@src/components'
+import { FC } from 'react'
+
+import { Box, Button,Icon, Section, Text } from '@src/components'
 import { useAccountStackNavigation, useAppSelector } from '@src/hooks'
-import { PaymentMethods } from '@src/data'
 
 export const PaymentMethod: FC = () => {
   const navigation = useAccountStackNavigation()

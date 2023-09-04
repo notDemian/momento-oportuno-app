@@ -1,7 +1,8 @@
-import React from 'react'
 import { ScrollView } from 'react-native'
-import { AuthenticationLayoutProps } from './AuthenticationLayout.type'
 import { Box, Text } from '../elements'
+
+import { AuthenticationLayoutProps } from './AuthenticationLayout.type'
+
 import { useSafeAreaScrollViewStyles } from '@src/hooks'
 
 export const AuthenticationLayout = ({

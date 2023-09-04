@@ -1,12 +1,12 @@
-import { BoxProps } from '@shopify/restyle'
 import type {
-  Ionicons,
-  MaterialCommunityIcons,
-  Fontisto,
-  MaterialIcons,
   Feather,
   FontAwesome5,
+  Fontisto,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
 } from '@expo/vector-icons'
+import { BoxProps } from '@shopify/restyle'
 import { Theme } from '@src/theme'
 
 type UnionIcons = React.ComponentPropsWithoutRef<typeof Ionicons> &

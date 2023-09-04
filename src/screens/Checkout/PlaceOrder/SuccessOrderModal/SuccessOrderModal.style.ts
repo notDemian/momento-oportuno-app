@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   processingOrderContainer: {
@@ -11,4 +11,4 @@ export default StyleSheet.create({
     width: '100%',
     paddingVertical: 16,
   },
-});
+})

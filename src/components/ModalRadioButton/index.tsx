@@ -1,5 +1,6 @@
-import { BottomSheetModal, Box, RadioButton, RadioOption, Text } from '..'
 import { type FC, useCallback } from 'react'
+
+import { BottomSheetModal, Box, RadioButton, RadioOption, Text } from '..'
 
 type ChangeLanguageModalProps = {
   isVisible: boolean

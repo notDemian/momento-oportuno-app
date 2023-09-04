@@ -1,6 +1,7 @@
-import { ColorProps, TextProps } from '@shopify/restyle';
-import { ButtonProps } from './Button.type';
-import { Theme, fontSize } from '@src/theme';
+import { ButtonProps } from './Button.type'
+
+import { ColorProps, TextProps } from '@shopify/restyle'
+import { fontSize,Theme } from '@src/theme'
 
 export const getTextColor = (
   varant: ButtonProps['variant'],
@@ -8,21 +9,21 @@ export const getTextColor = (
   switch (varant) {
     case 'transparent':
     case 'outline':
-      return 'primary';
+      return 'primary'
     default:
-      return 'white';
+      return 'white'
   }
-};
+}
 
 export const getTextFontSize = (
   buttonSize: ButtonProps['buttonSize'],
 ): TextProps<Theme>['fontSize'] => {
   switch (buttonSize) {
     case 's':
-      return fontSize.s;
+      return fontSize.s
     case 'l':
-      return fontSize.l;
+      return fontSize.l
     default:
-      return fontSize.m;
+      return fontSize.m
   }
-};
+}

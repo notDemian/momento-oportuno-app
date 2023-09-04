@@ -1,8 +1,9 @@
+import { memo, useCallback } from 'react'
+import { ListRenderItem } from 'react-native'
+
 import { Anuncio } from '@src/api'
 import { Box, List, Text } from '@src/components'
 import SvgEmptyBox from '@src/components/svgs/SvgEmptyBox'
-import { memo, useCallback } from 'react'
-import { ListRenderItem } from 'react-native'
 
 const Favoritos = () => {
   const renderItem = useCallback<ListRenderItem<Anuncio>>((anuncio) => {

@@ -1,7 +1,9 @@
-import { Meta, StoryObj } from '@storybook/react-native';
-import { RadioButtonProps, RadioOption } from './RadioButton.type';
-import { RadioButton } from './RadioButton';
-import { Text } from '../Text';
+import { Text } from '../Text'
+
+import { RadioButton } from './RadioButton'
+import { RadioButtonProps, RadioOption } from './RadioButton.type'
+
+import { Meta, StoryObj } from '@storybook/react-native'
 
 const data: RadioOption[] = [
   {
@@ -19,7 +21,7 @@ const data: RadioOption[] = [
     value: 'option3',
     rightElement: <Text>$30,00</Text>,
   },
-];
+]
 
 export default {
   title: 'RadioButton',
@@ -32,13 +34,13 @@ export default {
       height: '100%',
     },
     onItemPress(option) {
-      console.log(option);
+      console.log(option)
     },
   },
-} as Meta<RadioButtonProps>;
+} as Meta<RadioButtonProps>
 
 type Story = StoryObj<RadioButtonProps>;
 
 export const Basic: Story = {
   args: {},
-};
+}

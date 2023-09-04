@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { View, Animated, LayoutAnimation, Pressable } from 'react-native'
-import { toggleAnimation } from '@src/animations'
+import { Animated, LayoutAnimation, Pressable,View } from 'react-native'
+import { Icon } from '../Icon'
+
 import type { AccordionItemProps } from './AccordionItem.type'
 import { styles } from './AccordionItemStyle'
-import { Icon } from '../Icon'
+
+import { toggleAnimation } from '@src/animations'
 import { useAppTheme } from '@src/theme'
 
 const AccordionItem = ({

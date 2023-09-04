@@ -1,9 +1,11 @@
+import { Box } from '../Box'
+import { Touchable } from '../Touchable'
+
+import { CardProps, CardVariants } from './Card.type'
+import { CardContent } from './CardContent'
+
 import { createRestyleComponent, createVariant } from '@shopify/restyle'
 import { Theme } from '@src/theme'
-import { CardProps, CardVariants } from './Card.type'
-import { Box } from '../Box'
-import { CardContent } from './CardContent'
-import { Touchable } from '../Touchable'
 import { isIos } from '@src/utils'
 
 const InnerCard = createRestyleComponent<

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Box, Text } from '@src/components';
+import { Box, Text } from '@src/components'
 
 export const DeliveryTime = () => {
   return (
@@ -13,5 +12,5 @@ export const DeliveryTime = () => {
         04:14 PM
       </Text>
     </Box>
-  );
-};
+  )
+}

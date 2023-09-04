@@ -1,8 +1,7 @@
-import React from 'react';
-import { driver } from '@src/data/mock-driver';
-import { Text, Icon, ListRowItem, Box, Image } from '@src/components';
+import { Box, Icon, Image,ListRowItem, Text } from '@src/components'
+import { driver } from '@src/data/mock-driver'
 
-const { id, name, avatar, ratings, averageRating } = driver;
+const { id, name, avatar, ratings, averageRating } = driver
 
 export const DriverInformation = () => {
   return (
@@ -25,5 +24,5 @@ export const DriverInformation = () => {
         flex: 5,
       }}
     />
-  );
-};
+  )
+}

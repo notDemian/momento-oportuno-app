@@ -1,15 +1,16 @@
 import React from 'react'
 import {
-  SectionList as RNSectionList,
-  SectionListProps,
-  ViewStyle,
-  SectionListData,
-  ViewToken,
   Animated,
+  SectionList as RNSectionList,
+  SectionListData,
+  SectionListProps,
   StyleProp,
+  ViewStyle,
+  ViewToken,
 } from 'react-native'
-import { TabBar } from './TabBar'
 import { Box } from '../Box'
+
+import { TabBar } from './TabBar'
 
 export interface TabSectionListProps extends SectionListProps<any> {
   scrollToLocationOffset?: number

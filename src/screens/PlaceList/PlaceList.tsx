@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Box, List, PlaceListItem } from '@src/components'
 import { mockPlaceList } from '@src/data'
 

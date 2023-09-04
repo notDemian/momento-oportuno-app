@@ -1,6 +1,8 @@
-import { PaquetesServices } from '@src/api'
 import { useInfiniteQuery } from 'react-query'
+
 import { PaquetesQuerys } from './paquetes.query'
+
+import { PaquetesServices } from '@src/api'
 
 const usePaquetes = () => {
   return useInfiniteQuery({

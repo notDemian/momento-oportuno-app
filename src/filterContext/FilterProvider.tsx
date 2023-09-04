@@ -1,10 +1,11 @@
 import React from 'react'
+
+import { FilterContext } from './filter'
 import {
   FilterAction,
   FilterProviderProps,
   FilterState,
 } from './FilterProvider.type'
-import { FilterContext } from './filter'
 // import { palette } from '@src/theme/theme-palette'
 
 const initialFilterState: FilterState = {

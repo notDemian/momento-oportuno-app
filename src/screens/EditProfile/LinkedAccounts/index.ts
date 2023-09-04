@@ -1,1 +1,1 @@
-export * from './LinkedAccounts';
+export * from './LinkedAccounts'

@@ -1,7 +1,9 @@
-import { Meta, StoryObj } from '@storybook/react-native'
-import { LottieViewProps } from './LottieView.type'
-import { LottieView } from './LottieView'
 import { Box } from '../Box'
+
+import { LottieView } from './LottieView'
+import { LottieViewProps } from './LottieView.type'
+
+import { Meta, StoryObj } from '@storybook/react-native'
 
 export default {
   title: 'LottieView',

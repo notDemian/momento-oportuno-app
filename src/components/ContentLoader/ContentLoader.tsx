@@ -2,13 +2,15 @@ import { useEffect, useMemo, useRef } from 'react'
 import {
   Animated,
   Platform,
+  type StyleProp,
   useWindowDimensions,
   View,
-  type StyleProp,
 } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
+
 import styles from './ContentLoader.style'
+
 import { Opacity, useAppTheme } from '@src/theme'
+import { LinearGradient } from 'expo-linear-gradient'
 
 interface Props {
   style?: StyleProp<any>
