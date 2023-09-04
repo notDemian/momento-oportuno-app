@@ -8,7 +8,7 @@ import {
   ListRowItemProps,
   TextField,
 } from '@src/components'
-import { Address,savedAddresses } from '@src/data/mock-address'
+import { Address, savedAddresses } from '@src/data/mock-address'
 
 export const AddAddress = () => {
   const prepareListData = (addresses: Address[]) => {
@@ -29,15 +29,15 @@ export const AddAddress = () => {
   const renderListHeader = () => {
     return (
       <>
-        <Box paddingVertical="s" paddingHorizontal="m">
+        <Box paddingVertical='s' paddingHorizontal='m'>
           <TextField
             inputProps={{
               placeholder: 'Enter Address',
             }}
-            leftIcon="location"
+            leftIcon='location'
           />
         </Box>
-        <Divider marginVertical="s" />
+        <Divider marginVertical='s' />
       </>
     )
   }
