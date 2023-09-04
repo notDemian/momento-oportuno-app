@@ -1,13 +1,20 @@
-type PaymentMethod = {
-  id: string;
-  name: string;
-  icon: string;
-};
+export type PaymentMethods =
+  | 'Efectivo'
+  | 'ATM Card'
+  | 'Visa / Master'
+  | 'Apple Pay'
+  | 'Google Pay'
 
-export const paymentMethods: PaymentMethod[] = [
+type PaymentMethodArr = {
+  id: string
+  name: PaymentMethods
+  icon: string
+}
+
+export const paymentMethods: PaymentMethodArr[] = [
   {
     id: '1',
-    name: 'Cash On Delivery',
+    name: 'Efectivo',
     icon: 'cash',
   },
   {
@@ -30,4 +37,4 @@ export const paymentMethods: PaymentMethod[] = [
     name: 'Google Pay',
     icon: 'logo-google',
   },
-];
+]

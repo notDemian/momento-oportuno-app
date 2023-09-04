@@ -1,60 +1,37 @@
 import React from 'react'
 import { Box, Text, Section, Divider } from '@src/components'
-import { CartItem } from '@src/cart'
 import { formatCurrency } from '@src/utils'
 import { useExploreStackNavigation } from '@src/hooks'
+import type { PackageFakeData } from '@src/screens/Packages/mocks/package.type'
 
 type OrderSummaryProps = {
-  cartItems: CartItem[]
-  totalPrice: number
-  shippingFee: number
+  order: PackageFakeData
 }
 
 export const OrderSummary: React.FC<OrderSummaryProps> = ({
-  cartItems,
-  totalPrice,
-  shippingFee,
+  order: { price },
 }) => {
-  const navigation = useExploreStackNavigation()
-
-  const onAddItemButtonPress = () => {
-    navigation.navigate('AnuncioDetailsModal')
-  }
-
   return (
-    <Section
-      title='Order Summary'
-      actionButtonText='Add Items'
-      onButtonActionPress={onAddItemButtonPress}
-    >
+    <Section title='Detalles de la compra'>
       <Box backgroundColor='card'>
         <Box padding='m' flexDirection='row' justifyContent='space-between'>
           <Box flexDirection='row'>
-            <Text marginRight='m'>{`${cartItems.length}`}</Text>
-            {cartItems.map((cartItem, cartItemIndex) => (
+            <Text marginRight='m'>{`${1}`}</Text>
+            {['aña'].map((cartItem, cartItemIndex) => (
               <Box key={cartItemIndex}>
                 <Text marginBottom='xs' fontWeight='bold'>
-                  {cartItem.dish.title}
+                  {cartItem}
                 </Text>
-                {cartItem.sideDishes.map((dish, dishIndex) => (
-                  <Text variant='secondary' key={dishIndex} marginBottom='xxs'>
-                    {dish.title}
-                  </Text>
-                ))}
               </Box>
             ))}
           </Box>
-          <Text fontWeight='bold'>{formatCurrency(totalPrice)}</Text>
+          <Text fontWeight='bold'>{formatCurrency(price)}</Text>
         </Box>
         <Divider />
         <Box padding='m'>
           <Box flexDirection='row' justifyContent='space-between'>
             <Text>Subtotal</Text>
-            <Text>{formatCurrency(totalPrice)}</Text>
-          </Box>
-          <Box marginTop='s' flexDirection='row' justifyContent='space-between'>
-            <Text>Delivery: 6.1km</Text>
-            <Text>{formatCurrency(shippingFee)}</Text>
+            <Text>{formatCurrency(price)}</Text>
           </Box>
         </Box>
       </Box>

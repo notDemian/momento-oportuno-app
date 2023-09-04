@@ -4,7 +4,6 @@ import { StyleSheet } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { PortalProvider } from '@gorhom/portal'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { CartProvider } from '@src/cart'
 import { FilterProvider } from '@src/filterContext'
 import { Text } from 'react-native'
 
@@ -44,11 +43,9 @@ export default function App() {
             <Provider store={store}>
               <PersistGate loading={null} persistor={persistor}>
                 <AppThemeProvider>
-                  <CartProvider>
-                    <FilterProvider>
-                      <RootNavigation />
-                    </FilterProvider>
-                  </CartProvider>
+                  <FilterProvider>
+                    <RootNavigation />
+                  </FilterProvider>
                 </AppThemeProvider>
               </PersistGate>
             </Provider>

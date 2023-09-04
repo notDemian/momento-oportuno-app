@@ -7,8 +7,11 @@ import {
 } from '@src/navigation/types'
 import {
   Account,
+  Checkout,
   EditProfile,
   Packages,
+  PaymentMethod,
+  Promotion,
   SelectLocation,
   Settings,
   SupportCenter,
@@ -58,6 +61,20 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
       />
 
       <Stack.Screen
+        name='PaymentMethod'
+        options={{
+          headerTitle: 'Método de pago',
+        }}
+        component={PaymentMethod}
+      />
+      <Stack.Screen
+        name='Promotion'
+        options={{
+          headerTitle: 'Agregar un cupón',
+        }}
+        component={Promotion}
+      />
+      <Stack.Screen
         options={() => {
           return {
             title: 'Editar perfil',
@@ -86,6 +103,13 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
           headerTitle: 'Select location',
         }}
         component={SelectLocation}
+      />
+      <Stack.Screen
+        name='Checkout'
+        options={{
+          headerTitle: 'Pago',
+        }}
+        component={Checkout}
       />
     </Stack.Navigator>
   )

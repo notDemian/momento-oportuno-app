@@ -1,5 +1,5 @@
-import React from 'react';
-import { ListRenderItemInfo } from 'react-native';
+import React, { FC, useCallback } from 'react'
+import { Alert, ListRenderItemInfo } from 'react-native'
 import {
   ListRowItem,
   TextField,
@@ -7,50 +7,41 @@ import {
   List,
   Image,
   Box,
-} from '@src/components';
-import { promotions } from '@src/data';
+  Text,
+  Section,
+  Button,
+} from '@src/components'
+import { promotions } from '@src/data'
+import { AccountStackParamList, ScreenProps } from '@src/navigation'
 
-export const Promotion = () => {
-  const [searchTerm, setSearchTerm] = React.useState('');
+type PromotionProps = ScreenProps<AccountStackParamList, 'Promotion'>
 
-  const onSearch = (e: string) => {
-    setSearchTerm(e);
-  };
+export const Promotion: FC<PromotionProps> = ({ navigation: { goBack } }) => {
+  const [code, setCode] = React.useState('')
 
-  const data = promotions.map((item) => {
-    const { id, description, name, image } = item;
-    return {
-      id,
-      title: name,
-      subTitle: description,
-      leftElement: <Image source={image} width={40} height={40} />,
-    };
-  });
-
-  const renderItem = (props: ListRenderItemInfo<ListRowItemProps>) => {
-    return <ListRowItem key={props.index} {...props.item} />;
-  };
-
-  const renderListHeader = () => {
-    return (
-      <Box paddingVertical="s" paddingHorizontal="m">
-        <TextField
-          leftIcon="search"
-          inputProps={{
-            value: searchTerm,
-            placeholder: 'Search promotion codes',
-            onChangeText: onSearch,
-          }}
-        />
-      </Box>
-    );
-  };
+  const onApplyCode = useCallback(() => {
+    if (code.length === 0) return
+    Alert.alert('Cupón aplicado', `Cupón ${code} aplicado con éxito`)
+    goBack()
+  }, [code])
 
   return (
-    <List
-      data={data}
-      ListHeaderComponent={renderListHeader()}
-      renderItem={renderItem}
-    />
-  );
-};
+    <Section title='¿Tienes un cupón de descuento?' paddingHorizontal={'m'}>
+      <TextField
+        inputProps={{
+          placeholder: 'Ingresa tu cupón',
+          value: code,
+          onChangeText: setCode,
+        }}
+      />
+      <Button
+        marginTop='m'
+        variant='primary'
+        onPress={onApplyCode}
+        isDisabled={code.length === 0}
+      >
+        Aplicar
+      </Button>
+    </Section>
+  )
+}

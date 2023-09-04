@@ -70,3 +70,15 @@ export const extractSpacingProps = (prop: SpacingProps<Theme>) => {
     rest,
   }
 }
+
+import type { BoxProps } from '@shopify/restyle'
+
+export function getShadowBoxProps(): Pick<
+  BoxProps<Theme>,
+  'elevation' | 'shadowColor'
+> {
+  return {
+    elevation: 3,
+    shadowColor: 'gray',
+  }
+}

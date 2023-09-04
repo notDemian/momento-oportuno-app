@@ -32,6 +32,14 @@ export const Button: React.FC<ButtonProps> = ({
 
   const renderContent = () => {
     if (children) {
+      if (typeof children === 'string') {
+        return (
+          <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
+            {children}
+          </Text>
+        )
+      }
+
       return children
     }
     return (
@@ -72,6 +80,7 @@ export const Button: React.FC<ButtonProps> = ({
       borderRadius={borderRadius}
       overflow='hidden'
       width={isFullWidth ? '100%' : undefined}
+      opacity={isDisabled ? 0.75 : 1}
       {...spacingProps}
     >
       <Touchable

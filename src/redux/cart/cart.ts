@@ -1,0 +1,25 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { CartState } from './cart.type'
+import { Slices } from '../store.helper'
+
+const initialState: CartState = {
+  paymentMethod: 'Efectivo',
+}
+
+export const cartSlice = createSlice({
+  name: Slices.Cart,
+  initialState,
+  reducers: {
+    setPaymentMethod(state, action: PayloadAction<CartState['paymentMethod']>) {
+      state.paymentMethod = action.payload
+    },
+
+    resetCart(state) {
+      state.paymentMethod = 'Efectivo'
+    },
+  },
+})
+
+export const { resetCart, setPaymentMethod } = cartSlice.actions
+export default cartSlice.reducer

@@ -1,6 +1,7 @@
 export const Slices = {
   Test: 'test',
   Auth: 'auth',
+  Cart: 'cart',
 } as const
 
 export const AllSlices = Object.values(Slices)

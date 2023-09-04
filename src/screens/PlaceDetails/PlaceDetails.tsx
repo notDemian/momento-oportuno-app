@@ -113,7 +113,6 @@ export const PlaceDetails = () => {
           )}
         />
       </Box>
-      <BasketSummary />
     </SafeAreaView>
   )
 }

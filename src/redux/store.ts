@@ -7,6 +7,7 @@ import { AllSlices, type SlicesReducers } from './store.helper'
 
 import TestSlice from './test'
 import AuthSlice from './auth'
+import CartSlice from './cart'
 
 // Persist config
 const persistConfig = {
@@ -18,6 +19,7 @@ const persistConfig = {
 const reducers = {
   test: TestSlice,
   auth: AuthSlice,
+  cart: CartSlice,
 } satisfies SlicesReducers
 
 const rootReducer = combineReducers(reducers)

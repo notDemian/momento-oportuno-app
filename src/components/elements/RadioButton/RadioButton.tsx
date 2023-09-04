@@ -10,11 +10,17 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   data,
   onItemPress,
   defaultValue,
+  value: valueProps,
   containerProps,
 }) => {
   const { colors } = useAppTheme()
-  const [selectedValue, setSelectedValue] =
-    React.useState<RadioOption['value']>()
+  const [selectedValue, setSelectedValue] = React.useState<
+    RadioOption['value']
+  >(valueProps + '')
+
+  console.log({
+    selectedValue,
+  })
 
   const onPress = (item: RadioOption) => {
     return () => {

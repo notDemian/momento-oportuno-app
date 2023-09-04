@@ -14,7 +14,7 @@ import {
   TrackOrder,
 } from '@src/screens'
 import { fontSize } from '@src/theme'
-import { Button, ExploreHeaderTitle, Icon } from '@src/components'
+import { Button, Icon } from '@src/components'
 import {
   ExploreScreenProps,
   ExploreStackParamList,
@@ -77,7 +77,6 @@ export const ExploreStack: React.FC<ExploreScreenProps> = ({ navigation }) => {
           }
         }}
       />
-      <Stack.Screen name='Checkout' component={Checkout} />
       <Stack.Screen
         name='ChangeAddress'
         options={{
@@ -107,20 +106,6 @@ export const ExploreStack: React.FC<ExploreScreenProps> = ({ navigation }) => {
           headerTitle: '588 Blanda Square - Virginia',
         }}
         component={SelectLocation}
-      />
-      <Stack.Screen
-        name='PaymentMethod'
-        options={{
-          headerTitle: 'Select a payment method',
-        }}
-        component={PaymentMethod}
-      />
-      <Stack.Screen
-        name='Promotion'
-        options={{
-          headerTitle: 'Add A Promo',
-        }}
-        component={Promotion}
       />
       <Stack.Screen
         name='TrackOrder'

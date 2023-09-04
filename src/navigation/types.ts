@@ -15,6 +15,7 @@ import type {
 } from '@react-navigation/native-stack'
 import type { Anuncio } from '@src/api'
 import { NewAnuncioCategorias } from '@src/data'
+import type { PackageFakeData } from '@src/screens/Packages/mocks/package.type'
 
 // Stack Param List
 export type RootStackParamList = {
@@ -34,7 +35,6 @@ export type AuthStackParamList = {
 export type ExploreStackParamList = {
   Explore: undefined
   PlaceDetails: undefined
-  Checkout: undefined
   PlaceList: {
     title?: string
   }
@@ -42,8 +42,6 @@ export type ExploreStackParamList = {
   SavedAddresses: undefined
   AddAddress: undefined
   SelectLocation: undefined
-  PaymentMethod: undefined
-  Promotion: undefined
   TrackOrder: undefined
 }
 
@@ -85,6 +83,9 @@ export type AccountStackParamList = {
   Settings: undefined
   SupportCenter: undefined
 
+  Checkout: PackageFakeData
+  PaymentMethod: undefined
+  Promotion: undefined
   MyPackages: undefined
   Package: undefined
 }

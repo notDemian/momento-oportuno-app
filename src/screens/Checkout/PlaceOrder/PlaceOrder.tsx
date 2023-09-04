@@ -1,45 +1,36 @@
-import React from 'react';
-import { Box, Text, Button } from '@src/components';
-import { OrderSuccessModal } from './SuccessOrderModal';
-import { formatCurrency } from '@src/utils';
+import React from 'react'
+import { Box, Text, Button } from '@src/components'
+import { OrderSuccessModal } from './SuccessOrderModal'
+import { formatCurrency } from '@src/utils'
 
 type PlaceOrderProps = {
-  totalPrice: number;
-  shippingFee: number;
-};
+  totalPrice: number
+}
 
-export const PlaceOrder: React.FC<PlaceOrderProps> = ({
-  totalPrice,
-  shippingFee,
-}) => {
+export const PlaceOrder: React.FC<PlaceOrderProps> = ({ totalPrice }) => {
   const [isSuccessOrderModalVisible, setIsSuccessOrderModalVisible] =
-    React.useState(false);
+    React.useState(false)
 
   const onPlaceOrderButtonPress = () => {
-    setIsSuccessOrderModalVisible(true);
-  };
+    setIsSuccessOrderModalVisible(true)
+  }
 
   return (
     <Box
-      backgroundColor="card"
-      padding="m"
+      backgroundColor='card'
+      padding='m'
       borderTopWidth={0.5}
-      borderTopColor="border">
-      <Box flexDirection="row" justifyContent="space-between" marginBottom="m">
+      borderTopColor='border'
+    >
+      <Box flexDirection='row' justifyContent='space-between' marginBottom='m'>
         <Text>Total</Text>
-        <Text fontWeight="bold">
-          {formatCurrency(totalPrice + shippingFee)}
-        </Text>
+        <Text fontWeight='bold'>{formatCurrency(totalPrice)}</Text>
       </Box>
-      <Button
-        isFullWidth
-        onPress={onPlaceOrderButtonPress}
-        label="Place Order"
-      />
+      <Button isFullWidth onPress={onPlaceOrderButtonPress} label='Continuar' />
       <OrderSuccessModal
         isVisible={isSuccessOrderModalVisible}
         setIsVisble={setIsSuccessOrderModalVisible}
       />
     </Box>
-  );
-};
+  )
+}

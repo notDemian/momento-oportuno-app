@@ -1,25 +1,44 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { ScrollView } from 'react-native'
-import { RadioButton, Icon, RadioOption, IconProps, Box } from '@src/components'
-import { paymentMethods } from '@src/data/mock-payment-method'
+import {
+  RadioButton,
+  Icon,
+  RadioOption,
+  type IconProps,
+  Box,
+} from '@src/components'
+import { PaymentMethods, paymentMethods } from '@src/data/mock-payment-method'
+import { useAppDispatch, useAppSelector } from '@src/hooks'
+import { setPaymentMethod } from '@src/redux'
 
-type PaymentMethodProps = {}
-
-export const PaymentMethod: React.FC<PaymentMethodProps> = () => {
-  const data: RadioOption[] = paymentMethods.map((item) => {
-    const { id, name, icon } = item
+export const PaymentMethod: React.FC = () => {
+  const data = paymentMethods.map((item) => {
+    const { name, icon } = item
     return {
       label: name,
-      value: id,
+      value: name,
       rightElement: <Icon name={icon as IconProps['name']} />,
     }
-  })
+  }) satisfies RadioOption[]
 
-  const onItemPress = (item: RadioOption) => {
-    return () => {
-      console.log(item)
+  const dispatch = useAppDispatch()
+
+  const onItemPress = useCallback((item: RadioOption) => {
+    const assertPM = (
+      item: RadioOption,
+    ): item is Omit<RadioOption, 'label'> & { label: PaymentMethods } => {
+      return paymentMethods.map((pm) => pm.name).includes(item.label as any)
     }
-  }
+
+    if (!assertPM(item)) {
+      return
+    }
+
+    dispatch(setPaymentMethod(item.label))
+  }, [])
+
+  const methodSelected = useAppSelector((s) => s.cart.paymentMethod)
+  console.log('methodSelected', methodSelected)
 
   return (
     <Box flex={1} backgroundColor='card'>
@@ -30,6 +49,7 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = () => {
           containerProps={{
             paddingHorizontal: 'm',
           }}
+          value={methodSelected}
         />
       </ScrollView>
     </Box>

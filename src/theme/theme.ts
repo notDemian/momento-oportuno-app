@@ -45,6 +45,7 @@ export const theme = createTheme({
     facebook: palette.facebook,
     google: palette.google,
     gray: palette.gray[500],
+    grayLight: palette.gray[300],
   },
   breakpoints: {
     phone: 0,
