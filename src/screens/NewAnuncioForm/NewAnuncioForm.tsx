@@ -1,8 +1,6 @@
 import { useCallback, useState } from 'react'
 import { Dimensions } from 'react-native'
-import {
-  CarouselRenderItem,
-} from 'react-native-reanimated-carousel/lib/typescript/types'
+import { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types'
 
 import {
   Box,
@@ -25,9 +23,6 @@ export const NewAnuncioForm: React.FC<
   const [showCiudadModal, setShowCiudadModal] = useState(false)
   const [selectedCiudad, setSelectedCiudad] = useState<string | number>('')
   const [showCategoriaModal, setShowCategoriaModal] = useState(false)
-  const [selectedCategoria, setSelectedCategoria] = useState<string | number>(
-    '',
-  )
 
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([])
 

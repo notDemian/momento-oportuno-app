@@ -13,9 +13,8 @@ import type {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack'
-import type { Anuncio } from '@src/api'
+import type { Anuncio, Paquete } from '@src/api'
 import { NewAnuncioCategorias } from '@src/data'
-import type { PackageFakeData } from '@src/screens/Packages/mocks/package.type'
 
 // Stack Param List
 export type RootStackParamList = {
@@ -83,7 +82,7 @@ export type AccountStackParamList = {
   Settings: undefined
   SupportCenter: undefined
 
-  Checkout: PackageFakeData
+  Checkout: Paquete
   PaymentMethod: undefined
   Promotion: undefined
   MyPackages: undefined

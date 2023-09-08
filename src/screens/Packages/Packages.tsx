@@ -1,43 +1,23 @@
+import { useCallback } from 'react'
 import { ListRenderItem } from 'react-native'
 
-import { FAKE_PAQUETES, PackageFakeData } from './mocks/package.type'
 import { PackageItem } from './PackageItem/PackageItem'
 import { PackageScreenProps } from './Packages.type'
 
-import { List, Section } from '@src/components'
+import { Paquete } from '@src/api'
+import { List, LoadingPageModal, Section } from '@src/components'
+import { usePaquetes } from '@src/hooks'
 import { useAppTheme } from '@src/theme'
 
 export const Packages: React.FC<PackageScreenProps> = ({ navigation: _ }) => {
-  // const {
-  //   data: paquetes,
-  //   // refetch,
-  //   isLoading,
-  //   fetchNextPage,
-  //   hasNextPage,
-  // } = usePaquetes()
+  const { data: paquetes, isLoading } = usePaquetes()
 
   const { colors } = useAppTheme()
 
-  // const fecthMore = useCallback(() => {
-  //   if (hasNextPage) {
-  //     fetchNextPage()
-  //   }
-  // }, [hasNextPage, fetchNextPage])
-
-  // if (isLoading || !paquetes) return <LoadingPageModal loading={isLoading} />
-
-  // const flattenData = paquetes.pages.flatMap((page) => page.data)
-
-  const renderItem: ListRenderItem<PackageFakeData> = ({ item }) => {
-    return (
-      <PackageItem
-        paquete={item}
-        onPress={() => {
-          // TODO: navigate to payment screen
-        }}
-      />
-    )
-  }
+  const renderItem = useCallback<ListRenderItem<Paquete>>(({ item }) => {
+    return <PackageItem paquete={item} />
+  }, [])
+  if (isLoading || !paquetes) return <LoadingPageModal loading={isLoading} />
 
   return (
     <Section
@@ -46,10 +26,9 @@ export const Packages: React.FC<PackageScreenProps> = ({ navigation: _ }) => {
       paddingBottom={'xxl'}
     >
       <List
-        data={FAKE_PAQUETES}
+        data={paquetes}
         renderItem={renderItem}
         ItemSeparatorComponent={() => null}
-        // onEndReached={fecthMore}
         contentContainerStyle={{ backgroundColor: colors.background }}
       />
     </Section>

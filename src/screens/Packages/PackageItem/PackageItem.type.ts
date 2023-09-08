@@ -1,9 +1,6 @@
-import type { PackageFakeData } from '../mocks/package.type'
-
 import type { Paquete } from '@src/api'
 
 export type PackageItemProps = {
-  paquete: PackageFakeData
+  paquete: Paquete
   // Paquete
-  onPress: (item: Paquete) => void
 }

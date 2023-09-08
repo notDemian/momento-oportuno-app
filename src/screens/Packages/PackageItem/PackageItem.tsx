@@ -6,7 +6,7 @@ import { Box, Button, Text } from '@src/components'
 import { SvgCheck } from '@src/components/svgs'
 import { useAccountStackNavigation } from '@src/hooks'
 import { fontSize, getShadowBoxProps, useAppTheme } from '@src/theme'
-export const PackageItem: FC<PackageItemProps> = ({ paquete, onPress: _ }) => {
+export const PackageItem: FC<PackageItemProps> = ({ paquete }) => {
   const _theme = useAppTheme()
 
   const innerBackground = paquete.isFeatured ? 'primary' : 'grayLight'
@@ -18,24 +18,24 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete, onPress: _ }) => {
   const characteristics = useMemo(() => {
     const tmpArray: string[] = []
 
-    if (paquete.adsNumber && paquete.adsNumber > 1) {
-      tmpArray.push(`Publicaciones: ${paquete.adsNumber}x`)
+    if (paquete.number && paquete.number > 1) {
+      tmpArray.push(`Publicaciones: ${paquete.number}x`)
     }
-    if (paquete.duration && paquete.duration > 0) {
-      tmpArray.push(`Duración: ${paquete.duration} días`)
+    if (paquete.expire && paquete.expire > 0) {
+      tmpArray.push(`Duración: ${paquete.expire} días`)
     }
 
-    if (paquete.featured && paquete.featured > 0) {
-      tmpArray.push(`Destacado: ${paquete.featured} días`)
+    if (paquete.featuredExpire && paquete.featuredExpire > 0) {
+      tmpArray.push(`Destacado: ${paquete.featuredExpire} días`)
     }
 
     if (paquete.bumpsNumber && paquete.bumpsNumber > 0) {
       tmpArray.push(`Impulsar publicación: ${paquete.bumpsNumber}x`)
     }
 
-    if (paquete.bumpInterval && paquete.bumpInterval > 0) {
+    if (paquete.bumpsInterval && paquete.bumpsInterval > 0) {
       tmpArray.push(
-        `Puedes Impulsar publicaciones durante: ${paquete.bumpInterval} días`,
+        `Puedes Impulsar publicaciones durante: ${paquete.bumpsInterval} días`,
       )
     }
 

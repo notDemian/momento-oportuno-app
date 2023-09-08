@@ -1,17 +1,22 @@
-import { useInfiniteQuery } from 'react-query'
+import { Alert } from 'react-native'
+import { useQuery } from 'react-query'
 
 import { PaquetesQuerys } from './paquetes.query'
 
 import { PaquetesServices } from '@src/api'
+import { AxiosError } from 'axios'
 
 const usePaquetes = () => {
-  return useInfiniteQuery({
+  return useQuery({
     queryKey: [PaquetesQuerys.getAllPaquetes],
-    queryFn: ({ pageParam = 1 }) =>
-      PaquetesServices.getAllPaquetes({ page: pageParam }),
-    getNextPageParam: (lastPage) => {
-      if (lastPage.data.length < 12) return undefined
-      return lastPage.nextPage
+    queryFn: PaquetesServices.getAllPaquetes,
+    select(data) {
+      return data.filter((paq) => paq.price > 10)
+    },
+    onError: (error: AxiosError) => {
+      const data = error.response?.data as { message: string } | undefined
+      const message = data?.message ? data.message : 'Error'
+      Alert.alert('Error', message)
     },
   })
 }

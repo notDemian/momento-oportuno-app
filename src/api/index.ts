@@ -1,4 +1,5 @@
 export * from './Anuncios'
+export * from './listivos'
 export * from './Paquetes'
 export * from './request'
 export * from './Usuarios'

@@ -20,6 +20,9 @@ export const Constants = {
     USERS: '/users',
     REGISTER: '/register',
     PRODUCT: '/product',
+    PACKAGES: '/packages',
+    Listivos_CATEGORIAS: '/listivo_14',
+    Listivos_ESTADOS: '/listivo_10934',
   },
   CUSTOM_ENDPOINTS: {
     logIn: '/jwt-auth/v1/token',
@@ -29,3 +32,12 @@ export const Constants = {
 
 export type ENDPOINTS =
   (typeof Constants.ENDPOINTS)[keyof typeof Constants.ENDPOINTS]
+
+/**
+   * {
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NsaWNkZWxzdXJlc3RlLmVtcHJlc2FyaWFsdGkuY29tIiwiaWF0IjoxNjk0MTIyMjM1LCJuYmYiOjE2OTQxMjIyMzUsImV4cCI6MTY5NDcyNzAzNSwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMTQifX19.B4iQzfjCCEijZbfh0RLsvizbccKwFJuuNx422Wp8BaY",
+  "user_email": "Leslie.viri@gmail.com",
+  "user_nicename": "leslieb",
+  "user_display_name": "LeslieB"
+}
+   */

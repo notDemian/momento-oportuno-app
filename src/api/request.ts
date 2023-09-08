@@ -1,10 +1,11 @@
-import { Constants,type ENDPOINTS } from '@src/utils/constants'
+import { store } from '@src/redux'
+import { Constants, type ENDPOINTS } from '@src/utils/constants'
 import axios, { type AxiosInstance } from 'axios'
 
 export default function Request(service: ENDPOINTS): AxiosInstance {
   const url = Constants.IS_DEV ? Constants.URL.DEV : Constants.URL.PROD
 
-  return axios.create({
+  const req = axios.create({
     baseURL: `${url}${service}`,
     timeout: 1000,
     maxBodyLength: Infinity,
@@ -12,6 +13,21 @@ export default function Request(service: ENDPOINTS): AxiosInstance {
       'Content-Type': 'application/json',
     },
   })
+
+  req.interceptors.request.use(
+    (config) => {
+      const { token } = store.getState().auth
+      if (config.headers && token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
+      return config
+    },
+    (err) => {
+      Promise.reject(err)
+    },
+  )
+
+  return req
 }
 
 export function CustomRequest(url: string): AxiosInstance {
@@ -19,7 +35,7 @@ export function CustomRequest(url: string): AxiosInstance {
     ? Constants.URL.CUSTOM_DEV
     : Constants.URL.CUSTOM
 
-  return axios.create({
+  const req = axios.create({
     baseURL: `${fullUrl}${url}`,
     timeout: 1000,
     maxBodyLength: Infinity,
@@ -27,4 +43,19 @@ export function CustomRequest(url: string): AxiosInstance {
       'Content-Type': 'application/json',
     },
   })
+
+  req.interceptors.request.use(
+    (config) => {
+      const { token } = store.getState().auth
+      if (config.headers && token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
+      return config
+    },
+    (err) => {
+      Promise.reject(err)
+    },
+  )
+
+  return req
 }
