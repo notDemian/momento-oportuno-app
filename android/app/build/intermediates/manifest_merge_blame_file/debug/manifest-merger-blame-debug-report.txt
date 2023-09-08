@@ -1,0 +1,647 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.clicksur.app"
+4    android:versionCode="1"
+5    android:versionName="0.0.1" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="33" />
+10
+11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+11-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:9:3-75
+11-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:9:20-73
+12    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+12-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:2:3-82
+12-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:2:20-80
+13    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+13-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:3:3-78
+13-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:3:20-76
+14    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+14-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:4:3-76
+14-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:4:20-74
+15    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+15-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:5:3-74
+15-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:5:20-72
+16    <uses-permission android:name="android.permission.INTERNET" />
+16-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:6:3-64
+16-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:6:20-62
+17    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+17-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:7:3-77
+17-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:7:20-75
+18    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+18-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:8:3-68
+18-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:8:20-66
+19    <uses-permission android:name="android.permission.VIBRATE" />
+19-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:10:3-63
+19-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:10:20-61
+20    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+20-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:11:3-78
+20-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:11:20-76
+21
+22    <queries>
+22-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:12:3-18:13
+23        <intent>
+23-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:13:5-17:14
+24            <action android:name="android.intent.action.VIEW" />
+24-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:14:7-58
+24-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:14:15-56
+25
+26            <category android:name="android.intent.category.BROWSABLE" />
+26-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:15:7-67
+26-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:15:17-65
+27
+28            <data android:scheme="https" />
+28-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:16:7-37
+28-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:16:13-35
+29        </intent>
+30        <!-- Query open documents -->
+31        <intent>
+31-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:9-17:18
+32            <action android:name="android.intent.action.OPEN_DOCUMENT_TREE" />
+32-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:13-79
+32-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:21-76
+33        </intent>
+34        <intent>
+34-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:9-20:18
+35
+36            <!-- Required for picking images from the camera roll if targeting API 30 -->
+37            <action android:name="android.media.action.IMAGE_CAPTURE" />
+37-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:19:13-73
+37-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:19:21-70
+38        </intent>
+39        <intent>
+39-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:9-25:18
+40
+41            <!-- Required for picking images from the camera if targeting API 30 -->
+42            <action android:name="android.media.action.ACTION_VIDEO_CAPTURE" />
+42-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:24:13-80
+42-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:24:21-77
+43        </intent>
+44        <intent>
+44-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:10:9-16:18
+45            <action android:name="android.intent.action.GET_CONTENT" />
+45-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:11:13-72
+45-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:11:21-69
+46
+47            <category android:name="android.intent.category.OPENABLE" />
+47-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:13:13-73
+47-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:13:23-70
+48
+49            <data android:mimeType="*/*" />
+49-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:16:7-37
+50        </intent> <!-- Needs to be explicitly declared on Android R+ -->
+51        <package android:name="com.google.android.apps.maps" />
+51-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\demia\.gradle\caches\transforms-3\6d5442594bfea39987aa621249f19821\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:33:9-64
+51-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\demia\.gradle\caches\transforms-3\6d5442594bfea39987aa621249f19821\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:33:18-61
+52    </queries>
+53
+54    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+54-->[com.facebook.flipper:flipper:0.125.0] C:\Users\demia\.gradle\caches\transforms-3\ec3d59c9c826ff8a84652b9ebb1656c5\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:5-76
+54-->[com.facebook.flipper:flipper:0.125.0] C:\Users\demia\.gradle\caches\transforms-3\ec3d59c9c826ff8a84652b9ebb1656c5\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:22-73
+55    <!--
+56  Allows Glide to monitor connectivity status and restart failed requests if users go from a
+57  a disconnected to a connected network state.
+58    -->
+59    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Required for picking images from camera directly -->
+59-->[:expo-image] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:5-79
+59-->[:expo-image] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:22-76
+60    <uses-permission android:name="android.permission.CAMERA" />
+60-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-65
+60-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:22-62
+61    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+61-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:5-76
+61-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:22-73
+62    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+62-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:5-75
+62-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:22-72
+63    <uses-permission android:name="android.permission.WAKE_LOCK" />
+63-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:25:5-68
+63-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:25:22-65
+64    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+64-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:27:5-81
+64-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:27:22-78
+65
+66    <uses-feature
+66-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\demia\.gradle\caches\transforms-3\6d5442594bfea39987aa621249f19821\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:26:5-28:35
+67        android:glEsVersion="0x00020000"
+67-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\demia\.gradle\caches\transforms-3\6d5442594bfea39987aa621249f19821\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:27:9-41
+68        android:required="true" />
+68-->[com.google.android.gms:play-services-maps:18.0.2] C:\Users\demia\.gradle\caches\transforms-3\6d5442594bfea39987aa621249f19821\transformed\jetified-play-services-maps-18.0.2\AndroidManifest.xml:28:9-32
+69
+70    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+70-->[com.android.installreferrer:installreferrer:1.0] C:\Users\demia\.gradle\caches\transforms-3\d323f9f55c433b71189ff96ae98797ad\transformed\jetified-installreferrer-1.0\AndroidManifest.xml:9:5-110
+70-->[com.android.installreferrer:installreferrer:1.0] C:\Users\demia\.gradle\caches\transforms-3\d323f9f55c433b71189ff96ae98797ad\transformed\jetified-installreferrer-1.0\AndroidManifest.xml:9:22-107
+71    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+71-->[io.nlopez.smartlocation:library:3.2.11] C:\Users\demia\.gradle\caches\transforms-3\88a6e327e7543a2fa3e2deaaac9b6a40\transformed\jetified-library-3.2.11\AndroidManifest.xml:15:5-98
+71-->[io.nlopez.smartlocation:library:3.2.11] C:\Users\demia\.gradle\caches\transforms-3\88a6e327e7543a2fa3e2deaaac9b6a40\transformed\jetified-library-3.2.11\AndroidManifest.xml:15:22-95
+72    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+72-->[io.nlopez.smartlocation:library:3.2.11] C:\Users\demia\.gradle\caches\transforms-3\88a6e327e7543a2fa3e2deaaac9b6a40\transformed\jetified-library-3.2.11\AndroidManifest.xml:16:5-94
+72-->[io.nlopez.smartlocation:library:3.2.11] C:\Users\demia\.gradle\caches\transforms-3\88a6e327e7543a2fa3e2deaaac9b6a40\transformed\jetified-library-3.2.11\AndroidManifest.xml:16:22-91
+73
+74    <application
+74-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:19:3-40:17
+75        android:name="com.clicksur.app.MainApplication"
+75-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:19:16-47
+76        android:allowBackup="true"
+76-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:19:162-188
+77        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+77-->[androidx.core:core:1.7.0] C:\Users\demia\.gradle\caches\transforms-3\742695b6ea79f7ca011b128faf587d4b\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
+78        android:debuggable="true"
+79        android:icon="@mipmap/ic_launcher"
+79-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:19:81-115
+80        android:label="@string/app_name"
+80-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:19:48-80
+81        android:roundIcon="@mipmap/ic_launcher_round"
+81-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:19:116-161
+82        android:theme="@style/AppTheme"
+82-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:19:189-220
+83        android:usesCleartextTraffic="true" >
+83-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:19:221-256
+84        <meta-data
+84-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:20:5-119
+85            android:name="com.google.android.geo.API_KEY"
+85-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:20:16-61
+86            android:value="AIzaSyD7_x-IaDtLZle9C37GEnizuCkEOSnkkBg" />
+86-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:20:62-117
+87        <meta-data
+87-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:21:5-82
+88            android:name="expo.modules.updates.ENABLED"
+88-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:21:16-59
+89            android:value="true" />
+89-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:21:60-80
+90        <meta-data
+90-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:22:5-93
+91            android:name="expo.modules.updates.EXPO_SDK_VERSION"
+91-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:22:16-68
+92            android:value="48.0.0" />
+92-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:22:69-91
+93        <meta-data
+93-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:23:5-105
+94            android:name="expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH"
+94-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:23:16-80
+95            android:value="ALWAYS" />
+95-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:23:81-103
+96        <meta-data
+96-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:24:5-99
+97            android:name="expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS"
+97-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:24:16-79
+98            android:value="0" />
+98-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:24:80-97
+99        <meta-data
+99-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:25:5-124
+100            android:name="expo.modules.updates.EXPO_UPDATE_URL"
+100-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:25:16-67
+101            android:value="https://exp.host/@vdemian/clic-sureste" />
+101-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:25:68-122
+102
+103        <activity
+103-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:26:5-37:16
+104            android:name="com.clicksur.app.MainActivity"
+104-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:26:15-43
+105            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+105-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:26:77-154
+106            android:exported="true"
+106-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:26:276-299
+107            android:label="@string/app_name"
+107-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:26:44-76
+108            android:launchMode="singleTask"
+108-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:26:155-186
+109            android:screenOrientation="portrait"
+109-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:26:300-336
+110            android:theme="@style/Theme.App.SplashScreen"
+110-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:26:230-275
+111            android:windowSoftInputMode="adjustResize" >
+111-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:26:187-229
+112            <intent-filter>
+112-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:27:7-30:23
+113                <action android:name="android.intent.action.MAIN" />
+113-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:28:9-60
+113-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:28:17-58
+114
+115                <category android:name="android.intent.category.LAUNCHER" />
+115-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:29:9-68
+115-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:29:19-66
+116            </intent-filter>
+117            <intent-filter>
+117-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:31:7-36:23
+118                <action android:name="android.intent.action.VIEW" />
+118-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:14:7-58
+118-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:14:15-56
+119
+120                <category android:name="android.intent.category.DEFAULT" />
+120-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:33:9-67
+120-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:33:19-65
+121                <category android:name="android.intent.category.BROWSABLE" />
+121-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:15:7-67
+121-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:15:17-65
+122
+123                <data android:scheme="com.clicksur.app" />
+123-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:16:7-37
+123-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:16:13-35
+124            </intent-filter>
+125        </activity>
+126        <activity
+126-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:38:5-106
+127            android:name="com.facebook.react.devsupport.DevSettingsActivity"
+127-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:38:15-79
+128            android:exported="false" />
+128-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:38:80-104
+129
+130        <uses-library
+130-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:39:5-83
+131            android:name="org.apache.http.legacy"
+131-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:39:19-56
+132            android:required="false" />
+132-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:39:57-81
+133
+134        <provider
+134-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:21:9-30:20
+135            android:name="expo.modules.filesystem.FileSystemFileProvider"
+135-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:22:13-74
+136            android:authorities="com.clicksur.app.FileSystemFileProvider"
+136-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:23:13-74
+137            android:exported="false"
+137-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:24:13-37
+138            android:grantUriPermissions="true" >
+138-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:25:13-47
+139            <meta-data
+139-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-29:70
+140                android:name="android.support.FILE_PROVIDER_PATHS"
+140-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:28:17-67
+141                android:resource="@xml/file_system_provider_paths" />
+141-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:29:17-67
+142        </provider>
+143
+144        <activity
+144-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:29:9-31:59
+145            android:name="com.canhub.cropper.CropImageActivity"
+145-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:30:13-64
+146            android:exported="true"
+146-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:35:13-36
+147            android:theme="@style/Base.Theme.AppCompat" /> <!-- https://developer.android.com/guide/topics/manifest/provider-element.html -->
+147-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-56
+148        <provider
+148-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:33:9-41:20
+149            android:name="expo.modules.imagepicker.fileprovider.ImagePickerFileProvider"
+149-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:34:13-89
+150            android:authorities="com.clicksur.app.ImagePickerFileProvider"
+150-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:35:13-75
+151            android:exported="false"
+151-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:36:13-37
+152            android:grantUriPermissions="true" >
+152-->[:expo-image-picker] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:37:13-47
+153            <meta-data
+153-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-29:70
+154                android:name="android.support.FILE_PROVIDER_PATHS"
+154-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:28:17-67
+155                android:resource="@xml/image_picker_provider_paths" />
+155-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:29:17-67
+156        </provider>
+157
+158        <service
+158-->[:expo-location] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-location\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:9-15:56
+159            android:name="expo.modules.location.services.LocationTaskService"
+159-->[:expo-location] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-location\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-78
+160            android:exported="false"
+160-->[:expo-location] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-location\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-37
+161            android:foregroundServiceType="location" />
+161-->[:expo-location] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-location\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-53
+162
+163        <meta-data
+163-->[:expo-modules-core] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:9-10:89
+164            android:name="org.unimodules.core.AppLoader#react-native-headless"
+164-->[:expo-modules-core] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:13-79
+165            android:value="expo.modules.adapters.react.apploader.RNHeadlessAppLoader" />
+165-->[:expo-modules-core] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-modules-core\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:13-86
+166
+167        <provider
+167-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:23:9-31:20
+168            android:name="com.canhub.cropper.CropFileProvider"
+168-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:24:13-63
+169            android:authorities="com.clicksur.app.cropper.fileprovider"
+169-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:25:13-72
+170            android:exported="false"
+170-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:26:13-37
+171            android:grantUriPermissions="true" >
+171-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:27:13-47
+172            <meta-data
+172-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:27:13-29:70
+173                android:name="android.support.FILE_PROVIDER_PATHS"
+173-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:28:17-67
+174                android:resource="@xml/library_file_paths" />
+174-->[:expo-file-system] D:\Documents\Work\App AO\food-star-expo-app-template\node_modules\expo-file-system\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:29:17-67
+175        </provider> <!-- This is here because the library did not update yet to Android 12 so we force the exported value when merging manifests -->
+176        <activity
+176-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:38:9-45:20
+177            android:name="androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity"
+177-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:39:13-99
+178            android:exported="true"
+178-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:40:13-36
+179            android:theme="@android:style/Theme" >
+179-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:41:13-49
+180            <intent-filter>
+180-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:42:13-44:29
+181                <action android:name="android.intent.action.MAIN" />
+181-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:28:9-60
+181-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:28:17-58
+182            </intent-filter>
+183        </activity>
+184        <activity
+184-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:46:9-53:20
+185            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity"
+185-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:47:13-95
+186            android:exported="true"
+186-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:48:13-36
+187            android:theme="@android:style/Theme" >
+187-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:49:13-49
+188            <intent-filter>
+188-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:42:13-44:29
+189                <action android:name="android.intent.action.MAIN" />
+189-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:28:9-60
+189-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:28:17-58
+190            </intent-filter>
+191        </activity>
+192        <activity
+192-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:54:9-61:20
+193            android:name="androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity"
+193-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:55:13-103
+194            android:exported="true"
+194-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:56:13-36
+195            android:theme="@android:style/Theme.Dialog" >
+195-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:57:13-56
+196            <intent-filter>
+196-->[com.github.CanHub:Android-Image-Cropper:4.3.0] C:\Users\demia\.gradle\caches\transforms-3\20694a0c858281c2ea05c6491d0a8402\transformed\jetified-Android-Image-Cropper-4.3.0\AndroidManifest.xml:42:13-44:29
+197                <action android:name="android.intent.action.MAIN" />
+197-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:28:9-60
+197-->D:\Documents\Work\App AO\food-star-expo-app-template\android\app\src\main\AndroidManifest.xml:28:17-58
+198            </intent-filter>
+199        </activity>
+200
+201        <provider
+201-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:31:9-39:20
+202            android:name="androidx.startup.InitializationProvider"
+202-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:32:13-67
+203            android:authorities="com.clicksur.app.androidx-startup"
+203-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:33:13-68
+204            android:exported="false" >
+204-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:34:13-37
+205            <meta-data
+205-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:36:13-38:52
+206                android:name="androidx.work.WorkManagerInitializer"
+206-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:37:17-68
+207                android:value="androidx.startup" />
+207-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:38:17-49
+208            <meta-data
+208-->[androidx.emoji2:emoji2:1.0.0] C:\Users\demia\.gradle\caches\transforms-3\468c7525363f9f3044a9229656b613cb\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+209                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+209-->[androidx.emoji2:emoji2:1.0.0] C:\Users\demia\.gradle\caches\transforms-3\468c7525363f9f3044a9229656b613cb\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
+210                android:value="androidx.startup" />
+210-->[androidx.emoji2:emoji2:1.0.0] C:\Users\demia\.gradle\caches\transforms-3\468c7525363f9f3044a9229656b613cb\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
+211            <meta-data
+211-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\demia\.gradle\caches\transforms-3\194c08221c9858599639426c07a0dab8\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+212                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+212-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\demia\.gradle\caches\transforms-3\194c08221c9858599639426c07a0dab8\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+213                android:value="androidx.startup" />
+213-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\demia\.gradle\caches\transforms-3\194c08221c9858599639426c07a0dab8\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+214        </provider>
+215
+216        <service
+216-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:41:9-46:35
+217            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+217-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:42:13-88
+218            android:directBootAware="false"
+218-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:43:13-44
+219            android:enabled="@bool/enable_system_alarm_service_default"
+219-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:44:13-72
+220            android:exported="false" />
+220-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:45:13-37
+221        <service
+221-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:47:9-53:35
+222            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+222-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:48:13-84
+223            android:directBootAware="false"
+223-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:49:13-44
+224            android:enabled="@bool/enable_system_job_service_default"
+224-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:50:13-70
+225            android:exported="true"
+225-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:51:13-36
+226            android:permission="android.permission.BIND_JOB_SERVICE" />
+226-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:52:13-69
+227        <service
+227-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:54:9-59:35
+228            android:name="androidx.work.impl.foreground.SystemForegroundService"
+228-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:55:13-81
+229            android:directBootAware="false"
+229-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:56:13-44
+230            android:enabled="@bool/enable_system_foreground_service_default"
+230-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:57:13-77
+231            android:exported="false" />
+231-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:58:13-37
+232
+233        <receiver
+233-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:61:9-66:35
+234            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+234-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:62:13-88
+235            android:directBootAware="false"
+235-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:63:13-44
+236            android:enabled="true"
+236-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:64:13-35
+237            android:exported="false" />
+237-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:65:13-37
+238        <receiver
+238-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:67:9-77:20
+239            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+239-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:68:13-106
+240            android:directBootAware="false"
+240-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:69:13-44
+241            android:enabled="false"
+241-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:70:13-36
+242            android:exported="false" >
+242-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:71:13-37
+243            <intent-filter>
+243-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:73:13-76:29
+244                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+244-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:74:17-87
+244-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:74:25-84
+245                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+245-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:75:17-90
+245-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:75:25-87
+246            </intent-filter>
+247        </receiver>
+248        <receiver
+248-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:78:9-88:20
+249            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+249-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:79:13-104
+250            android:directBootAware="false"
+250-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:80:13-44
+251            android:enabled="false"
+251-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:81:13-36
+252            android:exported="false" >
+252-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:82:13-37
+253            <intent-filter>
+253-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:84:13-87:29
+254                <action android:name="android.intent.action.BATTERY_OKAY" />
+254-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:85:17-77
+254-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:85:25-74
+255                <action android:name="android.intent.action.BATTERY_LOW" />
+255-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:86:17-76
+255-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:86:25-73
+256            </intent-filter>
+257        </receiver>
+258        <receiver
+258-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:89:9-99:20
+259            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+259-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:90:13-104
+260            android:directBootAware="false"
+260-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:91:13-44
+261            android:enabled="false"
+261-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:92:13-36
+262            android:exported="false" >
+262-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:93:13-37
+263            <intent-filter>
+263-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:95:13-98:29
+264                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+264-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:96:17-83
+264-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:96:25-80
+265                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+265-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:97:17-82
+265-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:97:25-79
+266            </intent-filter>
+267        </receiver>
+268        <receiver
+268-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:100:9-109:20
+269            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+269-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:101:13-103
+270            android:directBootAware="false"
+270-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:102:13-44
+271            android:enabled="false"
+271-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:103:13-36
+272            android:exported="false" >
+272-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:104:13-37
+273            <intent-filter>
+273-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:106:13-108:29
+274                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+274-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:107:17-79
+274-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:107:25-76
+275            </intent-filter>
+276        </receiver>
+277        <receiver
+277-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:110:9-121:20
+278            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+278-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:111:13-88
+279            android:directBootAware="false"
+279-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:112:13-44
+280            android:enabled="false"
+280-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:113:13-36
+281            android:exported="false" >
+281-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:114:13-37
+282            <intent-filter>
+282-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:116:13-120:29
+283                <action android:name="android.intent.action.BOOT_COMPLETED" />
+283-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:117:17-79
+283-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:117:25-76
+284                <action android:name="android.intent.action.TIME_SET" />
+284-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:118:17-73
+284-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:118:25-70
+285                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+285-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:119:17-81
+285-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:119:25-78
+286            </intent-filter>
+287        </receiver>
+288        <receiver
+288-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:122:9-131:20
+289            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+289-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:123:13-99
+290            android:directBootAware="false"
+290-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:124:13-44
+291            android:enabled="@bool/enable_system_alarm_service_default"
+291-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:125:13-72
+292            android:exported="false" >
+292-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:126:13-37
+293            <intent-filter>
+293-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:128:13-130:29
+294                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+294-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:129:17-98
+294-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:129:25-95
+295            </intent-filter>
+296        </receiver>
+297        <receiver
+297-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:132:9-142:20
+298            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+298-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:133:13-78
+299            android:directBootAware="false"
+299-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:134:13-44
+300            android:enabled="true"
+300-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:135:13-35
+301            android:exported="true"
+301-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:136:13-36
+302            android:permission="android.permission.DUMP" >
+302-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:137:13-57
+303            <intent-filter>
+303-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:139:13-141:29
+304                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+304-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:140:17-88
+304-->[androidx.work:work-runtime:2.7.1] C:\Users\demia\.gradle\caches\transforms-3\063907ce32155d5d0392ee8d8e78fe01\transformed\work-runtime-2.7.1\AndroidManifest.xml:140:25-85
+305            </intent-filter>
+306        </receiver>
+307
+308        <service
+308-->[androidx.room:room-runtime:2.2.5] C:\Users\demia\.gradle\caches\transforms-3\e8360260fc7752950432f596b61c3a25\transformed\room-runtime-2.2.5\AndroidManifest.xml:25:9-28:40
+309            android:name="androidx.room.MultiInstanceInvalidationService"
+309-->[androidx.room:room-runtime:2.2.5] C:\Users\demia\.gradle\caches\transforms-3\e8360260fc7752950432f596b61c3a25\transformed\room-runtime-2.2.5\AndroidManifest.xml:26:13-74
+310            android:directBootAware="true"
+310-->[androidx.room:room-runtime:2.2.5] C:\Users\demia\.gradle\caches\transforms-3\e8360260fc7752950432f596b61c3a25\transformed\room-runtime-2.2.5\AndroidManifest.xml:27:13-43
+311            android:exported="false" />
+311-->[androidx.room:room-runtime:2.2.5] C:\Users\demia\.gradle\caches\transforms-3\e8360260fc7752950432f596b61c3a25\transformed\room-runtime-2.2.5\AndroidManifest.xml:28:13-37
+312
+313        <meta-data
+313-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\demia\.gradle\caches\transforms-3\edbdeb258e7cbff07b7676199be38c9e\transformed\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:11:9-13:43
+314            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+314-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\demia\.gradle\caches\transforms-3\edbdeb258e7cbff07b7676199be38c9e\transformed\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:12:13-84
+315            android:value="GlideModule" />
+315-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\demia\.gradle\caches\transforms-3\edbdeb258e7cbff07b7676199be38c9e\transformed\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:13:13-40
+316        <meta-data
+316-->[com.github.zjupure:webpdecoder:2.1.4.13.2] C:\Users\demia\.gradle\caches\transforms-3\7d454fd95d0ebd83f6f48aa63bf31f69\transformed\jetified-webpdecoder-2.1.4.13.2\AndroidManifest.xml:10:9-12:43
+317            android:name="com.bumptech.glide.integration.webp.WebpGlideModule"
+317-->[com.github.zjupure:webpdecoder:2.1.4.13.2] C:\Users\demia\.gradle\caches\transforms-3\7d454fd95d0ebd83f6f48aa63bf31f69\transformed\jetified-webpdecoder-2.1.4.13.2\AndroidManifest.xml:11:13-79
+318            android:value="GlideModule" />
+318-->[com.github.zjupure:webpdecoder:2.1.4.13.2] C:\Users\demia\.gradle\caches\transforms-3\7d454fd95d0ebd83f6f48aa63bf31f69\transformed\jetified-webpdecoder-2.1.4.13.2\AndroidManifest.xml:12:13-40
+319
+320        <activity
+320-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\demia\.gradle\caches\transforms-3\156308e2e665188ac1d8e3bc6267a981\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+321            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+321-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\demia\.gradle\caches\transforms-3\156308e2e665188ac1d8e3bc6267a981\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+322            android:exported="false"
+322-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\demia\.gradle\caches\transforms-3\156308e2e665188ac1d8e3bc6267a981\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+323            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+323-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\demia\.gradle\caches\transforms-3\156308e2e665188ac1d8e3bc6267a981\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+324
+325        <meta-data
+325-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\demia\.gradle\caches\transforms-3\0556fab84e5c1f1f5e27050b2941a3bc\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+326            android:name="com.google.android.gms.version"
+326-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\demia\.gradle\caches\transforms-3\0556fab84e5c1f1f5e27050b2941a3bc\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+327            android:value="@integer/google_play_services_version" />
+327-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\demia\.gradle\caches\transforms-3\0556fab84e5c1f1f5e27050b2941a3bc\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+328
+329        <service
+329-->[io.nlopez.smartlocation:library:3.2.11] C:\Users\demia\.gradle\caches\transforms-3\88a6e327e7543a2fa3e2deaaac9b6a40\transformed\jetified-library-3.2.11\AndroidManifest.xml:19:9-21:40
+330            android:name="io.nlopez.smartlocation.activity.providers.ActivityGooglePlayServicesProvider$ActivityRecognitionService"
+330-->[io.nlopez.smartlocation:library:3.2.11] C:\Users\demia\.gradle\caches\transforms-3\88a6e327e7543a2fa3e2deaaac9b6a40\transformed\jetified-library-3.2.11\AndroidManifest.xml:20:13-132
+331            android:exported="false" />
+331-->[io.nlopez.smartlocation:library:3.2.11] C:\Users\demia\.gradle\caches\transforms-3\88a6e327e7543a2fa3e2deaaac9b6a40\transformed\jetified-library-3.2.11\AndroidManifest.xml:21:13-37
+332        <service
+332-->[io.nlopez.smartlocation:library:3.2.11] C:\Users\demia\.gradle\caches\transforms-3\88a6e327e7543a2fa3e2deaaac9b6a40\transformed\jetified-library-3.2.11\AndroidManifest.xml:22:9-24:40
+333            android:name="io.nlopez.smartlocation.geofencing.providers.GeofencingGooglePlayServicesProvider$GeofencingService"
+333-->[io.nlopez.smartlocation:library:3.2.11] C:\Users\demia\.gradle\caches\transforms-3\88a6e327e7543a2fa3e2deaaac9b6a40\transformed\jetified-library-3.2.11\AndroidManifest.xml:23:13-127
+334            android:exported="false" />
+334-->[io.nlopez.smartlocation:library:3.2.11] C:\Users\demia\.gradle\caches\transforms-3\88a6e327e7543a2fa3e2deaaac9b6a40\transformed\jetified-library-3.2.11\AndroidManifest.xml:24:13-37
+335        <service
+335-->[io.nlopez.smartlocation:library:3.2.11] C:\Users\demia\.gradle\caches\transforms-3\88a6e327e7543a2fa3e2deaaac9b6a40\transformed\jetified-library-3.2.11\AndroidManifest.xml:25:9-27:40
+336            android:name="io.nlopez.smartlocation.geocoding.providers.AndroidGeocodingProvider$AndroidGeocodingService"
+336-->[io.nlopez.smartlocation:library:3.2.11] C:\Users\demia\.gradle\caches\transforms-3\88a6e327e7543a2fa3e2deaaac9b6a40\transformed\jetified-library-3.2.11\AndroidManifest.xml:26:13-120
+337            android:exported="false" />
+337-->[io.nlopez.smartlocation:library:3.2.11] C:\Users\demia\.gradle\caches\transforms-3\88a6e327e7543a2fa3e2deaaac9b6a40\transformed\jetified-library-3.2.11\AndroidManifest.xml:27:13-37
+338    </application>
+339
+340</manifest>

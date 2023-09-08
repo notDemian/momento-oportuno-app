@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react'
 import { Dimensions } from 'react-native'
 import { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types'
 
+import { Estados } from '@src/api'
 import {
   Box,
   Button,
@@ -12,7 +13,7 @@ import {
   TextField,
 } from '@src/components'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
-import { ESTADOS_APROBADOS, NEW_ANUNCIO_CATEGORIAS } from '@src/data'
+import { useCategorias, useEstados } from '@src/hooks'
 import { NewAnuncioStackParamList, ScreenProps } from '@src/navigation'
 import { fontSize } from '@src/theme'
 import * as ImagePicker from 'expo-image-picker'
@@ -21,7 +22,7 @@ export const NewAnuncioForm: React.FC<
   ScreenProps<NewAnuncioStackParamList, 'NewAnuncioForm'>
 > = ({ navigation }) => {
   const [showCiudadModal, setShowCiudadModal] = useState(false)
-  const [selectedCiudad, setSelectedCiudad] = useState<string | number>('')
+  const [selectedCiudad, setSelectedCiudad] = useState<Estados>()
   const [showCategoriaModal, setShowCategoriaModal] = useState(false)
 
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([])
@@ -82,6 +83,9 @@ export const NewAnuncioForm: React.FC<
     setShowCategoriaModal(true)
   }, [])
 
+  const { data: estados, isLoading: loadingEstados } = useEstados()
+  const { data: cat, isLoading: loadingCat } = useCategorias()
+
   return (
     <NewAnucioLayout
       title='Detalles generales'
@@ -89,39 +93,45 @@ export const NewAnuncioForm: React.FC<
         <Button
           label='Continuar'
           isFullWidth
+          isDisabled={loadingEstados || loadingCat}
           onPress={showCategoriaModalHandler}
         />
       }
     >
-      <ModalRadioButton
-        isVisible={showCiudadModal}
-        data={ESTADOS_APROBADOS.map((estado) => ({
-          label: estado,
-          value: estado,
-        }))}
-        hideModal={hideModal}
-        title='Selecciona tu estado'
-        onPressItem={(item) => {
-          setSelectedCiudad(item.value)
-        }}
-      />
-      <ModalRadioButton
-        isVisible={showCategoriaModal}
-        data={NEW_ANUNCIO_CATEGORIAS.map((cat) => ({
-          label: cat,
-          value: cat,
-        }))}
-        hideModal={hideModal}
-        title='Para continuar, selecciona la categoría de tu publicación'
-        onPressItem={(item) => {
-          setShowCategoriaModal(false)
-          navigation.navigate('NewAnuncioFormByCat', {
-            categoria: (NEW_ANUNCIO_CATEGORIAS.includes(item.value as any)
-              ? item.value
-              : 'Empleos') as any,
-          })
-        }}
-      />
+      {!loadingEstados && estados ? (
+        <ModalRadioButton
+          isVisible={showCiudadModal}
+          data={estados.map((estado) => ({
+            label: estado.name,
+            value: estado.id,
+          }))}
+          hideModal={hideModal}
+          title='Selecciona tu estado'
+          onPressItem={(item) => {
+            const itemFound = estados.find((c) => c.id === item.value)
+            if (!itemFound) return
+            setSelectedCiudad(itemFound)
+          }}
+        />
+      ) : null}
+      {!loadingCat && cat ? (
+        <ModalRadioButton
+          isVisible={showCategoriaModal}
+          data={cat.map((cat) => ({
+            label: cat.name,
+            value: cat.id,
+          }))}
+          hideModal={hideModal}
+          title='Para continuar, selecciona la categoría de tu publicación'
+          onPressItem={(item) => {
+            setShowCategoriaModal(false)
+            const catFound = cat.find((c) => c.id === item.value)
+            if (catFound) {
+              navigation.navigate('NewAnuncioFormByCat', catFound)
+            }
+          }}
+        />
+      ) : null}
       <Box marginTop='m' gap={'m'}>
         <TextField
           inputProps={{
@@ -149,7 +159,8 @@ export const NewAnuncioForm: React.FC<
               variant='secondary'
               onPress={showCiudadModalHandler}
               flex={1}
-              label={selectedCiudad.toString() || 'Seleccionar ciudad'}
+              isDisabled={loadingEstados}
+              label={selectedCiudad?.name || 'Seleccionar ciudad'}
               isModal
             />
           </Box>

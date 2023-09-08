@@ -13,8 +13,7 @@ import type {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack'
-import type { Anuncio, Paquete } from '@src/api'
-import { NewAnuncioCategorias } from '@src/data'
+import type { Anuncio, Categoria, Paquete } from '@src/api'
 
 // Stack Param List
 export type RootStackParamList = {
@@ -46,10 +45,7 @@ export type ExploreStackParamList = {
 
 export type NewAnuncioStackParamList = {
   NewAnuncioForm: undefined
-  NewAnuncioFormByCat: {
-    categoria: NewAnuncioCategorias
-  }
-
+  NewAnuncioFormByCat: Categoria
   NewAnuncioDetails: undefined
   NewAnuncioLocation: undefined
   NewAnuncioPayment: undefined

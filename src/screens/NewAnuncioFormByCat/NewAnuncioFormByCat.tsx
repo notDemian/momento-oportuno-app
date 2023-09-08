@@ -1,68 +1,40 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { FC } from 'react'
 
 import { getArrays } from './helper'
 
-import {
-  Box,
-  Button,
-  NewAnucioLayout,
-  Text,
-  TextField,
-} from '@src/components'
-import {
-  CheckboxList,
-  type CheckBoxListItem,
-} from '@src/components/CheckboxList'
+import { Categoria } from '@src/api'
+import { Box, Button, NewAnucioLayout, Text, TextField } from '@src/components'
+import { CheckboxList } from '@src/components/CheckboxList'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
+import { useCategorias } from '@src/hooks'
 import { NewAnuncioStackParamList, ScreenProps } from '@src/navigation'
-
-const items = [
-  {
-    id: '1',
-    label: 'Ondo',
-  },
-  {
-    id: '2',
-    label: 'Ondo',
-  },
-  {
-    id: '3',
-    label: 'Ondo',
-  },
-]
+import { CLOG } from '@src/utils'
 
 export const NewAnuncioFormByCat: FC<
   ScreenProps<NewAnuncioStackParamList, 'NewAnuncioFormByCat'>
-> = ({ navigation, route: { params } }) => {
+> = ({ route: { params } }) => {
+  const { data: subCat, isLoading: loadingSubCat } = useCategorias(params.id)
+  CLOG({
+    subCat,
+    id: params.id,
+  })
   const [showSubCategoriaModal, setShowSubCategoriaModal] = useState(false)
-  const [subCategoriaSelected, setSubCategoriaSelected] = useState('')
+  const [subCategoriaSelected, setSubCategoriaSelected] = useState<Categoria>()
 
-  const [subCategoriaData, setSubCategoriaData] = useState<string[]>([])
-  const [checkboxData, setCheckboxData] = useState<CheckBoxListItem[]>([])
-  const [checkListTitle, setCheckListTitle] = useState('')
+  const { checkboxData, title } = useMemo(
+    () => getArrays(params.name),
+    [params.name],
+  )
 
-  useEffect(() => {
-    const {
-      checkboxData: newCheckboxData,
-      subCategoriaData: newSubCategoriaData,
-      title: newTitle,
-    } = getArrays(params.categoria)
-    setSubCategoriaData(newSubCategoriaData)
-    setCheckboxData(newCheckboxData)
-    setCheckListTitle(newTitle)
-  }, [params])
-
-  const [selectedLanguage, setSelectedLanguage] = useState()
-
-  const [selectedItems, setSelectedItems] = useState<string[]>([])
+  const [_selectedItems, setSelectedItems] = useState<string[]>([])
 
   const onSelectedItemsChange = useCallback((selectedItems: Array<string>) => {
     setSelectedItems(selectedItems)
   }, [])
 
   const RenderExtraContent = useCallback(() => {
-    switch (params.categoria) {
+    switch (params.name) {
       case 'Inmuebles':
         return (
           <>
@@ -150,58 +122,50 @@ export const NewAnuncioFormByCat: FC<
             />
           </>
         )
-      case 'Servicios':
-        return <></>
-      case 'Comunidad':
-        return null
-      case 'Electrónicos':
-        return null
-      case 'Mascotas':
-        return <></>
-      case 'Moda':
-        return <></>
-      case 'Para niños':
-        return <></>
+
       default:
-        params.categoria
         return null
     }
   }, [params])
 
   return (
     <NewAnucioLayout
-      title={`${params.categoria}`}
+      title={`${params.name}`}
       footer={
         <Button
           label='Continuar'
           isFullWidth
+          isDisabled={loadingSubCat}
           // onPress={showCategoriaModalHandler}
         />
       }
     >
-      {subCategoriaData.length > 0 && (
+      {!loadingSubCat && subCat && subCat.length > 0 && (
         <ModalRadioButton
           title='Subcategoría'
           isVisible={showSubCategoriaModal}
           hideModal={() => setShowSubCategoriaModal(false)}
           onPressItem={(item) => {
-            setSubCategoriaSelected(item.label)
+            const itemFound = subCat.find((c) => c.id === item.value)
+            if (!itemFound) return
+            setSubCategoriaSelected(itemFound)
             setShowSubCategoriaModal(false)
           }}
-          data={subCategoriaData.map((c) => ({ label: c, value: c }))}
+          data={subCat.map((c) => ({ label: c.name, value: c.id }))}
         />
       )}
       <Box gap={'m'}>
         <Button
           label={
-            subCategoriaSelected.trim() === ''
+            !subCategoriaSelected
               ? 'Elegir subcategoría'
-              : subCategoriaSelected
+              : subCategoriaSelected.name
           }
+          isDisabled={loadingSubCat}
           onPress={() => setShowSubCategoriaModal(true)}
         />
         <RenderExtraContent />
-        <Text variant={'subHeader'}>{checkListTitle}</Text>
+        <Text variant={'subHeader'}>{title}</Text>
         <CheckboxList items={checkboxData} onChange={onSelectedItemsChange} />
       </Box>
     </NewAnucioLayout>

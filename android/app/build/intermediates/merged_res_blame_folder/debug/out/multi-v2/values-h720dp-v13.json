@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.clicksur.app-mergeDebugResources-46:/values-h720dp-v13/values-h720dp-v13.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\demia\\.gradle\\caches\\transforms-3\\4d0cbbce38d6cf7cb75f5b0ebb515448\\transformed\\appcompat-1.4.2\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "66",
+                        "endOffsets": "117"
+                    }
+                }
+            ]
+        }
+    ]
+}

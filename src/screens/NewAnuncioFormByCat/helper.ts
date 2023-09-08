@@ -1,21 +1,12 @@
 import { CheckBoxListItem } from '@src/components/CheckboxList'
-import { type NewAnuncioCategorias } from '@src/data'
 
-export function getArrays(categoria: NewAnuncioCategorias) {
-  let newSubCategoriaData: string[] = []
+export function getArrays(categoria: string) {
   let newCheckboxData: CheckBoxListItem[] = []
   let title = 'Características'
 
   switch (categoria) {
     case 'Inmuebles':
       title = 'Caracteristicas de la propiedad'
-      newSubCategoriaData = [
-        'Apartamentos',
-        'Comercial',
-        'Casas',
-        'Terrenos',
-        'Oficinas',
-      ]
 
       newCheckboxData = [
         {
@@ -122,15 +113,6 @@ export function getArrays(categoria: NewAnuncioCategorias) {
       break
     case 'Vehículos':
       title = 'Características del vehículo'
-      newSubCategoriaData = [
-        'Aeronaves',
-        'Botes',
-        'Carros',
-        'Construcción',
-        'Motos',
-        'Camiones',
-        'Vans',
-      ]
 
       newCheckboxData = [
         {
@@ -189,14 +171,7 @@ export function getArrays(categoria: NewAnuncioCategorias) {
       break
     case 'Empleos':
       title = 'Tipo de contrato'
-      newSubCategoriaData = [
-        'Contabilidad',
-        'Empleos de mercadotecnia',
-        'Pasantías',
-        'Trabajos de limpieza',
-        'Trabajos de limpieza',
-        'Trabajos de TI',
-      ]
+
       newCheckboxData = [
         {
           label: 'Contrato',
@@ -214,27 +189,13 @@ export function getArrays(categoria: NewAnuncioCategorias) {
       break
     case 'Servicios':
       title = 'Tipo de servicio'
-      newSubCategoriaData = [
-        'Servicios Automotrices',
-        'Belleza',
-        'Servicios de limpieza',
-        'Servicios financieros',
-        'Jardinería',
-        'Servicios para el hogar',
-        'Bodas',
-      ]
+
       // prettier-ignore
       newCheckboxData = [{label: 'Actualización de hardware',id: 'Actualización de hardware',},{label: 'Boutonnieres',id: 'Boutonnieres',},{label: 'Configuración de correo electrónico',id: 'Configuración de correo electrónico',},{label: 'Conjunto completo de acrílico',id: 'Conjunto completo de acrílico',},{label: 'Cotizaciones gratis',id: 'Cotizaciones gratis',},{label: 'Diagnósticos',id: 'Diagnósticos',},{label: 'Diseño de cabello femenino',id: 'Diseño de cabello femenino',},{label: 'Flores',id: 'Flores',},{label: 'Instalación de paneles de yeso',id: 'Instalación de paneles de yeso',},{label: 'Insurance',id: 'Insurance',},{label: 'Limpieza de alfombra',id: 'Limpieza de alfombra',},{label: 'Limpieza de cristales',id: 'Limpieza de cristales',},{label: 'Manicures',id: 'Manicures',},{label: 'Maquillaje de moda',id: 'Maquillaje de moda',},{label: 'Maquillaje de novia',id: 'Maquillaje de novia',},{label: 'Mens hair cut',id: 'Mens hair cut',},{label: 'Painting',id: 'Painting',},{label: 'Party makeup',id: 'Party makeup',},{label: 'Pasteles',id: 'Pasteles',},{label: 'Pedicures',id: 'Pedicures',},{label: 'Polish change',id: 'Polish change',},{label: 'Portrait Packages',id: 'Portrait Packages',},{label: 'Professional advisory',id: 'Professional advisory',},{label: 'Ramilletes',id: 'Ramilletes',},{label: 'Ramos',id: 'Ramos',},{label: 'Real estate',id: 'Real estate',},{label: 'Reparación automática',id: 'Reparación automática',},{label: 'Reparación de coches clásicos',id: 'Reparación de coches clásicos',},{label: 'Rubbish clearance',id: 'Rubbish clearance',},{label: 'Secador de Mano',id: 'Secador de Mano',},{label: 'Soldering flux',id: 'Soldering flux',},{label: 'Soldering iron',id: 'Soldering iron',},{label: 'Soldering paste',id: 'Soldering paste',},{label: 'Total cleaning',id: 'Total cleaning',},{label: 'Tune-Ups',id: 'Tune-Ups',},{label: 'Velas',id: 'Velas',},{label: 'Wealth management',id: 'Wealth management'}]
       break
     case 'Comunidad':
       title = 'Características de la comunidad'
-      newSubCategoriaData = [
-        'Anuncios',
-        'Artículos buscados',
-        'Cosas gratis',
-        'Perdido y encontrado',
-        'Voluntarios',
-      ]
+
       newCheckboxData = [
         {
           label: 'En Persona',
@@ -255,12 +216,6 @@ export function getArrays(categoria: NewAnuncioCategorias) {
       ]
       break
     case 'Electrónicos':
-      newSubCategoriaData = [
-        'Celulares',
-        'Equipos de Cómputo',
-        'Juegos y Videoconsolas',
-        'Software',
-      ]
       newCheckboxData = [
         {
           label: '1 año de garantía',
@@ -294,13 +249,6 @@ export function getArrays(categoria: NewAnuncioCategorias) {
       break
     case 'Mascotas':
       title = 'Características de la mascota'
-      newSubCategoriaData = [
-        'Aves',
-        'Gatos',
-        'Perros',
-        'Peces',
-        'Pequeños peludos',
-      ]
 
       newCheckboxData = [
         {
@@ -358,13 +306,6 @@ export function getArrays(categoria: NewAnuncioCategorias) {
       ]
       break
     case 'Moda':
-      newSubCategoriaData = [
-        'Joyería',
-        'Ropa de hombre',
-        'Bolsos de mujer',
-        'Ropa de mujer',
-      ]
-
       newCheckboxData = [
         {
           label: '1 año de garantía',
@@ -397,12 +338,6 @@ export function getArrays(categoria: NewAnuncioCategorias) {
       ]
       break
     case 'Para niños':
-      newSubCategoriaData = [
-        'Accesorios para niños',
-        'Ropa de niños',
-        'Cochecitos y sillas de paseo',
-        'Juguetes',
-      ]
       newCheckboxData = [
         {
           label: '1 año de garantía',
@@ -440,7 +375,6 @@ export function getArrays(categoria: NewAnuncioCategorias) {
   }
 
   return {
-    subCategoriaData: newSubCategoriaData,
     checkboxData: newCheckboxData,
     title,
   }

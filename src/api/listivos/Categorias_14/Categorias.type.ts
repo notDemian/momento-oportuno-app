@@ -14,7 +14,7 @@ export interface Categoria {
   _links: Links
 }
 
-export interface Links {
+interface Links {
   self: About[]
   collection: About[]
   about: About[]
@@ -23,29 +23,29 @@ export interface Links {
   curies: Cury[]
 }
 
-export interface About {
+interface About {
   href: string
 }
 
-export interface Cury {
+interface Cury {
   name: Name
   href: Href
   templated: boolean
 }
 
-export enum Href {
+enum Href {
   HTTPSAPIWOrgRel = 'https://api.w.org/{rel}',
 }
 
-export enum Name {
+enum Name {
   Wp = 'wp',
 }
 
-export interface Up {
+interface Up {
   embeddable: boolean
   href: string
 }
 
-export enum Taxonomy {
+enum Taxonomy {
   Listivo14 = 'listivo_14',
 }
