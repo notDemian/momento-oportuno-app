@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { getArrays } from './helper'
 
 import { Categoria } from '@src/api'
-import { Box, Button, NewAnucioLayout, Text, TextField } from '@src/components'
+import { Box, Button, NewAnucioLayout, TextField } from '@src/components'
 import { CheckboxList } from '@src/components/CheckboxList'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
 import { useCategorias } from '@src/hooks'
@@ -164,8 +164,8 @@ export const NewAnuncioFormByCat: FC<
           isDisabled={loadingSubCat}
           onPress={() => setShowSubCategoriaModal(true)}
         />
-        <RenderExtraContent />
-        <Text variant={'subHeader'}>{title}</Text>
+        {/* <RenderExtraContent /> */}
+        {/* <Text variant={'subHeader'}>{title}</Text> */}
         <CheckboxList items={checkboxData} onChange={onSelectedItemsChange} />
       </Box>
     </NewAnucioLayout>

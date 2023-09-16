@@ -1,11 +1,11 @@
 import React from 'react'
 
+import { Paquete } from '@src/api'
 import { Box, Divider, Section, Text } from '@src/components'
-import type { PackageFakeData } from '@src/screens/Packages/mocks/package.type'
 import { formatCurrency } from '@src/utils'
 
 type OrderSummaryProps = {
-  order: PackageFakeData
+  order: Paquete
 }
 
 export const OrderSummary: React.FC<OrderSummaryProps> = ({
@@ -17,7 +17,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
         <Box padding='m' flexDirection='row' justifyContent='space-between'>
           <Box flexDirection='row'>
             <Text marginRight='m'>{`${1}`}</Text>
-            {['aña'].map((cartItem, cartItemIndex) => (
+            {['producto 1'].map((cartItem, cartItemIndex) => (
               <Box key={cartItemIndex}>
                 <Text marginBottom='xs' fontWeight='bold'>
                   {cartItem}

@@ -6,6 +6,7 @@ import { Box, Button, Text } from '@src/components'
 import { SvgCheck } from '@src/components/svgs'
 import { useAccountStackNavigation } from '@src/hooks'
 import { fontSize, getShadowBoxProps, useAppTheme } from '@src/theme'
+import { formatCurrency } from '@src/utils'
 export const PackageItem: FC<PackageItemProps> = ({ paquete }) => {
   const _theme = useAppTheme()
 
@@ -95,8 +96,8 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete }) => {
         backgroundColor='transparent'
         g={'l'}
       >
-        <Text variant='header' color='black'>
-          {paquete.displayPrice}
+        <Text variant='header' color='black' textAlign={'center'}>
+          {formatCurrency(paquete.price)} MXN
         </Text>
         <Box>
           <Button
@@ -106,7 +107,9 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete }) => {
           />
         </Box>
         {paquete.text ? (
-          <Text variant={'subHeader'}>{paquete.text}</Text>
+          <Text variant={'subHeader'} fontSize={fontSize.m}>
+            {paquete.text}
+          </Text>
         ) : null}
 
         <Box marginTop={'m'} g='l'>
