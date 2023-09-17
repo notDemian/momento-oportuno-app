@@ -21,7 +21,7 @@ export interface Anuncio {
   listivo_4660: string[]
   listivo_4659: string[]
   listivo_4657: string[]
-  listivo_4318: unknown[]
+  listivo_4318: string[]
   listivo_2723: string[]
   listivo_1913: unknown[]
   listivo_1912: unknown[]
@@ -31,7 +31,7 @@ export interface Anuncio {
   listivo_945: unknown[]
   listivo_14: string[]
   listivo_10934: string[]
-  listivo_4780: unknown[]
+  listivo_4780: string[]
   listivo_4686: unknown[]
   listivo_4316: unknown[]
   listivo_3411: Listivo34

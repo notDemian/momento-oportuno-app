@@ -1,4 +1,4 @@
-import { Anuncio } from '@src/api'
+import { MappedAnuncio } from '@src/utils'
 export interface AnuncioProps {
-  data: Anuncio
+  data: MappedAnuncio
 }

@@ -4,37 +4,26 @@ import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typ
 
 import { RecommendedByStateProps } from './RecommendedByState.type'
 
-import { Card,Carousel, Section } from '@src/components/elements'
+import { ContentLoader } from '@src/components'
+import { Card, Carousel, Section } from '@src/components/elements'
 import { RecommendedCardInfo } from '@src/components/RecommendedCardInfo'
-import { mockRecommendedByState, type RemarkablePlace } from '@src/data'
+import { useAnunciosByState, useSearchStackNavigation } from '@src/hooks'
+import { MappedAnuncio } from '@src/utils'
 
 export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
-  navigation,
   state,
 }) => {
-  const data = useMemo(() => {
-    switch (state) {
-      case 'Campeche':
-        return [...mockRecommendedByState].splice(0, 4)
-      case 'Quintana Roo':
-        return [...mockRecommendedByState].splice(4, 4)
-      case 'Yucatán':
-        return [...mockRecommendedByState].splice(8, 4)
-
-      default:
-        return [...mockRecommendedByState].splice(0, 4)
-    }
-  }, [state])
-
+  const nav = useSearchStackNavigation()
   const renderItem = useCallback(
-    (props: CarouselRenderItemInfo<RemarkablePlace>) => {
-      const { image, title, id } = props.item
+    (props: CarouselRenderItemInfo<MappedAnuncio>) => {
+      const { id, defaultImages } = props.item
+
       return (
         <Card
           key={id}
-          coverImage={image}
+          coverImage={defaultImages[0]}
           coverImageSize='l'
-          title={title}
+          title={props.item.title.rendered}
           marginLeft='m'
           titleProps={{
             numberOfLines: 1,
@@ -42,7 +31,12 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
           subTitleProps={{
             numberOfLines: 2,
           }}
-          onPress={onPlaceItemPress}
+          onPress={() => {
+            nav.jumpTo('SearchTab', {
+              screen: 'AnuncioDetailsModal',
+              params: { data: { id } },
+            })
+          }}
         >
           <RecommendedCardInfo data={props.item} />
         </Card>
@@ -55,23 +49,36 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
     // navigation.navigate('PlaceList', { title: state })
   }, [state])
 
-  const onPlaceItemPress = useCallback(() => {
-    // navigation.navigate('PlaceDetails')
-  }, [])
+  const { data: anuncios, isLoading } = useAnunciosByState({ state: state.id })
+
+  const flattenData = useMemo(
+    () => anuncios?.pages.flatMap((page) => page.data),
+    [anuncios],
+  )
 
   return (
     <Section
-      title={`Recomendados ${state}`}
+      title={`Recomendados ${state.name}`}
       actionButtonText='Ver más'
       onButtonActionPress={onButtonActionPress}
     >
-      <Carousel
-        numItemsPerSlide={1.4}
-        data={data}
-        width={Dimensions.get('window').width}
-        renderItem={renderItem}
-        height={250}
-      />
+      {isLoading || !flattenData ? (
+        <Carousel
+          numItemsPerSlide={1.4}
+          data={new Array(10).fill(null)}
+          width={Dimensions.get('window').width}
+          renderItem={() => <ContentLoader />}
+          height={250}
+        />
+      ) : (
+        <Carousel
+          numItemsPerSlide={1.4}
+          data={flattenData}
+          width={Dimensions.get('window').width}
+          renderItem={renderItem}
+          height={250}
+        />
+      )}
     </Section>
   )
 }

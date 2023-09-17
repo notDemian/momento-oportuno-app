@@ -2,7 +2,6 @@ import React, { useCallback } from 'react'
 
 import { AnuncioItem } from './AnuncioItem/AnuncioItem'
 
-import type { Anuncio } from '@src/api/Anuncios/Anuncios.type'
 import {
   ActivityIndicator,
   Box,
@@ -18,6 +17,7 @@ import { useFilterContext } from '@src/filterContext/filter'
 import { useSearchStackNavigation } from '@src/hooks'
 import { useAnuncios } from '@src/hooks'
 import { useAppTheme } from '@src/theme'
+import { MappedAnuncio } from '@src/utils'
 import { keyExtractor } from '@src/utils/keyExtractor'
 
 export const SearchScreen = () => {
@@ -85,7 +85,7 @@ export const SearchScreen = () => {
       <ListHeaderComponent />
       {isLoading && <LoadingPageModal loading />}
       {isSuccess ? (
-        <List<Anuncio>
+        <List<MappedAnuncio>
           data={flattenData}
           keyExtractor={keyExtractor}
           refreshControl={

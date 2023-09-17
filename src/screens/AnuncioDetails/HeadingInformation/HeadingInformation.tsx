@@ -7,7 +7,12 @@ import { Box, Text } from '@src/components/elements'
 export const HeadingInformation: React.FC<HeadingInformationProps> = ({
   data,
 }) => {
-  const { title, listivo_130, listivo_2863, listivo_14: categorias } = data
+  const {
+    title,
+    defaultPrices,
+    fullData: { listivo_2863 },
+    Categories,
+  } = data
   return (
     <Box backgroundColor='card' padding='m'>
       <Box flexDirection='row' justifyContent='space-between'>
@@ -17,16 +22,17 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
           </Text>
         </Box>
         <Text variant='subHeader' color='primary'>
-          {listivo_130[0]}
+          {defaultPrices[0]}
         </Text>
       </Box>
+      {/**TODO: ADD EXTRA DATA HERE */}
       <Box
         flexDirection={'row'}
         gap={'s'}
         marginVertical={'s'}
         flexWrap={'wrap'}
       >
-        {categorias.map((cat) => {
+        {Categories.map((cat) => {
           return (
             <Box
               key={cat.toString()}

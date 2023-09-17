@@ -2,16 +2,17 @@ import React from 'react'
 
 import { AnuncioProps } from './AnuncioItem.type'
 
-import { Box, Image,Text, Touchable } from '@src/components'
+import { Box, Image, Text, Touchable } from '@src/components'
 import { useSearchStackNavigation } from '@src/hooks'
 import { fontSize } from '@src/theme'
 
 export const AnuncioItem: React.FC<AnuncioProps> = ({ data }) => {
   const {
-    listivo_145,
-    listivo_130,
-    listivo_14: categorias,
-    listivo_10934: estados,
+    defaultImages,
+    defaultPrices,
+    pricesAsSalary,
+    Categories: Categories,
+    estados,
     title: { rendered },
   } = data
   const navigation = useSearchStackNavigation()
@@ -36,13 +37,13 @@ export const AnuncioItem: React.FC<AnuncioProps> = ({ data }) => {
         borderRadius='m'
         margin='s'
       >
-        {listivo_145 && listivo_145[0] && (
+        {defaultImages && defaultImages[0] && (
           <Image
             width={120}
             height={120}
             borderRadius='m'
             marginRight='m'
-            source={listivo_145[0]}
+            source={defaultImages[0]}
           />
         )}
         <Box flex={1} justifyContent={'center'}>
@@ -59,7 +60,7 @@ export const AnuncioItem: React.FC<AnuncioProps> = ({ data }) => {
               {estados.join(', ')}
             </Text>
             <Box flexDirection={'row'} gap={'s'}>
-              {categorias.map((cat) => {
+              {Categories.map((cat) => {
                 return (
                   <Box
                     key={cat.toString()}
@@ -76,7 +77,7 @@ export const AnuncioItem: React.FC<AnuncioProps> = ({ data }) => {
               })}
             </Box>
             <Text fontWeight='normal' color='black' fontSize={fontSize.s}>
-              {listivo_130[0]}
+              {defaultPrices[0] ?? pricesAsSalary[0]}
             </Text>
           </Box>
         </Box>

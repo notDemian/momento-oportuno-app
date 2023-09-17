@@ -36,6 +36,8 @@ export type ExploreStackParamList = {
   PlaceList: {
     title?: string
   }
+  MicroSitios: undefined
+
   ChangeAddress: undefined
   SavedAddresses: undefined
   AddAddress: undefined

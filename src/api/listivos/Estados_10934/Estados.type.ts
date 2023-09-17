@@ -1,6 +1,6 @@
-export type GetAllEstadosResponse = Estados[]
+export type GetAllEstadosResponse = Estado[]
 
-export interface Estados {
+export interface Estado {
   id: number
   count: number
   description: string

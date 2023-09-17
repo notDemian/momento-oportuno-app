@@ -9,3 +9,7 @@ export const CLOG = (arg: unknown) => {
     console.log(`arg -> ${JSON.stringify(arg, null, 2)}`)
   }
 }
+
+export type Prettify<T> = {
+  [K in keyof T]: T[K]
+} & {}

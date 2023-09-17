@@ -10,6 +10,7 @@ import {
   AddAddress,
   ChangeAddress,
   Explore,
+  Micrositios,
   PlaceDetails,
   PlaceList,
   SavedAddresses,
@@ -55,6 +56,17 @@ export const ExploreStack: React.FC<ExploreScreenProps> = ({ navigation }) => {
         }}
         name='Explore'
         component={Explore}
+      />
+      <Stack.Screen
+        options={() => {
+          return {
+            title: '',
+            headerTransparent: true,
+            headerLeft: () => null,
+          }
+        }}
+        name='MicroSitios'
+        component={Micrositios}
       />
       <Stack.Screen
         name='PlaceList'

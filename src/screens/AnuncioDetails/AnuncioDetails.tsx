@@ -1,4 +1,4 @@
-import { type FC,useCallback, useState } from 'react'
+import { type FC, useCallback, useState } from 'react'
 import { Animated, KeyboardAvoidingView, Platform } from 'react-native'
 import { useWindowDimensions } from 'react-native'
 import RenderHtml from 'react-native-render-html'
@@ -19,6 +19,7 @@ import { Dish, mockDishDetails } from '@src/data'
 import { useAnuncio, useAppDispatch, useAppSelector } from '@src/hooks'
 import { incrementCount } from '@src/redux'
 import { useAppTheme } from '@src/theme'
+import { CLOG } from '@src/utils'
 
 export const AnuncioDetails: FC<AnuncioProps> = ({
   route: { params },
@@ -75,6 +76,8 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
 
   const { width } = useWindowDimensions()
 
+  CLOG(data?.caracteristicasPolicyRelated)
+
   return (
     <Box
       flex={1}
@@ -123,7 +126,7 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
                 ]}
               >
                 <Animated.Image
-                  source={{ uri: data.listivo_145[0] }}
+                  source={{ uri: data.defaultImages[0] }}
                   style={[
                     styles.coverPhoto,
                     {

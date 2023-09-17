@@ -1,22 +1,17 @@
 import React from 'react'
-import { Box, Icon, Text } from '../elements'
+import { Box, Text } from '../elements'
 
-import { RemarkablePlace } from '@src/data'
-import { fontSize, useAppTheme } from '@src/theme'
-import { formatCurrency } from '@src/utils'
+import { fontSize } from '@src/theme'
+import { MappedAnuncio } from '@src/utils'
 
 type RecommendedCardInfoProps = {
-  data: RemarkablePlace
-  ratingStarBackgroundColor?: string
+  data: MappedAnuncio
 }
 
 export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
   data,
-  ratingStarBackgroundColor,
 }) => {
-  const { price, views, title } = data
-
-  const { colors } = useAppTheme()
+  const { defaultPrices, pricesAsSalary } = data
 
   return (
     <Box
@@ -25,31 +20,19 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
       alignItems='center'
       flexWrap='wrap'
     >
-      <Box>
-        <Text color='primary' marginLeft='xs' fontSize={fontSize.m}>
-          {formatCurrency(price)}
-        </Text>
-      </Box>
-      <Box flexDirection='row'>
-        <Box
-          flexDirection='row'
-          borderWidth={1}
-          borderColor='secondary'
-          backgroundColor={'secondary'}
-          alignItems='center'
-          paddingHorizontal='s'
-          paddingVertical='xxs'
-          borderRadius='l'
-          marginRight='s'
-        >
-          <Icon name='eye' size={fontSize.xs} color={colors.white} />
-          <Text
-            color='white'
-            marginLeft='xs'
-            fontSize={fontSize.xs}
-          >{`${views} vistas`}</Text>
+      {defaultPrices?.[0] ? (
+        <Box>
+          <Text color='primary' marginLeft='xs' fontSize={fontSize.m}>
+            {defaultPrices[0]}
+          </Text>
         </Box>
-      </Box>
+      ) : pricesAsSalary?.[0] ? (
+        <Box>
+          <Text color='primary' marginLeft='xs' fontSize={fontSize.m}>
+            {pricesAsSalary[0]}
+          </Text>
+        </Box>
+      ) : null}
     </Box>
   )
 }

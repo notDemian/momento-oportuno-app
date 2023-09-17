@@ -6,7 +6,7 @@ import type {
   SearchScreenProps,
   SearchStackParamList,
 } from '@src/navigation/types'
-import { AnuncioDetails,Filter, SearchScreen } from '@src/screens'
+import { AnuncioDetails, Filter, SearchScreen } from '@src/screens'
 
 const Stack = createNativeStackNavigator<SearchStackParamList>()
 

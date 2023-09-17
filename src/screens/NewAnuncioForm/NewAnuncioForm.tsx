@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { Dimensions } from 'react-native'
 import { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types'
 
-import { Estados } from '@src/api'
+import { Estado } from '@src/api'
 import {
   Box,
   Button,
@@ -22,7 +22,7 @@ export const NewAnuncioForm: React.FC<
   ScreenProps<NewAnuncioStackParamList, 'NewAnuncioForm'>
 > = ({ navigation }) => {
   const [showCiudadModal, setShowCiudadModal] = useState(false)
-  const [selectedCiudad, setSelectedCiudad] = useState<Estados>()
+  const [selectedCiudad, setSelectedCiudad] = useState<Estado>()
   const [showCategoriaModal, setShowCategoriaModal] = useState(false)
 
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([])
