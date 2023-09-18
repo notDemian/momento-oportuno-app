@@ -1,4 +1,4 @@
-import { type FC, useCallback, useState } from 'react'
+import { type FC, useState } from 'react'
 import { Animated, KeyboardAvoidingView, Platform } from 'react-native'
 import { useWindowDimensions } from 'react-native'
 import RenderHtml from 'react-native-render-html'
@@ -15,11 +15,8 @@ import {
   RefreshControl,
   Text,
 } from '@src/components'
-import { Dish, mockDishDetails } from '@src/data'
-import { useAnuncio, useAppDispatch, useAppSelector } from '@src/hooks'
-import { incrementCount } from '@src/redux'
+import { useAnuncio } from '@src/hooks'
 import { useAppTheme } from '@src/theme'
-import { CLOG } from '@src/utils'
 
 export const AnuncioDetails: FC<AnuncioProps> = ({
   route: { params },
@@ -28,34 +25,11 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
   const { data, isLoading, refetch } = useAnuncio(params.data.id)
   const [loadingImage, setLoadingImage] = useState(true)
 
-  const [totalPrice, setTotalPrice] = useState(
-    parseFloat(mockDishDetails.price),
-  )
-  const [selectedSideDishes, setSelectedSideDishes] = useState<Dish[]>([])
   const scrollY = new Animated.Value(0)
   const { colors } = useAppTheme()
   const { bottom } = useSafeAreaInsets()
 
-  const t = useAppSelector((s) => s.test.count)
-  const dispatch = useAppDispatch()
-
-  const updateTotalDishAmount = useCallback(
-    (amount: number) => {
-      const totalSelectedDishPrice = selectedSideDishes.reduce(
-        (prevValue, currentValue) => prevValue + parseFloat(currentValue.price),
-        0,
-      )
-      setTotalPrice(
-        parseFloat(mockDishDetails.price) * amount + totalSelectedDishPrice,
-      )
-    },
-    [selectedSideDishes],
-  )
-
-  // TODO: IMPLEMENT THIS
-  const addToCart = () => {
-    dispatch(incrementCount())
-  }
+  // TODO: IMPLEMENT addToCart
 
   const coverTranslateY = scrollY.interpolate({
     inputRange: [-4, 0, 10],
@@ -75,8 +49,6 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
   })
 
   const { width } = useWindowDimensions()
-
-  CLOG(data?.caracteristicasPolicyRelated)
 
   return (
     <Box

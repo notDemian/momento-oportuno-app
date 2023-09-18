@@ -5,9 +5,9 @@ export {}
 
 type MicrositiosProps = ScreenProps<ExploreStackParamList, 'MicroSitios'>
 
-export const Micrositios: React.FC<MicrositiosProps> = ({ navigation }) => {
+export const Micrositios: React.FC<MicrositiosProps> = () => {
   return (
-    <Box>
+    <Box flex={1} justifyContent={'center'} alignItems={'center'}>
       <Text>Micrositios</Text>
     </Box>
   )

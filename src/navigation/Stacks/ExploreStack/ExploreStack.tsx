@@ -63,11 +63,13 @@ export const ExploreStack: React.FC<ExploreScreenProps> = ({ navigation }) => {
             title: '',
             headerTransparent: true,
             headerLeft: () => null,
+            headerBackVisible: false,
           }
         }}
         name='MicroSitios'
         component={Micrositios}
       />
+
       <Stack.Screen
         name='PlaceList'
         component={PlaceList}

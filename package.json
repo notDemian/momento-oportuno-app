@@ -72,7 +72,8 @@
     "redux-persist": "^6.0.0",
     "rn-range-slider": "^2.2.2",
     "typescript": "^4.9.4",
-    "zod": "^3.21.4"
+    "zod": "^3.21.4",
+    "@react-native-community/slider": "4.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
