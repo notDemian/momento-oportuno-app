@@ -10,7 +10,7 @@ import { TabParamList } from '../types'
 import styles from './TabNavigation.style'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Button, Icon, IconProps } from '@src/components'
+import { Icon, IconProps } from '@src/components'
 import { fontSize, useAppTheme } from '@src/theme'
 
 type TabBarIconProps = {
@@ -33,13 +33,17 @@ const renderTabBarIcon = (routeName: keyof TabParamList) => {
         iconName = 'search'
         break
       case 'NotificationTab':
-        iconName = 'heart'
+        iconName = 'book'
         break
       case 'AccountTab':
         iconName = 'person-circle'
         break
       case 'DocumentationTab':
         iconName = 'logo-react'
+        break
+
+      case 'NewAnuncioTab':
+        iconName = 'trail-sign'
         break
       default:
         break
@@ -75,16 +79,10 @@ const TabNavigation = () => {
             elevation: 5,
           },
           tabBarHideOnKeyboard: true,
+          // tabBarActiveBackgroundColor
         }
       }}
     >
-      <Tab.Screen
-        name='ExploreTab'
-        component={ExploreStack}
-        options={{
-          title: 'Inicio',
-        }}
-      />
       <Tab.Screen
         name='SearchTab'
         component={SearchStack}
@@ -96,32 +94,42 @@ const TabNavigation = () => {
       <Tab.Screen
         name='NewAnuncioTab'
         component={NewAnuncioStack}
-        options={({ navigation }) => {
-          return {
-            tabBarButton: (_props) => {
-              return (
-                <Button
-                  variant={'secondary'}
-                  flex={1}
-                  onPress={() => navigation.navigate('NewAnuncioTab')}
-                >
-                  <Icon
-                    name='add'
-                    type='MaterialIcons'
-                    size={fontSize.m}
-                    color={theme.colors.white}
-                  />
-                </Button>
-              )
-            },
-          }
+        options={{
+          title: 'Micrositios',
+        }}
+        // options={({ navigation }) => {
+        //   return {
+        //     tabBarButton: (_props) => {
+        //       return (
+        //         <Button
+        //           variant={'secondary'}
+        //           flex={1}
+        //           onPress={() => navigation.navigate('NewAnuncioTab')}
+        //         >
+        //           <Icon
+        //             name='add'
+        //             type='MaterialIcons'
+        //             size={fontSize.m}
+        //             color={theme.colors.white}
+        //           />
+        //         </Button>
+        //       )
+        //     },
+        //   }
+        // }}
+      />
+      <Tab.Screen
+        name='ExploreTab'
+        component={ExploreStack}
+        options={{
+          title: 'Inicio',
         }}
       />
       <Tab.Screen
         name='NotificationTab'
         component={NotificationStack}
         options={{
-          title: 'Favoritos',
+          title: 'Directorio',
         }}
       />
       <Tab.Screen

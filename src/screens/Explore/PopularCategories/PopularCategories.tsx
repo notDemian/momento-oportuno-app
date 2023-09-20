@@ -64,7 +64,7 @@ export const PopularCategories: React.FC = () => {
               borderRadius={'xxl'}
               padding='s'
             >
-              <Box width={40} height={40}>
+              <Box width={60} height={60}>
                 <Icon />
               </Box>
               <Box>
