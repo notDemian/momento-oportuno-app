@@ -16,7 +16,7 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
     date,
   } = data
 
-  const relativeDate = useMemo(() => (date ? toRelative(date) : ''), [date])
+  const relativeDate = useMemo(() => toRelative(date), [date])
   return (
     <Box backgroundColor='card' padding='m'>
       <Box flexDirection='row' justifyContent='space-between'>
@@ -28,7 +28,6 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
         <Text variant='subHeader' color='primary'>
           {defaultPrices[0]}
         </Text>
-        <Text>HOLA LAXREL</Text>
       </Box>
       {/**TODO: ADD EXTRA DATA HERE */}
       <Box paddingVertical={'s'}>

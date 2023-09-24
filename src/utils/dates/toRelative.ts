@@ -10,8 +10,6 @@ export function toRelative(date: Date | string): string {
   dayjs.locale('es')
   dayjs.extend(relativeTime)
 
-  console.log({ test: dayjs().format('DD MMMM YYYY') })
-
   const relativeToNow = dayjs(date).fromNow(true)
   const spanishString = relativeToNow.replace(
     /(\d+) (second|minute|hour|day|week|month|year)s?/g,
