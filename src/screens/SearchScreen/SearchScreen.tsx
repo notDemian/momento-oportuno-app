@@ -63,7 +63,6 @@ export const SearchScreen = () => {
             // value: searchTerm,
             placeholder: '¿Buscas algo?',
             onChangeText: (e) => {
-              console.log(e)
               setSearchTerm(e)
             },
           }}

@@ -28,7 +28,6 @@ export const Register: React.FC<
   const [mutateLogIn, { isLoading }] = useRegister()
 
   const onSignIn = useCallback(async () => {
-    console.log(params)
     mutateLogIn(params)
   }, [params])
 

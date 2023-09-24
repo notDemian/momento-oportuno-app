@@ -39,9 +39,7 @@ export const SelectLocation = () => {
           latitude,
         }
       })
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
   }
 
   React.useEffect(() => {
@@ -51,7 +49,6 @@ export const SelectLocation = () => {
       if (permission.status !== Location.PermissionStatus.GRANTED) {
         const res = await Location.requestForegroundPermissionsAsync()
         if (!res.granted) {
-          console.log('Location permission is not granted')
           return
         }
       }

@@ -39,7 +39,6 @@ export const PaymentMethod: React.FC = () => {
   }, [])
 
   const methodSelected = useAppSelector((s) => s.cart.paymentMethod)
-  console.log('methodSelected', methodSelected)
 
   return (
     <Box flex={1} backgroundColor='card'>

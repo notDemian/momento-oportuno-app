@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { HeadingInformationProps } from './HeadingInformation.type'
 
 import { Box, Text } from '@src/components/elements'
+import { toRelative } from '@src/utils/dates'
 
 export const HeadingInformation: React.FC<HeadingInformationProps> = ({
   data,
@@ -12,7 +13,10 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
     defaultPrices,
     fullData: { listivo_2863 },
     Categories,
+    date,
   } = data
+
+  const relativeDate = useMemo(() => (date ? toRelative(date) : ''), [date])
   return (
     <Box backgroundColor='card' padding='m'>
       <Box flexDirection='row' justifyContent='space-between'>
@@ -24,8 +28,12 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
         <Text variant='subHeader' color='primary'>
           {defaultPrices[0]}
         </Text>
+        <Text>HOLA LAXREL</Text>
       </Box>
       {/**TODO: ADD EXTRA DATA HERE */}
+      <Box paddingVertical={'s'}>
+        <Text color={'gray'}>{relativeDate}</Text>
+      </Box>
       <Box
         flexDirection={'row'}
         gap={'s'}

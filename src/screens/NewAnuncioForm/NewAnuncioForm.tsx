@@ -36,11 +36,10 @@ export const NewAnuncioForm: React.FC<
         selectionLimit: 3,
       })
       if (!result.canceled) {
-        console.log(result.assets.length)
         setImages(result.assets.splice(0, 3))
       }
     } catch (error) {
-      console.log(error)
+      setImages([])
     }
   }, [])
 

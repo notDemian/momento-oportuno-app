@@ -23,6 +23,7 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
   navigation: _nav,
 }) => {
   const { data, isLoading, refetch } = useAnuncio(params.data.id)
+
   const [loadingImage, setLoadingImage] = useState(true)
 
   const scrollY = new Animated.Value(0)

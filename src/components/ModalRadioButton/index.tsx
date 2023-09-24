@@ -19,7 +19,6 @@ export const ModalRadioButton: FC<ChangeLanguageModalProps> = ({
 }) => {
   const onItemPress = useCallback(
     (item: RadioOption) => {
-      console.log('onItemPress -> item', item)
       onPressItem(item)
     },
     [onPressItem],

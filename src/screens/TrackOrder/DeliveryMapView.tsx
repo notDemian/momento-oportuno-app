@@ -30,17 +30,15 @@ export const DeliveryMapView = () => {
     const {
       nativeEvent: { coordinate },
     } = event
-
-    console.log('_onMapBoxPress -> coordinate', coordinate)
   }
 
   return (
-    <Box height="100%">
+    <Box height='100%'>
       <MapBox
         loadingEnabled
         cacheEnabled
-        loadingIndicatorColor="black"
-        loadingBackgroundColor="black"
+        loadingIndicatorColor='black'
+        loadingBackgroundColor='black'
         provider={PROVIDER_GOOGLE}
         style={styles.mapView}
         customMapStyle={
@@ -48,13 +46,15 @@ export const DeliveryMapView = () => {
         }
         onRegionChangeComplete={onRegionChangeComplete}
         onPress={onMapBoxPress}
-        region={currentLocation}>
+        region={currentLocation}
+      >
         <Marker
           coordinate={{
             longitude: -122.406417,
             latitude: 37.785834,
-          }}>
-          <Box backgroundColor="white" borderRadius="xxxl">
+          }}
+        >
+          <Box backgroundColor='white' borderRadius='xxxl'>
             <Image
               source={require('@src/assets/drivers/location.png')}
               width={28}
@@ -67,8 +67,9 @@ export const DeliveryMapView = () => {
             ...currentLocation,
             longitude: -122.40755639970303,
             latitude: 37.78638161404493,
-          }}>
-          <Box backgroundColor="white" borderRadius="xxxl" padding="s">
+          }}
+        >
+          <Box backgroundColor='white' borderRadius='xxxl' padding='s'>
             <Image
               source={require('@src/assets/drivers/driver-marker.png')}
               width={28}

@@ -9,16 +9,12 @@ import { CheckboxList } from '@src/components/CheckboxList'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
 import { useCategorias } from '@src/hooks'
 import { NewAnuncioStackParamList, ScreenProps } from '@src/navigation'
-import { CLOG } from '@src/utils'
 
 export const NewAnuncioFormByCat: FC<
   ScreenProps<NewAnuncioStackParamList, 'NewAnuncioFormByCat'>
 > = ({ route: { params } }) => {
   const { data: subCat, isLoading: loadingSubCat } = useCategorias(params.id)
-  CLOG({
-    subCat,
-    id: params.id,
-  })
+
   const [showSubCategoriaModal, setShowSubCategoriaModal] = useState(false)
   const [subCategoriaSelected, setSubCategoriaSelected] = useState<Categoria>()
 

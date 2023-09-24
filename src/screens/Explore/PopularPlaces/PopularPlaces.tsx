@@ -6,13 +6,10 @@ import { Estado } from '@src/api'
 import { Card, Carousel, ContentLoader, Section } from '@src/components'
 import { mockPlaces } from '@src/data'
 import { useExploreStackNavigation } from '@src/hooks'
-import { CLOG } from '@src/utils'
 
 export const PopularPlaces: React.FC<{
   estados: Estado[] | null | undefined
 }> = ({ estados }) => {
-  CLOG(estados?.[0])
-
   const renderItem = (props: CarouselRenderItemInfo<Estado>) => {
     const { image, title, id } = props.item
     return (

@@ -20,10 +20,6 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
     RadioOption['value']
   >(valueProps + '')
 
-  console.log({
-    selectedValue,
-  })
-
   const onPress = (item: RadioOption) => {
     return () => {
       setSelectedValue(item.value)
