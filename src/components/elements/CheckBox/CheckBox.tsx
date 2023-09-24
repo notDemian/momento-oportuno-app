@@ -17,7 +17,7 @@ export const CheckBox: React.FC<CheckBoxProps> = ({
   rightElement,
 }) => {
   const {
-    colors: { primary, yellow, text, card },
+    colors: { primary, secondary, text, card },
   } = useAppTheme()
   const [checked, setChecked] = React.useState<boolean>(false)
   const handleOnChange = () => {
@@ -39,7 +39,7 @@ export const CheckBox: React.FC<CheckBoxProps> = ({
             disableBuiltInState
             isChecked={checked}
             size={fontSize.xl}
-            fillColor={yellow}
+            fillColor={secondary}
             unfillColor={card}
             iconStyle={{
               borderColor: primary,

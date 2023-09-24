@@ -20,8 +20,12 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
   const { data, isLoading } = useEstados()
 
   return (
-    <ScrollView ref={ref} contentContainerStyle={styles.contentContainer}>
-      <Image source={Images.main_logo} height={200} />
+    <ScrollView
+      ref={ref}
+      contentContainerStyle={styles.contentContainer}
+      stickyHeaderIndices={[1]}
+    >
+      <Image source={Images.main_logo} height={'5%'} contentFit='scale-down' />
       <SearchHeader />
       <PopularCategories />
       <PopularPlaces estados={data} />

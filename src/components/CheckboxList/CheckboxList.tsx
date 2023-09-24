@@ -53,7 +53,7 @@ export const CheckboxList = ({ items, onChange, value }: CheckboxListProps) => {
             label='Ver más'
             isFullWidth
             onPress={() => setShowMore(true)}
-            variant={'info'}
+            variant={'secondary'}
           />
         </>
       ) : (

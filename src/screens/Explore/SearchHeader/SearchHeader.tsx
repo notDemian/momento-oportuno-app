@@ -4,13 +4,7 @@ import { useAppTheme } from '@src/theme'
 export const SearchHeader = () => {
   const { colors } = useAppTheme()
   return (
-    <Box
-      padding='s'
-      paddingBottom={'none'}
-      position={'relative'}
-      top={-40}
-      zIndex={10}
-    >
+    <Box padding='s' paddingBottom={'none'} zIndex={10}>
       <TextField
         backgroundColor='white'
         leftIcon='search'

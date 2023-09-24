@@ -1,3 +1,5 @@
+### TODO 1.0
+
 # URGENTES
 
 1. [ ] Endpoints relacionados a Micrositios (getAll, getById)
@@ -16,3 +18,12 @@
 ### \*Mensajes
 
 1. [ ] Planear la parte de mensajes
+
+## TODO 2.0
+
+# URGENTES
+
+1. [ ] Endpoint para directorio
+2. [ ] Endpoint para agregar al directorio
+3. [ ] Endpoint para crear micrositio
+4. [ ] modificar el endpoint de los anuncios para que incluya información del vendedor, o en dado caso endpoint para obtener info del usuario por su id, para saber si tiene micrositio o no, agregado a esto, enviar las vistas que tenga cada anuncio y la información para saber si es anuncio destacado o normal

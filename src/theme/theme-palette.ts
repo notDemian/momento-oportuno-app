@@ -1,6 +1,7 @@
 export const palette = {
   orange: '#FC6A57',
   azulAmistoso: '#494ddc',
+  rojoMomento: '#E4032E',
   verdeMarcatextos: '#cefc00',
   acentoCereza: '#ff5b52',
   white: '#FFF',
