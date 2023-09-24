@@ -9,7 +9,7 @@ import { SearchHeader } from './SearchHeader'
 
 import { useScrollToTop } from '@react-navigation/native'
 import { Images } from '@src/assets'
-import { Image } from '@src/components'
+import { Box, Image } from '@src/components'
 import { useEstados, useSafeAreaScrollViewStyles } from '@src/hooks'
 
 export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
@@ -39,6 +39,7 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
               state={estado}
             />
           ))}
+      <Box height={100} />
     </ScrollView>
   )
 }

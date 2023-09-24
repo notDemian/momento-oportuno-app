@@ -9,7 +9,7 @@ import { getTextColor, getTextFontSize } from './Button.util'
 import { ButtonContainer } from './ButtonContainer'
 
 import { LayoutProps } from '@shopify/restyle'
-import { extractSpacingProps, palette,Theme } from '@src/theme'
+import { extractSpacingProps, palette, Theme } from '@src/theme'
 
 export const Button: React.FC<ButtonProps> = ({
   onPress,

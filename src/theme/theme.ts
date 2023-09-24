@@ -31,6 +31,7 @@ export const theme = createTheme({
   colors: {
     primary: palette.rojoMomento,
     secondary: palette.rojoMomento,
+    creamy: palette.cream,
     background: palette.grisaceo,
     card: palette.white,
     text: palette.gray[900],
@@ -135,6 +136,10 @@ export const theme = createTheme({
     l: {
       paddingVertical: 'l',
       paddingHorizontal: 'l',
+    },
+    bigHeader: {
+      paddingVertical: 'l',
+      paddingHorizontal: 'xxl',
     },
   },
   cardVariants: {

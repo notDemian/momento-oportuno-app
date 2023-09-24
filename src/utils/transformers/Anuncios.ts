@@ -24,6 +24,8 @@ export type MappedAnuncio = Pick<Anuncio, TypesToExcludeAndInclude> & {
   caracteristicasCarros: string[]
   caracteristicasPolicyRelated: string[]
 
+  jointCategories: string[]
+
   fullData: Omit<Anuncio, TypesToExcludeAndInclude>
 }
 
@@ -43,6 +45,18 @@ export function mapAnuncio(anuncio: Anuncio): MappedAnuncio {
     status,
     ...rest
   } = anuncio
+
+  const jointCategories = [
+    ...anuncio.listivo_1910,
+    ...anuncio.listivo_1912,
+    ...anuncio.listivo_1911,
+    ...anuncio.listivo_1913,
+    ...anuncio.listivo_945,
+    ...anuncio.listivo_946,
+    ...anuncio.listivo_4686,
+    ...anuncio.listivo_4316,
+  ]
+
   const mappedAnuncio: MappedAnuncio = {
     author,
     content,
@@ -65,6 +79,8 @@ export function mapAnuncio(anuncio: Anuncio): MappedAnuncio {
 
     caracteristicasCarros: anuncio.listivo_4318,
     caracteristicasPolicyRelated: anuncio.listivo_2723,
+
+    jointCategories,
 
     fullData: rest,
   }

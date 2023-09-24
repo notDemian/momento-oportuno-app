@@ -6,7 +6,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import styles from './AnuncioDetails.style'
 import { AnuncioProps } from './AnuncioDetails.type'
+import { BottomButtons } from './BottomButtons'
 import { HeadingInformation } from './HeadingInformation'
+import { UserInfo } from './UserInfo'
 
 import {
   Box,
@@ -17,12 +19,14 @@ import {
 } from '@src/components'
 import { useAnuncio } from '@src/hooks'
 import { useAppTheme } from '@src/theme'
+import { CLOG } from '@src/utils'
 
 export const AnuncioDetails: FC<AnuncioProps> = ({
   route: { params },
   navigation: _nav,
 }) => {
   const { data, isLoading, refetch } = useAnuncio(params.data.id)
+  CLOG(data)
 
   const [loadingImage, setLoadingImage] = useState(true)
 
@@ -134,11 +138,14 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
               </Animated.View>
               <HeadingInformation data={data} />
               <Box paddingHorizontal={'m'} backgroundColor={'card'}>
+                <Text variant={'subHeader'}>Descripción</Text>
                 <RenderHtml
                   contentWidth={width}
                   source={{ html: data.content.rendered }}
                 />
               </Box>
+              <UserInfo id={data.author} />
+              <BottomButtons link={data.link} id={data.id} />
             </Animated.ScrollView>
           </KeyboardAvoidingView>
 

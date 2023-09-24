@@ -2,6 +2,7 @@ import Request, { CustomRequest } from '../request'
 
 // import { Main_Anuncios, getAnuncioRes } from './Anuncios.type'
 import {
+  GetUserByIdResponse,
   type logInParams,
   logInParamsSchema,
   logInRes,
@@ -33,6 +34,11 @@ const UsuariosServices = {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     })
+    return data
+  },
+
+  async getUserById(id: string | number) {
+    const { data } = await api.get<GetUserByIdResponse>(`/users/${id}`)
     return data
   },
 }

@@ -6,6 +6,7 @@ export const palette = {
   acentoCereza: '#ff5b52',
   white: '#FFF',
   grisaceo: '#F7FAFD',
+  cream: '#ffdfc5',
   blanquecino: '',
   black: '#000000',
   yellow: '#eab308',

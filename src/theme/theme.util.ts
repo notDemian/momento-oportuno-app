@@ -75,12 +75,43 @@ export const extractSpacingProps = (prop: SpacingProps<Theme>) => {
 
 import type { BoxProps } from '@shopify/restyle'
 
-export function getShadowBoxProps(): Pick<
-  BoxProps<Theme>,
-  'elevation' | 'shadowColor'
-  > {
+/**
+ * 
+ * borderRadius={'xl'}
+   backgroundColor={'white'}
+   shadowColor={'black'}
+   shadowOffset={{ width: 2, height: 2 }}
+   shadowOpacity={0.2}
+   shadowRadius={10}
+   elevation={3}
+ */
+export function getShadowBoxProps(opts?: {
+  elevation?: number
+  shadowColor?: BoxProps<Theme>['shadowColor']
+  borderRadius?: BoxProps<Theme>['borderRadius']
+  shadowOpacity?: BoxProps<Theme>['shadowOpacity']
+}): Required<
+  Pick<
+    BoxProps<Theme>,
+    | 'elevation'
+    | 'shadowColor'
+    | 'shadowOffset'
+    | 'shadowOpacity'
+    | 'shadowRadius'
+    | 'borderRadius'
+    | 'backgroundColor'
+  >
+> {
   return {
-    elevation: 3,
-    shadowColor: 'gray',
+    backgroundColor: 'white',
+    elevation: opts?.elevation ?? 3,
+    shadowColor: opts?.shadowColor ?? 'gray',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: opts?.shadowOpacity ?? 0.3,
+    shadowRadius: 10,
+    borderRadius: opts?.borderRadius ?? 'xl',
   }
 }

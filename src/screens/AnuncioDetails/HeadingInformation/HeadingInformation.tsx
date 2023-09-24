@@ -3,6 +3,7 @@ import React, { useMemo } from 'react'
 import { HeadingInformationProps } from './HeadingInformation.type'
 
 import { Box, Text } from '@src/components/elements'
+import { fontSize } from '@src/theme'
 import { toRelative } from '@src/utils/dates'
 
 export const HeadingInformation: React.FC<HeadingInformationProps> = ({
@@ -11,9 +12,11 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
   const {
     title,
     defaultPrices,
+    pricesAsSalary,
     fullData: { listivo_2863 },
     Categories,
     date,
+    jointCategories,
   } = data
 
   const relativeDate = useMemo(() => toRelative(date), [date])
@@ -25,8 +28,8 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
             {title.rendered}
           </Text>
         </Box>
-        <Text variant='subHeader' color='primary'>
-          {defaultPrices[0]}
+        <Text fontSize={fontSize.m} color='primary' fontWeight={'bold'}>
+          {defaultPrices[0] ?? pricesAsSalary[0]}
         </Text>
       </Box>
       {/**TODO: ADD EXTRA DATA HERE */}
@@ -56,6 +59,21 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
         })}
       </Box>
       <Text>{listivo_2863[0]}</Text>
+      <Box flexDirection={'row'} gap={'s'} flexWrap={'wrap'}>
+        {jointCategories.map((cat) => {
+          return (
+            <Box
+              key={cat.toString()}
+              backgroundColor={'creamy'}
+              borderRadius={'s'}
+              p={'s'}
+              overflow={'hidden'}
+            >
+              <Text>{cat}</Text>
+            </Box>
+          )
+        })}
+      </Box>
     </Box>
   )
 }

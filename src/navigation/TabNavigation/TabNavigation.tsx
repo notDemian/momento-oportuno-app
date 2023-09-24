@@ -84,6 +84,13 @@ const TabNavigation = () => {
       }}
     >
       <Tab.Screen
+        name='ExploreTab'
+        component={ExploreStack}
+        options={{
+          title: 'Inicio',
+        }}
+      />
+      <Tab.Screen
         name='SearchTab'
         component={SearchStack}
         options={{
@@ -118,13 +125,7 @@ const TabNavigation = () => {
         //   }
         // }}
       />
-      <Tab.Screen
-        name='ExploreTab'
-        component={ExploreStack}
-        options={{
-          title: 'Inicio',
-        }}
-      />
+
       <Tab.Screen
         name='NotificationTab'
         component={NotificationStack}
