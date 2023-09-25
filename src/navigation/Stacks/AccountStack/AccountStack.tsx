@@ -10,6 +10,8 @@ import {
   Account,
   Checkout,
   EditProfile,
+  NewAnuncioForm,
+  NewAnuncioFormByCat,
   Packages,
   PaymentMethod,
   Promotion,
@@ -22,8 +24,6 @@ import { useAppTheme } from '@src/theme'
 const Stack = createNativeStackNavigator<AccountStackParamList>()
 
 export const AccountStack: React.FC<AccountScreenProps> = (props) => {
-  const { navigation } = props
-
   const { colors } = useAppTheme()
 
   return (
@@ -110,6 +110,25 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
           headerTitle: 'Pago',
         }}
         component={Checkout}
+      />
+
+      <Stack.Screen
+        options={(params) => {
+          return {
+            title: 'Agregar listado',
+          }
+        }}
+        name='NewAnuncioForm'
+        component={NewAnuncioForm}
+      />
+      <Stack.Screen
+        options={(params) => {
+          return {
+            title: 'Categoría',
+          }
+        }}
+        name='NewAnuncioFormByCat'
+        component={NewAnuncioFormByCat}
       />
     </Stack.Navigator>
   )

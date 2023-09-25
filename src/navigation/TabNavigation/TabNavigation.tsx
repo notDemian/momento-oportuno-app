@@ -1,8 +1,8 @@
 import {
   AccountStack,
+  DirectorioStack,
   ExploreStack,
-  NewAnuncioStack,
-  NotificationStack,
+  MicrositiosStack,
   SearchStack,
 } from '../Stacks'
 import { TabParamList } from '../types'
@@ -32,17 +32,14 @@ const renderTabBarIcon = (routeName: keyof TabParamList) => {
       case 'SearchTab':
         iconName = 'search'
         break
-      case 'NotificationTab':
+      case 'DirectorioTab':
         iconName = 'book'
         break
       case 'AccountTab':
         iconName = 'person-circle'
         break
-      case 'DocumentationTab':
-        iconName = 'logo-react'
-        break
 
-      case 'NewAnuncioTab':
+      case 'MicrositiosTab':
         iconName = 'trail-sign'
         break
       default:
@@ -97,12 +94,14 @@ const TabNavigation = () => {
           title: 'Anuncios',
         }}
       />
-      {/* <Tab.Screen /> */}
-      <Tab.Screen
+      {/* <Tab.Screen
         name='NewAnuncioTab'
         component={NewAnuncioStack}
         options={{
-          title: 'Micrositios',
+          tabBarShowLabel: false,
+          tabBarButton: (_props) => {
+            return null
+          },
         }}
         // options={({ navigation }) => {
         //   return {
@@ -124,11 +123,18 @@ const TabNavigation = () => {
         //     },
         //   }
         // }}
-      />
+      /> */}
 
       <Tab.Screen
-        name='NotificationTab'
-        component={NotificationStack}
+        name='MicrositiosTab'
+        component={MicrositiosStack}
+        options={{
+          title: 'Micrositios',
+        }}
+      />
+      <Tab.Screen
+        name='DirectorioTab'
+        component={DirectorioStack}
         options={{
           title: 'Directorio',
         }}

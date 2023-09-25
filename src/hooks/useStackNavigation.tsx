@@ -3,8 +3,9 @@ import {
   AccountStackNavigationProp,
   ActivityHistoryStackNavigationProp,
   AuthStackNavigationProp,
+  DirectorioStackNavigationProp,
   ExploreStackNavigationProp,
-  NewAnuncioStackNavigationProp,
+  MicrositiosStackNavigationProp,
   SearchStackNavigationProp,
 } from '@src/navigation'
 
@@ -24,10 +25,14 @@ export const useAuthStackNavigation = () => {
   return useNavigation<AuthStackNavigationProp>()
 }
 
-export const useNewAdStackNavigation = () => {
-  return useNavigation<NewAnuncioStackNavigationProp>()
-}
-
 export const useAccountStackNavigation = () => {
   return useNavigation<AccountStackNavigationProp>()
+}
+
+export const useMicrositiosStackNavigation = () => {
+  return useNavigation<MicrositiosStackNavigationProp>()
+}
+
+export const useDirectorioStackNavigation = () => {
+  return useNavigation<DirectorioStackNavigationProp>()
 }

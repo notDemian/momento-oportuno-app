@@ -27,6 +27,8 @@ export const registerParamsSchema = z.object({
 
 export type registerParams = z.infer<typeof registerParamsSchema>
 
+export type GetFavoritesResponse = number[]
+
 export interface GetUserByIdResponse {
   id: number
   name: string

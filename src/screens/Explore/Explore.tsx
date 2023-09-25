@@ -16,7 +16,14 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
   const ref = useRef(null)
   useScrollToTop(ref)
   const styles = useSafeAreaScrollViewStyles(false)
-
+  // useEffect(() => {
+  //   ;(async () => {
+  //     const data = await WooCommerceApi.get(
+  //       `customers?consumer_key=${Constants.WOOCOMMERCE.PUBLIC_CLIENT}&consumer_secret=${Constants.WOOCOMMERCE.SECRET_CLIENT}`,
+  //     )
+  //     CLOG({ data })
+  //   })()
+  // }, [])
   const { data, isLoading } = useEstados()
 
   return (
@@ -29,7 +36,6 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
       <SearchHeader />
       <PopularCategories />
       <PopularPlaces estados={data} />
-      {/* <Image source={Images.opcionesPasos} height={200} /> */}
       {isLoading || !data
         ? null
         : data.map((estado) => (

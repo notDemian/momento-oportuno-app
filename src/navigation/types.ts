@@ -36,22 +36,12 @@ export type ExploreStackParamList = {
   PlaceList: {
     title?: string
   }
-  MicroSitios: undefined
 
   ChangeAddress: undefined
   SavedAddresses: undefined
   AddAddress: undefined
   SelectLocation: undefined
   TrackOrder: undefined
-}
-
-export type NewAnuncioStackParamList = {
-  NewAnuncioForm: undefined
-  NewAnuncioFormByCat: Categoria
-  NewAnuncioDetails: undefined
-  NewAnuncioLocation: undefined
-  NewAnuncioPayment: undefined
-  NewAnuncioConfirmation: undefined
 }
 
 export type ActivityHistoryStackParamList = {
@@ -67,10 +57,6 @@ export type SearchStackParamList = {
   }
 }
 
-export type NotificationStackParamList = {
-  Notification: undefined
-}
-
 export type AccountStackParamList = {
   Account: undefined
   EditProfile: undefined
@@ -80,6 +66,9 @@ export type AccountStackParamList = {
   Settings: undefined
   SupportCenter: undefined
 
+  NewAnuncioForm: undefined
+  NewAnuncioFormByCat: Categoria
+
   Checkout: Paquete
   PaymentMethod: undefined
   Promotion: undefined
@@ -87,14 +76,21 @@ export type AccountStackParamList = {
   Package: undefined
 }
 
+export type MicrositiosStackParamList = {
+  Micrositios: undefined
+}
+export type DirectorioStackParamList = {
+  Directorio: undefined
+}
+
 export type TabParamList = {
   ExploreTab: NavigatorScreenParams<ExploreStackParamList>
   ActivityHistoryTab: NavigatorScreenParams<ActivityHistoryStackParamList>
   SearchTab: NavigatorScreenParams<SearchStackParamList>
-  NotificationTab: NavigatorScreenParams<NotificationStackParamList>
+  // NotificationTab: NavigatorScreenParams<NotificationStackParamList>
+  MicrositiosTab: NavigatorScreenParams<MicrositiosStackParamList>
+  DirectorioTab: NavigatorScreenParams<DirectorioStackParamList>
   AccountTab: NavigatorScreenParams<AccountStackParamList>
-  DocumentationTab: NavigatorScreenParams<unknown>
-  NewAnuncioTab: NavigatorScreenParams<NewAnuncioStackParamList>
   NoTab404: NavigatorScreenParams<undefined>
 }
 
@@ -123,10 +119,10 @@ export type SearchScreenProps = CompositeScreenProps<
   >
 >
 
-export type NotificationScreenProps = CompositeScreenProps<
-  BottomTabScreenProps<TabParamList, 'NotificationTab'>,
+export type DirectorioScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<TabParamList, 'DirectorioTab'>,
   CompositeScreenProps<
-    NativeStackScreenProps<NotificationStackParamList>,
+    NativeStackScreenProps<DirectorioStackParamList>,
     NativeStackScreenProps<RootStackParamList>
   >
 >
@@ -139,10 +135,10 @@ export type AccountScreenProps = CompositeScreenProps<
   >
 >
 
-export type NewAnuncioScreenProps = CompositeScreenProps<
-  BottomTabScreenProps<TabParamList, 'NewAnuncioTab'>,
+export type MicrositiosScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<TabParamList, 'MicrositiosTab'>,
   CompositeScreenProps<
-    NativeStackScreenProps<NewAnuncioStackParamList>,
+    NativeStackScreenProps<MicrositiosStackParamList>,
     NativeStackScreenProps<RootStackParamList>
   >
 >
@@ -173,18 +169,18 @@ export type AccountStackNavigationProp = CompositeNavigationProp<
   NativeStackNavigationProp<RootStackParamList & AccountStackParamList>
 >
 
-export type NewAnuncioStackNavigationProp = CompositeNavigationProp<
-  BottomTabNavigationProp<TabParamList, 'NewAnuncioTab'>,
-  NativeStackNavigationProp<RootStackParamList & NewAnuncioStackParamList>
->
-
 export type AuthStackNavigationProp = NativeStackNavigationProp<
   RootStackParamList & AuthStackParamList
 >
 
-export type NotificationStackNavigationProp = CompositeNavigationProp<
-  BottomTabNavigationProp<TabParamList, 'NotificationTab'>,
-  NativeStackNavigationProp<RootStackParamList & NotificationStackParamList>
+export type DirectorioStackNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<TabParamList, 'DirectorioTab'>,
+  NativeStackNavigationProp<RootStackParamList & DirectorioStackParamList>
+>
+
+export type MicrositiosStackNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<TabParamList, 'MicrositiosTab'>,
+  NativeStackNavigationProp<RootStackParamList & MicrositiosStackParamList>
 >
 
 export const useGlobalNavigation = () => {

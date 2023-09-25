@@ -6,7 +6,7 @@ import { Box, Image, Text, Touchable } from '@src/components'
 import { useSearchStackNavigation } from '@src/hooks'
 import { fontSize } from '@src/theme'
 
-export const AnuncioItem: React.FC<AnuncioProps> = ({ data }) => {
+export const AnuncioItem: React.FC<AnuncioProps> = ({ data, isFav }) => {
   const {
     defaultImages,
     defaultPrices,
@@ -18,6 +18,14 @@ export const AnuncioItem: React.FC<AnuncioProps> = ({ data }) => {
   const navigation = useSearchStackNavigation()
 
   const onPlaceItemPress = () => {
+    if (isFav) {
+      navigation.jumpTo('SearchTab', {
+        screen: 'AnuncioDetailsModal',
+        params: { data: { id: data.id } },
+      })
+      console.log('isFav')
+      return
+    }
     navigation.navigate('AnuncioDetailsModal', {
       data: {
         id: data.id,

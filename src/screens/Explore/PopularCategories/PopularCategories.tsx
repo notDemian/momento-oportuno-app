@@ -49,6 +49,7 @@ export const PopularCategories: React.FC = () => {
       flexDirection='row'
       flexWrap='wrap'
       justifyContent={'center'}
+      marginTop={'l'}
     >
       {mockCategories.map((category) => {
         const { id, icon, name } = category

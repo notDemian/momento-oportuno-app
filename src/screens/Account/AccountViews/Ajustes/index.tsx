@@ -2,16 +2,9 @@ import { memo, useCallback } from 'react'
 import { type ListRenderItem } from 'react-native'
 
 import { Anuncio } from '@src/api'
-import {
-  AccordionItem,
-  Box,
-  Text,
-} from '@src/components'
-import { useNewAdStackNavigation } from '@src/hooks'
+import { AccordionItem, Box, Text } from '@src/components'
 
 const Ajustes = () => {
-  const nav = useNewAdStackNavigation()
-
   const renderItem = useCallback<ListRenderItem<Anuncio>>((anuncio) => {
     return <Text>{anuncio.item.content.rendered}</Text>
   }, [])

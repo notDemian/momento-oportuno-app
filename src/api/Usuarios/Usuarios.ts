@@ -2,6 +2,7 @@ import Request, { CustomRequest } from '../request'
 
 // import { Main_Anuncios, getAnuncioRes } from './Anuncios.type'
 import {
+  GetFavoritesResponse,
   GetUserByIdResponse,
   type logInParams,
   logInParamsSchema,
@@ -38,8 +39,21 @@ const UsuariosServices = {
   },
 
   async getUserById(id: string | number) {
-    const { data } = await api.get<GetUserByIdResponse>(`/users/${id}`)
-    return data
+    const res = await api.get<GetUserByIdResponse>(`/users/${id}`)
+    return res.data
+  },
+
+  async getFavorites() {
+    const res = await api.get<GetFavoritesResponse>('favorites/get')
+    return res.data
+  },
+  async addFavorite(id: number) {
+    const res = await api.post(`favorites/add/${id}`)
+    return res.data
+  },
+  async removeFavorite(id: number) {
+    const res = await api.delete(`favorites/delete/${id}`)
+    return res.data
   },
 }
 

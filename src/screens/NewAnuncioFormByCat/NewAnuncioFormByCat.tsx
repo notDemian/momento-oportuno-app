@@ -8,10 +8,10 @@ import { Box, Button, NewAnucioLayout, TextField } from '@src/components'
 import { CheckboxList } from '@src/components/CheckboxList'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
 import { useCategorias } from '@src/hooks'
-import { NewAnuncioStackParamList, ScreenProps } from '@src/navigation'
+import { AccountStackParamList, ScreenProps } from '@src/navigation'
 
 export const NewAnuncioFormByCat: FC<
-  ScreenProps<NewAnuncioStackParamList, 'NewAnuncioFormByCat'>
+  ScreenProps<AccountStackParamList, 'NewAnuncioFormByCat'>
 > = ({ route: { params } }) => {
   const { data: subCat, isLoading: loadingSubCat } = useCategorias(params.id)
 

@@ -4,10 +4,10 @@ import { ListRenderItem } from 'react-native'
 import { Anuncio } from '@src/api'
 import { Box, Button, List, Text } from '@src/components'
 import { SvgEmptyBox } from '@src/components/svgs'
-import { useNewAdStackNavigation } from '@src/hooks'
+import { useAccountStackNavigation } from '@src/hooks'
 
 const MisOrdenes = () => {
-  const nav = useNewAdStackNavigation()
+  const nav = useAccountStackNavigation()
 
   const renderItem = useCallback<ListRenderItem<Anuncio>>((anuncio) => {
     return <Text>{anuncio.item.content.rendered}</Text>
@@ -30,7 +30,7 @@ const MisOrdenes = () => {
           label='Comprar paquete'
           margin={'l'}
           onPress={() => {
-            nav.navigate('NewAnuncioTab', { screen: 'NewAnuncioForm' })
+            nav.navigate('NewAnuncioForm')
           }}
         />
       </Box>

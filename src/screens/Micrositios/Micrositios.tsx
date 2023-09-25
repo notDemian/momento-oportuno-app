@@ -1,9 +1,7 @@
 import { Box, Text } from '@src/components'
-import { ExploreStackParamList, ScreenProps } from '@src/navigation'
+import { MicrositiosStackParamList, ScreenProps } from '@src/navigation'
 
-export {}
-
-type MicrositiosProps = ScreenProps<ExploreStackParamList, 'MicroSitios'>
+type MicrositiosProps = ScreenProps<MicrositiosStackParamList, 'Micrositios'>
 
 export const Micrositios: React.FC<MicrositiosProps> = () => {
   return (

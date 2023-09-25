@@ -14,12 +14,12 @@ import {
 } from '@src/components'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
 import { useCategorias, useEstados } from '@src/hooks'
-import { NewAnuncioStackParamList, ScreenProps } from '@src/navigation'
+import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { fontSize } from '@src/theme'
 import * as ImagePicker from 'expo-image-picker'
 
 export const NewAnuncioForm: React.FC<
-  ScreenProps<NewAnuncioStackParamList, 'NewAnuncioForm'>
+  ScreenProps<AccountStackParamList, 'NewAnuncioForm'>
 > = ({ navigation }) => {
   const [showCiudadModal, setShowCiudadModal] = useState(false)
   const [selectedCiudad, setSelectedCiudad] = useState<Estado>()

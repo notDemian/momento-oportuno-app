@@ -1,14 +1,27 @@
-import { memo, useCallback } from 'react'
+import { FC, memo, useCallback } from 'react'
 import { ListRenderItem } from 'react-native'
 
-import { Anuncio } from '@src/api'
-import { Box, List, Text } from '@src/components'
+import {
+  Box,
+  ContentLoader,
+  List,
+  LoadingPageModal,
+  Text,
+} from '@src/components'
 import SvgEmptyBox from '@src/components/svgs/SvgEmptyBox'
+import { useAnuncio, useFavorites } from '@src/hooks'
+import { AnuncioItem } from '@src/screens/SearchScreen/AnuncioItem/AnuncioItem'
 
+const RenderItem: FC<{ id: number }> = ({ id }) => {
+  const { data } = useAnuncio(id)
+
+  if (!data) return <ContentLoader />
+
+  return <AnuncioItem data={data} isFav />
+}
 const Favoritos = () => {
-  const renderItem = useCallback<ListRenderItem<Anuncio>>((anuncio) => {
-    return <Text>{anuncio.item.content.rendered}</Text>
-  }, [])
+  const { data, isLoading } = useFavorites()
+  console.log({ data })
 
   const ListEmptyComponent = useCallback(() => {
     return (
@@ -26,15 +39,22 @@ const Favoritos = () => {
     )
   }, [])
 
+  const renderItem: ListRenderItem<number> = useCallback(({ item }) => {
+    return <RenderItem id={item} />
+  }, [])
+
   return (
-    <List<Anuncio>
-      renderItem={renderItem}
-      data={[]}
-      ListEmptyComponent={ListEmptyComponent}
-      contentContainerStyle={{ flexGrow: 1 }}
-      scrollEnabled={false}
-      showsVerticalScrollIndicator={false}
-    />
+    <>
+      {isLoading && <LoadingPageModal loading />}
+      <List<number>
+        renderItem={renderItem}
+        data={data ?? []}
+        ListEmptyComponent={ListEmptyComponent}
+        contentContainerStyle={{ flexGrow: 1 }}
+        scrollEnabled={false}
+        showsVerticalScrollIndicator={false}
+      />
+    </>
   )
 }
 

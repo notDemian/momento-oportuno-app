@@ -35,7 +35,7 @@ export const PopularPlaces: React.FC<{
   }
 
   const onDirectory = () => {
-    nav.navigate('MicroSitios')
+    nav.navigate('MicrositiosTab', { screen: 'Micrositios' })
   }
 
   return (
