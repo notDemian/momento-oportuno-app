@@ -1,18 +1,30 @@
-import { useQuery, useQueryClient } from 'react-query'
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from 'react-query'
+import { GetFavoritesResponse } from '../../../api/Usuarios/Usuarios.type'
 
 import { UsersQuerys } from './users.query'
 
 import UserServices from '@src/api/Usuarios/Usuarios'
-import { useAppSelector } from '@src/hooks/useAppRedux'
 
-export const useFavorites = () => {
-  const favorites = useAppSelector((s) => s.cart.favorites) ?? []
+export const useFavorites = <T extends boolean = false>(
+  selectAll?: T,
+): UseQueryResult<
+  T extends true ? GetFavoritesResponse : number[],
+  unknown
+> => {
+  return useQuery(UsersQuerys.getFavorites, UserServices.getFavorites, {
+    select: (data) => {
+      if (selectAll) {
+        return data
+      }
+      console.log('fetching')
 
-  return useQuery({
-    queryKey: [UsersQuerys.getFavorites],
-    queryFn: UserServices.getFavorites,
-    initialData: favorites,
-    select: (data) => [...new Set([...data, ...favorites])],
+      return data.map((item) => item.ID)
+    },
   })
 }
 
@@ -34,6 +46,18 @@ export const useRemoveFavorite = (id: number) => {
   return useQuery({
     queryKey: [UsersQuerys.removeFavorite, id],
     queryFn: () => UserServices.removeFavorite(id),
+    onSuccess: () => {
+      queryCLient.invalidateQueries(UsersQuerys.getFavorites)
+    },
+  })
+}
+
+export const useToggleFavorite = (id: number) => {
+  const queryCLient = useQueryClient()
+
+  return useMutation({
+    mutationKey: [UsersQuerys.toggleFavorite, id],
+    mutationFn: () => UserServices.toggleFavorite(id),
     onSuccess: () => {
       queryCLient.invalidateQueries(UsersQuerys.getFavorites)
     },

@@ -2,6 +2,7 @@ import { type FC, type PropsWithChildren, useMemo } from 'react'
 import { Share } from 'react-native'
 
 import {
+  ActivityIndicator,
   Box,
   Button,
   SvgHeartFavorite,
@@ -10,8 +11,7 @@ import {
   Text,
   Touchable,
 } from '@src/components'
-import { useAppDispatch, useAppSelector } from '@src/hooks'
-import { toggleFavorite } from '@src/redux'
+import { useFavorites, useToggleFavorite } from '@src/hooks'
 import { getShadowBoxProps, palette } from '@src/theme'
 
 type BottomButtonsProps = {
@@ -23,11 +23,12 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
   link,
   id,
 }) => {
-  const favorites = useAppSelector((s) => s.cart.favorites) ?? []
-  const isFavorite = favorites.includes(id)
-  console.log({ favorites, isFavorite })
+  const { data: favorites } = useFavorites()
+  const { mutate, isLoading } = useToggleFavorite(id)
 
-  const dispatch = useAppDispatch()
+  const isFavorite = favorites?.includes(id)
+
+  console.log({ favorites, isFavorite, id })
 
   const funcs = useMemo(
     () => ({
@@ -42,7 +43,7 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
         }
       },
       favorite: () => {
-        dispatch(toggleFavorite(id))
+        mutate()
       },
       print: () => {},
       danger: () => {},
@@ -67,9 +68,15 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
           onPress={funcs.favorite}
           borderRadius={'xxxl'}
         >
-          <SvgHeartFavorite
-            fill={isFavorite ? palette.white : palette.rojoMomento}
-          />
+          {isLoading ? (
+            <>
+              <ActivityIndicator />
+            </>
+          ) : (
+            <SvgHeartFavorite
+              fill={isFavorite ? palette.white : palette.rojoMomento}
+            />
+          )}
         </Button>
         <Button variant='outline' onPress={funcs.share} borderRadius={'xxxl'}>
           <SvgShare />

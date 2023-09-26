@@ -6,6 +6,7 @@ import {
   ContentLoader,
   List,
   LoadingPageModal,
+  RefreshControl,
   Text,
 } from '@src/components'
 import SvgEmptyBox from '@src/components/svgs/SvgEmptyBox'
@@ -20,8 +21,7 @@ const RenderItem: FC<{ id: number }> = ({ id }) => {
   return <AnuncioItem data={data} isFav />
 }
 const Favoritos = () => {
-  const { data, isLoading } = useFavorites()
-  console.log({ data })
+  const { data, isLoading, refetch } = useFavorites()
 
   const ListEmptyComponent = useCallback(() => {
     return (
@@ -53,6 +53,9 @@ const Favoritos = () => {
         contentContainerStyle={{ flexGrow: 1 }}
         scrollEnabled={false}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+        }
       />
     </>
   )
