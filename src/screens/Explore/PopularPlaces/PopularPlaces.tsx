@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native'
 import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types'
 
 import { Estado } from '@src/api'
-import { Card, Carousel, ContentLoader, Section } from '@src/components'
+import { Box, Card, Carousel, ContentLoader, Section } from '@src/components'
 import { mockPlaces } from '@src/data'
 import { useExploreStackNavigation } from '@src/hooks'
 
@@ -61,7 +61,11 @@ export const PopularPlaces: React.FC<{
           data={new Array(4).fill(null)}
           snapEnabled
           renderItem={(props) => {
-            return <ContentLoader />
+            return (
+              <Box p={'10%'}>
+                <ContentLoader />
+              </Box>
+            )
           }}
         />
       )}

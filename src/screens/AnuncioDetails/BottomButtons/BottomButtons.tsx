@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   SvgHeartFavorite,
-  SvgPrint,
   SvgShare,
   SvgWarning,
   Text,
@@ -55,7 +54,7 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
     <>
       <Box
         padding={'s'}
-        width={'75%'}
+        width={'45%'}
         alignSelf={'center'}
         justifyContent={'space-between'}
         flexDirection={'row'}
@@ -75,9 +74,9 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
         <Button variant='outline' onPress={funcs.share} borderRadius={'xxxl'}>
           <SvgShare />
         </Button>
-        <Button variant='outline' onPress={funcs.print} borderRadius={'xxxl'}>
+        {/* <Button variant='outline' onPress={funcs.print} borderRadius={'xxxl'}>
           <SvgPrint />
-        </Button>
+        </Button> */}
       </Box>
       <Touchable
         variant={'transparent'}

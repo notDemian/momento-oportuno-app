@@ -26,7 +26,7 @@ const FontAwesome5Icons = createBox<Theme>(FontAwesome5)
 export const Icon: React.FC<IconProps> = ({
   isPrimary,
   type = 'Ionicons',
-
+  color,
   ...rest
 }) => {
   const { colors } = useAppTheme()
@@ -58,7 +58,7 @@ export const Icon: React.FC<IconProps> = ({
 
   return (
     <ICon
-      color={isPrimary ? colors.primary : colors.secondary}
+      color={color ?? (isPrimary ? colors.primary : colors.secondary)}
       size={rest.size || fontSize.l}
       {...rest}
     />

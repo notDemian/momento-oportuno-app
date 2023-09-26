@@ -36,6 +36,7 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
       <SearchHeader />
       <PopularCategories />
       <PopularPlaces estados={data} />
+      <Image source={Images.opcionesPasos} height={200} />
       {isLoading || !data
         ? null
         : data.map((estado) => (

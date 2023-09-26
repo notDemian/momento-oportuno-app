@@ -1,20 +1,15 @@
 export type Directorio = {
   id: number
-  date: Date
-  date_gmt: Date
-  guid: GUID
-  modified: Date
-  modified_gmt: Date
-  slug: string
-  status: string
+  title: string
+  location: string
   type: string
-  link: string
-  title: GUID
-  content: Content
-  template: string
-  meta: Meta
-  acf: unknown[]
-  _links: Links
+  hours: string
+  address: string
+  phone: string
+  email: string
+  user_id: number
+  status: string
+  expire: string
 }
 
 export type DirectorioMapped = Omit<
@@ -23,35 +18,3 @@ export type DirectorioMapped = Omit<
 >
 
 export type GetAllDirectoriosRes = Directorio[]
-
-interface Links {
-  self: About[]
-  collection: About[]
-  about: About[]
-  'wp:attachment': About[]
-  curies: Cury[]
-}
-
-interface About {
-  href: string
-}
-
-interface Cury {
-  name: string
-  href: string
-  templated: boolean
-}
-
-interface Content {
-  rendered: string
-  protected: boolean
-}
-
-interface GUID {
-  rendered: string
-}
-
-interface Meta {
-  _seopress_robots_primary_cat: string
-  ubicacion: string
-}

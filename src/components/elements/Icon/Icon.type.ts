@@ -25,6 +25,7 @@ export type IconProps = {
     | 'MaterialIcons'
     | 'Feather'
     | 'FontAwesome5'
+  color?: string
   name: string
 } & BoxProps<Theme> &
   Omit<UnionIcons, 'name'> & {

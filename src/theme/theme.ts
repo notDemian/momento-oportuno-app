@@ -31,6 +31,7 @@ export const theme = createTheme({
   colors: {
     primary: palette.rojoMomento,
     secondary: palette.rojoMomento,
+    orangy: palette.naranjaMomento,
     creamy: palette.cream,
     background: palette.grisaceo,
     card: palette.white,
@@ -85,6 +86,9 @@ export const theme = createTheme({
     },
     primary: {
       backgroundColor: 'primary',
+    },
+    orangy: {
+      backgroundColor: 'orangy',
     },
     danger: {
       backgroundColor: 'danger',

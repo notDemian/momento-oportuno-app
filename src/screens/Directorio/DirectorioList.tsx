@@ -33,6 +33,7 @@ export const DirectorioList: React.FC<MicrositiosProps> = () => {
           refreshControl={
             <RefreshControl refreshing={isLoading} onRefresh={refresh} />
           }
+          contentContainerStyle={{ padding: '5%' }}
         />
       )}
     </Box>

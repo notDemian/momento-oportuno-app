@@ -20,7 +20,7 @@ export const Authentication: React.FC<
   }
 
   return (
-    <Box flex={1} flexDirection='column' backgroundColor='primary'>
+    <Box flex={1} flexDirection='column' backgroundColor='secondary'>
       <Image
         source={Images.authImage}
         position={'absolute'}
@@ -35,6 +35,7 @@ export const Authentication: React.FC<
         bottom={0}
         zIndex={1}
         padding='l'
+        marginBottom={'xxl'}
         borderTopLeftRadius='xxl'
         borderTopRightRadius='xxl'
         backgroundColor='card'
@@ -46,13 +47,13 @@ export const Authentication: React.FC<
           ¿Buscas una manera fácil de vender tus cosas?
         </Text>
         <Text marginTop='xs' fontSize={fontSize.m}>
-          Clic del sureste es la solución perfecta. Publica tus anuncios y
+          El momento oportuno es la solución perfecta. Publica tus anuncios y
           llegaremos a miles de potenciales compradores. ¡Empieza a vender hoy
           mismo!
         </Text>
-        <Box marginTop='l'>
+        <Box flex={1} marginTop='l'>
           <Button label='Únetenos' isFullWidth onPress={onJoinUs} />
-          <Button
+          {/* <Button
             label='Conéctate con Facebook'
             isFullWidth
             variant='facebook'
@@ -66,7 +67,7 @@ export const Authentication: React.FC<
             marginTop='s'
             isFullWidth
             onPress={onSocialNetworkConnectButtonPress}
-          />
+          /> */}
         </Box>
       </Box>
     </Box>

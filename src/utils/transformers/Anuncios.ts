@@ -47,14 +47,14 @@ export function mapAnuncio(anuncio: Anuncio): MappedAnuncio {
   } = anuncio
 
   const jointCategories = [
-    ...anuncio.listivo_1910,
-    ...anuncio.listivo_1912,
-    ...anuncio.listivo_1911,
-    ...anuncio.listivo_1913,
-    ...anuncio.listivo_945,
-    ...anuncio.listivo_946,
-    ...anuncio.listivo_4686,
-    ...anuncio.listivo_4316,
+    ...(anuncio.listivo_1910 ?? []),
+    ...(anuncio.listivo_1912 ?? []),
+    ...(anuncio.listivo_1911 ?? []),
+    ...(anuncio.listivo_1913 ?? []),
+    ...(anuncio.listivo_945 ?? []),
+    ...(anuncio.listivo_946 ?? []),
+    ...(anuncio.listivo_4686 ?? []),
+    ...(anuncio.listivo_4316 ?? []),
   ]
 
   const mappedAnuncio: MappedAnuncio = {
@@ -71,14 +71,14 @@ export function mapAnuncio(anuncio: Anuncio): MappedAnuncio {
     slug,
     status,
 
-    defaultPrices: anuncio.listivo_130,
-    defaultImages: anuncio.listivo_145,
-    Categories: anuncio.listivo_14,
-    pricesAsSalary: anuncio.listivo_4780,
-    estados: anuncio.listivo_10934,
+    defaultPrices: anuncio.listivo_130 ?? [],
+    defaultImages: anuncio.listivo_145 ?? [],
+    Categories: anuncio.listivo_14 ?? [],
+    pricesAsSalary: anuncio.listivo_4780 ?? [],
+    estados: anuncio.listivo_10934 ?? [],
 
-    caracteristicasCarros: anuncio.listivo_4318,
-    caracteristicasPolicyRelated: anuncio.listivo_2723,
+    caracteristicasCarros: anuncio.listivo_4318 ?? [],
+    caracteristicasPolicyRelated: anuncio.listivo_2723 ?? [],
 
     jointCategories,
 

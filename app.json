@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "Click del Sureste",
-    "slug": "clic-sureste",
+    "name": "El momento oportuno",
+    "slug": "momento-oportuno",
     "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#ff012b"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -24,7 +24,7 @@
       },
       "supportsTablet": true,
       "buildNumber": "1",
-      "bundleIdentifier": "com.jcstudio.foodstarexpoapp"
+      "bundleIdentifier": "com.momento.oportuno"
     },
     "android": {
       "config": {
@@ -43,9 +43,9 @@
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ff012b"
       },
-      "package": "com.clicksur.app"
+      "package": "com.momento.oportuno"
     },
     "web": {
       "favicon": "./assets/favicon.png"

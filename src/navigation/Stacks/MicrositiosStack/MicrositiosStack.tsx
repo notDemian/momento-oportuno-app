@@ -5,7 +5,7 @@ import {
   MicrositiosScreenProps,
   MicrositiosStackParamList,
 } from '@src/navigation/types'
-import { Micrositios } from '@src/screens'
+import { MicrositioById, Micrositios } from '@src/screens'
 
 const Stack = createNativeStackNavigator<MicrositiosStackParamList>()
 
@@ -20,6 +20,15 @@ export const MicrositiosStack: React.FC<MicrositiosScreenProps> = () => {
         }}
         name='Micrositios'
         component={Micrositios}
+      />
+      <Stack.Screen
+        options={() => {
+          return {
+            headerShown: false,
+          }
+        }}
+        name='MicrositioById'
+        component={MicrositioById}
       />
     </Stack.Navigator>
   )

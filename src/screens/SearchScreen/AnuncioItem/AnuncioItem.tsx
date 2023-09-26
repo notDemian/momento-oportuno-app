@@ -56,13 +56,19 @@ export const AnuncioItem: React.FC<AnuncioProps> = ({ data, isFav }) => {
         )}
         <Box flex={1} justifyContent={'center'}>
           <Box>
-            <Text fontWeight='bold' fontSize={fontSize.s} color={'primary'}>
+            <Text
+              fontWeight='bold'
+              fontSize={fontSize.m}
+              color={'primary'}
+              style={{ color: '#1a1a1a' }}
+            >
               {rendered}
             </Text>
             <Text
               variant='secondary'
               marginTop='xs'
               marginBottom='s'
+              fontSize={fontSize.s}
               numberOfLines={3}
             >
               {estados.join(', ')}
@@ -76,6 +82,7 @@ export const AnuncioItem: React.FC<AnuncioProps> = ({ data, isFav }) => {
                     borderRadius={'s'}
                     paddingHorizontal={'s'}
                     overflow={'hidden'}
+                    style={{ backgroundColor: '#C01034' }}
                   >
                     <Text fontWeight='bold' color='white' fontSize={10}>
                       {cat}

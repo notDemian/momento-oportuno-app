@@ -1,4 +1,5 @@
 export { default as SvgAutosIcon } from './SvgAutosIcon'
+export { default as SvgBackgroundVectors } from './SvgBackgroundVectors'
 export { default as SvgCheck } from './SvgCheck'
 export { default as SvgEmpleosIcon } from './SvgEmpleosIcon'
 export { default as SvgEmptyBox } from './SvgEmptyBox'

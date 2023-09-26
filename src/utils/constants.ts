@@ -23,7 +23,8 @@ export const Constants = {
     PACKAGES: '/packages',
     Listivos_CATEGORIAS: '/listivo_14',
     Listivos_ESTADOS: '/listivo_10934',
-    DIRECTORY: '/directorio',
+    DIRECTORY: '/directories',
+    MICROSITIOS: '/microsites',
   },
   CUSTOM_ENDPOINTS: {
     logIn: '/jwt-auth/v1/token',

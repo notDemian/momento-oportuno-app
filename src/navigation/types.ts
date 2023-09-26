@@ -78,6 +78,9 @@ export type AccountStackParamList = {
 
 export type MicrositiosStackParamList = {
   Micrositios: undefined
+  MicrositioById: {
+    id: number
+  }
 }
 export type DirectorioStackParamList = {
   Directorio: undefined

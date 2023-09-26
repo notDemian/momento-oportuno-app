@@ -15,7 +15,6 @@ const useAnunciosByState = ({ state }: { state: string | number }) => {
       return lastPage.nextPage
     },
     select(data) {
-      // return data
       const newData = {
         ...data,
         pages: data.pages.map((page) => ({
