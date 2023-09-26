@@ -64,11 +64,6 @@
         }
       ]
     ],
-    "owner": "vdemian",
-    "extra": {
-      "eas": {
-        "projectId": "cf138573-f994-4098-8c93-49f424fd9ea9"
-      }
-    }
+    "owner": "vdemian"
   }
 }
