@@ -1,14 +1,12 @@
 import type { DirectorioMapped } from '@src/api/Directorio/Directorio.type'
 import { Box, Button, Icon, Image, Text } from '@src/components'
 import { getShadowBoxProps, useAppTheme } from '@src/theme'
-import { CLOG, redirectToEmail } from '@src/utils'
+import { redirectToEmail } from '@src/utils'
 
 export const DirectorioItem: React.FC<{
   data: DirectorioMapped
 }> = ({ data }) => {
   const { address, location, type, hours, title, email, phone } = data
-
-  data.title.includes('Estefi') && CLOG(data)
 
   const { colors } = useAppTheme()
 
@@ -37,16 +35,15 @@ export const DirectorioItem: React.FC<{
           flexDirection={'row'}
           gap={'s'}
           justifyContent={'center'}
+          alignItems={'center'}
         >
           <Icon
             type='FontAwesome5'
             name='map-marker-alt'
-            size={20}
+            size={16}
             color={colors.white}
           />
-          <Text color={'white'} fontWeight={'bold'}>
-            {location}
-          </Text>
+          <Text color={'white'}>{location}</Text>
         </Box>
         <Box
           backgroundColor={'orangy'}
@@ -58,9 +55,7 @@ export const DirectorioItem: React.FC<{
           overflow={'hidden'}
         >
           <Icon name='star' size={20} color={colors.white} />
-          <Text color={'white'} fontWeight={'bold'}>
-            {type}
-          </Text>
+          <Text color={'white'}>{type}</Text>
         </Box>
       </Box>
       <Box flexDirection={'column'} gap={'xs'} width={'63%'}>
