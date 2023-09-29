@@ -16,7 +16,7 @@ const AnunciosServices = {
     nextPage: number
   }> {
     const { data } = await api.get<Main_Anuncios>(
-      `?page=${page}&per_page=${per_page}`,
+      `/get?page=${page}&per_page=${per_page}`,
     )
 
     return { data, nextPage: page + 1 }
@@ -34,7 +34,7 @@ const AnunciosServices = {
     nextPage: number
   }> {
     const { data } = await api.get<Main_Anuncios>(
-      `?page=${page}&per_page=${per_page}&listivo_10934=${state}`,
+      `/get?page=${page}&per_page=${per_page}&state=${state}`,
     )
 
     return { data, nextPage: page + 1 }

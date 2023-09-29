@@ -9,6 +9,7 @@ export type Directorio = {
   email: string
   user_id: number
   status: string
+  thumbnail: string
   expire: string
 }
 

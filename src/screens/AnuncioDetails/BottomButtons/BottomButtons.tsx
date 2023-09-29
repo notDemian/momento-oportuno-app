@@ -28,8 +28,6 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
 
   const isFavorite = favorites?.includes(id)
 
-  console.log({ favorites, isFavorite, id })
-
   const funcs = useMemo(
     () => ({
       share: async () => {
@@ -38,9 +36,7 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
             message: link,
             title: 'Compartir',
           })
-        } catch (error) {
-          console.log(error)
-        }
+        } catch (error) {}
       },
       favorite: () => {
         mutate()

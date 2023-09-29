@@ -81,9 +81,11 @@ export type MicrositiosStackParamList = {
   MicrositioById: {
     id: number
   }
+  CreateMicrositio: undefined
 }
 export type DirectorioStackParamList = {
   Directorio: undefined
+  CreateDirectorio: undefined
 }
 
 export type TabParamList = {

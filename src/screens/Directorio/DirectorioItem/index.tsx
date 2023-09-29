@@ -6,12 +6,28 @@ import { redirectToEmail } from '@src/utils'
 export const DirectorioItem: React.FC<{
   data: DirectorioMapped
 }> = ({ data }) => {
-  const { address, location, type, hours, title, email, phone } = data
+  const { address, location, type, hours, title, email, phone, thumbnail } =
+    data
 
   const { colors } = useAppTheme()
 
-  const sendMail = () => {
-    redirectToEmail(email)
+  const sendMail = async () => {
+    // if (false) {
+    //   const mailRes = await MailComposer.composeAsync({
+    //     subject: 'Contacto desde la app',
+    //     recipients: ['demian.ironhide@gmail.com'],
+    //     body: 'Hola, me gustaría contactar con ustedes',
+    //   })
+    //   CLOG({
+    //     mailRes,
+    //   })
+    //   return
+    // }
+    redirectToEmail({
+      email,
+      subject: 'Contacto desde la app',
+      body: 'Me interesa...',
+    })
   }
 
   return (
@@ -24,7 +40,7 @@ export const DirectorioItem: React.FC<{
     >
       <Box flexDirection={'column'} gap={'s'} width={'35%'} maxWidth={'35%'}>
         <Image
-          source={{ uri: 'https://placehold.co/120' }}
+          source={{ uri: thumbnail }}
           width={'100%'}
           height={120}
           borderRadius={'m'}

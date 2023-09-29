@@ -19,14 +19,15 @@ import {
 } from '@src/components'
 import { useAnuncio } from '@src/hooks'
 import { useAppTheme } from '@src/theme'
-import { CLOG } from '@src/utils'
 
 export const AnuncioDetails: FC<AnuncioProps> = ({
   route: { params },
   navigation: _nav,
 }) => {
   const { data, isLoading, refetch } = useAnuncio(params.data.id)
-  CLOG(data)
+
+  data?.title.rendered.includes('Monitor gamer') &&
+    console.log({ data: data.jointCategories })
 
   const [loadingImage, setLoadingImage] = useState(true)
 

@@ -1,26 +1,37 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import { HeaderBackground } from '@react-navigation/elements'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Text } from '@src/components'
+import { Icon, Touchable } from '@src/components'
 import {
   DirectorioScreenProps,
   DirectorioStackParamList,
 } from '@src/navigation/types'
-import { DirectorioList } from '@src/screens'
+import { CreateDirectorioScreen, DirectorioList } from '@src/screens'
 import { palette } from '@src/theme'
 
 const Stack = createNativeStackNavigator<DirectorioStackParamList>()
 
-export const DirectorioStack: React.FC<DirectorioScreenProps> = () => {
+export const DirectorioStack: React.FC<DirectorioScreenProps> = ({
+  navigation,
+}) => {
+  const headerRight = useCallback(function headerRight() {
+    return (
+      <Touchable
+        onPress={() => {
+          console.log('asd')
+          navigation.navigate('CreateDirectorio')
+        }}
+      >
+        <Icon name='add' size={36} color={palette.white} />
+      </Touchable>
+    )
+  }, [])
   return (
     <Stack.Navigator initialRouteName='Directorio'>
       <Stack.Screen
         options={() => {
           return {
-            headerRight() {
-              return <Text>Hola</Text>
-            },
             headerBackground: () => (
               <HeaderBackground
                 style={{ backgroundColor: palette.rojoMomento }}
@@ -30,10 +41,18 @@ export const DirectorioStack: React.FC<DirectorioScreenProps> = () => {
             headerTitleStyle: {
               color: palette.white,
             },
+            headerRight,
           }
         }}
         name='Directorio'
         component={DirectorioList}
+      />
+      <Stack.Screen
+        options={() => {
+          return {}
+        }}
+        name='CreateDirectorio'
+        component={CreateDirectorioScreen}
       />
     </Stack.Navigator>
   )

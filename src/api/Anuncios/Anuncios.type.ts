@@ -1,108 +1,106 @@
+import { oldAnuncioRes } from './Old.Anuncios.type'
+
 export type Main_Anuncios = Anuncio[]
 
-export type getAnuncioRes = Anuncio
+export type getAnuncioRes = oldAnuncioRes
 
 export interface Anuncio {
   id: number
-  date: Date
-  date_gmt: Date
-  guid: GUID
-  modified: Date
-  modified_gmt: Date
-  slug: string
-  status: Status
-  type: Type
-  link: string
-  title: GUID
-  content: Content
-  author: number
-  template: string
-  listivo_4661?: string[]
-  listivo_4660?: string[]
-  listivo_4659?: string[]
-  listivo_4657?: string[]
-  listivo_4318?: string[]
-  listivo_2723?: string[]
-  listivo_1913?: string[]
-  listivo_1912?: string[]
-  listivo_1911?: string[]
-  listivo_1910?: string[]
-  listivo_946?: string[]
-  listivo_945?: string[]
-  listivo_14?: string[]
-  listivo_10934?: string[]
-  listivo_4780?: string[]
-  listivo_4686?: string[]
-  listivo_4316?: string[]
-  listivo_3411?: Listivo34
-  listivo_2863?: string[]
-  listivo_345?: Listivo34
-  listivo_344?: unknown[]
-  listivo_340?: string[]
-  listivo_339?: unknown[]
-  listivo_338?: unknown[]
-  listivo_145?: string[]
-  listivo_130?: string[]
-  _links: Anu_Links
-}
-
-interface Anu_Links {
-  self: About[]
-  collection: About[]
-  about: About[]
-  author: Author[]
-  'wp:attachment': About[]
-  'wp:term': WpTerm[]
-  curies: Cury[]
-}
-
-interface About {
-  href: string
-}
-
-interface Author {
-  embeddable: boolean
-  href: string
-}
-
-interface Cury {
-  name: Name
-  href: Href
-  templated: boolean
-}
-
-enum Href {
-  HTTPSAPIWOrgRel = 'https://api.w.org/{rel}',
-}
-
-enum Name {
-  Wp = 'wp',
-}
-
-interface WpTerm {
-  taxonomy: string
-  embeddable: boolean
-  href: string
-}
-
-interface Content {
-  rendered: string
-  protected: boolean
-}
-
-interface GUID {
-  rendered: string
-}
-
-interface Listivo34 {
+  title: string
   url: string
-  embed: string
+  image: string
+  images: Image[]
+  description: string
+  price: string
+  user: User
+  created_at: string
+  is_featured: boolean
+  ciudad: CaracteresticasDeLaComunidad
+  salario: Salario
+  kilometraje: Aio
+  caracteristicas_de_la_propiedad: CaracteresticasDeLaComunidad
+  caracteresticas_de_la_comunidad: CaracteresticasDeLaComunidad
+  caracteresticas_de_la_mascota: CaracteresticasDeLaComunidad
+  caracteresticas_del_veheculo: CaracteresticasDeLaComunidad
+  aio: Aio
+  tour_virtual: TourVirtual
+  aio_de_construccinn: Aio
+  nivel_de_trabajo: CaracteresticasDeLaComunidad
+  horas: CaracteresticasDeLaComunidad
+  tipo_de_reclutador: CaracteresticasDeLaComunidad
+  tipo_de_contrato: CaracteresticasDeLaComunidad
+  marca: CaracteresticasDeLaComunidad
+  video: TourVirtual
+  medida_de_la_propiedad: Aio
+  baios: Aio
+  recamaras: Aio
+  galerea: Galerea
+  precio: Precio
+  categorea: CaracteresticasDeLaComunidad
 }
 
-enum Status {
-  Publish = 'publish',
+interface Aio {
+  id: number
+  value: string
 }
 
-enum Type {
-  ListivoListing = 'listivo_listing',
+interface CaracteresticasDeLaComunidad {
+  id: number
+  value: ValueElement[]
+}
+
+interface ValueElement {
+  id: number
+  key: string
+  name: string
+  parent: number
+  searchFormPlaceholder: string
+  parentTermIds: unknown[]
+  dependencies: number[]
+  hasMultilevelChildren: boolean
+}
+
+interface Galerea {
+  id: number
+  value: number[]
+}
+
+interface Image {
+  id: number
+  width: number
+  height: number
+  url: string
+}
+
+interface Precio {
+  id: number
+  value: PrecioValue
+}
+
+interface PrecioValue {
+  listivo_130_listivo_459: string
+}
+
+interface Salario {
+  id: number
+  value: SalarioValue
+}
+
+interface SalarioValue {
+  listivo_4780_listivo_459: string
+}
+
+interface TourVirtual {
+  id: number
+  value: {
+    url: string
+    embed: string
+  }
+}
+
+interface User {
+  id: number
+  name: string
+  url: string
+  phone: string
 }

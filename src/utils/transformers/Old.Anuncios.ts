@@ -1,4 +1,4 @@
-import type { Anuncio } from '@src/api'
+import { oldAnuncioRes } from '@src/api/Anuncios/Old.Anuncios.type'
 
 type TypesToExcludeAndInclude =
   | 'author'
@@ -14,7 +14,7 @@ type TypesToExcludeAndInclude =
   | 'title'
   | 'type'
 
-export type MappedAnuncio = Pick<Anuncio, TypesToExcludeAndInclude> & {
+export type OldMappedAnuncio = Pick<oldAnuncioRes, TypesToExcludeAndInclude> & {
   defaultPrices: string[]
   defaultImages: string[]
   Categories: string[]
@@ -26,10 +26,10 @@ export type MappedAnuncio = Pick<Anuncio, TypesToExcludeAndInclude> & {
 
   jointCategories: string[]
 
-  fullData: Omit<Anuncio, TypesToExcludeAndInclude>
+  fullData: Omit<oldAnuncioRes, TypesToExcludeAndInclude>
 }
 
-export function mapAnuncio(anuncio: Anuncio): MappedAnuncio {
+export function OldMapAnuncio(anuncio: oldAnuncioRes): OldMappedAnuncio {
   const {
     author,
     content,
@@ -57,7 +57,7 @@ export function mapAnuncio(anuncio: Anuncio): MappedAnuncio {
     ...(anuncio.listivo_4316 ?? []),
   ]
 
-  const mappedAnuncio: MappedAnuncio = {
+  const mappedAnuncio: OldMappedAnuncio = {
     author,
     content,
     date,

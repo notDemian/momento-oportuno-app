@@ -23,7 +23,7 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
           key={id}
           coverImage={defaultImages[0]}
           coverImageSize='l'
-          title={props.item.title.rendered}
+          title={props.item.title}
           marginLeft='m'
           titleProps={{
             numberOfLines: 1,

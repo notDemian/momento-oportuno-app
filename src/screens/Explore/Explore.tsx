@@ -12,7 +12,6 @@ import UserServices from '@src/api/Usuarios/Usuarios'
 import { Images } from '@src/assets'
 import { Box, Image } from '@src/components'
 import { useEstados, useSafeAreaScrollViewStyles } from '@src/hooks'
-import { CLOG } from '@src/utils'
 
 export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
   const ref = useRef(null)
@@ -21,7 +20,6 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
   useEffect(() => {
     ;(async () => {
       const data = await UserServices.getFavorites()
-      CLOG({ data })
     })()
   }, [])
   const { data, isLoading } = useEstados()

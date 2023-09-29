@@ -10,7 +10,6 @@ import {
 } from '@src/components'
 import { useUserById } from '@src/hooks/querys/users/useUserById'
 import { getShadowBoxProps } from '@src/theme'
-import { CLOG } from '@src/utils'
 
 type UserInfoProps = {
   id: number
@@ -18,8 +17,6 @@ type UserInfoProps = {
 
 export const UserInfo: FC<UserInfoProps> = ({ id }) => {
   const { data: user, isLoading } = useUserById(id)
-
-  CLOG(user)
 
   return (
     <Box
@@ -51,7 +48,6 @@ export const UserInfo: FC<UserInfoProps> = ({ id }) => {
                 <Touchable
                   onPress={() => {
                     // TODO: NAVIGATE TO MICROSITIOS
-                    CLOG(user.link)
                   }}
                 >
                   <Text color={'primary'} textDecorationLine={'underline'}>

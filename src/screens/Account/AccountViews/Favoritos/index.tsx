@@ -11,14 +11,14 @@ import {
 } from '@src/components'
 import SvgEmptyBox from '@src/components/svgs/SvgEmptyBox'
 import { useAnuncio, useFavorites } from '@src/hooks'
-import { AnuncioItem } from '@src/screens/SearchScreen/AnuncioItem/AnuncioItem'
+import { OldAnuncioItem } from '@src/screens/SearchScreen/AnuncioItem/AnuncioItem'
 
 const RenderItem: FC<{ id: number }> = ({ id }) => {
   const { data } = useAnuncio(id)
 
   if (!data) return <ContentLoader />
 
-  return <AnuncioItem data={data} isFav />
+  return <OldAnuncioItem data={data} />
 }
 const Favoritos = () => {
   const { data, isLoading, refetch } = useFavorites()

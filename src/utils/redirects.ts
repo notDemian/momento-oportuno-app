@@ -9,6 +9,18 @@ export const callPhone = (phone: string) => {
   Linking.openURL(phoneUrl)
 }
 
-export const redirectToEmail = (email: string) => {
-  Linking.openURL(`mailto:${email}`)
+export const redirectToEmail = (params: {
+  email: string
+  subject?: string
+  body?: string
+}) => {
+  const { email, subject, body } = params
+  let query = ''
+  if (subject) {
+    query = `?subject=${subject}`
+  }
+  if (body) {
+    query += `&body=${body}`
+  }
+  Linking.openURL(`mailto:${email}${query}`)
 }

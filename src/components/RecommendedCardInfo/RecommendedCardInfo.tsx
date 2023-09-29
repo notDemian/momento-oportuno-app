@@ -11,7 +11,7 @@ type RecommendedCardInfoProps = {
 export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
   data,
 }) => {
-  const { defaultPrices, pricesAsSalary } = data
+  const { defaultPrice, pricesAsSalary } = data
 
   return (
     <Box
@@ -20,16 +20,16 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
       alignItems='center'
       flexWrap='wrap'
     >
-      {defaultPrices?.[0] ? (
+      {defaultPrice ? (
         <Box>
           <Text color='primary' marginLeft='xs' fontSize={fontSize.m}>
-            {defaultPrices[0]}
+            {defaultPrice}
           </Text>
         </Box>
-      ) : pricesAsSalary?.[0] ? (
+      ) : pricesAsSalary ? (
         <Box>
           <Text color='primary' marginLeft='xs' fontSize={fontSize.m}>
-            {pricesAsSalary[0]}
+            {pricesAsSalary}
           </Text>
         </Box>
       ) : null}

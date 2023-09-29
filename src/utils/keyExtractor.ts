@@ -1,5 +1,7 @@
 export function keyExtractor(item: unknown, index: number) {
-  return item && typeof item === 'object' && 'id' in item
-    ? `${item.id}${index}`
-    : `index${index}`
+  const key =
+    item && typeof item === 'object' && 'id' in item
+      ? `k-${item.id}${index}`
+      : `index${index}`
+  return key
 }

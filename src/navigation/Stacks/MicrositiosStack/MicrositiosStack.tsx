@@ -15,8 +15,8 @@ const Stack = createNativeStackNavigator<MicrositiosStackParamList>()
 export const MicrositiosStack: React.FC<MicrositiosScreenProps> = () => {
   const headerRight = useCallback(function headerRight() {
     return (
-      <Touchable>
-        <Icon name='search' size={24} color={palette.white} />
+      <Touchable onPress={() => {}}>
+        <Icon name='add' size={36} color={palette.white} />
       </Touchable>
     )
   }, [])

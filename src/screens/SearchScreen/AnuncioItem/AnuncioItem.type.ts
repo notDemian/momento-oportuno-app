@@ -1,5 +1,5 @@
 import { MappedAnuncio } from '@src/utils'
-export interface AnuncioProps {
-  data: MappedAnuncio
+export type AnuncioProps = {
   isFav?: boolean
+  data: MappedAnuncio
 }

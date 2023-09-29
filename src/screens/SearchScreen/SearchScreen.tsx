@@ -13,12 +13,10 @@ import {
   Text,
   TextField,
 } from '@src/components'
-import { useFilterContext } from '@src/filterContext/filter'
 import { useSearchStackNavigation } from '@src/hooks'
 import { useAnuncios } from '@src/hooks'
 import { useAppTheme } from '@src/theme'
 import { MappedAnuncio } from '@src/utils'
-import { keyExtractor } from '@src/utils/keyExtractor'
 
 export const SearchScreen = () => {
   const [_searchTerm, setSearchTerm] = React.useState('')
@@ -28,7 +26,7 @@ export const SearchScreen = () => {
     navigation.navigate('Filter')
   }
 
-  const _filterContext = useFilterContext()
+  // const _filterContext = useFilterContext()
 
   const {
     isLoading,
@@ -86,13 +84,14 @@ export const SearchScreen = () => {
       {isSuccess ? (
         <List<MappedAnuncio>
           data={flattenData}
-          keyExtractor={keyExtractor}
+          // keyExtractor={keyExtractor}
+
           refreshControl={
             <RefreshControl refreshing={isLoading} onRefresh={refresh} />
           }
           ItemSeparatorComponent={() => null}
-          renderItem={({ item }) => {
-            return <AnuncioItem data={item} />
+          renderItem={({ item, index }) => {
+            return <AnuncioItem data={item} key={index} />
           }}
           contentContainerStyle={{ backgroundColor: colors.background }}
           onEndReached={fetchMore}

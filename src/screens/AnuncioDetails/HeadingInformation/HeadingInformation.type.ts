@@ -1,5 +1,5 @@
-import { MappedAnuncio } from '@src/utils'
+import { OldMappedAnuncio } from '@src/utils'
 
 export type HeadingInformationProps = {
-  data: MappedAnuncio
+  data: OldMappedAnuncio
 }

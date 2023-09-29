@@ -6,7 +6,7 @@ import AnunciosServices from '@src/api/Anuncios/Anuncios'
 import { mapAnuncio } from '@src/utils'
 
 const useAnunciosByState = ({ state }: { state: string | number }) => {
-  return useInfiniteQuery({
+  const hook = useInfiniteQuery({
     queryKey: [AnunciosQuerys.getAnunciosByState, state],
     queryFn: ({ pageParam = 1 }) =>
       AnunciosServices.getAllAnunciosByState({ page: pageParam, state }),
@@ -25,6 +25,7 @@ const useAnunciosByState = ({ state }: { state: string | number }) => {
       return newData
     },
   })
+  return hook
 }
 
 export { useAnunciosByState }

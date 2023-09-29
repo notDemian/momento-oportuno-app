@@ -8,9 +8,5 @@ export const useUserById = (id: string | number) => {
   return useQuery({
     queryKey: [UsersQuerys.getUser, id],
     queryFn: () => UserServices.getUserById(id),
-    // onError(err: AxiosError) {
-    //   console.log('Error en useUserById: ', err.response?.data)
-    //   console.log('link', err.request)
-    // },
   })
 }

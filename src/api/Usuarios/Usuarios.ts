@@ -12,7 +12,6 @@ import {
   type registerRes,
 } from './Usuarios.type'
 
-import { CLOG } from '@src/utils'
 import { Constants } from '@src/utils/constants'
 import { AxiosError } from 'axios'
 
@@ -61,13 +60,10 @@ const UsuariosServices = {
   async toggleFavorite(id: number) {
     try {
       const res = await api.post(`favorites/add/${id}`)
-      CLOG({ dataOnAdd: res.data })
       return res.data
     } catch (error: any) {
       if (!(error instanceof AxiosError)) throw error
-      CLOG({ error: error.response?.data })
       const res = await api.post(`favorites/delete/${id}`)
-      CLOG({ dataOnDel: res.data })
       return res.data
     }
   },

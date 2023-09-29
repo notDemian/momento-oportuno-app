@@ -58,7 +58,7 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
           )
         })}
       </Box>
-      <Text>{listivo_2863[0]}</Text>
+      <Text>{listivo_2863?.[0]}</Text>
       <Box flexDirection={'row'} gap={'s'} flexWrap={'wrap'}>
         {jointCategories.map((cat) => {
           return (

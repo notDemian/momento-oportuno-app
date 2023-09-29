@@ -32,9 +32,7 @@ export const ChangeLanguageModal: React.FC<ChangeLanguageModalProps> = ({
   isVisible,
   hideModal,
 }) => {
-  const onItemPress = (item: RadioOption) => {
-    console.log('onItemPress -> item', item)
-  }
+  const onItemPress = (item: RadioOption) => {}
 
   return (
     <BottomSheetModal
