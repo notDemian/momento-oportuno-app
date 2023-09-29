@@ -24,3 +24,16 @@ export const redirectToEmail = (params: {
   }
   Linking.openURL(`mailto:${email}${query}`)
 }
+
+export const redirectToSMS = (params: { phone: string; body?: string }) => {
+  const { phone, body } = params
+  let query = ''
+  if (body) {
+    query = `?body=${body}`
+  }
+  const url = `sms:${phone}${query}`
+  console.log({
+    url,
+  })
+  Linking.openURL(url)
+}

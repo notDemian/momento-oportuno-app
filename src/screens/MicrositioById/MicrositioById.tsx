@@ -15,8 +15,7 @@ import {
 import { useMicrositio } from '@src/hooks'
 import { MicrositiosStackParamList, ScreenProps } from '@src/navigation'
 import { fontSize } from '@src/theme'
-import { callPhone, redirectToWhatsapp } from '@src/utils'
-import { toRelative } from '@src/utils/dates'
+import { callPhone, CLOG, redirectToWhatsapp } from '@src/utils'
 
 KeyboardAwareScrollView
 
@@ -34,18 +33,17 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
   },
 }) => {
   const { data, isLoading, isSuccess } = useMicrositio(id)
-  const mockDATA = {
-    phone: '998 123 4567',
-    adress: 'Avenida Xel-Ha, Colonia Guadalupana, Solidaridad, Quintana Roo',
-    joined: '2021-05-01',
-  }
+
+  CLOG({ data })
 
   const handleWA = () => {
-    redirectToWhatsapp(mockDATA.phone)
+    if (!data?.phone) return
+    redirectToWhatsapp(data.phone)
   }
 
   const handlePhone = () => {
-    callPhone(mockDATA.phone)
+    if (!data?.phone) return
+    callPhone(data.phone)
   }
 
   const handleMessage = () => {
@@ -98,14 +96,14 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
         <Box flexDirection={'row'} p={'s'} paddingHorizontal={'l'} g='xxl'>
           <Box width={'30%'} flexDirection={'row'} g={'s'}>
             <Icon type='FontAwesome5' name='user-circle' size={20} />
-            <Text fontSize={fontSize.s}>
-              Miembro {toRelative(mockDATA.joined)}
-            </Text>
+            <Text fontSize={fontSize.s}>Miembro desde {data.member_since}</Text>
           </Box>
-          <Box width={'60%'} flexDirection={'row'} g={'s'}>
-            <Icon type='FontAwesome5' name='map-marker-alt' size={20} />
-            <Text fontSize={fontSize.s}>{mockDATA.adress}</Text>
-          </Box>
+          {data.address ? (
+            <Box width={'60%'} flexDirection={'row'} g={'s'}>
+              <Icon type='FontAwesome5' name='map-marker-alt' size={20} />
+              <Text fontSize={fontSize.s}>{data.address}</Text>
+            </Box>
+          ) : null}
         </Box>
         <Box flexDirection={'row'} g={'s'} p={'xl'}>
           <Touchable onPress={handlePhone}>
@@ -127,7 +125,7 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
               >
                 <Icon type='MaterialIcons' name='phone-android' />
               </Box>
-              <Text>{mockDATA.phone}</Text>
+              <Text>{data.phone}</Text>
             </Box>
           </Touchable>
           <Touchable onPress={handleWA}>

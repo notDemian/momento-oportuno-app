@@ -1,8 +1,6 @@
-import { oldAnuncioRes } from './Old.Anuncios.type'
-
 export type Main_Anuncios = Anuncio[]
 
-export type getAnuncioRes = oldAnuncioRes
+export type getAnuncioRes = Anuncio
 
 export interface Anuncio {
   id: number

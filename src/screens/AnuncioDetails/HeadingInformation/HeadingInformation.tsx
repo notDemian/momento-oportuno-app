@@ -1,40 +1,38 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import { HeadingInformationProps } from './HeadingInformation.type'
 
 import { Box, Text } from '@src/components/elements'
 import { fontSize } from '@src/theme'
-import { toRelative } from '@src/utils/dates'
 
 export const HeadingInformation: React.FC<HeadingInformationProps> = ({
   data,
 }) => {
   const {
     title,
-    defaultPrices,
+    defaultPrice,
     pricesAsSalary,
-    fullData: { listivo_2863 },
     Categories,
-    date,
+    created_at,
     jointCategories,
+    estados,
   } = data
 
-  const relativeDate = useMemo(() => toRelative(date), [date])
   return (
     <Box backgroundColor='card' padding='m'>
       <Box flexDirection='row' justifyContent='space-between'>
         <Box width='65%' paddingRight='s'>
           <Text variant='subHeader' numberOfLines={2}>
-            {title.rendered}
+            {title}
           </Text>
         </Box>
         <Text fontSize={fontSize.m} color='primary' fontWeight={'bold'}>
-          {defaultPrices[0] ?? pricesAsSalary[0]}
+          {defaultPrice ?? pricesAsSalary}
         </Text>
       </Box>
       {/**TODO: ADD EXTRA DATA HERE */}
       <Box paddingVertical={'s'}>
-        <Text color={'gray'}>{relativeDate}</Text>
+        <Text color={'gray'}>{created_at}</Text>
       </Box>
       <Box
         flexDirection={'row'}
@@ -45,20 +43,20 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
         {Categories.map((cat) => {
           return (
             <Box
-              key={cat.toString()}
+              key={cat.id.toString()}
               backgroundColor={'secondary'}
               borderRadius={'s'}
               paddingHorizontal={'s'}
               overflow={'hidden'}
             >
               <Text fontWeight='bold' color='white'>
-                {cat}
+                {cat.name}
               </Text>
             </Box>
           )
         })}
       </Box>
-      <Text>{listivo_2863?.[0]}</Text>
+      <Text>{estados.map((p) => p.name).join()}</Text>
       <Box flexDirection={'row'} gap={'s'} flexWrap={'wrap'}>
         {jointCategories.map((cat) => {
           return (

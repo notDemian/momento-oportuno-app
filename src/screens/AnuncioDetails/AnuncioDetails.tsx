@@ -26,9 +26,6 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
 }) => {
   const { data, isLoading, refetch } = useAnuncio(params.data.id)
 
-  data?.title.rendered.includes('Monitor gamer') &&
-    console.log({ data: data.jointCategories })
-
   const [loadingImage, setLoadingImage] = useState(true)
 
   const scrollY = new Animated.Value(0)
@@ -142,11 +139,11 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
                 <Text variant={'subHeader'}>Descripción</Text>
                 <RenderHtml
                   contentWidth={width}
-                  source={{ html: data.content.rendered }}
+                  source={{ html: data.description }}
                 />
               </Box>
-              <UserInfo id={data.author} />
-              <BottomButtons link={data.link} id={data.id} />
+              <UserInfo user={data.user} />
+              <BottomButtons link={data.url} id={data.id} />
             </Animated.ScrollView>
           </KeyboardAvoidingView>
 
@@ -160,10 +157,10 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
             ]}
           >
             <Text variant='subHeader' numberOfLines={1} paddingHorizontal='l'>
-              {data.title.rendered.length ?? 0 > 14 ? (
-                data.title.rendered.slice(0, 14) + '...'
+              {data.title.length ?? 0 > 14 ? (
+                data.title.slice(0, 14) + '...'
               ) : (
-                <>{data.title.rendered}</>
+                <>{data.title}</>
               )}
             </Text>
           </Animated.View>

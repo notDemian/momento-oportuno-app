@@ -41,7 +41,7 @@ const AnunciosServices = {
   },
 
   async getAnuncio(id: string | number): Promise<getAnuncioRes> {
-    const { data } = await api.get<getAnuncioRes>(`/${id}`)
+    const { data } = await api.get<getAnuncioRes>(`/get/${id}?nocache`)
 
     return data
   },

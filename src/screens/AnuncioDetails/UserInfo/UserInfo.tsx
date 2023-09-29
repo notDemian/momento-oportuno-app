@@ -1,5 +1,6 @@
-import type { FC } from 'react'
+import { type FC, useCallback } from 'react'
 
+import { getAnuncioRes } from '@src/api'
 import {
   Box,
   Button,
@@ -10,13 +11,20 @@ import {
 } from '@src/components'
 import { useUserById } from '@src/hooks/querys/users/useUserById'
 import { getShadowBoxProps } from '@src/theme'
+import { CLOG, redirectToSMS } from '@src/utils'
 
 type UserInfoProps = {
-  id: number
+  user: getAnuncioRes['user']
 }
 
-export const UserInfo: FC<UserInfoProps> = ({ id }) => {
-  const { data: user, isLoading } = useUserById(id)
+export const UserInfo: FC<UserInfoProps> = ({ user: userProp }) => {
+  const { data: user, isLoading } = useUserById(userProp.id)
+  CLOG({ user })
+
+  const onSMS = useCallback(() => {
+    if (!userProp.phone) return
+    redirectToSMS({ phone: userProp.phone })
+  }, [userProp.phone])
 
   return (
     <Box
@@ -69,9 +77,11 @@ export const UserInfo: FC<UserInfoProps> = ({ id }) => {
         <Button borderRadius={'m'} buttonSize={'bigHeader'}>
           <Text color={'white'}>Chat</Text>
         </Button>
-        <Button borderRadius={'m'} buttonSize={'bigHeader'}>
-          <Text color={'white'}>Email</Text>
-        </Button>
+        {userProp.phone ? (
+          <Button borderRadius={'m'} buttonSize={'bigHeader'} onPress={onSMS}>
+            <Text color={'white'}>Mensaje</Text>
+          </Button>
+        ) : null}
       </Box>
     </Box>
   )
