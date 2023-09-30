@@ -35,9 +35,9 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
         options={() => {
           return {
             title: 'Cuenta',
-            headerBackground: () => (
-              <HeaderBackground style={{ backgroundColor: colors.primary }} />
-            ),
+            headerStyle: {
+              backgroundColor: colors.primary,
+            },
             headerTintColor: colors.white,
             // headerShown: false,
           }

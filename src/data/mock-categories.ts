@@ -12,8 +12,8 @@ export const mockCategories: Category[] = [
   },
   {
     id: '2',
-    name: 'Electrónicos',
-    icon: 'computer',
+    name: 'Pesca',
+    icon: 'fishing',
   },
   {
     id: '3',
@@ -34,7 +34,7 @@ export const mockCategories: Category[] = [
 
 export type mockCategoriesIcons =
   | 'pets'
-  | 'computer'
+  | 'fishing'
   | 'house'
   | 'directions-car'
   | 'work'

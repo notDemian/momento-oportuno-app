@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
 
-import { HeaderBackground } from '@react-navigation/elements'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Icon, Touchable } from '@src/components'
 import {
@@ -26,11 +25,14 @@ export const MicrositiosStack: React.FC<MicrositiosScreenProps> = () => {
       <Stack.Screen
         options={() => {
           return {
-            headerBackground: () => (
-              <HeaderBackground
-                style={{ backgroundColor: palette.rojoMomento }}
-              />
-            ),
+            // headerBackground: () => (
+            //   <HeaderBackground
+            //     style={{ backgroundColor: palette.rojoMomento }}
+            //   />
+            // ),
+            headerStyle: {
+              backgroundColor: palette.rojoMomento,
+            },
             headerTintColor: palette.white,
             headerTitleStyle: {
               color: palette.white,

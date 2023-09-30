@@ -1,14 +1,8 @@
 import React, { useCallback } from 'react'
 import { Dimensions } from 'react-native'
 
-import { Box, Text, Touchable } from '@src/components'
-import {
-  SvgAutosIcon,
-  SvgEmpleosIcon,
-  SvgInmuebleIcon,
-  SvgMascotasIcon,
-  SvgNiñosIcon,
-} from '@src/components/svgs'
+import { Images } from '@src/assets'
+import { Box, Image, Text, Touchable } from '@src/components'
 import { mockCategories, mockCategoriesIcons } from '@src/data'
 import { useExploreStackNavigation } from '@src/hooks'
 
@@ -24,19 +18,29 @@ export const PopularCategories: React.FC = () => {
   const CustomIcon = useCallback((icon: mockCategoriesIcons) => {
     switch (icon) {
       case 'house':
-        return () => <SvgInmuebleIcon scale={0.4} />
+        return () => (
+          <Image source={Images.iconsRojos.inmueble} width={60} height={60} />
+        )
 
       case 'directions-car':
-        return () => <SvgAutosIcon scale={0.4} />
+        return () => (
+          <Image source={Images.iconsRojos.autos} width={60} height={60} />
+        )
 
       case 'pets':
-        return () => <SvgMascotasIcon scale={0.4} />
+        return () => (
+          <Image source={Images.iconsRojos.mascota} width={60} height={60} />
+        )
 
       case 'work':
-        return () => <SvgEmpleosIcon scale={0.4} />
+        return () => (
+          <Image source={Images.iconsRojos.empleo} width={60} height={60} />
+        )
 
-      case 'computer':
-        return () => <SvgNiñosIcon scale={0.4} />
+      case 'fishing':
+        return () => (
+          <Image source={Images.iconsRojos.pesca} width={60} height={60} />
+        )
 
       default:
         return () => <></>
