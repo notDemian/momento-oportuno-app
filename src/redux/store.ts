@@ -1,7 +1,7 @@
-import FilterSlice from './filter/filter'
 import { logOutType } from './auth'
 import AuthSlice from './auth'
 import CartSlice from './cart'
+import FilterSlice from './filter'
 import { AllSlices, type SlicesReducers } from './store.helper'
 import TestSlice from './test'
 

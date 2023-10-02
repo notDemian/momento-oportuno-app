@@ -43,19 +43,5 @@ export function CustomRequest(url: string): AxiosInstance {
       'Content-Type': 'application/json',
     },
   })
-
-  req.interceptors.request.use(
-    (config) => {
-      const { token } = store.getState().auth
-      if (config.headers && token) {
-        config.headers.Authorization = `Bearer ${token}`
-      }
-      return config
-    },
-    (err) => {
-      Promise.reject(err)
-    },
-  )
-
   return req
 }

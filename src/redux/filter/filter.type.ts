@@ -1,7 +1,8 @@
 export type FilterParamsBase = {
-  state: string | number
-  query: string | number
-  category: string | number
+  state: number
+  query: string
+  category: number
+  subCategory?: number
   priceMin?: number
   priceMax?: number
 }

@@ -11,7 +11,7 @@ import {
 } from '@src/components'
 import { useUserById } from '@src/hooks/querys/users/useUserById'
 import { getShadowBoxProps } from '@src/theme'
-import { CLOG, redirectToSMS } from '@src/utils'
+import { redirectToSMS } from '@src/utils'
 
 type UserInfoProps = {
   user: getAnuncioRes['user']
@@ -19,7 +19,6 @@ type UserInfoProps = {
 
 export const UserInfo: FC<UserInfoProps> = ({ user: userProp }) => {
   const { data: user, isLoading } = useUserById(userProp.id)
-  CLOG({ user })
 
   const onSMS = useCallback(() => {
     if (!userProp.phone) return

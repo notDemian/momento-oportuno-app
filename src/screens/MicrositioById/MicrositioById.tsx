@@ -15,9 +15,7 @@ import {
 import { useMicrositio } from '@src/hooks'
 import { MicrositiosStackParamList, ScreenProps } from '@src/navigation'
 import { fontSize } from '@src/theme'
-import { callPhone, CLOG, redirectToWhatsapp } from '@src/utils'
-
-KeyboardAwareScrollView
+import { callPhone, redirectToWhatsapp } from '@src/utils'
 
 type MicrositioByIdProps = ScreenProps<
   MicrositiosStackParamList,
@@ -33,8 +31,6 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
   },
 }) => {
   const { data, isLoading, isSuccess } = useMicrositio(id)
-
-  CLOG({ data })
 
   const handleWA = () => {
     if (!data?.phone) return

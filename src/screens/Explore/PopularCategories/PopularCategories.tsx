@@ -4,12 +4,18 @@ import { Dimensions } from 'react-native'
 import { Images } from '@src/assets'
 import { Box, Image, LoadingPageModal, Text, Touchable } from '@src/components'
 import { mockCategories, mockCategoriesIcons } from '@src/data'
-import { useCategorias, useExploreStackNavigation } from '@src/hooks'
+import {
+  useAppDispatch,
+  useCategorias,
+  useExploreStackNavigation,
+} from '@src/hooks'
+import { setCategory } from '@src/redux'
 
 export const PopularCategories: React.FC = () => {
   const itemsPerRow = 3
 
   const nav = useExploreStackNavigation()
+  const dispatch = useAppDispatch()
 
   const { data, isLoading } = useCategorias()
   const filteredBymockCategoriesJointWithMocks = data
@@ -33,7 +39,8 @@ export const PopularCategories: React.FC = () => {
 
   const onCategoryItemPress = useCallback(
     (id: number) => () => {
-      nav.navigate('SearchTab', { screen: 'Search', params: { category: id } })
+      dispatch(setCategory(id))
+      nav.navigate('SearchTab', { screen: 'Search' })
     },
     [],
   )

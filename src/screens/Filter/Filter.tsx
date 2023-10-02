@@ -11,44 +11,86 @@ import {
   Text,
   Touchable,
 } from '@src/components'
-import { useAppDispatch, useCategorias } from '@src/hooks'
+import { ModalRadioButton } from '@src/components/ModalRadioButton'
+import {
+  useAppDispatch,
+  useAppSelector,
+  useCategorias,
+  useEstados,
+} from '@src/hooks'
+import { FilterState, setFilterParams } from '@src/redux'
 import { fontSize } from '@src/theme'
+import { wait } from '@src/utils/wait'
 
 export const Filter: React.FC<FilterProps> = ({ navigation }) => {
-  const [params, setParams] = useState<{
-    category: number
-    priceMax: number
-    priceMin: number
-    state: string
-  }>({
-    category: 0,
-    priceMax: 0,
-    priceMin: 0,
-    state: '',
-  })
-  // const { category, priceMax, priceMin, state } = useAppSelector(
-  //   (p) => p.filter,
-  // )
+  const { category, priceMax, priceMin, state, subCategory } = useAppSelector(
+    (p) => p.filter,
+  )
   const dispatch = useAppDispatch()
+
+  const [showModalEstados, setShowModalEstados] = useState(false)
+  const [params, setParams] = useState<FilterState>({
+    category: category ?? 0,
+    priceMax: priceMax ?? 0,
+    priceMin: priceMin ?? 0,
+    state: state ?? 0,
+    subCategory: subCategory ?? 0,
+  })
 
   const { data, isLoading } = useCategorias()
   const { data: subCategorias } = useCategorias(params.category)
+  const { data: estados, isLoading: isLoadingStates } = useEstados()
 
   const handleValueChange = useCallback((low: number, high: number) => {
     setParams({ ...params, priceMin: low, priceMax: high })
   }, [])
 
-  const handleApplyFilter = () => {
+  const handleApplyFilter = async () => {
+    dispatch(setFilterParams(params))
+    await wait(1000)
     navigation.goBack()
   }
 
   const onPressCategory = (catId: number) => () => {
-    setParams({ ...params, category: catId })
+    setParams({ ...params, category: catId, subCategory: 0 })
+  }
+
+  const onPressSubCategory = (catId: number) => () => {
+    setParams({ ...params, subCategory: catId })
+  }
+
+  const handleEstado = () => {
+    setShowModalEstados(true)
   }
 
   return (
     <Box flex={1} p={'l'} backgroundColor={'white'}>
+      {estados && !isLoadingStates && (
+        <ModalRadioButton
+          data={estados.map((e) => ({ label: e.name, value: e.id }))}
+          isVisible={showModalEstados}
+          hideModal={() => setShowModalEstados(false)}
+          title='Estados'
+          onPressItem={(item) => {
+            setParams({
+              ...params,
+              state:
+                typeof item.value === 'string'
+                  ? parseInt(item.value)
+                  : item.value,
+            })
+            // setShowModalEstados(false)
+          }}
+        />
+      )}
       <ScrollView showsVerticalScrollIndicator={false}>
+        <Box paddingVertical={'m'}>
+          <Button onPress={handleEstado}>
+            {params.state !== 0
+              ? estados?.find((e) => e.id === params.state)?.name
+              : 'Seleccione un estado'}
+          </Button>
+        </Box>
         <Box>
           <Text variant='subHeader' mb={'l'}>
             Categorías
@@ -109,9 +151,12 @@ export const Filter: React.FC<FilterProps> = ({ navigation }) => {
                   <LoadingPageModal loading />
                 ) : (
                   subCategorias.map((cat, index) => {
-                    const isSelected = cat.id === params.category
+                    const isSelected = cat.id === params.subCategory
                     return (
-                      <Touchable key={index} onPress={onPressCategory(cat.id)}>
+                      <Touchable
+                        key={index}
+                        onPress={onPressSubCategory(cat.id)}
+                      >
                         <Box
                           flexDirection='column'
                           alignItems='center'
@@ -120,10 +165,9 @@ export const Filter: React.FC<FilterProps> = ({ navigation }) => {
                           paddingHorizontal='s'
                           paddingBottom={'s'}
                           m={'s'}
-                          backgroundColor={isSelected ? 'secondary' : 'white'}
-                          borderColor={'secondary'}
+                          backgroundColor={isSelected ? 'creamy' : 'white'}
+                          borderColor={'creamy'}
                           borderWidth={1}
-                          opacity={0.6}
                         >
                           <Box>
                             <Text

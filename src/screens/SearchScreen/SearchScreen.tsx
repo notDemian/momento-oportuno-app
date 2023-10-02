@@ -13,7 +13,11 @@ import {
   Text,
   TextField,
 } from '@src/components'
-import { useDebounce, useSearchStackNavigation } from '@src/hooks'
+import {
+  useAppSelector,
+  useDebounce,
+  useSearchStackNavigation,
+} from '@src/hooks'
 import { useAnuncios } from '@src/hooks'
 import { ScreenProps, SearchStackParamList } from '@src/navigation'
 import { useAppTheme } from '@src/theme'
@@ -22,21 +26,16 @@ import { MappedAnuncio } from '@src/utils'
 type SearchScreenProps = ScreenProps<SearchStackParamList, 'Search'>
 
 export const SearchScreen: FC<SearchScreenProps> = ({
-  route: { params: { category, isSearching, state } = {} },
+  route: { params: { isSearching } = {} },
 }) => {
+  const { category, state, subCategory } = useAppSelector((p) => p.filter)
   const [searchTerm, setSearchTerm] = React.useState('')
   const navigation = useSearchStackNavigation()
 
   const onFilter = () => {
     navigation.navigate('Filter')
   }
-  // useFocusEffect(() => {
-  //   setSearchTerm('')
-  // })
-
   const deboncedSearch = useDebounce(searchTerm, 500)
-
-  // const _filterContext = useFilterContext()
 
   const {
     isLoading,
@@ -46,7 +45,14 @@ export const SearchScreen: FC<SearchScreenProps> = ({
     fetchNextPage,
     isFetchingNextPage,
     refetch: refresh,
-  } = useAnuncios({ category, state, query: deboncedSearch })
+  } = useAnuncios({
+    category:
+      subCategory && subCategory !== 0 && subCategory !== -1
+        ? subCategory
+        : category,
+    state,
+    query: deboncedSearch,
+  })
 
   const fetchMore = useCallback(() => {
     if (hasNextPage) {

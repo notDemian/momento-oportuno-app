@@ -18,7 +18,6 @@ export const DirectorioStack: React.FC<DirectorioScreenProps> = ({
     return (
       <Touchable
         onPress={() => {
-          console.log('asd')
           navigation.navigate('CreateDirectorio')
         }}
       >
@@ -46,7 +45,9 @@ export const DirectorioStack: React.FC<DirectorioScreenProps> = ({
       />
       <Stack.Screen
         options={() => {
-          return {}
+          return {
+            headerTitle: 'Crear Directorio',
+          }
         }}
         name='CreateDirectorio'
         component={CreateDirectorioScreen}

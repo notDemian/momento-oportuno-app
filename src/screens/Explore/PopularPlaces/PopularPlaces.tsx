@@ -4,7 +4,8 @@ import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typ
 
 import { Estado } from '@src/api'
 import { Box, Card, Carousel, ContentLoader, Section } from '@src/components'
-import { useExploreStackNavigation } from '@src/hooks'
+import { useAppDispatch, useExploreStackNavigation } from '@src/hooks'
+import { setState } from '@src/redux'
 
 const images = [
   'https://clicdelsureste.empresarialti.com/wp-content/uploads/assets/portada_qroo.jpeg',
@@ -28,9 +29,9 @@ const getImage = (name: string) => {
 export const PopularPlaces: React.FC<{
   estados: Estado[] | null | undefined
 }> = ({ estados }) => {
+  const dispatch = useAppDispatch()
   const renderItem = (props: CarouselRenderItemInfo<Estado>) => {
     const { id, name } = props.item
-    console.log(props.item)
 
     return (
       <Card
@@ -42,7 +43,7 @@ export const PopularPlaces: React.FC<{
           color: 'white',
         }}
         marginLeft='m'
-        onPress={onPlaceItemPress(id.toString())}
+        onPress={onPlaceItemPress(id)}
         shouldFillCoverImage
       />
     )
@@ -50,8 +51,9 @@ export const PopularPlaces: React.FC<{
 
   const nav = useExploreStackNavigation()
 
-  const onPlaceItemPress = (state: string) => () => {
-    nav.navigate('SearchTab', { screen: 'Search', params: { state } })
+  const onPlaceItemPress = (state: number) => () => {
+    dispatch(setState(state))
+    nav.navigate('SearchTab', { screen: 'Search' })
   }
 
   const onDirectory = () => {

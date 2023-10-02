@@ -32,8 +32,6 @@ export const redirectToSMS = (params: { phone: string; body?: string }) => {
     query = `?body=${body}`
   }
   const url = `sms:${phone}${query}`
-  console.log({
-    url,
-  })
+
   Linking.openURL(url)
 }

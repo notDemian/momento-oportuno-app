@@ -2,15 +2,18 @@ import React from 'react'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Button, Text } from '@src/components'
+import { useAppDispatch } from '@src/hooks'
 import type {
   SearchScreenProps,
   SearchStackParamList,
 } from '@src/navigation/types'
+import { resetFilter } from '@src/redux'
 import { AnuncioDetails, Filter, SearchScreen } from '@src/screens'
 
 const Stack = createNativeStackNavigator<SearchStackParamList>()
 
 export const SearchStack: React.FC<SearchScreenProps> = () => {
+  const dispatch = useAppDispatch()
   return (
     <Stack.Navigator initialRouteName='Search'>
       <Stack.Screen
@@ -22,7 +25,7 @@ export const SearchStack: React.FC<SearchScreenProps> = () => {
         name='Search'
         component={SearchScreen}
         initialParams={{
-          query: '',
+          query: undefined,
           isSearching: false,
           category: undefined,
           state: undefined,
@@ -39,6 +42,7 @@ export const SearchStack: React.FC<SearchScreenProps> = () => {
                   buttonSize='xs'
                   {...props}
                   onPress={() => {
+                    dispatch(resetFilter())
                     navigation.goBack()
                   }}
                 >

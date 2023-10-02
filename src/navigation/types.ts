@@ -53,10 +53,10 @@ export type SearchStackParamList = {
   Search:
     | undefined
     | {
-        query?: string
+        query?: number
         isSearching?: boolean
         category?: Categoria['id']
-        state?: string
+        state?: number
       }
   Filter: undefined
   AnuncioDetailsModal: {

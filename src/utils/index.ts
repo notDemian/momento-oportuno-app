@@ -1,5 +1,6 @@
 export * from './app-store'
 export * from './constants'
+export * from './files'
 export * from './formatter'
 export * from './google-map'
 export { default as handleAxiosErr } from './handleAxiosErr'

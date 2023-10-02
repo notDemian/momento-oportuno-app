@@ -25,9 +25,11 @@ export const Constants = {
     Listivos_ESTADOS: '/listivo_10934',
     DIRECTORY: '/directories',
     MICROSITIOS: '/microsites',
+    UPLOAD_IMAGE: '/media',
   },
   CUSTOM_ENDPOINTS: {
     logIn: '/jwt-auth/v1/token',
+    wc: '/wc/v3',
   },
   WOOCOMMERCE: {
     PUBLIC_CLIENT: 'ck_2ce36694dbee497c906c77051616afdf4cd19cc3',

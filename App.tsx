@@ -11,6 +11,8 @@ import { persistor, store } from '@src/redux'
 import { AppThemeProvider } from '@src/theme/AppThemeProvider'
 import { AxiosError } from 'axios'
 import { PersistGate } from 'redux-persist/integration/react'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+global.Buffer = require('buffer').Buffer
 
 const styles = StyleSheet.create({
   container: {
@@ -37,7 +39,8 @@ const queryClient = new QueryClient({
     queries: {
       onError(e) {
         if (e instanceof AxiosError) {
-          console.log(e.response?.data)
+          console.log('ERROR ---------------___>')
+          console.error(e.response?.data)
         }
       },
     },
