@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { ScrollView } from 'react-native'
 
 import { PopularCategories } from './PopularCategories/PopularCategories'
@@ -8,7 +8,6 @@ import { RecommendedByState } from './RecommendedByState'
 import { SearchHeader } from './SearchHeader'
 
 import { useScrollToTop } from '@react-navigation/native'
-import UserServices from '@src/api/Usuarios/Usuarios'
 import { Images } from '@src/assets'
 import { Box, Image } from '@src/components'
 import { useEstados, useSafeAreaScrollViewStyles } from '@src/hooks'
@@ -17,11 +16,7 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
   const ref = useRef(null)
   useScrollToTop(ref)
   const styles = useSafeAreaScrollViewStyles(false)
-  useEffect(() => {
-    ;(async () => {
-      const data = await UserServices.getFavorites()
-    })()
-  }, [])
+  // useEffkkk
   const { data, isLoading } = useEstados()
 
   return (

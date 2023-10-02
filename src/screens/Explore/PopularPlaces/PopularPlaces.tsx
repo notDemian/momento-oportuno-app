@@ -4,25 +4,45 @@ import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typ
 
 import { Estado } from '@src/api'
 import { Box, Card, Carousel, ContentLoader, Section } from '@src/components'
-import { mockPlaces } from '@src/data'
 import { useExploreStackNavigation } from '@src/hooks'
+
+const images = [
+  'https://clicdelsureste.empresarialti.com/wp-content/uploads/assets/portada_qroo.jpeg',
+  'https://clicdelsureste.empresarialti.com/wp-content/uploads/assets/portada_campeche.jpeg',
+  'https://clicdelsureste.empresarialti.com/wp-content/uploads/assets/portada_yucatan.jpeg',
+]
+
+const getImage = (name: string) => {
+  switch (name) {
+    case 'Quintana Roo':
+      return images[0]
+    case 'Campeche':
+      return images[1]
+    case 'Yucatan':
+      return images[2]
+    default:
+      return images[0]
+  }
+}
 
 export const PopularPlaces: React.FC<{
   estados: Estado[] | null | undefined
 }> = ({ estados }) => {
   const renderItem = (props: CarouselRenderItemInfo<Estado>) => {
-    const { image, title, id } = props.item
+    const { id, name } = props.item
+    console.log(props.item)
+
     return (
       <Card
         key={id}
-        coverImage={image}
+        coverImage={getImage(name)}
         coverImageSize='m'
-        title={title}
+        title={name}
         titleProps={{
           color: 'white',
         }}
         marginLeft='m'
-        onPress={onPlaceItemPress}
+        onPress={onPlaceItemPress(id.toString())}
         shouldFillCoverImage
       />
     )
@@ -30,12 +50,12 @@ export const PopularPlaces: React.FC<{
 
   const nav = useExploreStackNavigation()
 
-  const onPlaceItemPress = () => {
-    nav.navigate('SearchTab', { screen: 'Search' })
+  const onPlaceItemPress = (state: string) => () => {
+    nav.navigate('SearchTab', { screen: 'Search', params: { state } })
   }
 
   const onDirectory = () => {
-    nav.navigate('MicrositiosTab', { screen: 'Micrositios' })
+    nav.navigate('DirectorioTab', { screen: 'Directorio' })
   }
 
   return (
@@ -49,7 +69,7 @@ export const PopularPlaces: React.FC<{
           width={Dimensions.get('window').width}
           height={300}
           numItemsPerSlide={2.6}
-          data={mockPlaces}
+          data={estados}
           snapEnabled
           renderItem={renderItem}
         />

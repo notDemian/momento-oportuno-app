@@ -1,3 +1,4 @@
+import FilterSlice from './filter/filter'
 import { logOutType } from './auth'
 import AuthSlice from './auth'
 import CartSlice from './cart'
@@ -7,7 +8,7 @@ import TestSlice from './test'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { AnyAction, combineReducers, configureStore } from '@reduxjs/toolkit'
 import { Constants } from '@src/utils/constants'
-import { persistReducer,persistStore } from 'redux-persist'
+import { persistReducer, persistStore } from 'redux-persist'
 
 // Persist config
 const persistConfig = {
@@ -20,6 +21,7 @@ const reducers = {
   test: TestSlice,
   auth: AuthSlice,
   cart: CartSlice,
+  filter: FilterSlice,
 } satisfies SlicesReducers
 
 const rootReducer = combineReducers(reducers)

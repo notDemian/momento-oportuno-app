@@ -6,10 +6,10 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
 
 import { PortalProvider } from '@gorhom/portal'
-import { FilterProvider } from '@src/filterContext'
 import { RootNavigation } from '@src/navigation'
 import { persistor, store } from '@src/redux'
 import { AppThemeProvider } from '@src/theme/AppThemeProvider'
+import { AxiosError } from 'axios'
 import { PersistGate } from 'redux-persist/integration/react'
 
 const styles = StyleSheet.create({
@@ -32,7 +32,17 @@ interface TextWithDefaultProps extends Text {
   Text as unknown as TextWithDefaultProps
 ).defaultProps!.maxFontSizeMultiplier = 1
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      onError(e) {
+        if (e instanceof AxiosError) {
+          console.log(e.response?.data)
+        }
+      },
+    },
+  },
+})
 
 export default function App() {
   return (
@@ -43,9 +53,7 @@ export default function App() {
             <Provider store={store}>
               <PersistGate loading={null} persistor={persistor}>
                 <AppThemeProvider>
-                  <FilterProvider>
-                    <RootNavigation />
-                  </FilterProvider>
+                  <RootNavigation />
                 </AppThemeProvider>
               </PersistGate>
             </Provider>

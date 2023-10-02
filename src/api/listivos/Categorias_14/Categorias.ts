@@ -12,7 +12,9 @@ const CategoriasServices = {
     return data
   },
   async getCategoriasByParent(parent = 0): Promise<GetALlCategoriasRes> {
-    const { data } = await api.get<GetALlCategoriasRes>(`/?parent=${parent}`)
+    const { data } = await api.get<GetALlCategoriasRes>(
+      `/?parent=${parent}&per_page=100`,
+    )
 
     return data
   },

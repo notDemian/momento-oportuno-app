@@ -15,6 +15,7 @@ export const AnuncioItem: FC<AnuncioProps> = ({ data, isFav }) => {
     Categories: Categories,
     estados,
     title,
+    fullData: { is_featured },
   } = data
   const navigation = useSearchStackNavigation()
 
@@ -32,16 +33,19 @@ export const AnuncioItem: FC<AnuncioProps> = ({ data, isFav }) => {
       },
     })
   }
-
+  /**
+   * Y2tfMmNlMzY2OTRkYmVlNDk3YzkwNmM3NzA1MTYxNmFmZGY0Y2QxOWNjMzpjc180ZDBjODNiNDhmM2U2MzYwYmE5NWFmYzMzMmZhMWYzODYxYmYwN2I0
+   * Y2tfMmNlMzY2OTRkYmVlNDk3YzkwNmM3NzA1MTYxNmFmZGY0Y2QxOWNjMzpjc180ZDBjODNiNDhmM2U2MzYwYmE5NWFmYzMzMmZhMWYzODYxYmYwN2I0
+   */
   return (
     <Touchable onPress={onPlaceItemPress} activeOpacity={0.5}>
       <Box
         flexDirection='row'
         padding='s'
         backgroundColor='card'
-        borderWidth={1}
+        borderWidth={is_featured ? 3 : 1}
         elevation={3}
-        borderColor='card'
+        borderColor={is_featured ? 'secondary' : 'card'}
         borderRadius='m'
         margin='s'
       >

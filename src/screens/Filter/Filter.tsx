@@ -1,115 +1,54 @@
 import { useCallback, useState } from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 
-import { FilterCategories, FilterSizes, FilterStyles } from './Filter.mock'
 import { FilterProps } from './Filter.type'
 
-import { Box, Button, Text, Touchable } from '@src/components'
-import { RangeSlide } from '@src/components/RangeSlide/RangeSlide'
-import { useFilterContext } from '@src/filterContext/filter'
+import {
+  ActivityIndicator,
+  Box,
+  Button,
+  LoadingPageModal,
+  Text,
+  Touchable,
+} from '@src/components'
+import { useAppDispatch, useCategorias } from '@src/hooks'
 import { fontSize } from '@src/theme'
 
 export const Filter: React.FC<FilterProps> = ({ navigation }) => {
-  const [low, setLow] = useState(0)
-  const [high, setHigh] = useState(100)
-  const filterContext = useFilterContext()
+  const [params, setParams] = useState<{
+    category: number
+    priceMax: number
+    priceMin: number
+    state: string
+  }>({
+    category: 0,
+    priceMax: 0,
+    priceMin: 0,
+    state: '',
+  })
+  // const { category, priceMax, priceMin, state } = useAppSelector(
+  //   (p) => p.filter,
+  // )
+  const dispatch = useAppDispatch()
+
+  const { data, isLoading } = useCategorias()
+  const { data: subCategorias } = useCategorias(params.category)
 
   const handleValueChange = useCallback((low: number, high: number) => {
-    setLow(low)
-    setHigh(high)
+    setParams({ ...params, priceMin: low, priceMax: high })
   }, [])
-
-  const handleOnSize = (size: (typeof FilterSizes)[number]) => {
-    return () => {
-      filterContext.toggleSize(size)
-    }
-  }
 
   const handleApplyFilter = () => {
     navigation.goBack()
   }
 
+  const onPressCategory = (catId: number) => () => {
+    setParams({ ...params, category: catId })
+  }
+
   return (
-    <Box flex={1} p={'l'}>
+    <Box flex={1} p={'l'} backgroundColor={'white'}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Box height={120} mt={'l'}>
-          <Text variant='subHeader' mb={'l'}>
-            Rango de precio: {low} - {high}
-          </Text>
-          <RangeSlide handleValueChange={handleValueChange} step={100} />
-        </Box>
-        <Box>
-          <Text variant='subHeader' mb={'l'}>
-            Tamaño
-          </Text>
-          <Box
-            backgroundColor='transparent'
-            flexDirection='row'
-            flexWrap='wrap'
-          >
-            {FilterSizes.map((size, index) => {
-              return (
-                <Touchable key={index} onPress={handleOnSize(size)}>
-                  <Box
-                    flexDirection='column'
-                    alignItems='center'
-                    justifyContent={'center'}
-                    width={60}
-                    height={60}
-                    borderRadius={'xxl'}
-                    padding='s'
-                    paddingBottom={'m'}
-                    m={'s'}
-                    backgroundColor={'secondary'}
-                    opacity={filterContext.sizes.includes(size) ? 0.6 : 0.25}
-                  >
-                    <Box>
-                      <Text
-                        fontSize={fontSize.xl}
-                        marginTop='s'
-                        fontWeight='bold'
-                      >
-                        {size}
-                      </Text>
-                    </Box>
-                  </Box>
-                </Touchable>
-              )
-            })}
-          </Box>
-        </Box>
-        <Box>
-          <Text variant='subHeader' mb={'l'}>
-            Color
-          </Text>
-          <Box
-            backgroundColor='transparent'
-            flexDirection='row'
-            flexWrap='wrap'
-          >
-            {FilterStyles.map((style, index) => {
-              return (
-                <Touchable key={index}>
-                  <Box
-                    flexDirection='column'
-                    alignItems='center'
-                    justifyContent={'center'}
-                    width={60}
-                    height={60}
-                    borderRadius={'xxl'}
-                    padding='s'
-                    paddingBottom={'m'}
-                    m={'s'}
-                    // backgroundColor={style}
-                    style={{ backgroundColor: style }}
-                    // opacity={filterContext.sizes.includes(size) ? 0.6 : 0.25}
-                    opacity={0.6}
-                  />
-                </Touchable>
-              )
-            })}
-          </Box>
-        </Box>
         <Box>
           <Text variant='subHeader' mb={'l'}>
             Categorías
@@ -119,43 +58,106 @@ export const Filter: React.FC<FilterProps> = ({ navigation }) => {
             flexDirection='row'
             flexWrap='wrap'
           >
-            {FilterCategories.map((cat, index) => {
-              return (
-                <Touchable key={index}>
-                  <Box
-                    flexDirection='column'
-                    alignItems='center'
-                    justifyContent={'center'}
-                    borderRadius={'xl'}
-                    paddingHorizontal='s'
-                    paddingBottom={'s'}
-                    m={'s'}
-                    backgroundColor={'transparent'}
-                    borderColor={'secondary'}
-                    borderWidth={1}
-                    opacity={0.6}
-                  >
-                    <Box>
-                      <Text
-                        fontSize={fontSize.s}
-                        marginTop='s'
-                        fontWeight='bold'
-                      >
-                        {cat}
-                      </Text>
+            {isLoading || !data ? (
+              <LoadingPageModal loading />
+            ) : (
+              data.map((cat, index) => {
+                const isSelected = cat.id === params.category
+                return (
+                  <Touchable key={index} onPress={onPressCategory(cat.id)}>
+                    <Box
+                      flexDirection='column'
+                      alignItems='center'
+                      justifyContent={'center'}
+                      borderRadius={'xl'}
+                      paddingHorizontal='s'
+                      paddingBottom={'s'}
+                      m={'s'}
+                      backgroundColor={isSelected ? 'secondary' : 'white'}
+                      borderColor={'secondary'}
+                      borderWidth={1}
+                    >
+                      <Box>
+                        <Text
+                          fontSize={fontSize.s}
+                          marginTop='s'
+                          fontWeight='bold'
+                          color={isSelected ? 'white' : 'secondary'}
+                        >
+                          {cat.name}
+                        </Text>
+                      </Box>
                     </Box>
-                  </Box>
-                </Touchable>
-              )
-            })}
+                  </Touchable>
+                )
+              })
+            )}
           </Box>
         </Box>
+        {params.category !== 0 ? (
+          <Box>
+            <Text variant='subHeader' mb={'l'}>
+              Subcategoría
+            </Text>
+            {subCategorias && subCategorias.length > 0 ? (
+              <Box
+                backgroundColor='transparent'
+                flexDirection='row'
+                flexWrap='wrap'
+              >
+                {isLoading || !data ? (
+                  <LoadingPageModal loading />
+                ) : (
+                  subCategorias.map((cat, index) => {
+                    const isSelected = cat.id === params.category
+                    return (
+                      <Touchable key={index} onPress={onPressCategory(cat.id)}>
+                        <Box
+                          flexDirection='column'
+                          alignItems='center'
+                          justifyContent={'center'}
+                          borderRadius={'xl'}
+                          paddingHorizontal='s'
+                          paddingBottom={'s'}
+                          m={'s'}
+                          backgroundColor={isSelected ? 'secondary' : 'white'}
+                          borderColor={'secondary'}
+                          borderWidth={1}
+                          opacity={0.6}
+                        >
+                          <Box>
+                            <Text
+                              fontSize={fontSize.s}
+                              marginTop='s'
+                              fontWeight='bold'
+                            >
+                              {cat.name}
+                            </Text>
+                          </Box>
+                        </Box>
+                      </Touchable>
+                    )
+                  })
+                )}
+              </Box>
+            ) : (
+              <ActivityIndicator />
+            )}
+          </Box>
+        ) : null}
+        {/* <Box height={120} mt={'l'}>
+          <Text variant='subHeader' mb={'l'}>
+            Rango de precio: {params.priceMin} - {params.priceMax}
+          </Text>
+          <RangeSlide handleValueChange={handleValueChange} step={100} />
+        </Box> */}
       </ScrollView>
       <Box
         paddingHorizontal='m'
         paddingVertical='s'
         alignItems='center'
         justifyContent='center'
+        backgroundColor={'transparent'}
       >
         <Button
           isFullWidth

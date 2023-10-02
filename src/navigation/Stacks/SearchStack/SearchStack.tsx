@@ -21,6 +21,12 @@ export const SearchStack: React.FC<SearchScreenProps> = () => {
         }}
         name='Search'
         component={SearchScreen}
+        initialParams={{
+          query: '',
+          isSearching: false,
+          category: undefined,
+          state: undefined,
+        }}
       />
       <Stack.Screen
         options={({ navigation }) => {

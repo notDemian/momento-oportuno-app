@@ -50,7 +50,14 @@ export type ActivityHistoryStackParamList = {
 }
 
 export type SearchStackParamList = {
-  Search: undefined
+  Search:
+    | undefined
+    | {
+        query?: string
+        isSearching?: boolean
+        category?: Categoria['id']
+        state?: string
+      }
   Filter: undefined
   AnuncioDetailsModal: {
     data: Anuncio | Pick<Anuncio, 'id'>

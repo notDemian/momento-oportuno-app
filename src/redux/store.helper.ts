@@ -2,6 +2,7 @@ export const Slices = {
   Test: 'test',
   Auth: 'auth',
   Cart: 'cart',
+  Filter: 'filter',
 } as const
 
 export const AllSlices = Object.values(Slices)

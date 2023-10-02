@@ -2,18 +2,41 @@ import React, { useCallback } from 'react'
 import { Dimensions } from 'react-native'
 
 import { Images } from '@src/assets'
-import { Box, Image, Text, Touchable } from '@src/components'
+import { Box, Image, LoadingPageModal, Text, Touchable } from '@src/components'
 import { mockCategories, mockCategoriesIcons } from '@src/data'
-import { useExploreStackNavigation } from '@src/hooks'
+import { useCategorias, useExploreStackNavigation } from '@src/hooks'
 
 export const PopularCategories: React.FC = () => {
   const itemsPerRow = 3
 
   const nav = useExploreStackNavigation()
 
-  const onCategoryItemPress = () => {
-    nav.navigate('SearchTab', { screen: 'Search' })
-  }
+  const { data, isLoading } = useCategorias()
+  const filteredBymockCategoriesJointWithMocks = data
+    ?.filter((categoria) =>
+      mockCategories.some(
+        (mockCategory) =>
+          mockCategory.name.toLowerCase() === categoria.name.toLowerCase(),
+      ),
+    )
+    .map((categoria) => {
+      const mockCategory = mockCategories.find(
+        (mockCategory) =>
+          mockCategory.name.toLowerCase() === categoria.name.toLowerCase(),
+      )
+
+      return {
+        ...categoria,
+        icon: mockCategory?.icon ?? 'directions-car',
+      }
+    })
+
+  const onCategoryItemPress = useCallback(
+    (id: number) => () => {
+      nav.navigate('SearchTab', { screen: 'Search', params: { category: id } })
+    },
+    [],
+  )
 
   const CustomIcon = useCallback((icon: mockCategoriesIcons) => {
     switch (icon) {
@@ -55,13 +78,16 @@ export const PopularCategories: React.FC = () => {
       justifyContent={'center'}
       marginTop={'l'}
     >
-      {mockCategories.map((category) => {
+      {isLoading || !filteredBymockCategoriesJointWithMocks ? (
+        <LoadingPageModal loading />
+      ) : null}
+      {filteredBymockCategoriesJointWithMocks?.map((category) => {
         const { id, icon, name } = category
 
         const Icon = CustomIcon(icon)
 
         return (
-          <Touchable key={id} onPress={onCategoryItemPress}>
+          <Touchable key={id} onPress={onCategoryItemPress(id)}>
             <Box
               flexDirection='column'
               alignItems='center'

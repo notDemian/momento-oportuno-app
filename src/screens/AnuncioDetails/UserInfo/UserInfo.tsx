@@ -59,7 +59,7 @@ export const UserInfo: FC<UserInfoProps> = ({ user: userProp }) => {
                   }}
                 >
                   <Text color={'primary'} textDecorationLine={'underline'}>
-                    Ver todas sus publicaciones
+                    Ver micrositio
                   </Text>
                 </Touchable>
               ) : null}

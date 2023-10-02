@@ -63,6 +63,7 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
           variant={isFavorite ? 'primary' : 'outline'}
           onPress={funcs.favorite}
           borderRadius={'xxxl'}
+          isDisabled={isLoading}
         >
           {isLoading ? (
             <>

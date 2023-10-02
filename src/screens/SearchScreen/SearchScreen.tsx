@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { FC, useCallback } from 'react'
 
 import { AnuncioItem } from './AnuncioItem/AnuncioItem'
 
@@ -13,18 +13,28 @@ import {
   Text,
   TextField,
 } from '@src/components'
-import { useSearchStackNavigation } from '@src/hooks'
+import { useDebounce, useSearchStackNavigation } from '@src/hooks'
 import { useAnuncios } from '@src/hooks'
+import { ScreenProps, SearchStackParamList } from '@src/navigation'
 import { useAppTheme } from '@src/theme'
 import { MappedAnuncio } from '@src/utils'
 
-export const SearchScreen = () => {
-  const [_searchTerm, setSearchTerm] = React.useState('')
+type SearchScreenProps = ScreenProps<SearchStackParamList, 'Search'>
+
+export const SearchScreen: FC<SearchScreenProps> = ({
+  route: { params: { category, isSearching, state } = {} },
+}) => {
+  const [searchTerm, setSearchTerm] = React.useState('')
   const navigation = useSearchStackNavigation()
 
   const onFilter = () => {
     navigation.navigate('Filter')
   }
+  // useFocusEffect(() => {
+  //   setSearchTerm('')
+  // })
+
+  const deboncedSearch = useDebounce(searchTerm, 500)
 
   // const _filterContext = useFilterContext()
 
@@ -36,7 +46,7 @@ export const SearchScreen = () => {
     fetchNextPage,
     isFetchingNextPage,
     refetch: refresh,
-  } = useAnuncios()
+  } = useAnuncios({ category, state, query: deboncedSearch })
 
   const fetchMore = useCallback(() => {
     if (hasNextPage) {
@@ -63,6 +73,7 @@ export const SearchScreen = () => {
             onChangeText: (e) => {
               setSearchTerm(e)
             },
+            autoFocus: isSearching,
           }}
         />
         <Box width={70} alignItems='flex-end' ml={'l'} flexDirection={'row'}>
@@ -73,7 +84,7 @@ export const SearchScreen = () => {
         </Box>
       </Box>
     )
-  }, [])
+  }, [isSearching])
 
   const { colors } = useAppTheme()
 

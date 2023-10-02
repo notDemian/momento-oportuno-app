@@ -50,7 +50,7 @@ export const ExploreStack: React.FC<ExploreScreenProps> = ({ navigation }) => {
         options={() => {
           return {
             title: '',
-            headerTransparent: true,
+            headerShown: false,
           }
         }}
         name='Explore'
