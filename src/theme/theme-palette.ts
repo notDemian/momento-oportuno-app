@@ -4,6 +4,7 @@ export const palette = {
   rojoMomento: '#E4032E', //#e4032e
   naranjaMomento: '#fd542a', //#e4032e
   verdeMarcatextos: '#cefc00',
+  naranjaClarito: '#fd8a2a',
   acentoCereza: '#ff5b52',
   white: '#FFF',
   grisaceo: '#F7FAFD',

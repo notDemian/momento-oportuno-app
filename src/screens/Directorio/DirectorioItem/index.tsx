@@ -18,9 +18,6 @@ export const DirectorioItem: React.FC<{
     //     recipients: ['demian.ironhide@gmail.com'],
     //     body: 'Hola, me gustaría contactar con ustedes',
     //   })
-    //   CLOG({
-    //     mailRes,
-    //   })
     //   return
     // }
     redirectToEmail({

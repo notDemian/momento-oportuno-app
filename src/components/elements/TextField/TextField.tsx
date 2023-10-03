@@ -1,5 +1,5 @@
 import React from 'react'
-import { I18nManager,TextInput } from 'react-native'
+import { I18nManager, TextInput } from 'react-native'
 import { Box } from '../Box'
 import { Icon } from '../Icon'
 
@@ -83,7 +83,7 @@ export const TextField: React.FC<TextFieldProps> = ({
       <InnerTextInput
         color='text'
         fontSize={fontSize.m}
-        placeholderTextColor={colors.secondary}
+        placeholderTextColor={colors.text}
         underlineColorAndroid='transparent'
         flex={1}
         padding='m'

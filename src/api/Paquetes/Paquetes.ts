@@ -2,7 +2,7 @@ import Request from '../request'
 
 import { type GetALlPaquetesRes } from './Paquetes.type'
 
-import { CLOG, uploadImage } from '@src/utils'
+import { uploadImage } from '@src/utils'
 import { Constants } from '@src/utils/constants'
 
 const api = Request(Constants.ENDPOINTS.PACKAGES)
@@ -27,8 +27,6 @@ const PaquetesServices = {
         Authorization: `Basic ${base64auth}`,
       },
     }
-
-    CLOG(opts)
 
     return await uploadImage(opts)
   },

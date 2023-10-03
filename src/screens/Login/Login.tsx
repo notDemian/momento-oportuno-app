@@ -41,7 +41,7 @@ export const Login: React.FC<ScreenProps<AuthStackParamList, 'Login'>> = ({
   return (
     <AuthenticationLayout
       title='¡Bienvenido!'
-      subtitle='Por favor introduce tus credenciales para usar nuestro producto'
+      subtitle='Por favor introduce tus credenciales para iniciar sesión'
       footer={
         <>
           <Button

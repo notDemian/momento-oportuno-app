@@ -1,6 +1,6 @@
 import { Box, Icon, Text, Touchable } from '@src/components'
 import { useExploreStackNavigation } from '@src/hooks'
-import { useAppTheme } from '@src/theme'
+import { fontSize, getShadowBoxProps, useAppTheme } from '@src/theme'
 
 export const SearchHeader = () => {
   const { colors } = useAppTheme()
@@ -16,17 +16,17 @@ export const SearchHeader = () => {
         }
       >
         <Box
+          {...getShadowBoxProps({ elevation: 10 })}
           flex={1}
           backgroundColor={'white'}
           borderRadius='m'
           padding='s'
+          marginHorizontal={'l'}
           flexDirection='row'
           justifyContent='space-between'
           alignItems='center'
-          borderWidth={1}
-          borderColor='primary'
         >
-          <Text variant='primary' color='text'>
+          <Text variant='primary' color='orangy' fontSize={fontSize.s}>
             Estoy buscando ...
           </Text>
           <Icon name='search' color={colors.secondary} />

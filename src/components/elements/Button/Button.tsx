@@ -35,6 +35,23 @@ export const Button: React.FC<ButtonProps> = ({
   const renderContent = () => {
     if (children) {
       if (typeof children === 'string') {
+        if (isModal)
+          return (
+            <Box
+              flexDirection={'row'}
+              justifyContent={'center'}
+              alignItems={'center'}
+            >
+              <Icon
+                name='keyboard-arrow-down'
+                type='MaterialIcons'
+                color={palette.white}
+              />
+              <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
+                {children}
+              </Text>
+            </Box>
+          )
         return (
           <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
             {children}
@@ -42,7 +59,22 @@ export const Button: React.FC<ButtonProps> = ({
         )
       }
 
-      return children
+      return isModal ? (
+        <Box
+          flexDirection={'row'}
+          justifyContent={'center'}
+          alignItems={'center'}
+        >
+          <Icon
+            name='keyboard-arrow-down'
+            type='MaterialIcons'
+            color={palette.white}
+          />
+          {children}
+        </Box>
+      ) : (
+        children
+      )
     }
     return (
       <>
@@ -54,6 +86,7 @@ export const Button: React.FC<ButtonProps> = ({
               color={palette.white}
             />
             <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
+              asd
               {!isDisabled ? (
                 label
               ) : (
@@ -65,6 +98,7 @@ export const Button: React.FC<ButtonProps> = ({
           <>
             {leftIcon && <Box marginRight='s'>{leftIcon}</Box>}
             <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
+              notmodal
               {!isDisabled ? (
                 label
               ) : (

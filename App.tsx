@@ -44,6 +44,14 @@ const queryClient = new QueryClient({
         }
       },
     },
+    mutations: {
+      onError(e) {
+        if (e instanceof AxiosError) {
+          console.log('ERROR ---------------___>')
+          console.error(e.response?.data)
+        }
+      },
+    },
   },
 })
 

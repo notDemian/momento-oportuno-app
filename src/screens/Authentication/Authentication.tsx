@@ -20,7 +20,7 @@ export const Authentication: React.FC<
   }
 
   return (
-    <Box flex={1} flexDirection='column' backgroundColor='secondary'>
+    <Box flex={1} flexDirection='column' backgroundColor='white'>
       <Image
         source={Images.authImage}
         position={'absolute'}

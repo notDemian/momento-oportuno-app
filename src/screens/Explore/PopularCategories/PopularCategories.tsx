@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import { Dimensions } from 'react-native'
+import { fontSize } from '../../../theme/theme.util'
 
 import { Images } from '@src/assets'
 import { Box, Image, LoadingPageModal, Text, Touchable } from '@src/components'
@@ -49,27 +50,27 @@ export const PopularCategories: React.FC = () => {
     switch (icon) {
       case 'house':
         return () => (
-          <Image source={Images.iconsRojos.inmueble} width={60} height={60} />
+          <Image source={Images.iconsRojos.inmueble} width={80} height={80} />
         )
 
       case 'directions-car':
         return () => (
-          <Image source={Images.iconsRojos.autos} width={60} height={60} />
+          <Image source={Images.iconsRojos.autos} width={80} height={80} />
         )
 
       case 'pets':
         return () => (
-          <Image source={Images.iconsRojos.mascota} width={60} height={60} />
+          <Image source={Images.iconsRojos.mascota} width={80} height={80} />
         )
 
       case 'work':
         return () => (
-          <Image source={Images.iconsRojos.empleo} width={60} height={60} />
+          <Image source={Images.iconsRojos.empleo} width={80} height={80} />
         )
 
       case 'fishing':
         return () => (
-          <Image source={Images.iconsRojos.pesca} width={60} height={60} />
+          <Image source={Images.iconsRojos.pesca} width={80} height={80} />
         )
 
       default:
@@ -102,11 +103,11 @@ export const PopularCategories: React.FC = () => {
               borderRadius={'xxl'}
               padding='s'
             >
-              <Box width={60} height={60}>
+              <Box width={80} height={80}>
                 <Icon />
               </Box>
               <Box>
-                <Text fontSize={12} marginTop='s' fontWeight='bold'>
+                <Text fontSize={fontSize.m} marginTop='s' fontWeight='bold'>
                   {name}
                 </Text>
               </Box>
