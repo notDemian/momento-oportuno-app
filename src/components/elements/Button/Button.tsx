@@ -86,7 +86,6 @@ export const Button: React.FC<ButtonProps> = ({
               color={palette.white}
             />
             <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
-              asd
               {!isDisabled ? (
                 label
               ) : (
@@ -98,7 +97,6 @@ export const Button: React.FC<ButtonProps> = ({
           <>
             {leftIcon && <Box marginRight='s'>{leftIcon}</Box>}
             <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
-              notmodal
               {!isDisabled ? (
                 label
               ) : (
