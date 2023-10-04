@@ -71,3 +71,101 @@ type MetaDatum = {
   key: string
   value: string
 }
+
+export type GetMyOrdersResponse = Order[]
+
+export type Order = {
+  id: number
+  parent_id: number
+  status:
+    | 'pending'
+    | 'processing'
+    | 'on-hold'
+    | 'completed'
+    | 'cancelled'
+    | 'refunded'
+    | 'failed'
+    | 'trash'
+  currency: string
+  version: string
+  prices_include_tax: boolean
+  date_created: Date
+  date_modified: Date
+  discount_total: string
+  discount_tax: string
+  shipping_total: string
+  shipping_tax: string
+  cart_tax: string
+  total: string
+  total_tax: string
+  customer_id: number
+  order_key: string
+  billing: Ing
+  shipping: Ing
+  payment_method: string
+  payment_method_title: string
+  transaction_id: string
+  customer_ip_address: string
+  customer_user_agent: string
+  created_via: string
+  customer_note: string
+  date_completed: Date
+  date_paid: Date
+  cart_hash: string
+  number: string
+  meta_data: MetaDatum[]
+  line_items: LineItem[]
+  tax_lines: any[]
+  shipping_lines: any[]
+  fee_lines: any[]
+  coupon_lines: any[]
+  refunds: any[]
+  payment_url: string
+  is_editable: boolean
+  needs_payment: boolean
+  needs_processing: boolean
+  date_created_gmt: Date
+  date_modified_gmt: Date
+  date_completed_gmt: Date
+  date_paid_gmt: Date
+  currency_symbol: string
+  _links: Links
+}
+
+type Ing = {
+  first_name: string
+  last_name: string
+  company: string
+  address_1: string
+  address_2: string
+  city: string
+  state: string
+  postcode: string
+  country: string
+  email?: string
+  phone: string
+}
+
+type LineItem = {
+  id: number
+  name: string
+  product_id: number
+  variation_id: number
+  quantity: number
+  tax_class: string
+  subtotal: string
+  subtotal_tax: string
+  total: string
+  total_tax: string
+  taxes: any[]
+  meta_data: any[]
+  sku: string
+  price: number
+  image: Image
+  parent_name: null
+}
+
+type Image = {
+  id: string
+  src: string
+}

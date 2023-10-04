@@ -67,6 +67,10 @@ const UsuariosServices = {
       return res.data
     }
   },
+  async me() {
+    const res = await api.get('me')
+    return res.data
+  },
 }
 
 export default UsuariosServices

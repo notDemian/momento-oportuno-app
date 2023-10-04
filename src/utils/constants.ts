@@ -34,6 +34,16 @@ export const Constants = {
   WOOCOMMERCE: {
     PUBLIC_CLIENT: 'ck_2ce36694dbee497c906c77051616afdf4cd19cc3',
     SECRET_CLIENT: 'cs_4d0c83b48f3e6360ba95afc332fa1f3861bf07b4',
+    get SAFE_b64_TOKEN() {
+      // const kUser = `${Constants.WOOCOMMERCE.PUBLIC_CLIENT}:${Constants.WOOCOMMERCE.SECRET_CLIENT}`
+      const kUser = `${this.PUBLIC_CLIENT}:${this.SECRET_CLIENT}`
+      const base64 = Buffer.from(kUser).toString('base64')
+      console.log({
+        kUser,
+        base64,
+      })
+      return base64
+    },
   },
   IS_DEV: true,
 } as const

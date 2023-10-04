@@ -71,12 +71,12 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
         },
       },
     ]
-    if (res.status === 'publish') {
+    if (res.status.toLowerCase() === 'published') {
       Alert.alert('Felicidades', 'Tu directorio ha sido publicado', buttons)
     } else {
       Alert.alert(
-        'Casi listo',
-        'Tu directorio esta en proceso de revisión',
+        'Tu pago ha sido cancelado :(',
+        'Tu directorio no ha sido publicado',
         buttons,
       )
     }

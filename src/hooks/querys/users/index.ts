@@ -1,5 +1,6 @@
 export * from './useFavorites'
 export * from './useLogIn'
+export * from './useMyOrders'
 export * from './useRegister'
 export * from './users.query'
 export * from './useUserById'

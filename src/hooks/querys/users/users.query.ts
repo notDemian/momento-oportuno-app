@@ -6,4 +6,5 @@ export const UsersQuerys = {
   addFavorite: 'addFavorite',
   removeFavorite: 'removeFavorite',
   toggleFavorite: 'toggleFavorite',
+  getMyOrders: 'getMyOrders',
 } as const

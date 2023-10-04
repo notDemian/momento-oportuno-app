@@ -35,7 +35,7 @@ const tabData: TabViewData = [
   },
   { key: '3', title: 'Mis ordenes', content: MisOrdenes },
   { key: '4', title: 'Ajustes', content: Ajustes },
-  { key: '5', title: 'Paquete actual', content: PlaceHolder },
+  { key: '5', title: 'Directorio', content: PlaceHolder },
   { key: '6', title: 'Selecciona un paquete', content: PlaceHolder },
   { key: '7', title: 'Cerrar sesión', content: NullComponent },
 ]

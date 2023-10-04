@@ -71,7 +71,12 @@ export const DirectorioItem: React.FC<{
           <Text color={'white'}>{type}</Text>
         </Box>
       </Box>
-      <Box flexDirection={'column'} gap={'xs'} width={'63%'}>
+      <Box
+        flexDirection={'column'}
+        gap={'xs'}
+        width={'63%'}
+        paddingHorizontal={'m'}
+      >
         <Text variant={'header'} textAlign={'center'} color={'orangy'}>
           {title}
         </Text>

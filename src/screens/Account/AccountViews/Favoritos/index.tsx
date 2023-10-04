@@ -2,10 +2,10 @@ import { FC, memo, useCallback } from 'react'
 import { ListRenderItem } from 'react-native'
 
 import {
+  ActivityIndicator,
   Box,
   ContentLoader,
   List,
-  LoadingPageModal,
   RefreshControl,
   Text,
 } from '@src/components'
@@ -46,7 +46,7 @@ const Favoritos = () => {
 
   return (
     <>
-      {isLoading && <LoadingPageModal loading />}
+      {isLoading && <ActivityIndicator />}
       <List<number>
         renderItem={renderItem}
         data={data ?? []}

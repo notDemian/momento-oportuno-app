@@ -16,7 +16,6 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
   const ref = useRef(null)
   useScrollToTop(ref)
   const styles = useSafeAreaScrollViewStyles(false)
-  // useEffkkk
   const { data, isLoading } = useEstados()
 
   return (
