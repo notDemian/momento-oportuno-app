@@ -38,10 +38,6 @@ export const Constants = {
       // const kUser = `${Constants.WOOCOMMERCE.PUBLIC_CLIENT}:${Constants.WOOCOMMERCE.SECRET_CLIENT}`
       const kUser = `${this.PUBLIC_CLIENT}:${this.SECRET_CLIENT}`
       const base64 = Buffer.from(kUser).toString('base64')
-      console.log({
-        kUser,
-        base64,
-      })
       return base64
     },
   },
