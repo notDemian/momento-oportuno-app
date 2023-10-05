@@ -95,14 +95,30 @@ export const Button: React.FC<ButtonProps> = ({
           </Box>
         ) : (
           <>
-            {leftIcon && <Box marginRight='s'>{leftIcon}</Box>}
-            <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
-              {!isDisabled ? (
-                label
-              ) : (
-                <ActivityIndicator color={palette.blanquecino} />
-              )}
-            </Text>
+            {leftIcon ? (
+              <Box flexDirection={'row'} justifyContent={'center'}>
+                <Box marginRight='s'>{leftIcon}</Box>
+                <Text
+                  color={textColor}
+                  textAlign={textAlign}
+                  fontSize={fontSize}
+                >
+                  {!isDisabled ? (
+                    label
+                  ) : (
+                    <ActivityIndicator color={palette.blanquecino} />
+                  )}
+                </Text>
+              </Box>
+            ) : (
+              <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
+                {!isDisabled ? (
+                  label
+                ) : (
+                  <ActivityIndicator color={palette.blanquecino} />
+                )}
+              </Text>
+            )}
           </>
         )}
       </>

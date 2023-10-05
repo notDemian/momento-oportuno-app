@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Animated, LayoutAnimation, Pressable,View } from 'react-native'
+import { Animated, LayoutAnimation, Pressable, View } from 'react-native'
 import { Icon } from '../Icon'
 
 import type { AccordionItemProps } from './AccordionItem.type'
@@ -60,7 +60,13 @@ const AccordionItem = ({
           </Animated.View>
         </View>
       </Pressable>
-      {showContent && customBody()}
+      <View
+        style={{
+          marginTop: 10,
+        }}
+      >
+        {showContent && customBody()}
+      </View>
     </View>
   )
 }
