@@ -9,7 +9,7 @@ type OrderSummaryProps = {
 }
 
 export const OrderSummary: React.FC<OrderSummaryProps> = ({
-  order: { price },
+  order: { price, name },
 }) => {
   return (
     <Section title='Detalles de la compra'>
@@ -17,13 +17,10 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
         <Box padding='m' flexDirection='row' justifyContent='space-between'>
           <Box flexDirection='row'>
             <Text marginRight='m'>{`${1}`}</Text>
-            {['producto 1'].map((cartItem, cartItemIndex) => (
-              <Box key={cartItemIndex}>
-                <Text marginBottom='xs' fontWeight='bold'>
-                  {cartItem}
-                </Text>
-              </Box>
-            ))}
+            <Box flexDirection={'row'} marginBottom='xs'>
+              <Text fontWeight={'normal'}>Paquete: </Text>
+              <Text fontWeight='bold'>{name}</Text>
+            </Box>
           </Box>
           <Text fontWeight='bold'>{formatCurrency(price)}</Text>
         </Box>

@@ -35,17 +35,26 @@ const DirectorioServices = {
   },
 }
 
-export const generateLinkToCheckout = ({
-  package: packageId,
-  directoryId,
-}: {
-  package: number
-  directoryId: number
-}) => {
+export const generateLinkToCheckout = (
+  opts:
+    | {
+        package: number
+        type: 'package'
+      }
+    | {
+        package: number
+        directoryId: number
+        type: 'directory'
+      },
+) => {
   const token = store.getState().auth.token
   if (!token) return null
-  const url = `${Constants.URL.RAW}?autologin=true&token=${token}&package=${packageId}&directory_id=${directoryId}`
-  return url
+  let baseUrl =
+    `${Constants.URL.RAW}?autologin=true&type=${opts.type}&token=${token}&package=${opts.package}` as const
+  if (opts.type === 'directory') {
+    baseUrl += `&directory_id=${opts.directoryId}` as const
+  }
+  return baseUrl
 }
 
 export default DirectorioServices

@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
-import { Alert, AlertButton } from 'react-native'
+import { Alert } from 'react-native'
+import { DirectoriosTab } from '../Directorios'
 
 import Ajustes from './Ajustes'
 import Favoritos from './Favoritos'
@@ -35,7 +36,7 @@ const tabData: TabViewData = [
   },
   { key: '3', title: 'Mis ordenes', content: MisOrdenes },
   { key: '4', title: 'Ajustes', content: Ajustes },
-  { key: '5', title: 'Directorios', content: PlaceHolder },
+  { key: '5', title: 'Directorios', content: DirectoriosTab },
   { key: '6', title: 'Selecciona un paquete', content: PlaceHolder },
   { key: '7', title: 'Cerrar sesión', content: NullComponent },
 ]
@@ -43,22 +44,16 @@ const tabData: TabViewData = [
 export const AccountTabs = () => {
   const [_, logOutFunction] = useUser()
 
-  const alertButtons: AlertButton[] = [
-    {
-      text: 'Cancelar',
-      style: 'cancel',
-    },
-    { text: 'Confirmar', onPress: logOutFunction },
-  ]
-
   const nav = useAccountStackNavigation()
 
   const onLogoutButtonPress = () => {
-    Alert.alert(
-      'Confirmación',
-      '¿Seguro que deseas cerrar sesión?',
-      alertButtons,
-    )
+    Alert.alert('Confirmación', '¿Seguro que deseas cerrar sesión?', [
+      {
+        text: 'Cancelar',
+        style: 'cancel',
+      },
+      { text: 'Confirmar', onPress: logOutFunction },
+    ])
   }
   const onTabPress = useCallback<
     NonNullable<Parameters<typeof TabView>[0]['onTabPress']>
@@ -68,7 +63,6 @@ export const AccountTabs = () => {
       onLogoutButtonPress()
     } else if (e.route.key === '6') {
       e.preventDefault()
-      // navigation.navigate('Packages')
       nav.navigate('Package')
     }
   }, [])

@@ -107,6 +107,7 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
         return Alert.alert('Error', 'Ocurrio un error al crear el directorio')
       }
       const url = generateLinkToCheckout({
+        type: 'directory',
         directoryId: res.id,
         package: paquete.id,
       })

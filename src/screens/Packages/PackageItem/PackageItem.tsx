@@ -49,10 +49,8 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete }) => {
 
   return (
     <Box
-      backgroundColor='card'
       margin='m'
       minHeight={400}
-      borderRadius='l'
       {...getShadowBoxProps()}
       borderColor={borderColor}
       borderWidth={1}
