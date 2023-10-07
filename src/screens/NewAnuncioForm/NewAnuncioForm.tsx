@@ -1,20 +1,14 @@
 import { useCallback, useState } from 'react'
-import { Dimensions } from 'react-native'
+import { Alert, Dimensions } from 'react-native'
 import { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types'
+import { useDispatch } from 'react-redux'
 
 import { Estado } from '@src/api'
-import {
-  Box,
-  Button,
-  Carousel,
-  Image,
-  NewAnucioLayout,
-  Text,
-  TextField,
-} from '@src/components'
+import { Box, Button, Image, NewAnucioLayout, TextField } from '@src/components'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
 import { useCategorias, useEstados } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
+import { InitialParams, setInitialParams } from '@src/redux'
 import { fontSize } from '@src/theme'
 import * as ImagePicker from 'expo-image-picker'
 
@@ -78,12 +72,30 @@ export const NewAnuncioForm: React.FC<
     setShowCiudadModal(true)
   }, [])
 
-  const showCategoriaModalHandler = useCallback(() => {
-    setShowCategoriaModal(true)
-  }, [])
-
   const { data: estados, isLoading: loadingEstados } = useEstados()
   const { data: cat, isLoading: loadingCat } = useCategorias()
+
+  const [params, setParams] = useState<InitialParams>({
+    description: '',
+    name: '',
+    packageId: 0,
+    stateId: 0,
+  })
+
+  const setParamsFactory = useCallback(
+    (key: keyof InitialParams) => (value: string) => {
+      setParams((p) => ({ ...p, [key]: value }))
+    },
+    [],
+  )
+
+  const dispatch = useDispatch()
+
+  const showCategoriaModalHandler = useCallback(() => {
+    if (params.description === '' || params.name === '' || params.stateId === 0)
+      return Alert.alert('Llena los campos', 'Debes llenar todos los campos')
+    setShowCategoriaModal(true)
+  }, [params])
 
   return (
     <NewAnucioLayout
@@ -110,6 +122,7 @@ export const NewAnuncioForm: React.FC<
             const itemFound = estados.find((c) => c.id === item.value)
             if (!itemFound) return
             setSelectedCiudad(itemFound)
+            setParamsFactory('stateId')(itemFound.id.toString())
           }}
         />
       ) : null}
@@ -126,6 +139,7 @@ export const NewAnuncioForm: React.FC<
             setShowCategoriaModal(false)
             const catFound = cat.find((c) => c.id === item.value)
             if (catFound) {
+              dispatch(setInitialParams(params))
               navigation.navigate('NewAnuncioFormByCat', catFound)
             }
           }}
@@ -135,34 +149,32 @@ export const NewAnuncioForm: React.FC<
         <TextField
           inputProps={{
             placeholder: 'Nombre de la Publicación',
+            onChangeText: setParamsFactory('name'),
           }}
           required
         />
 
         <Box
           flexDirection='row'
-          justifyContent='space-between'
+          // justifyContent='space-between'
           alignItems='center'
           gap='m'
         >
-          <TextField
+          {/* <TextField
             inputProps={{
               placeholder: 'Precio (MXN)',
               keyboardType: 'numeric',
             }}
             required
             width={'45%'}
+          /> */}
+          <Button
+            onPress={showCiudadModalHandler}
+            isDisabled={loadingEstados}
+            label={selectedCiudad?.name || 'Seleccionar ciudad'}
+            isFullWidth
+            isModal
           />
-          <Box width={'50%'}>
-            <Button
-              variant='secondary'
-              onPress={showCiudadModalHandler}
-              flex={1}
-              isDisabled={loadingEstados}
-              label={selectedCiudad?.name || 'Seleccionar ciudad'}
-              isModal
-            />
-          </Box>
         </Box>
         <Box height={fontSize.xxxl * 5}>
           <TextField
@@ -174,13 +186,14 @@ export const NewAnuncioForm: React.FC<
               style: {
                 textAlignVertical: 'top',
               },
+              onChangeText: setParamsFactory('description'),
             }}
             required
             flex={1}
             height={'100%'}
           />
         </Box>
-        <Text variant={'subHeader'}>Imágenes</Text>
+        {/* <Text variant={'subHeader'}>Imágenes</Text>
         {images.length > 0 ? (
           <>
             <Carousel
@@ -210,7 +223,7 @@ export const NewAnuncioForm: React.FC<
               isFullWidth
             />
           </Box>
-        )}
+        )} */}
       </Box>
     </NewAnucioLayout>
   )

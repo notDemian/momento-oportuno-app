@@ -42,6 +42,10 @@ export const Constants = {
     },
   },
   IS_DEV: true,
+  IDS: {
+    Listivo_130: 130,
+    Listivo_14: 14,
+  },
 } as const
 
 export type ENDPOINTS =

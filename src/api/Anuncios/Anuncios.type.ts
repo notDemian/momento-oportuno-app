@@ -1,3 +1,5 @@
+import { FieldSchema } from '../listivos'
+
 export type Main_Anuncios = Anuncio[]
 
 export type getAnuncioRes = Anuncio
@@ -101,4 +103,22 @@ interface User {
   name: string
   url: string
   phone: string
+}
+
+export interface Attributes {
+  id: string | number
+  value:
+    | string
+    | NonNullable<FieldSchema['terms']>
+    | NonNullable<FieldSchema['terms']>[number]
+    | undefined
+}
+
+export type createAnuncioParams = {
+  model: {
+    name: string
+    description: string
+    packageId: number
+    attributes: Attributes[]
+  }
 }

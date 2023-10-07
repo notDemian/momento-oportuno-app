@@ -12,14 +12,6 @@ export const DirectorioItem: React.FC<{
   const { colors } = useAppTheme()
 
   const sendMail = async () => {
-    // if (false) {
-    //   const mailRes = await MailComposer.composeAsync({
-    //     subject: 'Contacto desde la app',
-    //     recipients: ['demian.ironhide@gmail.com'],
-    //     body: 'Hola, me gustaría contactar con ustedes',
-    //   })
-    //   return
-    // }
     redirectToEmail({
       email,
       subject: 'Contacto desde la app',
@@ -37,7 +29,9 @@ export const DirectorioItem: React.FC<{
     >
       <Box flexDirection={'column'} gap={'s'} width={'35%'} maxWidth={'35%'}>
         <Image
-          source={{ uri: thumbnail }}
+          source={{
+            uri: thumbnail ? thumbnail : 'https://placehold.co/200',
+          }}
           width={'100%'}
           height={120}
           borderRadius={'m'}

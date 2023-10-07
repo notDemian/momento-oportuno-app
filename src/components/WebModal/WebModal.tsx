@@ -27,6 +27,11 @@ const WebModal = ({ url, visible, onDismiss, title }: Props) => {
   const listenChanges = (navState: WebViewNavigation) => {
     // search for the word url in the url and extract the params from it
     // extract url after "https://creamedicdigital.mx/formulario/pago/"
+    const URL_INCLUDES = ['panel/list']
+
+    if (URL_INCLUDES.some((u) => navState.url.includes(u))) {
+      onDismiss()
+    }
   }
 
   return (

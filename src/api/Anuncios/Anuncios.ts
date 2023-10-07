@@ -1,8 +1,13 @@
 import Request from '../request'
 
-import { getAnuncioRes, Main_Anuncios } from './Anuncios.type'
+import {
+  createAnuncioParams,
+  getAnuncioRes,
+  Main_Anuncios,
+} from './Anuncios.type'
 
 import { FilterParams } from '@src/redux/filter'
+import { wait } from '@src/utils/wait'
 
 const api = Request('/listings')
 
@@ -60,6 +65,14 @@ const AnunciosServices = {
     const { data } = await api.get<getAnuncioRes>(`/get/${id}?nocache`)
 
     return data
+  },
+  async createAnuncio(data: createAnuncioParams) {
+    await wait(2000)
+    return {
+      success: true,
+      message: 'Anuncio creado con éxito',
+      data,
+    }
   },
 }
 

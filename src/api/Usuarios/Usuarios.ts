@@ -61,7 +61,7 @@ const UsuariosServices = {
     try {
       const res = await api.post(`favorites/add/${id}`)
       return res.data
-    } catch (error: any) {
+    } catch (error) {
       if (!(error instanceof AxiosError)) throw error
       const res = await api.post(`favorites/delete/${id}`)
       return res.data

@@ -1,14 +1,25 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { FC } from 'react'
+import { Alert } from 'react-native'
 
-import { getArrays } from './helper'
+import { ExtraContent } from './ExtraContent'
 
-import { Categoria } from '@src/api'
+import {
+  Attributes,
+  Categoria,
+  createAnuncioParams,
+  FieldSchema,
+} from '@src/api'
 import { Box, Button, NewAnucioLayout, TextField } from '@src/components'
-import { CheckboxList } from '@src/components/CheckboxList'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
-import { useCategorias } from '@src/hooks'
+import {
+  useAppSelector,
+  useCategorias,
+  useCreateAnuncio,
+  useFields,
+} from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
+import { Constants } from '@src/utils'
 
 export const NewAnuncioFormByCat: FC<
   ScreenProps<AccountStackParamList, 'NewAnuncioFormByCat'>
@@ -18,111 +29,75 @@ export const NewAnuncioFormByCat: FC<
   const [showSubCategoriaModal, setShowSubCategoriaModal] = useState(false)
   const [subCategoriaSelected, setSubCategoriaSelected] = useState<Categoria>()
 
-  const { checkboxData, title } = useMemo(
-    () => getArrays(params.name),
-    [params.name],
-  )
+  const [selectedItems, setSelectedItems] = useState<
+    Array<{
+      id: number
+      value: NonNullable<FieldSchema['terms']>[number] | undefined
+    }>
+  >([])
 
-  const [_selectedItems, setSelectedItems] = useState<string[]>([])
+  const [inputs, setInputs] = useState<
+    Array<{
+      id: number
+      value: string
+    }>
+  >([])
 
-  const onSelectedItemsChange = useCallback((selectedItems: Array<string>) => {
-    setSelectedItems(selectedItems)
-  }, [])
+  const { data: fields, isSuccess: fieldsLoaded } = useFields(params.id)
+  const renderPrice = !fields?.some((f) => f.type === 'salary')
+  const [price, setPrice] = useState(0)
+  const prevparams = useAppSelector((s) => s.cart.createAnuncioParams)
+  const { mutateAsync, isLoading } = useCreateAnuncio()
 
-  const RenderExtraContent = useCallback(() => {
-    switch (params.name) {
-      case 'Inmuebles':
-        return (
-          <>
-            <TextField
-              inputProps={{
-                placeholder: 'Año de construcción',
-                keyboardType: 'numeric',
-              }}
-              required
-            />
-            <TextField
-              inputProps={{
-                placeholder: 'Medida de la propiedad',
-                keyboardType: 'numeric',
-              }}
-              required
-            />
-            <TextField
-              inputProps={{
-                placeholder: 'Baños',
-                keyboardType: 'numeric',
-              }}
-              required
-            />
-            <TextField
-              inputProps={{
-                placeholder: 'Recámaras',
-                keyboardType: 'numeric',
-              }}
-              required
-            />
-          </>
-        )
-      case 'Vehículos':
-        return (
-          <>
-            <TextField
-              inputProps={{
-                placeholder: 'Año',
-                keyboardType: 'numeric',
-              }}
-              required
-            />
-            <TextField
-              inputProps={{
-                placeholder: 'Kilometraje',
-                keyboardType: 'numeric',
-              }}
-              required
-            />
-            <TextField
-              inputProps={{
-                placeholder: 'Modelo',
-              }}
-              required
-            />
-            <TextField
-              inputProps={{
-                placeholder: 'Marca',
-              }}
-              required
-            />
-          </>
-        )
-      case 'Empleos':
-        return (
-          <>
-            <TextField
-              inputProps={{
-                placeholder: 'Nivel de trabajo',
-              }}
-              required
-            />
-            <TextField
-              inputProps={{
-                placeholder: 'Horas',
-              }}
-              required
-            />
-            <TextField
-              inputProps={{
-                placeholder: 'Tipo de reclutamiento',
-              }}
-              required
-            />
-          </>
-        )
+  const onContinue = useCallback(async () => {
+    if (!subCategoriaSelected)
+      return Alert.alert('Error', 'Selecciona una subcategoría')
+    const fromInputs: Attributes[] = [
+      ...inputs,
+      ...selectedItems,
+      {
+        id: Constants.IDS.Listivo_14,
+        value: [
+          {
+            dependencies: [],
+            hasMultilevelChildren: false,
+            id: params.id,
+            key: `listivo_${params.id}`,
+            name: params.name,
+            parent: params.parent,
+            searchFormPlaceholder: '',
+            parentTermIds: [],
+          },
+          {
+            dependencies: [],
+            hasMultilevelChildren: false,
+            id: subCategoriaSelected.id,
+            key: `listivo_${subCategoriaSelected.id}`,
+            name: subCategoriaSelected.name,
+            parent: subCategoriaSelected.parent,
+            searchFormPlaceholder: '',
+            parentTermIds: [],
+          },
+        ],
+      },
+    ]
 
-      default:
-        return null
+    if (renderPrice)
+      fromInputs.push({
+        id: Constants.IDS.Listivo_130,
+        value: price.toString(),
+      })
+
+    const data: createAnuncioParams = {
+      model: {
+        name: prevparams.name,
+        description: prevparams.description,
+        packageId: prevparams.packageId,
+        attributes: fromInputs,
+      },
     }
-  }, [params])
+    const res = await mutateAsync(data)
+  }, [prevparams, inputs, selectedItems, subCategoriaSelected, price])
 
   return (
     <NewAnucioLayout
@@ -132,7 +107,7 @@ export const NewAnuncioFormByCat: FC<
           label='Continuar'
           isFullWidth
           isDisabled={loadingSubCat}
-          // onPress={showCategoriaModalHandler}
+          onPress={onContinue}
         />
       }
     >
@@ -160,9 +135,23 @@ export const NewAnuncioFormByCat: FC<
           isDisabled={loadingSubCat}
           onPress={() => setShowSubCategoriaModal(true)}
         />
-        {/* <RenderExtraContent /> */}
-        {/* <Text variant={'subHeader'}>{title}</Text> */}
-        <CheckboxList items={checkboxData} onChange={onSelectedItemsChange} />
+        {renderPrice && (
+          <TextField
+            inputProps={{
+              placeholder: 'Precio (MXN)',
+              keyboardType: 'numeric',
+              onChangeText: (text) => setPrice(+text),
+            }}
+            required
+          />
+        )}
+        {fieldsLoaded && (
+          <ExtraContent
+            fields={fields}
+            setInputs={setInputs}
+            setSelectedItems={setSelectedItems}
+          />
+        )}
       </Box>
     </NewAnucioLayout>
   )

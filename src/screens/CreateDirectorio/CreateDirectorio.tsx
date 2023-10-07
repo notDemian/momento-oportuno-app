@@ -74,11 +74,12 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
     if (res.status.toLowerCase() === 'published') {
       Alert.alert('Felicidades', 'Tu directorio ha sido publicado', buttons)
     } else {
-      Alert.alert(
-        'Tu pago ha sido cancelado :(',
-        'Tu directorio no ha sido publicado',
-        buttons,
-      )
+      // Alert.alert(
+      //   'Tu pago ha sido cancelado :(',
+      //   'Tu directorio no ha sido publicado',
+      //   buttons,
+      // )
+      navigation.navigate('Directorio')
     }
   }, [data])
 

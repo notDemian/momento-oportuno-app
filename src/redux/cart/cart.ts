@@ -8,7 +8,21 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 const initialState: CartState = {
   paymentMethod: 'Efectivo',
   favorites: undefined,
+  createAnuncioParams: {
+    attributes: [],
+    categoryId: 0,
+    description: '',
+    name: '',
+    packageId: 0,
+    stateId: 0,
+    subcategoryId: 0,
+  },
 }
+
+export type InitialParams = Pick<
+  CartState['createAnuncioParams'],
+  'name' | 'description' | 'packageId' | 'stateId'
+>
 
 export const cartSlice = createSlice({
   name: Slices.Cart,
@@ -40,12 +54,23 @@ export const cartSlice = createSlice({
         ]
       }
     },
+    setInitialParams(state, action: PayloadAction<InitialParams>) {
+      state.createAnuncioParams = {
+        ...(state.createAnuncioParams ?? {}),
+        ...action.payload,
+      }
+    },
     resetCart(state) {
       state.paymentMethod = 'Efectivo'
     },
   },
 })
 
-export const { resetCart, setPaymentMethod, addToFavorites, toggleFavorite } =
-  cartSlice.actions
+export const {
+  resetCart,
+  setPaymentMethod,
+  addToFavorites,
+  toggleFavorite,
+  setInitialParams,
+} = cartSlice.actions
 export default cartSlice.reducer

@@ -10,11 +10,12 @@ import { SearchHeader } from './SearchHeader'
 import { useScrollToTop } from '@react-navigation/native'
 import { Images } from '@src/assets'
 import { Box, Image } from '@src/components'
-import { useEstados, useSafeAreaScrollViewStyles } from '@src/hooks'
+import { useEstados, useFields, useSafeAreaScrollViewStyles } from '@src/hooks'
 
 export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
   const ref = useRef(null)
   useScrollToTop(ref)
+  useFields()
   const styles = useSafeAreaScrollViewStyles(false)
   const { data, isLoading } = useEstados()
 
