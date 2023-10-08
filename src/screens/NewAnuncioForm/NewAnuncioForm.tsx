@@ -5,11 +5,15 @@ import { useDispatch } from 'react-redux'
 
 import { Estado } from '@src/api'
 import { Box, Button, Image, NewAnucioLayout, TextField } from '@src/components'
-import { ModalRadioButton } from '@src/components/ModalRadioButton'
-import { useCategorias, useEstados } from '@src/hooks'
+import {
+  ButtonModalGenerator,
+  ModalRadioButton,
+} from '@src/components/ModalRadioButton'
+import { useCategorias, useEstados, useUserPaquetes } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { InitialParams, setInitialParams } from '@src/redux'
 import { fontSize } from '@src/theme'
+import { CLOG } from '@src/utils'
 import * as ImagePicker from 'expo-image-picker'
 
 export const NewAnuncioForm: React.FC<
@@ -74,6 +78,8 @@ export const NewAnuncioForm: React.FC<
 
   const { data: estados, isLoading: loadingEstados } = useEstados()
   const { data: cat, isLoading: loadingCat } = useCategorias()
+  const { data: userPaquetes, isLoading: loadingPaq } = useUserPaquetes()
+  userPaquetes && userPaquetes[0] && CLOG(userPaquetes[0])
 
   const [params, setParams] = useState<InitialParams>({
     description: '',
@@ -109,23 +115,6 @@ export const NewAnuncioForm: React.FC<
         />
       }
     >
-      {!loadingEstados && estados ? (
-        <ModalRadioButton
-          isVisible={showCiudadModal}
-          data={estados.map((estado) => ({
-            label: estado.name,
-            value: estado.id,
-          }))}
-          hideModal={hideModal}
-          title='Selecciona tu estado'
-          onPressItem={(item) => {
-            const itemFound = estados.find((c) => c.id === item.value)
-            if (!itemFound) return
-            setSelectedCiudad(itemFound)
-            setParamsFactory('stateId')(itemFound.id.toString())
-          }}
-        />
-      ) : null}
       {!loadingCat && cat ? (
         <ModalRadioButton
           isVisible={showCategoriaModal}
@@ -160,21 +149,47 @@ export const NewAnuncioForm: React.FC<
           alignItems='center'
           gap='m'
         >
-          {/* <TextField
-            inputProps={{
-              placeholder: 'Precio (MXN)',
-              keyboardType: 'numeric',
-            }}
-            required
-            width={'45%'}
-          /> */}
-          <Button
-            onPress={showCiudadModalHandler}
-            isDisabled={loadingEstados}
-            label={selectedCiudad?.name || 'Seleccionar ciudad'}
-            isFullWidth
-            isModal
-          />
+          {estados && (
+            <ButtonModalGenerator
+              data={estados.map((estado) => ({
+                label: estado.name,
+                value: estado.id.toString(),
+              }))}
+              onPressItem={(item) => {
+                const itemFound = estados.find(
+                  (c) => c.id.toString() === item.value.toString(),
+                )
+                console.log({
+                  itemFound,
+                })
+                if (!itemFound) return
+                setSelectedCiudad(itemFound)
+                setParamsFactory('stateId')(itemFound.id.toString())
+              }}
+              title='Estado'
+            />
+          )}
+        </Box>
+        <Box flexDirection='row' alignItems='center' gap='m'>
+          {!loadingPaq &&
+            userPaquetes &&
+            (userPaquetes.length > 0 ? (
+              <ButtonModalGenerator
+                data={userPaquetes.map((paquete) => ({
+                  label: paquete.name,
+                  value: paquete.key,
+                }))}
+                onPressItem={(item) => {
+                  setParamsFactory('packageId')(item.value.toString())
+                }}
+                title='Paquete'
+              />
+            ) : (
+              <Button
+                label='Comprar paquete'
+                onPress={() => navigation.navigate('Package')}
+              />
+            ))}
         </Box>
         <Box height={fontSize.xxxl * 5}>
           <TextField
@@ -193,37 +208,6 @@ export const NewAnuncioForm: React.FC<
             height={'100%'}
           />
         </Box>
-        {/* <Text variant={'subHeader'}>Imágenes</Text>
-        {images.length > 0 ? (
-          <>
-            <Carousel
-              data={images}
-              renderItem={renderItemImage}
-              width={Dimensions.get('window').width}
-              height={Dimensions.get('window').width * 1.4}
-              numItemsPerSlide={1.2}
-              vertical={false}
-            />
-
-            <Button
-              variant='transparent'
-              onPress={onCleanImages}
-              flex={1}
-              label={'Borrar imágenes'}
-              isFullWidth
-            />
-          </>
-        ) : (
-          <Box flexDirection='row' gap='m'>
-            <Button
-              variant='secondary'
-              onPress={onShowImagePicker}
-              flex={1}
-              label={'Abrir galería'}
-              isFullWidth
-            />
-          </Box>
-        )} */}
       </Box>
     </NewAnucioLayout>
   )

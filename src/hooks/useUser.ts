@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 
 import { useAppSelector } from './useAppRedux'
@@ -13,10 +14,19 @@ export function useUser(): [User, logOutFunction] {
   const user = useAppSelector((s) => s.auth.user)
   const nav = useActivityHistoryStackNavigation()
   const dispatch = useDispatch()
+  const queryClient = useQueryClient()
+
+  const logOut = () => {
+    dispatch(logOutAction())
+    queryClient.clear()
+    queryClient.resetQueries()
+    queryClient.removeQueries()
+  }
 
   useEffect(() => {
     if (!user) {
       nav.navigate('AuthenticationStacks')
+      logOut()
     }
   }, [user])
 
@@ -27,8 +37,6 @@ export function useUser(): [User, logOutFunction] {
       user_email: '',
       user_nicename: '',
     }) as User,
-    () => {
-      dispatch(logOutAction())
-    },
+    logOut,
   ]
 }

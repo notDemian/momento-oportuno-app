@@ -23,6 +23,7 @@ export const Button: React.FC<ButtonProps> = ({
   borderRadius = 'l',
   leftIcon,
   isModal = false,
+  modalColor = palette.white,
   ...rest
 }) => {
   const alignSelf: LayoutProps<Theme>['alignSelf'] = isFullWidth
@@ -68,7 +69,7 @@ export const Button: React.FC<ButtonProps> = ({
           <Icon
             name='keyboard-arrow-down'
             type='MaterialIcons'
-            color={palette.white}
+            color={modalColor}
           />
           {children}
         </Box>
@@ -83,7 +84,7 @@ export const Button: React.FC<ButtonProps> = ({
             <Icon
               name='keyboard-arrow-down'
               type='MaterialIcons'
-              color={palette.white}
+              color={modalColor}
             />
             <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
               {!isDisabled ? (

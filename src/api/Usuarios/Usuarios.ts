@@ -68,7 +68,8 @@ const UsuariosServices = {
     }
   },
   async me() {
-    const res = await api.get('me')
+    const res = await api.get('users/me')
+
     return res.data
   },
 }

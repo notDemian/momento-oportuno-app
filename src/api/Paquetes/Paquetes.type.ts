@@ -26,3 +26,21 @@ export enum UserAccountType {
 export enum UserAccountTypeLabel {
   Cualquier = 'Cualquier',
 }
+import * as z from 'zod'
+
+export const DatumSchema = z.object({
+  key: z.string(),
+  name: z.string(),
+  number: z.number(),
+  expire: z.number(),
+  featured_expire: z.number(),
+  bumps_number: z.number(),
+  bumps_interval: z.number(),
+})
+export type Datum = z.infer<typeof DatumSchema>
+
+export const GetUserPaquetesSchema = z.union([
+  z.array(DatumSchema),
+  z.record(z.string(), DatumSchema.optional()),
+])
+export type GetUserPaquetes = z.infer<typeof GetUserPaquetesSchema>

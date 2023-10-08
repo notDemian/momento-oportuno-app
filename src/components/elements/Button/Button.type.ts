@@ -44,4 +44,5 @@ export type ButtonProps = ButtonRestyleProps &
     children?: React.ReactNode
     leftIcon?: React.ReactNode
     isModal?: boolean
+    modalColor?: string
   }

@@ -10,7 +10,7 @@ import {
   createAnuncioParams,
   FieldSchema,
 } from '@src/api'
-import { Box, Button, NewAnucioLayout, TextField } from '@src/components'
+import { Box, Button, NewAnucioLayout, Text, TextField } from '@src/components'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
 import {
   useAppSelector,
@@ -19,7 +19,7 @@ import {
   useFields,
 } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
-import { Constants } from '@src/utils'
+import { CLOG, Constants } from '@src/utils'
 
 export const NewAnuncioFormByCat: FC<
   ScreenProps<AccountStackParamList, 'NewAnuncioFormByCat'>
@@ -96,6 +96,7 @@ export const NewAnuncioFormByCat: FC<
         attributes: fromInputs,
       },
     }
+    CLOG(data)
     const res = await mutateAsync(data)
   }, [prevparams, inputs, selectedItems, subCategoriaSelected, price])
 
@@ -125,16 +126,8 @@ export const NewAnuncioFormByCat: FC<
           data={subCat.map((c) => ({ label: c.name, value: c.id }))}
         />
       )}
-      <Box gap={'m'}>
-        <Button
-          label={
-            !subCategoriaSelected
-              ? 'Elegir subcategoría'
-              : subCategoriaSelected.name
-          }
-          isDisabled={loadingSubCat}
-          onPress={() => setShowSubCategoriaModal(true)}
-        />
+      <Box gap={'m'} paddingHorizontal={'l'}>
+        <Text fontWeight={'bold'}>{JSON.stringify(prevparams, null, 2)}</Text>
         {renderPrice && (
           <TextField
             inputProps={{
@@ -152,6 +145,23 @@ export const NewAnuncioFormByCat: FC<
             setSelectedItems={setSelectedItems}
           />
         )}
+        <Box
+          height={5}
+          mt={'m'}
+          borderColor={'grayLight'}
+          borderTopWidth={1}
+          width={'150%'}
+        />
+        <Button
+          label={
+            !subCategoriaSelected
+              ? 'Elegir subcategoría'
+              : subCategoriaSelected.name
+          }
+          isDisabled={loadingSubCat}
+          variant={!subCategoriaSelected ? 'outline' : 'orangy'}
+          onPress={() => setShowSubCategoriaModal(true)}
+        />
       </Box>
     </NewAnucioLayout>
   )

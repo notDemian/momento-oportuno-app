@@ -1,6 +1,10 @@
 import Request from '../request'
 
-import { type GetALlPaquetesRes } from './Paquetes.type'
+import {
+  type GetALlPaquetesRes,
+  GetUserPaquetes,
+  GetUserPaquetesSchema,
+} from './Paquetes.type'
 
 import { uploadImage } from '@src/utils'
 import { Constants } from '@src/utils/constants'
@@ -14,9 +18,7 @@ const PaquetesServices = {
     return data
   },
   async uploadImage(uri: string) {
-    const base64auth = Buffer.from(
-      `${Constants.WOOCOMMERCE.PUBLIC_CLIENT}:${Constants.WOOCOMMERCE.SECRET_CLIENT}`,
-    ).toString('base64')
+    const base64auth = Constants.WOOCOMMERCE.SAFE_b64_TOKEN
 
     const opts = {
       fieldName: 'file',
@@ -29,6 +31,15 @@ const PaquetesServices = {
     }
 
     return await uploadImage(opts)
+  },
+  async getUserPaquetes(): Promise<GetUserPaquetes> {
+    const { data } = await api.get('mine')
+    const datavalidated = GetUserPaquetesSchema.safeParse(data)
+    if (!datavalidated.success) {
+      throw new Error(datavalidated.error.message)
+    }
+
+    return datavalidated.data
   },
 }
 

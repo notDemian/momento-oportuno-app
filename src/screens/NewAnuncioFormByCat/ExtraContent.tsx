@@ -1,36 +1,8 @@
-import { FC, useCallback, useState } from 'react'
+import { FC, useCallback } from 'react'
 
 import { FieldSchema } from '@src/api'
-import { Box, Button, RadioOption, Text, TextField } from '@src/components'
-import { ModalRadioButton } from '@src/components/ModalRadioButton'
-
-const ButtonMudalGenerator: FC<{
-  data: { label: string; value: string }[]
-  title: string
-  onPressItem: (item: RadioOption) => void
-}> = ({ data, title, onPressItem }) => {
-  const [showModal, setShowModal] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<RadioOption>()
-  return (
-    <>
-      <Button
-        label={selectedItem ? selectedItem.label : `Seleccionar ${title}`}
-        onPress={() => setShowModal(true)}
-      />
-      <ModalRadioButton
-        data={data}
-        isVisible={showModal}
-        hideModal={() => setShowModal(false)}
-        onPressItem={(item) => {
-          setSelectedItem(item)
-          setShowModal(false)
-          onPressItem(item)
-        }}
-        title={title}
-      />
-    </>
-  )
-}
+import { Box, RadioOption, Text, TextField } from '@src/components'
+import { ButtonModalGenerator } from '@src/components/ModalRadioButton'
 
 export const ExtraContent: FC<{
   fields: FieldSchema[]
@@ -94,7 +66,7 @@ export const ExtraContent: FC<{
   )
 
   return (
-    <Box gap={'m'}>
+    <>
       {fields.map((field, fIndex) => {
         if (field.type === 'embed' || field.type === 'gallery') return null
         if (
@@ -115,9 +87,9 @@ export const ExtraContent: FC<{
         if (!field.terms) return null
 
         return (
-          <Box key={fIndex}>
+          <Box key={fIndex} width={'100%'} g={'m'}>
             <Text variant={'subHeader'}>{field.name}</Text>
-            <ButtonMudalGenerator
+            <ButtonModalGenerator
               data={field.terms.map((term) => ({
                 label: term.name,
                 value: term.id + '',
@@ -128,6 +100,6 @@ export const ExtraContent: FC<{
           </Box>
         )
       })}
-    </Box>
+    </>
   )
 }

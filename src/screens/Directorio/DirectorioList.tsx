@@ -27,7 +27,7 @@ export const DirectorioList: React.FC<MicrositiosProps> = () => {
       ) : (
         <List<DirectorioMapped>
           renderItem={renderItem}
-          data={data}
+          data={data.reverse()}
           keyExtractor={keyExtractor}
           ItemSeparatorComponent={() => null}
           refreshControl={

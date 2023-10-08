@@ -37,7 +37,7 @@ export const MicrositiosStack: React.FC<MicrositiosScreenProps> = () => {
             headerTitleStyle: {
               color: palette.white,
             },
-            headerRight,
+            // headerRight,
           }
         }}
         name='Micrositios'
