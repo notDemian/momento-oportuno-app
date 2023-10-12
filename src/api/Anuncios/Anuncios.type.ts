@@ -111,6 +111,7 @@ export interface Attributes {
     | string
     | NonNullable<FieldSchema['terms']>
     | NonNullable<FieldSchema['terms']>[number]
+    | { listivo_130_listivo_459: string }
     | undefined
 }
 
@@ -122,3 +123,5 @@ export type createAnuncioParams = {
     attributes: Attributes[]
   }
 }
+
+export type createAnuncioResponse = createAnuncioParams

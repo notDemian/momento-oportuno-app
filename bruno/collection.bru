@@ -1,0 +1,19 @@
+auth {
+  mode: none
+}
+
+auth:bearer {
+  token: 
+}
+
+script:pre-request {
+  let url = req.getUrl();
+  if(url.includes('token')) return;
+  let token = bru.getVar("token");
+  if(!token) return;
+  req.setHeaders({
+    ...req.getHeaders(),
+    Authorization: 'Bearer '+token
+  });
+  
+}

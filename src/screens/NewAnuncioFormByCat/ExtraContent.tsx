@@ -21,15 +21,8 @@ export const ExtraContent: FC<{
         value: NonNullable<FieldSchema['terms']>[number] | undefined
       }>
     >
-  >
+  > // FIXME:
 }> = ({ fields, setInputs, setSelectedItems }) => {
-  // const [selectedItems, setSelectedItems] = useState<
-  //   Array<{
-  //     id: number
-  //     value: NonNullable<FieldSchema['terms']>[number] | undefined
-  //   }>
-  // >([])
-
   const onSelectedItemsChange = useCallback(
     (id: number) => (newItem: RadioOption) => {
       setSelectedItems((p) => [
@@ -44,14 +37,6 @@ export const ExtraContent: FC<{
     },
     [fields],
   )
-
-  // const [inputs, setInputs] = useState<
-  //   // Record<string | number, FieldSchema & { value: string }>
-  //   Array<{
-  //     id: number
-  //     value: string
-  //   }>
-  // >([])
 
   const onInputChange = useCallback(
     (id: number) => (text: string) => {

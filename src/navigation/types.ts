@@ -75,6 +75,7 @@ export type AccountStackParamList = {
 
   NewAnuncioForm: undefined
   NewAnuncioFormByCat: Categoria
+  MisAnuncios: undefined
 
   Checkout: Paquete
   PaymentMethod: undefined

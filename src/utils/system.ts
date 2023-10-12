@@ -6,7 +6,7 @@ export const isIos = Platform.OS === 'ios'
 
 export const CLOG = (arg: unknown) => {
   if (Constants.IS_DEV) {
-    console.log(`arg -> ${JSON.stringify(arg, null, 2)}`)
+    console.log(`arg ----------->\n${JSON.stringify(arg, null, 2)}`)
   }
 }
 

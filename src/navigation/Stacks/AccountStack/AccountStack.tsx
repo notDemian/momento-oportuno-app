@@ -68,6 +68,13 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
         component={PaymentMethod}
       />
       <Stack.Screen
+        name='MisAnuncios'
+        options={{
+          headerTitle: 'Anuncios',
+        }}
+        component={PaymentMethod}
+      />
+      <Stack.Screen
         name='Promotion'
         options={{
           headerTitle: 'Agregar un cupón',

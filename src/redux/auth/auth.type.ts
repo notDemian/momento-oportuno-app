@@ -1,4 +1,5 @@
 import { User } from '@src/api/Usuarios'
+import jwtDecode from 'jwt-decode'
 import { z } from 'zod'
 
 export interface AuthState {
@@ -18,5 +19,13 @@ export const JwtUserSchema = z.object({
     }),
   }),
 })
+
+export function JwtParse(token: string) {
+  const jwtDecoded = JwtUserSchema.safeParse(jwtDecode(token))
+  if (jwtDecoded.success) {
+    return jwtDecoded.data
+  }
+  return null
+}
 
 export type JwtUser = z.infer<typeof JwtUserSchema>

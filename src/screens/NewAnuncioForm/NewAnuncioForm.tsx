@@ -13,7 +13,6 @@ import { useCategorias, useEstados, useUserPaquetes } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { InitialParams, setInitialParams } from '@src/redux'
 import { fontSize } from '@src/theme'
-import { CLOG } from '@src/utils'
 import * as ImagePicker from 'expo-image-picker'
 
 export const NewAnuncioForm: React.FC<
@@ -79,7 +78,6 @@ export const NewAnuncioForm: React.FC<
   const { data: estados, isLoading: loadingEstados } = useEstados()
   const { data: cat, isLoading: loadingCat } = useCategorias()
   const { data: userPaquetes, isLoading: loadingPaq } = useUserPaquetes()
-  userPaquetes && userPaquetes[0] && CLOG(userPaquetes[0])
 
   const [params, setParams] = useState<InitialParams>({
     description: '',

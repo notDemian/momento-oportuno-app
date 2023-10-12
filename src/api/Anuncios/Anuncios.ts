@@ -2,12 +2,12 @@ import Request from '../request'
 
 import {
   createAnuncioParams,
+  createAnuncioResponse,
   getAnuncioRes,
   Main_Anuncios,
 } from './Anuncios.type'
 
 import { FilterParams } from '@src/redux/filter'
-import { wait } from '@src/utils/wait'
 
 const api = Request('/listings')
 
@@ -66,13 +66,9 @@ const AnunciosServices = {
 
     return data
   },
-  async createAnuncio(data: createAnuncioParams) {
-    await wait(2000)
-    return {
-      success: true,
-      message: 'Anuncio creado con éxito',
-      data,
-    }
+  async createAnuncio(params: createAnuncioParams) {
+    const { data } = await api.post<createAnuncioResponse>('/create', params)
+    return data
   },
 }
 

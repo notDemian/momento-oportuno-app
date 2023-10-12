@@ -34,6 +34,7 @@ const PaquetesServices = {
   },
   async getUserPaquetes(): Promise<GetUserPaquetes> {
     const { data } = await api.get('mine')
+
     const datavalidated = GetUserPaquetesSchema.safeParse(data)
     if (!datavalidated.success) {
       throw new Error(datavalidated.error.message)

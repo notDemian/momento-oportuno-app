@@ -10,7 +10,7 @@ import {
   createAnuncioParams,
   FieldSchema,
 } from '@src/api'
-import { Box, Button, NewAnucioLayout, Text, TextField } from '@src/components'
+import { Box, Button, NewAnucioLayout, TextField } from '@src/components'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
 import {
   useAppSelector,
@@ -23,7 +23,7 @@ import { CLOG, Constants } from '@src/utils'
 
 export const NewAnuncioFormByCat: FC<
   ScreenProps<AccountStackParamList, 'NewAnuncioFormByCat'>
-> = ({ route: { params } }) => {
+> = ({ route: { params }, navigation }) => {
   const { data: subCat, isLoading: loadingSubCat } = useCategorias(params.id)
 
   const [showSubCategoriaModal, setShowSubCategoriaModal] = useState(false)
@@ -85,7 +85,9 @@ export const NewAnuncioFormByCat: FC<
     if (renderPrice)
       fromInputs.push({
         id: Constants.IDS.Listivo_130,
-        value: price.toString(),
+        value: {
+          listivo_130_listivo_459: price.toString(),
+        },
       })
 
     const data: createAnuncioParams = {
@@ -96,9 +98,36 @@ export const NewAnuncioFormByCat: FC<
         attributes: fromInputs,
       },
     }
-    CLOG(data)
-    const res = await mutateAsync(data)
-  }, [prevparams, inputs, selectedItems, subCategoriaSelected, price])
+    CLOG({ data })
+    // return
+    try {
+      const res = await mutateAsync(data)
+      if (res) {
+        CLOG({ res })
+        Alert.alert('Éxito', 'Anuncio creado correctamente', [
+          {
+            text: 'OK',
+            isPreferred: true,
+            onPress: () => {
+              navigation.navigate('MisAnuncios')
+            },
+          },
+        ])
+      }
+    } catch (error: any) {
+      CLOG({ error: { ...error } })
+      Alert.alert('Error', 'Ocurrió un error al crear el anuncio')
+      navigation.goBack()
+    }
+  }, [
+    prevparams,
+    inputs,
+    selectedItems,
+    subCategoriaSelected,
+    price,
+    renderPrice,
+    params,
+  ])
 
   return (
     <NewAnucioLayout
@@ -127,7 +156,6 @@ export const NewAnuncioFormByCat: FC<
         />
       )}
       <Box gap={'m'} paddingHorizontal={'l'}>
-        <Text fontWeight={'bold'}>{JSON.stringify(prevparams, null, 2)}</Text>
         {renderPrice && (
           <TextField
             inputProps={{
@@ -145,13 +173,6 @@ export const NewAnuncioFormByCat: FC<
             setSelectedItems={setSelectedItems}
           />
         )}
-        <Box
-          height={5}
-          mt={'m'}
-          borderColor={'grayLight'}
-          borderTopWidth={1}
-          width={'150%'}
-        />
         <Button
           label={
             !subCategoriaSelected
@@ -161,6 +182,7 @@ export const NewAnuncioFormByCat: FC<
           isDisabled={loadingSubCat}
           variant={!subCategoriaSelected ? 'outline' : 'orangy'}
           onPress={() => setShowSubCategoriaModal(true)}
+          isModal
         />
       </Box>
     </NewAnucioLayout>

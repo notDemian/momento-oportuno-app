@@ -1,0 +1,90 @@
+{
+  "model": {
+    "name": "Mouse",
+    "description": "Mouse gaming",
+    "packageId": "listivo_11846",
+    "attributes": [
+      {
+        "id": 4780,
+        "value": "50,000"
+      },
+      {
+        "id": 1913,
+        "value": {
+          "id": 70,
+          "key": "listivo_70",
+          "name": "Aprendizaje",
+          "parent": 0,
+          "searchFormPlaceholder": "Selecciona Categoría",
+          "parentTermIds": [],
+          "dependencies": [],
+          "hasMultilevelChildren": false
+        }
+      },
+      {
+        "id": 1912,
+        "value": {
+          "id": 473,
+          "key": "listivo_473",
+          "name": "Otro",
+          "parent": 0,
+          "searchFormPlaceholder": "Selecciona Categoría",
+          "parentTermIds": [],
+          "dependencies": [],
+          "hasMultilevelChildren": false
+        }
+      },
+      {
+        "id": 1911,
+        "value": {
+          "id": 78,
+          "key": "listivo_78",
+          "name": "Empleador directo",
+          "parent": 0,
+          "searchFormPlaceholder": "Selecciona Categoría",
+          "parentTermIds": [],
+          "dependencies": [],
+          "hasMultilevelChildren": false
+        }
+      },
+      {
+        "id": 1910,
+        "value": {
+          "id": 82,
+          "key": "listivo_82",
+          "name": "Contrato",
+          "parent": 0,
+          "searchFormPlaceholder": "Selecciona Categoría",
+          "parentTermIds": [],
+          "dependencies": [],
+          "hasMultilevelChildren": false
+        }
+      },
+      {
+        "id": 14,
+        "value": [
+          {
+            "dependencies": [],
+            "hasMultilevelChildren": false,
+            "id": 4,
+            "key": "listivo_4",
+            "name": "Empleos",
+            "parent": 0,
+            "searchFormPlaceholder": "",
+            "parentTermIds": []
+          },
+          {
+            "dependencies": [],
+            "hasMultilevelChildren": false,
+            "id": 479,
+            "key": "listivo_479",
+            "name": "Otro",
+            "parent": 4,
+            "searchFormPlaceholder": "",
+            "parentTermIds": []
+          }
+        ]
+      }
+    ]
+  }
+}
