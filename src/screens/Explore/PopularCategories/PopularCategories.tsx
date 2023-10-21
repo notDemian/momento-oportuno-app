@@ -86,35 +86,34 @@ export const PopularCategories: React.FC = () => {
       justifyContent={'center'}
       marginTop={'l'}
     >
-      {isLoading || !filteredBymockCategoriesJointWithMocks ? (
-        <LoadingPageModal loading />
-      ) : null}
-      {filteredBymockCategoriesJointWithMocks?.map((category) => {
-        const { id, icon, name } = category
+      {isLoading ? <LoadingPageModal loading={isLoading} /> : null}
+      {filteredBymockCategoriesJointWithMocks &&
+        filteredBymockCategoriesJointWithMocks?.map((category) => {
+          const { id, icon, name } = category
 
-        const Icon = CustomIcon(icon)
+          const Icon = CustomIcon(icon)
 
-        return (
-          <Touchable key={id} onPress={onCategoryItemPress(id)}>
-            <Box
-              flexDirection='column'
-              alignItems='center'
-              width={Dimensions.get('window').width / itemsPerRow}
-              borderRadius={'xxl'}
-              padding='s'
-            >
-              <Box width={80} height={80}>
-                <Icon />
+          return (
+            <Touchable key={id} onPress={onCategoryItemPress(id)}>
+              <Box
+                flexDirection='column'
+                alignItems='center'
+                width={Dimensions.get('window').width / itemsPerRow}
+                borderRadius={'xxl'}
+                padding='s'
+              >
+                <Box width={80} height={80}>
+                  <Icon />
+                </Box>
+                <Box>
+                  <Text fontSize={fontSize.m} marginTop='s' fontWeight='bold'>
+                    {name}
+                  </Text>
+                </Box>
               </Box>
-              <Box>
-                <Text fontSize={fontSize.m} marginTop='s' fontWeight='bold'>
-                  {name}
-                </Text>
-              </Box>
-            </Box>
-          </Touchable>
-        )
-      })}
+            </Touchable>
+          )
+        })}
     </Box>
   )
 }

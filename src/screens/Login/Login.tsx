@@ -9,26 +9,26 @@ export const Login: React.FC<ScreenProps<AuthStackParamList, 'Login'>> = ({
   navigation,
 }) => {
   const [password, setPassword] = useState('')
-  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [mutateLogIn, { isLoading }] = useLogIn((d) => {
-    Alert.alert('Inicio de sesión exitoso', `Bienvenido ${d.user_nicename}`)
+    Alert.alert('Inicio de sesión exitoso', `Bienvenido ${d.name}`)
   })
 
   const onPasswordFieldChange = (value: string) => {
     setPassword(value)
   }
 
-  const onUsernameFieldChange = (value: string) => {
-    setUsername(value)
+  const onEmailFieldChange = (value: string) => {
+    setEmail(value)
   }
 
   const onSignIn = async () => {
-    if (!password || !username) {
+    if (!password || !email) {
       Alert.alert('Error', 'Please enter your password!')
       return
     }
     mutateLogIn({
-      username,
+      email,
       password,
     })
     // signIn()
@@ -63,8 +63,8 @@ export const Login: React.FC<ScreenProps<AuthStackParamList, 'Login'>> = ({
         <TextField
           inputProps={{
             autoFocus: true,
-            value: username,
-            onChangeText: onUsernameFieldChange,
+            value: email,
+            onChangeText: onEmailFieldChange,
             placeholder: 'Email o usuario',
           }}
         />

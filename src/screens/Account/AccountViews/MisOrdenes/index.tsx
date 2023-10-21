@@ -3,24 +3,16 @@ import { ListRenderItem } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
 import { Order } from '@src/api/Woocommerce/Woocommerce.type'
-import {
-  ActivityIndicator,
-  Box,
-  Button,
-  Icon,
-  List,
-  RefreshControl,
-  Text,
-} from '@src/components'
+import { Box, Button, Icon, List, Text } from '@src/components'
 import { SvgEmptyBox } from '@src/components/svgs'
-import { useAccountStackNavigation, useMyOrders } from '@src/hooks'
+import { useAccountStackNavigation } from '@src/hooks'
 import { getShadowBoxProps } from '@src/theme'
 import dayjs from 'dayjs'
 
 const MisOrdenes = () => {
   const nav = useAccountStackNavigation()
 
-  const { data: orders, isLoading, refetch } = useMyOrders()
+  // const { data: orders, isLoading, refetch } = useMyOrders()
 
   const renderItem = useCallback<ListRenderItem<Order>>(({ item }) => {
     return (
@@ -95,7 +87,7 @@ const MisOrdenes = () => {
 
   return (
     <ScrollView>
-      {isLoading && <ActivityIndicator />}
+      {/* {isLoading && <ActivityIndicator />} */}
       {/* <Box
           width={'100%'}
           flexDirection={'row'}
@@ -117,16 +109,16 @@ const MisOrdenes = () => {
         </Box> */}
       <List<Order>
         renderItem={renderItem}
-        data={orders}
+        data={[]}
         ListEmptyComponent={ListEmptyComponent}
         ItemSeparatorComponent={() => null}
         contentContainerStyle={{ flexGrow: 1, backgroundColor: 'transparent' }}
         style={{ backgroundColor: 'transparent' }}
         scrollEnabled={false}
         showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={refetch} />
-        }
+        // refreshControl={
+        //   <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+        // }
       />
     </ScrollView>
   )

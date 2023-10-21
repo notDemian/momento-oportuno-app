@@ -5,7 +5,6 @@ import { z } from 'zod'
 export interface AuthState {
   token: string
   user: User | null
-  userId: number
 }
 
 export const JwtUserSchema = z.object({

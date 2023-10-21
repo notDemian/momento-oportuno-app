@@ -1,8 +1,10 @@
+import { MyAxiosInstance } from './request.type'
+
 import { store } from '@src/redux'
 import { Constants, type ENDPOINTS } from '@src/utils/constants'
-import axios, { type AxiosInstance } from 'axios'
+import axios from 'axios'
 
-export default function Request(service: ENDPOINTS): AxiosInstance {
+export default function Request(service: ENDPOINTS): MyAxiosInstance {
   const url = Constants.IS_DEV ? Constants.URL.DEV : Constants.URL.PROD
 
   const req = axios.create({
@@ -30,7 +32,7 @@ export default function Request(service: ENDPOINTS): AxiosInstance {
   return req
 }
 
-export function CustomRequest(url: string): AxiosInstance {
+export function CustomRequest(url: string): MyAxiosInstance {
   const fullUrl = Constants.IS_DEV
     ? Constants.URL.CUSTOM_DEV
     : Constants.URL.CUSTOM

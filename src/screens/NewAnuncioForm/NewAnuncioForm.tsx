@@ -3,7 +3,6 @@ import { Alert, Dimensions } from 'react-native'
 import { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types'
 import { useDispatch } from 'react-redux'
 
-import { Estado } from '@src/api'
 import { Box, Button, Image, NewAnucioLayout, TextField } from '@src/components'
 import {
   ButtonModalGenerator,
@@ -18,8 +17,6 @@ import * as ImagePicker from 'expo-image-picker'
 export const NewAnuncioForm: React.FC<
   ScreenProps<AccountStackParamList, 'NewAnuncioForm'>
 > = ({ navigation }) => {
-  const [showCiudadModal, setShowCiudadModal] = useState(false)
-  const [selectedCiudad, setSelectedCiudad] = useState<Estado>()
   const [showCategoriaModal, setShowCategoriaModal] = useState(false)
 
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([])
@@ -40,9 +37,9 @@ export const NewAnuncioForm: React.FC<
     }
   }, [])
 
-  const onCleanImages = useCallback(() => {
+  const onCleanImages = () => {
     setImages([])
-  }, [])
+  }
 
   const renderItemImage = useCallback<
     CarouselRenderItem<ImagePicker.ImagePickerAsset>
@@ -66,14 +63,9 @@ export const NewAnuncioForm: React.FC<
     )
   }, [])
 
-  const hideModal = useCallback(() => {
-    setShowCiudadModal(false)
+  const hideModal = () => {
     setShowCategoriaModal(false)
-  }, [])
-
-  const showCiudadModalHandler = useCallback(() => {
-    setShowCiudadModal(true)
-  }, [])
+  }
 
   const { data: estados, isLoading: loadingEstados } = useEstados()
   const { data: cat, isLoading: loadingCat } = useCategorias()
@@ -161,7 +153,6 @@ export const NewAnuncioForm: React.FC<
                   itemFound,
                 })
                 if (!itemFound) return
-                setSelectedCiudad(itemFound)
                 setParamsFactory('stateId')(itemFound.id.toString())
               }}
               title='Estado'

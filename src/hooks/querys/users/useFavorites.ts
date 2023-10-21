@@ -4,7 +4,6 @@ import {
   useQueryClient,
   UseQueryResult,
 } from 'react-query'
-import { GetFavoritesResponse } from '../../../api/Usuarios/Usuarios.type'
 
 import { UsersQuerys } from './users.query'
 
@@ -31,43 +30,43 @@ export const useFavorites = <T extends boolean = false>(
   })
 }
 
-export const useAddFavorite = (id: number) => {
-  const queryCLient = useQueryClient()
+// export const useAddFavorite = (id: number) => {
+//   const queryCLient = useQueryClient()
 
-  const dispatch = useAppDispatch()
+//   const dispatch = useAppDispatch()
 
-  return useQuery({
-    queryKey: [UsersQuerys.addFavorite, id],
-    queryFn: () => UserServices.addFavorite(id),
-    onSuccess: () => {
-      queryCLient.invalidateQueries(UsersQuerys.getFavorites)
-      dispatch(toggleFavorite(id))
-    },
-  })
-}
+//   return useQuery({
+//     queryKey: [UsersQuerys.addFavorite, id],
+//     queryFn: () => UserServices.addFavorite(id),
+//     onSuccess: () => {
+//       queryCLient.invalidateQueries(UsersQuerys.getFavorites)
+//       dispatch(toggleFavorite(id))
+//     },
+//   })
+// }
 
-export const useRemoveFavorite = (id: number) => {
-  const queryCLient = useQueryClient()
+// export const useRemoveFavorite = (id: number) => {
+//   const queryCLient = useQueryClient()
 
-  return useQuery({
-    queryKey: [UsersQuerys.removeFavorite, id],
-    queryFn: () => UserServices.removeFavorite(id),
-    onSuccess: () => {
-      queryCLient.invalidateQueries(UsersQuerys.getFavorites)
-    },
-  })
-}
+//   return useQuery({
+//     queryKey: [UsersQuerys.removeFavorite, id],
+//     queryFn: () => UserServices.removeFavorite(id),
+//     onSuccess: () => {
+//       queryCLient.invalidateQueries(UsersQuerys.getFavorites)
+//     },
+//   })
+// }
 
-export const useToggleFavorite = (id: number) => {
-  const queryCLient = useQueryClient()
-  const dispatch = useAppDispatch()
+// export const useToggleFavorite = (id: number) => {
+//   const queryCLient = useQueryClient()
+//   const dispatch = useAppDispatch()
 
-  return useMutation({
-    mutationKey: [UsersQuerys.toggleFavorite, id],
-    mutationFn: () => UserServices.toggleFavorite(id),
-    onSuccess: () => {
-      queryCLient.invalidateQueries(UsersQuerys.getFavorites)
-      dispatch(toggleFavorite(id))
-    },
-  })
-}
+//   return useMutation({
+//     mutationKey: [UsersQuerys.toggleFavorite, id],
+//     mutationFn: () => UserServices.toggleFavorite(id),
+//     onSuccess: () => {
+//       queryCLient.invalidateQueries(UsersQuerys.getFavorites)
+//       dispatch(toggleFavorite(id))
+//     },
+//   })
+// }

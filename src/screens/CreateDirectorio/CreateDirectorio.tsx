@@ -20,12 +20,7 @@ import {
   WebModal,
 } from '@src/components'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
-import {
-  useCreateDirectorio,
-  useDirectorio,
-  useDirectoriosVariations,
-  useEstados,
-} from '@src/hooks'
+import { useCreateDirectorio, useDirectorio, useEstados } from '@src/hooks'
 import { DirectorioStackParamList, ScreenProps } from '@src/navigation'
 import { fontSize } from '@src/theme'
 
@@ -37,7 +32,7 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
   navigation,
 }) => {
   const { data: estados } = useEstados()
-  const { data: dirVariants } = useDirectoriosVariations()
+  // const { data: dirVariants } = useDirectoriosVariations()
   const { mutateAsync, data, isLoading: isCreatingDIr } = useCreateDirectorio()
   const { mutateAsync: checkDirectory } = useDirectorio()
 
@@ -260,7 +255,7 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
               ? 'Selecciona el paquete'
               : `${paquete.attributes[0].option} días por $${paquete.regular_price}`}
           </Button>
-          {dirVariants && (
+          {/* {dirVariants && (
             <ModalRadioButton
               isVisible={showPaquetesModal}
               data={dirVariants.map((e) => ({
@@ -273,7 +268,7 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
                 setPaquete(dirVariants.find((es) => es.id === e.value))
               }
             />
-          )}
+          )} */}
           <CheckBox
             label='Aceptar terminos y condiciones'
             onChange={(e) => {

@@ -1,82 +1,52 @@
-import { z } from 'zod'
+import * as z from 'zod'
 
-export interface User {
-  token: string
-  user_display_name: string
-  user_email: string
-  user_nicename: string
-}
-
-export type logInRes = User
-
-export type registerRes = { message: string; title: string }
-
-export const logInParamsSchema = z.object({
-  username: z.string(),
-  password: z.string(),
-})
-
-export type logInParams = z.infer<typeof logInParamsSchema>
-
-export const registerParamsSchema = z.object({
-  username: z.string(),
+export const UserSchema = z.object({
+  id: z.number(),
+  name: z.string(),
   email: z.string(),
-  password: z.string(),
-  phone: z.string(),
+  email_verified_at: z.string().nullable().default(null),
+  created_at: z.coerce.date(),
+  updated_at: z.coerce.date(),
 })
+export type User = z.infer<typeof UserSchema>
 
-export type registerParams = z.infer<typeof registerParamsSchema>
+export const GeneralLogInSchema = z.object({
+  token: z.string(),
+  user: UserSchema,
+})
+export type GeneralLogIn = z.infer<typeof GeneralLogInSchema>
 
-export type GetFavoritesResponse = Favorite[]
+export type logInRes = GeneralLogIn
 
-export type Favorite = {
-  ID: number
-  post_author: string
-  post_date: Date
-  post_date_gmt: Date
-  post_content: string
-  post_title: string
-  post_excerpt: string
-  post_status: string
-  comment_status: string
-  ping_status: string
-  post_password: string
-  post_name: string
-  to_ping: string
-  pinged: string
-  post_modified: Date
-  post_modified_gmt: Date
-  post_content_filtered: string
-  post_parent: number
-  guid: string
-  menu_order: number
-  post_type: string
-  post_mime_type: string
-  comment_count: string
-  filter: string
+export type registerRes = GeneralLogIn
+
+export type logInParams = {
+  email: string
+  password: string
 }
 
-export interface GetUserByIdResponse {
-  id: number
+export type registerParams = {
   name: string
-  url: string
-  description: string
-  link: string
-  slug: string
-  avatar_urls: { [key: string]: string | null }
-  meta: any[]
-  acf: any[]
-  is_super_admin: boolean
-  woocommerce_meta: WoocommerceMeta
-  _links: {
-    self: {
-      href: string
-    }[]
-    collection: {
-      href: string
-    }[]
-  }
+  email: string
+  password: string
+  password_confirmation: string
 }
+
+// export const DataSchema = z.object({
+//   id: z.number(),
+//   name: z.string(),
+//   email: z.string(),
+// });
+// export type Data = z.infer<typeof DataSchema>;
+
+export const GetMeResponseSchema = z.object({
+  data: UserSchema.omit({
+    email_verified_at: true,
+    created_at: true,
+    updated_at: true,
+  }),
+})
+export type GetMeResponse = z.infer<typeof GetMeResponseSchema>
 
 export interface WoocommerceMeta {
   variable_product_tour_shown: string
