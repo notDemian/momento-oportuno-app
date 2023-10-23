@@ -1,13 +1,13 @@
 import { memo, useCallback } from 'react'
 import { ListRenderItem } from 'react-native'
 
-import { Anuncio } from '@src/api'
+import {} from '@src/api'
 import { Box, List, Text } from '@src/components'
 import { SvgEmptyMsg } from '@src/components/svgs'
 
 const Mensajes = () => {
-  const renderItem = useCallback<ListRenderItem<Anuncio>>((anuncio) => {
-    return <Text>{anuncio.item.content.rendered}</Text>
+  const renderItem = useCallback<ListRenderItem<unknown>>((anuncio) => {
+    return <Text>hola!</Text>
   }, [])
 
   const ListEmptyComponent = useCallback(() => {
@@ -35,7 +35,7 @@ const Mensajes = () => {
   }, [])
 
   return (
-    <List<Anuncio>
+    <List
       renderItem={renderItem}
       data={[]}
       ListEmptyComponent={ListEmptyComponent}

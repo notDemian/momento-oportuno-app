@@ -10,6 +10,7 @@ import { AccountStackParamList, ScreenProps } from '@src/navigation'
 type CheckoutProps = ScreenProps<AccountStackParamList, 'Checkout'>
 
 export const Checkout: FC<CheckoutProps> = ({ navigation, route }) => {
+  route.params
   // const totalPrice = React.useMemo(() => {
   //   route.params.isFeatured
   //   return route.params.price

@@ -11,11 +11,11 @@ import {
   Text,
   Touchable,
 } from '@src/components'
-import { useFavorites, useToggleFavorite } from '@src/hooks'
+import { useAddFavorite, useMyFavorites, useRemoveFavorite } from '@src/hooks'
 import { getShadowBoxProps, palette } from '@src/theme'
 
 type BottomButtonsProps = {
-  link: string
+  link: string | null | undefined
   id: number
 }
 
@@ -23,28 +23,36 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
   link,
   id,
 }) => {
-  const { data: favorites } = useFavorites()
-  const { mutate, isLoading } = useToggleFavorite(id)
+  const { data: favorites } = useMyFavorites()
+  const { mutate: addFav, isLoading } = useAddFavorite()
+  const { mutate: rmFav, isLoading: loadRm } = useRemoveFavorite()
 
-  const isFavorite = favorites?.includes(id)
+  const isFavorite = favorites?.data?.find((fav) => fav.id === id)
 
   const funcs = useMemo(
     () => ({
       share: async () => {
         try {
+          if (!link) return
           await Share.share({
             message: link,
             title: 'Compartir',
           })
-        } catch (error) {}
+        } catch (error) {
+          console.log(error)
+        }
       },
-      favorite: () => {
-        mutate()
+      favorite: async () => {
+        if (isFavorite) {
+          rmFav(id)
+          return
+        }
+        addFav(id)
       },
       print: () => {},
       danger: () => {},
     }),
-    [link, id],
+    [link, id, isFavorite],
   )
 
   return (

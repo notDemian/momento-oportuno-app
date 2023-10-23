@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { HeaderBackground } from '@react-navigation/elements'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import {
   AccountScreenProps,
@@ -48,12 +47,8 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
       <Stack.Screen
         options={() => {
           return {
-            title: 'Cuenta',
-            headerBackground: () => (
-              <HeaderBackground style={{ backgroundColor: colors.primary }} />
-            ),
             headerTintColor: colors.white,
-            // headerShown: false,
+            headerShown: false,
           }
         }}
         name='Package'

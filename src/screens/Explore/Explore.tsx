@@ -10,12 +10,11 @@ import { SearchHeader } from './SearchHeader'
 import { useScrollToTop } from '@react-navigation/native'
 import { Images } from '@src/assets'
 import { Box, Image } from '@src/components'
-import { useEstados, useFields, useSafeAreaScrollViewStyles } from '@src/hooks'
+import { useEstados, useSafeAreaScrollViewStyles } from '@src/hooks'
 
 export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
   const ref = useRef(null)
   useScrollToTop(ref)
-  useFields()
 
   const styles = useSafeAreaScrollViewStyles(false)
   const { data, isLoading } = useEstados()
@@ -29,11 +28,11 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
       <Image source={Images.main_logo} height={'5%'} contentFit='scale-down' />
       <SearchHeader />
       <PopularCategories />
-      <PopularPlaces estados={data} />
+      <PopularPlaces estados={data?.data} />
       <Image source={Images.opcionesPasos} height={200} />
       {isLoading || !data
         ? null
-        : data.map((estado) => (
+        : data.data.map((estado) => (
             <RecommendedByState
               key={estado.id}
               navigation={navigation}

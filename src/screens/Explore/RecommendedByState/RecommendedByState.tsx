@@ -4,52 +4,58 @@ import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typ
 
 import { RecommendedByStateProps } from './RecommendedByState.type'
 
-import { ContentLoader } from '@src/components'
-import { Card, Carousel, Section } from '@src/components/elements'
+import { Ad } from '@src/api'
+import { ContentLoader, SvgEmptyBox } from '@src/components'
+import { Box, Card, Carousel, Section, Text } from '@src/components/elements'
 import { RecommendedCardInfo } from '@src/components/RecommendedCardInfo'
-import { useAnunciosByState, useSearchStackNavigation } from '@src/hooks'
-import { MappedAnuncio } from '@src/utils'
+import {
+  useAnuncios,
+  useAppDispatch,
+  useSearchStackNavigation,
+} from '@src/hooks'
+import { setState } from '@src/redux'
+import { getShadowBoxProps } from '@src/theme'
+import { IMAGE_URL_FALLBACK } from '@src/utils'
 
 export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
   state,
 }) => {
   const nav = useSearchStackNavigation()
-  const renderItem = useCallback(
-    (props: CarouselRenderItemInfo<MappedAnuncio>) => {
-      const { id, defaultImages } = props.item
+  const renderItem = useCallback((props: CarouselRenderItemInfo<Ad>) => {
+    const { id, image } = props.item
 
-      return (
-        <Card
-          key={id}
-          coverImage={defaultImages[0]}
-          coverImageSize='l'
-          title={props.item.title}
-          marginLeft='m'
-          titleProps={{
-            numberOfLines: 1,
-          }}
-          subTitleProps={{
-            numberOfLines: 2,
-          }}
-          onPress={() => {
-            nav.jumpTo('SearchTab', {
-              screen: 'AnuncioDetailsModal',
-              params: { data: { id } },
-            })
-          }}
-        >
-          <RecommendedCardInfo data={props.item} />
-        </Card>
-      )
-    },
-    [],
-  )
+    return (
+      <Card
+        key={id}
+        coverImage={image ?? IMAGE_URL_FALLBACK}
+        coverImageSize='m'
+        title={props.item.title}
+        marginLeft='m'
+        titleProps={{
+          numberOfLines: 1,
+        }}
+        onPress={() => {
+          nav.jumpTo('SearchTab', {
+            screen: 'AnuncioDetailsModal',
+            params: { data: { id } },
+          })
+        }}
+      >
+        <RecommendedCardInfo data={props.item} />
+      </Card>
+    )
+  }, [])
+
+  const dispatch = useAppDispatch()
 
   const onButtonActionPress = useCallback(() => {
+    dispatch(setState(state.id))
+    nav.navigate('SearchTab', { screen: 'Search' })
+
     // navigation.navigate('PlaceList', { title: state })
   }, [state])
 
-  const { data: anuncios, isLoading } = useAnunciosByState({ state: state.id })
+  const { data: anuncios, isLoading } = useAnuncios({ state: state.id })
 
   const flattenData = useMemo(
     () => anuncios?.pages.flatMap((page) => page.data),
@@ -70,7 +76,7 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
           renderItem={() => <ContentLoader />}
           height={250}
         />
-      ) : (
+      ) : flattenData.length > 0 ? (
         <Carousel
           numItemsPerSlide={1.4}
           data={flattenData}
@@ -78,6 +84,17 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
           renderItem={renderItem}
           height={250}
         />
+      ) : (
+        <Box
+          {...getShadowBoxProps()}
+          margin={'s'}
+          padding={'m'}
+          justifyContent='center'
+          alignItems='center'
+        >
+          <Text>No hay recomendaciones para {state.name} en este momento</Text>
+          <SvgEmptyBox />
+        </Box>
       )}
     </Section>
   )

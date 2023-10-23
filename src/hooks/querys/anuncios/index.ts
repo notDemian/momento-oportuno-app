@@ -1,5 +1,2 @@
-export * from './anuncios.query'
-export * from './useAnuncio'
-export * from './useAnuncios'
-export * from './useAnunciosByState'
-export * from './useCreateAnuncio'
+export * from './anuncios.hooks'
+export * from './anuncios.keys'

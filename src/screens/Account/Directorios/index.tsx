@@ -1,14 +1,13 @@
 import { useCallback } from 'react'
 import { ListRenderItem } from 'react-native'
 
-import { Order } from '@src/api/Woocommerce/Woocommerce.type'
 import { Box, Button, List, SvgEmptyBox, Text } from '@src/components'
 import { useAccountStackNavigation } from '@src/hooks'
 
 export const DirectoriosTab = () => {
   const nav = useAccountStackNavigation()
 
-  const renderItem = useCallback<ListRenderItem<Order>>(({ item }) => {
+  const renderItem = useCallback<ListRenderItem<unknown>>(({ item }) => {
     return <Box />
   }, [])
 

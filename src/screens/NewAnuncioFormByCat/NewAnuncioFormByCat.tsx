@@ -4,27 +4,16 @@ import { Alert } from 'react-native'
 
 import { ExtraContent } from './ExtraContent'
 
-import {
-  Attributes,
-  Categoria,
-  createAnuncioParams,
-  FieldSchema,
-} from '@src/api'
+import { Attributes, Categoria, createAnuncioParams } from '@src/api'
 import { Box, Button, NewAnucioLayout, TextField } from '@src/components'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
-import {
-  useAppSelector,
-  useCategorias,
-  useCreateAnuncio,
-  useFields,
-} from '@src/hooks'
+import { useAppSelector, useCategorias } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
-import { CLOG, Constants } from '@src/utils'
 
 export const NewAnuncioFormByCat: FC<
   ScreenProps<AccountStackParamList, 'NewAnuncioFormByCat'>
 > = ({ route: { params }, navigation }) => {
-  const { data: subCat, isLoading: loadingSubCat } = useCategorias(params.id)
+  const { data: subCat, isLoading: loadingSubCat } = useCategorias()
 
   const [showSubCategoriaModal, setShowSubCategoriaModal] = useState(false)
   const [subCategoriaSelected, setSubCategoriaSelected] = useState<Categoria>()
@@ -43,11 +32,11 @@ export const NewAnuncioFormByCat: FC<
     }>
   >([])
 
-  const { data: fields, isSuccess: fieldsLoaded } = useFields(params.id)
-  const renderPrice = !fields?.some((f) => f.type === 'salary')
+  // const { data: fields, isSuccess: fieldsLoaded } = useFields(params.id)
+  // const renderPrice = !fields?.some((f) => f.type === 'salary')
   const [price, setPrice] = useState(0)
   const prevparams = useAppSelector((s) => s.cart.createAnuncioParams)
-  const { mutateAsync, isLoading } = useCreateAnuncio()
+  // const { mutateAsync, isLoading } = useCreateAnuncio()
 
   const onContinue = useCallback(async () => {
     if (!subCategoriaSelected)
@@ -56,7 +45,7 @@ export const NewAnuncioFormByCat: FC<
       ...inputs,
       ...selectedItems,
       {
-        id: Constants.IDS.Listivo_14,
+        id: 0,
         value: [
           {
             dependencies: [],
@@ -82,14 +71,6 @@ export const NewAnuncioFormByCat: FC<
       },
     ]
 
-    if (renderPrice)
-      fromInputs.push({
-        id: Constants.IDS.Listivo_130,
-        value: {
-          listivo_130_listivo_459: price.toString(),
-        },
-      })
-
     const data: createAnuncioParams = {
       model: {
         name: prevparams.name,
@@ -98,36 +79,27 @@ export const NewAnuncioFormByCat: FC<
         attributes: fromInputs,
       },
     }
-    CLOG({ data })
     // return
-    try {
-      const res = await mutateAsync(data)
-      if (res) {
-        CLOG({ res })
-        Alert.alert('Éxito', 'Anuncio creado correctamente', [
-          {
-            text: 'OK',
-            isPreferred: true,
-            onPress: () => {
-              navigation.navigate('MisAnuncios')
-            },
-          },
-        ])
-      }
-    } catch (error: any) {
-      CLOG({ error: { ...error } })
-      Alert.alert('Error', 'Ocurrió un error al crear el anuncio')
-      navigation.goBack()
-    }
-  }, [
-    prevparams,
-    inputs,
-    selectedItems,
-    subCategoriaSelected,
-    price,
-    renderPrice,
-    params,
-  ])
+    // try {
+    //   const res = await mutateAsync(data)
+    //   if (res) {
+    //     CLOG({ res })
+    //     Alert.alert('Éxito', 'Anuncio creado correctamente', [
+    //       {
+    //         text: 'OK',
+    //         isPreferred: true,
+    //         onPress: () => {
+    //           navigation.navigate('MisAnuncios')
+    //         },
+    //       },
+    //     ])
+    //   }
+    // } catch (error: any) {
+    //   CLOG({ error: { ...error } })
+    //   Alert.alert('Error', 'Ocurrió un error al crear el anuncio')
+    //   navigation.goBack()
+    // }
+  }, [prevparams, inputs, selectedItems, subCategoriaSelected, price, params])
 
   return (
     <NewAnucioLayout

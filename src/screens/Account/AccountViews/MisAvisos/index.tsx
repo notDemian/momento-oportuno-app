@@ -1,17 +1,20 @@
 import { memo, useCallback } from 'react'
 import { ListRenderItem } from 'react-native'
 
-import { Anuncio } from '@src/api'
+import { Ad } from '@src/api'
 import { Box, Button, List, Text } from '@src/components'
 import SvgEmptyBox from '@src/components/svgs/SvgEmptyBox'
-import { useAccountStackNavigation } from '@src/hooks'
+import { useAccountStackNavigation, useMisAnuncios } from '@src/hooks'
+import { AnuncioItem } from '@src/screens/SearchScreen/AnuncioItem/AnuncioItem'
 
 const MisAnuncios = () => {
   const nav = useAccountStackNavigation()
 
-  const renderItem = useCallback<ListRenderItem<Anuncio>>((anuncio) => {
-    return <Text>{anuncio.item.content.rendered}</Text>
+  const renderItem = useCallback<ListRenderItem<Ad>>((anuncio) => {
+    return <AnuncioItem data={anuncio.item} isFav />
   }, [])
+
+  const { data: myAds } = useMisAnuncios()
 
   const ListEmptyComponent = useCallback(() => {
     return (
@@ -38,12 +41,12 @@ const MisAnuncios = () => {
   }, [])
 
   return (
-    <List<Anuncio>
+    <List<Ad>
       renderItem={renderItem}
-      data={[]}
+      data={myAds?.data}
       ListEmptyComponent={ListEmptyComponent}
       contentContainerStyle={{ flexGrow: 1 }}
-      scrollEnabled={false}
+      scrollEnabled={true}
       showsVerticalScrollIndicator={false}
     />
   )

@@ -1,4 +1,10 @@
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import type {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from 'axios'
+import { ZodError } from 'zod'
 
 export type MyAxiosInstance = Omit<
   AxiosInstance,
@@ -24,3 +30,5 @@ export type MyAxiosInstance = Omit<
     config?: AxiosRequestConfig<D>,
   ): Promise<R>
 }
+
+export type QueryErrors = AxiosError | ZodError

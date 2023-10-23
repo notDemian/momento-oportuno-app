@@ -21,7 +21,7 @@ import {
 import { useAnuncios } from '@src/hooks'
 import { ScreenProps, SearchStackParamList } from '@src/navigation'
 import { useAppTheme } from '@src/theme'
-import { MappedAnuncio } from '@src/utils'
+import { CLOG } from '@src/utils'
 
 type SearchScreenProps = ScreenProps<SearchStackParamList, 'Search'>
 
@@ -53,6 +53,7 @@ export const SearchScreen: FC<SearchScreenProps> = ({
     state,
     query: deboncedSearch,
   })
+  data?.pages?.[0]?.data?.[1] && CLOG(data.pages[0].data[1].image)
 
   const fetchMore = useCallback(() => {
     if (hasNextPage) {
@@ -99,7 +100,7 @@ export const SearchScreen: FC<SearchScreenProps> = ({
       <ListHeaderComponent />
       {isLoading && <LoadingPageModal loading />}
       {isSuccess ? (
-        <List<MappedAnuncio>
+        <List
           data={flattenData}
           // keyExtractor={keyExtractor}
 

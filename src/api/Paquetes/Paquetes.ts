@@ -1,47 +1,43 @@
 import Request from '../request'
 
+import type {
+  GetPackagesResponse,
+  GetUserPackages,
+  TypePackage,
+} from './Paquetes.type'
 import {
-  type GetALlPaquetesRes,
-  GetUserPaquetes,
-  GetUserPaquetesSchema,
+  GetPackagesResponseSchema,
+  GetUserPackagesSchema,
 } from './Paquetes.type'
 
-import { uploadImage } from '@src/utils'
-import { Constants } from '@src/utils/constants'
+import { Constants } from '@src/utils'
 
-const api = Request(Constants.ENDPOINTS.PACKAGES)
-
-const PaquetesServices = {
-  async getAllPaquetes(): Promise<GetALlPaquetesRes> {
-    const { data } = await api.get<GetALlPaquetesRes>('get')
-
-    return data
-  },
-  async uploadImage(uri: string) {
-    const base64auth = Constants.WOOCOMMERCE.SAFE_b64_TOKEN
-
-    const opts = {
-      fieldName: 'file',
-      imageUri: uri,
-      type: 'image/jpeg',
-      url: Constants.ENDPOINTS.UPLOAD_IMAGE,
-      extraHeaders: {
-        Authorization: `Basic ${base64auth}`,
-      },
+const req = Request(Constants.ENDPOINTS.PACKAGES)
+export class PackagesServices {
+  /**
+   * @throws {AxiosError,ZodError}
+   */
+  static async getAllPaquetes(
+    type?: TypePackage,
+  ): Promise<GetPackagesResponse> {
+    let q = ''
+    if (type) {
+      q = `?type=${type}`
     }
+    const { data } = await req.get('/' + q)
+    const parsed = GetPackagesResponseSchema.parse(data)
 
-    return await uploadImage(opts)
-  },
-  async getUserPaquetes(): Promise<GetUserPaquetes> {
-    const { data } = await api.get('mine')
+    return parsed
+  }
 
-    const datavalidated = GetUserPaquetesSchema.safeParse(data)
-    if (!datavalidated.success) {
-      throw new Error(datavalidated.error.message)
-    }
+  /**
+   * @throws {AxiosError,ZodError}
+   */
+  static async getUserPaquetes(): Promise<GetUserPackages> {
+    const { data } = await req.get('mine')
 
-    return datavalidated.data
-  },
+    const datavalidated = GetUserPackagesSchema.parse(data)
+
+    return datavalidated
+  }
 }
-
-export default PaquetesServices

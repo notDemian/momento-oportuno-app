@@ -2,7 +2,7 @@ import React from 'react'
 import { Dimensions } from 'react-native'
 import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types'
 
-import { Estado } from '@src/api'
+import { State } from '@src/api'
 import { Box, Card, Carousel, ContentLoader, Section } from '@src/components'
 import { useAppDispatch, useExploreStackNavigation } from '@src/hooks'
 import { setState } from '@src/redux'
@@ -27,10 +27,10 @@ const getImage = (name: string) => {
 }
 
 export const PopularPlaces: React.FC<{
-  estados: Estado[] | null | undefined
+  estados: State[] | null | undefined
 }> = ({ estados }) => {
   const dispatch = useAppDispatch()
-  const renderItem = (props: CarouselRenderItemInfo<Estado>) => {
+  const renderItem = (props: CarouselRenderItemInfo<State>) => {
     const { id, name } = props.item
 
     return (

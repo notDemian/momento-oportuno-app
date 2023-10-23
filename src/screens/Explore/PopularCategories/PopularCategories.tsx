@@ -19,7 +19,7 @@ export const PopularCategories: React.FC = () => {
   const dispatch = useAppDispatch()
 
   const { data, isLoading } = useCategorias()
-  const filteredBymockCategoriesJointWithMocks = data
+  const filteredBymockCategoriesJointWithMocks = data?.data
     ?.filter((categoria) =>
       mockCategories.some(
         (mockCategory) =>

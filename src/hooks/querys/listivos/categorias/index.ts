@@ -1,1 +1,2 @@
-export * from './useCategorias'
+export * from './categories.hooks'
+export * from './categories.keys'

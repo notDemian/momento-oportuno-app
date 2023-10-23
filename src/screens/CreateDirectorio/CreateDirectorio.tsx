@@ -20,7 +20,7 @@ import {
   WebModal,
 } from '@src/components'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
-import { useCreateDirectorio, useDirectorio, useEstados } from '@src/hooks'
+import { useCreateDirectorio, useDirectorioById, useEstados } from '@src/hooks'
 import { DirectorioStackParamList, ScreenProps } from '@src/navigation'
 import { fontSize } from '@src/theme'
 
@@ -34,7 +34,7 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
   const { data: estados } = useEstados()
   // const { data: dirVariants } = useDirectoriosVariations()
   const { mutateAsync, data, isLoading: isCreatingDIr } = useCreateDirectorio()
-  const { mutateAsync: checkDirectory } = useDirectorio()
+  const { data: newDirectorio } = useDirectorioById(data?.id)
 
   const [showEstadosModal, setShowEstadosModal] = useState(false)
   const [showPaquetesModal, setShowPaquetesModal] = useState(false)
@@ -57,7 +57,7 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
     setShowWebModal(false)
     setWebUrl('')
     if (!data?.id) return
-    const res = await checkDirectory(data.id)
+
     const buttons: AlertButton[] = [
       {
         text: 'Ok',
@@ -66,7 +66,7 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
         },
       },
     ]
-    if (res.status.toLowerCase() === 'published') {
+    if (newDirectorio?.status.toLowerCase() === 'published') {
       Alert.alert('Felicidades', 'Tu directorio ha sido publicado', buttons)
     } else {
       // Alert.alert(
@@ -76,7 +76,7 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
       // )
       navigation.navigate('Directorio')
     }
-  }, [data])
+  }, [data, newDirectorio])
 
   const onSubmit = useCallback(async () => {
     const data = DirectorioSchema.safeParse(form)

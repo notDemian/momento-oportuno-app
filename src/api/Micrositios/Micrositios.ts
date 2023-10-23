@@ -7,18 +7,18 @@ import type {
 
 const api = Request('/microsites')
 
-const MicrositiosServices = {
-  async getAllMicrositios() {
+export class MicrositiosServices {
+  static async getAllMicrositios() {
     const { data } = await api.get<GetMicrositiosRes>('/get')
 
     return data
-  },
+  }
 
-  async getMicrositioById(id: number) {
+  static async getMicrositioById(id: number) {
     const { data } = await api.get<getMicrositioByIdRes>(`/get/${id}`)
 
     return data
-  },
+  }
 }
 
 export default MicrositiosServices

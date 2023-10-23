@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react'
+import { Alert } from 'react-native'
 
 import { AuthenticationLayout, Box, Button, TextField } from '@src/components'
 import { useRegister } from '@src/hooks'
@@ -8,15 +9,15 @@ export const Register: React.FC<
   ScreenProps<AuthStackParamList, 'Register'>
 > = ({ navigation }) => {
   const [params, setParams] = useState<{
-    username: string
-    password: string
-    phone: string
+    name: string
     email: string
+    password: string
+    password_confirmation: string
   }>({
-    username: '',
+    name: '',
     password: '',
-    phone: '',
     email: '',
+    password_confirmation: '',
   })
 
   const setParam = useCallback((key: keyof NonNullable<typeof params>) => {
@@ -28,6 +29,14 @@ export const Register: React.FC<
   const [mutateLogIn, { isLoading }] = useRegister()
 
   const onSignIn = useCallback(async () => {
+    if (params.password !== params.password_confirmation) {
+      Alert.alert('Las contraseñas no coinciden')
+      return
+    }
+    if (params.password.length < 8) {
+      Alert.alert('La contraseña debe tener al menos 8 caracteres')
+      return
+    }
     mutateLogIn(params)
   }, [params])
 
@@ -61,7 +70,7 @@ export const Register: React.FC<
           inputProps={{
             autoFocus: true,
             placeholder: 'Nombre de usuario',
-            onChangeText: setParam('username'),
+            onChangeText: setParam('name'),
           }}
         />
         <TextField
@@ -74,17 +83,23 @@ export const Register: React.FC<
         />
         <TextField
           inputProps={{
-            placeholder: 'Teléfono',
-            keyboardType: 'phone-pad',
-            maxLength: 10,
-            onChangeText: setParam('phone'),
+            placeholder: 'Contraseña',
+            secureTextEntry: !showPassword,
+            onChangeText: setParam('password'),
+          }}
+          leftIcon={showPassword ? 'eye-off' : 'eye'}
+          lefIconOnPress={() => {
+            setShowPassword(!showPassword)
           }}
         />
         <TextField
           inputProps={{
-            placeholder: 'Contraseña',
+            // placeholder: 'Teléfono',
+            // keyboardType: 'phone-pad',
+            // maxLength: 10,
+            onChangeText: setParam('password_confirmation'),
+            placeholder: 'Confirmar contraseña',
             secureTextEntry: !showPassword,
-            onChangeText: setParam('password'),
           }}
           leftIcon={showPassword ? 'eye-off' : 'eye'}
           lefIconOnPress={() => {

@@ -10,34 +10,25 @@ import { formatCurrency } from '@src/utils'
 export const PackageItem: FC<PackageItemProps> = ({ paquete }) => {
   const _theme = useAppTheme()
 
-  const innerBackground = paquete.isFeatured ? 'primary' : 'grayLight'
-  const innerColor = paquete.isFeatured ? 'white' : 'black'
-  const borderColor = paquete.isFeatured ? 'primary' : 'grayLight'
+  const innerBackground = paquete.is_featured ? 'primary' : 'grayLight'
+  const innerColor = paquete.is_featured ? 'white' : 'black'
+  const borderColor = paquete.is_featured ? 'primary' : 'grayLight'
 
   const nav = useAccountStackNavigation()
 
   const characteristics = useMemo(() => {
     const tmpArray: string[] = []
 
-    if (paquete.number && paquete.number > 1) {
-      tmpArray.push(`Publicaciones: ${paquete.number}x`)
-    }
     if (paquete.expire && paquete.expire > 0) {
       tmpArray.push(`Duración: ${paquete.expire} días`)
     }
 
-    if (paquete.featuredExpire && paquete.featuredExpire > 0) {
-      tmpArray.push(`Destacado: ${paquete.featuredExpire} días`)
+    if (paquete.expire && paquete.expire > 0) {
+      tmpArray.push(`Destacado: ${paquete.expire} días`)
     }
 
-    if (paquete.bumpsNumber && paquete.bumpsNumber > 0) {
-      tmpArray.push(`Impulsar publicación: ${paquete.bumpsNumber}x`)
-    }
-
-    if (paquete.bumpsInterval && paquete.bumpsInterval > 0) {
-      tmpArray.push(
-        `Puedes Impulsar publicaciones durante: ${paquete.bumpsInterval} días`,
-      )
+    if (paquete.includes_video) {
+      tmpArray.push('Puedes incluir video')
     }
 
     return tmpArray
@@ -104,9 +95,9 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete }) => {
             onPress={onPackagePressed}
           />
         </Box>
-        {paquete.text ? (
+        {paquete.name ? (
           <Text variant={'subHeader'} fontSize={fontSize.m}>
-            {paquete.text}
+            {paquete.name}
           </Text>
         ) : null}
 

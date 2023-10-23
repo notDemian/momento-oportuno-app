@@ -1,5 +1,6 @@
 export * from './anuncios'
 export * from './directorios'
+export * from './favorites'
 export * from './listivos'
 export * from './micrositios'
 export * from './paquetes'

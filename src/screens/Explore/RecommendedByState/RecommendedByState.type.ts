@@ -1,7 +1,7 @@
 import { ExploreProps } from '../Explore.type'
 
-import { Estado } from '@src/api'
+import { State } from '@src/api'
 
 export type RecommendedByStateProps = Pick<ExploreProps, 'navigation'> & {
-  state: Estado
+  state: State
 }

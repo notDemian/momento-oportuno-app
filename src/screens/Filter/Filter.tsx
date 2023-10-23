@@ -20,7 +20,6 @@ import {
 } from '@src/hooks'
 import { FilterState, setFilterParams } from '@src/redux'
 import { fontSize } from '@src/theme'
-import { wait } from '@src/utils/wait'
 
 export const Filter: React.FC<FilterProps> = ({ navigation }) => {
   const { category, priceMax, priceMin, state, subCategory } = useAppSelector(
@@ -38,7 +37,9 @@ export const Filter: React.FC<FilterProps> = ({ navigation }) => {
   })
 
   const { data, isLoading } = useCategorias()
-  const { data: subCategorias } = useCategorias(params.category)
+  const subCategorias = data?.data.find(
+    (c) => c.id === params.category,
+  )?.children
   const { data: estados, isLoading: isLoadingStates } = useEstados()
 
   const handleValueChange = useCallback((low: number, high: number) => {
@@ -47,7 +48,7 @@ export const Filter: React.FC<FilterProps> = ({ navigation }) => {
 
   const handleApplyFilter = async () => {
     dispatch(setFilterParams(params))
-    await wait(1000)
+    // await wait(1000)
     navigation.goBack()
   }
 
@@ -67,7 +68,7 @@ export const Filter: React.FC<FilterProps> = ({ navigation }) => {
     <Box flex={1} p={'l'} backgroundColor={'white'}>
       {estados && !isLoadingStates && (
         <ModalRadioButton
-          data={estados.map((e) => ({ label: e.name, value: e.id }))}
+          data={estados.data.map((e) => ({ label: e.name, value: e.id }))}
           isVisible={showModalEstados}
           hideModal={() => setShowModalEstados(false)}
           title='Estados'
@@ -87,7 +88,7 @@ export const Filter: React.FC<FilterProps> = ({ navigation }) => {
         <Box paddingVertical={'m'}>
           <Button onPress={handleEstado}>
             {params.state !== 0
-              ? estados?.find((e) => e.id === params.state)?.name
+              ? estados?.data.find((e) => e.id === params.state)?.name
               : 'Seleccione un estado'}
           </Button>
         </Box>
@@ -103,7 +104,7 @@ export const Filter: React.FC<FilterProps> = ({ navigation }) => {
             {isLoading || !data ? (
               <LoadingPageModal loading />
             ) : (
-              data.map((cat, index) => {
+              data.data.map((cat, index) => {
                 const isSelected = cat.id === params.category
                 return (
                   <Touchable key={index} onPress={onPressCategory(cat.id)}>

@@ -1,17 +1,17 @@
 import React from 'react'
 import { Box, Text } from '../elements'
 
+import { Ad } from '@src/api'
 import { fontSize } from '@src/theme'
-import { MappedAnuncio } from '@src/utils'
 
 type RecommendedCardInfoProps = {
-  data: MappedAnuncio
+  data: Ad
 }
 
 export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
   data,
 }) => {
-  const { defaultPrice, pricesAsSalary } = data
+  const { attributes, category } = data
 
   return (
     <Box
@@ -19,20 +19,34 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
       justifyContent='space-between'
       alignItems='center'
       flexWrap='wrap'
+      minHeight={1000}
+      height={'auto'}
     >
-      {defaultPrice ? (
-        <Box>
-          <Text color='primary' marginLeft='xs' fontSize={fontSize.m}>
-            {defaultPrice}
-          </Text>
-        </Box>
-      ) : pricesAsSalary ? (
-        <Box>
-          <Text color='primary' marginLeft='xs' fontSize={fontSize.m}>
-            {pricesAsSalary}
-          </Text>
-        </Box>
-      ) : null}
+      <Text color='primary' marginLeft='xs' fontSize={fontSize.m}>
+        {category.name}
+      </Text>
+
+      {attributes.slice(0, 2).map((attribute) => {
+        const { name, value, id } = attribute
+
+        return (
+          <Box key={id}>
+            <Text color='naranjaClarito' marginLeft='xs' fontSize={fontSize.m}>
+              {name}
+            </Text>
+
+            {Array.isArray(value) ? (
+              value.map((v) => (
+                <Box key={v.id}>
+                  <Text>{v.name}</Text>
+                </Box>
+              ))
+            ) : (
+              <Text>{value}</Text>
+            )}
+          </Box>
+        )
+      })}
     </Box>
   )
 }

@@ -11,8 +11,6 @@ import { persistor, store } from '@src/redux'
 import { AppThemeProvider } from '@src/theme/AppThemeProvider'
 import { AxiosError } from 'axios'
 import { PersistGate } from 'redux-persist/integration/react'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-global.Buffer = require('buffer').Buffer
 
 const styles = StyleSheet.create({
   container: {
@@ -40,6 +38,7 @@ const queryClient = new QueryClient({
       onError(e) {
         if (e instanceof AxiosError) {
           console.log('ERROR ---------------___>')
+          console.log('e.response', e.response)
           console.error(e.response?.data)
         }
       },
@@ -48,6 +47,7 @@ const queryClient = new QueryClient({
       onError(e) {
         if (e instanceof AxiosError) {
           console.log('ERROR ---------------___>')
+          console.log('e.response', e.response)
           console.error(e.response?.data)
         }
       },
@@ -55,7 +55,7 @@ const queryClient = new QueryClient({
   },
 })
 
-export default function App() {
+function App() {
   return (
     <GestureHandlerRootView style={styles.container}>
       <PortalProvider>
@@ -74,3 +74,5 @@ export default function App() {
     </GestureHandlerRootView>
   )
 }
+
+export default App

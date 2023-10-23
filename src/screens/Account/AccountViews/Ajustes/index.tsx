@@ -29,7 +29,7 @@ const CAMBIAR_EMAIL_SECTION = memo(() => {
         borderRadius={'m'}
         p={'m'}
       >
-        <Text>{user.user_email}</Text>
+        <Text>{user.name}</Text>
       </Box>
       <Text variant='header'>Nuevo email</Text>
       <Box>
@@ -216,7 +216,8 @@ const IMAGEN_PERFIL_SECTION = memo(() => {
 
 const DETALLES_CUENTA_SECTION = memo(() => {
   const [user] = useUser()
-  const [nombre = '', apellido = ''] = user.user_display_name.split(' ')
+
+  const [nombre = '', apellido = ''] = user.name.split(' ')
 
   return (
     <Box g={'m'}>
@@ -236,7 +237,7 @@ const DETALLES_CUENTA_SECTION = memo(() => {
         <TextField
           inputProps={{
             placeholder: 'Mostrar nombre',
-            value: user.user_nicename,
+            value: user.name,
           }}
           borderColor={'orangy'}
           borderWidth={1}

@@ -1,28 +1,20 @@
-import { FC, memo, useCallback } from 'react'
+import { memo, useCallback } from 'react'
 import { ListRenderItem } from 'react-native'
 
+import { AdFavorite } from '@src/api'
 import {
   ActivityIndicator,
   Box,
-  ContentLoader,
   List,
   RefreshControl,
   Text,
 } from '@src/components'
 import SvgEmptyBox from '@src/components/svgs/SvgEmptyBox'
-import { useAnuncio, useFavorites } from '@src/hooks'
+import { useMyFavorites } from '@src/hooks'
 import { AnuncioItem } from '@src/screens/SearchScreen/AnuncioItem/AnuncioItem'
 
-const RenderItem: FC<{ id: number }> = ({ id }) => {
-  const { data } = useAnuncio(id)
-
-  if (!data) return <ContentLoader />
-
-  return <AnuncioItem data={data} />
-}
-
 const Favoritos = () => {
-  const { data, isLoading, refetch } = useFavorites()
+  const { data, isLoading, refetch } = useMyFavorites()
 
   const ListEmptyComponent = useCallback(() => {
     return (
@@ -40,19 +32,33 @@ const Favoritos = () => {
     )
   }, [])
 
-  const renderItem: ListRenderItem<number> = useCallback(({ item }) => {
-    return <RenderItem id={item} />
+  const renderItem: ListRenderItem<AdFavorite> = useCallback(({ item }) => {
+    return <AnuncioItem data={item} isFav />
   }, [])
 
   return (
     <>
       {isLoading && <ActivityIndicator />}
-      <List<number>
+      <List<AdFavorite>
         renderItem={renderItem}
-        data={data ?? []}
+        data={[
+          ...(data?.data ?? []),
+          ...(data?.data ?? []).map((d) => ({
+            ...d,
+            id: d.id + (data?.data.length ?? 1) * 1,
+          })),
+          ...(data?.data ?? []).map((d) => ({
+            ...d,
+            id: d.id + (data?.data.length ?? 1) * 2,
+          })),
+          ...(data?.data ?? []).map((d) => ({
+            ...d,
+            id: d.id + (data?.data.length ?? 1) * 3,
+          })),
+        ]}
         ListEmptyComponent={ListEmptyComponent}
         contentContainerStyle={{ flexGrow: 1 }}
-        scrollEnabled={false}
+        scrollEnabled={true}
         showsVerticalScrollIndicator={false}
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={refetch} />

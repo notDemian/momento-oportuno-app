@@ -1,30 +1,34 @@
 import Request from '../request'
 
+import type {
+  GetAdByIdResponse,
+  GetAllAdsResponse,
+  GetMyAdsResponse,
+} from './Anuncios.type'
 import {
-  createAnuncioParams,
-  createAnuncioResponse,
-  getAnuncioRes,
-  Main_Anuncios,
+  GetAdByIdResponseSchema,
+  GetAllAdsResponseSchema,
+  GetMyAdsResponseSchema,
 } from './Anuncios.type'
 
 import { FilterParams } from '@src/redux/filter'
+import { Constants } from '@src/utils'
 
-const api = Request('/listings')
-
-const AnunciosServices = {
-  async getAllAnuncios({
+const req = Request(Constants.ENDPOINTS.LISTINGS)
+export class AnunciosServices {
+  /**
+   * @throws {AxiosError}
+   */
+  static async getAllAds({
     page = 1,
-    per_page = 12,
+    per_page = 10,
     category,
     query,
     state,
   }: {
     page?: number
     per_page?: number
-  } & FilterParams): Promise<{
-    data: Main_Anuncios
-    nextPage: number
-  }> {
+  } & FilterParams): Promise<GetAllAdsResponse> {
     let q = ''
     if (query) {
       q += `&search=${query}`
@@ -36,40 +40,51 @@ const AnunciosServices = {
       q += `&state=${state}`
     }
 
-    const { data } = await api.get<Main_Anuncios>(
-      `/get?page=${page}&per_page=${per_page}` + q,
-    )
+    const { data } = await req.get(`?page=${page}&per_page=${per_page}` + q)
+    const dataValidated = GetAllAdsResponseSchema.parse(data)
+    // CLOG(dataValidated)
 
-    return { data, nextPage: page + 1 }
-  },
-  async getAllAnunciosByState({
-    page = 1,
-    per_page = 12,
-    state,
-  }: {
-    page?: number
-    per_page?: number
-    state: string | number
-  }): Promise<{
-    data: Main_Anuncios
-    nextPage: number
-  }> {
-    const { data } = await api.get<Main_Anuncios>(
-      `/get?page=${page}&per_page=${per_page}&state=${state}`,
-    )
+    return dataValidated
+  }
 
-    return { data, nextPage: page + 1 }
-  },
+  /**
+   * @throws {AxiosError}
+   */
+  static async getAd(id: string | number): Promise<GetAdByIdResponse> {
+    const { data } = await req.get(`/${id}`)
 
-  async getAnuncio(id: string | number): Promise<getAnuncioRes> {
-    const { data } = await api.get<getAnuncioRes>(`/get/${id}?nocache`)
+    const dataValidated = GetAdByIdResponseSchema.parse(data)
 
-    return data
-  },
-  async createAnuncio(params: createAnuncioParams) {
-    const { data } = await api.post<createAnuncioResponse>('/create', params)
-    return data
-  },
+    return dataValidated
+  }
+
+  /**
+   * @throws {AxiosError}
+   */
+  static async getMyAds(): Promise<GetMyAdsResponse> {
+    const { data } = await req.get('/mine')
+
+    const dataValidated = GetMyAdsResponseSchema.parse(data)
+
+    return dataValidated
+  }
+
+  // /**
+  //  * @throws {AxiosError}
+  //  */
+  // static async createAd(params: createAnuncioParams) {
+  //   const { data } = await req.post<createAnuncioResponse>(
+  //     '/create',
+  //     params
+  //   );
+  //   return data;
+  // }
+
+  // static async getAllFields(): Promise<GetAllFieldsResponse> {
+  //   const { data } = await req.get('/fields');
+  //   const dataValidated = GetAllFieldsResponseSchema.safeParse(data);
+  //   if (!dataValidated.success) throw new Error(dataValidated.error.message);
+
+  //   return dataValidated.data;
+  // }
 }
-
-export default AnunciosServices

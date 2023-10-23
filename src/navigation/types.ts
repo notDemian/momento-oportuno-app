@@ -13,7 +13,7 @@ import type {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack'
-import type { Anuncio, Categoria, Paquete } from '@src/api'
+import type { Ad, Categorie, Package } from '@src/api'
 
 // Stack Param List
 export type RootStackParamList = {
@@ -55,12 +55,12 @@ export type SearchStackParamList = {
     | {
         query?: number
         isSearching?: boolean
-        category?: Categoria['id']
+        category?: Categorie['id']
         state?: number
       }
   Filter: undefined
   AnuncioDetailsModal: {
-    data: Anuncio | Pick<Anuncio, 'id'>
+    data: Ad | Pick<Ad, 'id'>
   }
 }
 
@@ -74,10 +74,10 @@ export type AccountStackParamList = {
   SupportCenter: undefined
 
   NewAnuncioForm: undefined
-  NewAnuncioFormByCat: Categoria
+  NewAnuncioFormByCat: Categorie
   MisAnuncios: undefined
 
-  Checkout: Paquete
+  Checkout: Package
   PaymentMethod: undefined
   Promotion: undefined
   MyPackages: undefined

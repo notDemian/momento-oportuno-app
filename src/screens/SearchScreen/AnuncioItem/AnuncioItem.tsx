@@ -1,44 +1,66 @@
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
 
 import { AnuncioProps } from './AnuncioItem.type'
 
 import { Box, Image, Text, Touchable } from '@src/components'
 import { useSearchStackNavigation } from '@src/hooks'
 import { fontSize } from '@src/theme'
-import { OldMappedAnuncio } from '@src/utils'
+import { IMAGE_URL_FALLBACK } from '@src/utils'
 
-export const AnuncioItem: FC<AnuncioProps> = ({ data, isFav }) => {
-  const {
-    image,
-    defaultPrice,
-    pricesAsSalary,
-    Categories: Categories,
-    estados,
-    title,
-    fullData: { is_featured },
-  } = data
+export const AnuncioItem: FC<AnuncioProps> = (props) => {
+  let extraData = <></>
+  if (!('isFav' in props)) {
+    const { attributes, category, state } = props.data
+    extraData = (
+      <>
+        <Text
+          variant='secondary'
+          marginTop='xs'
+          marginBottom='s'
+          fontSize={fontSize.s}
+          numberOfLines={3}
+        >
+          {state.name}
+        </Text>
+        <Box flexDirection={'row'} gap={'s'}>
+          <Text fontWeight='bold' color='black' fontSize={fontSize.s}>
+            {category.name}
+          </Text>
+          {category.children.map((cat) => {
+            return (
+              <Box
+                key={cat.id.toString()}
+                backgroundColor={'secondary'}
+                borderRadius={'s'}
+                paddingHorizontal={'s'}
+                overflow={'hidden'}
+                style={{ backgroundColor: '#C01034' }}
+              >
+                <Text fontWeight='bold' color='white' fontSize={10}>
+                  {cat.name}
+                </Text>
+              </Box>
+            )
+          })}
+        </Box>
+      </>
+    )
+  }
+
+  const { image, title, is_featured } = props.data
   const navigation = useSearchStackNavigation()
 
   const onPlaceItemPress = () => {
-    if (isFav) {
-      navigation.jumpTo('SearchTab', {
-        screen: 'AnuncioDetailsModal',
-        params: { data: { id: data.id } },
-      })
-      return
-    }
+    if ('isFav' in props) return
     navigation.navigate('AnuncioDetailsModal', {
       data: {
-        id: data.id,
+        id: props.data.id,
       },
     })
   }
-  /**
-   * Y2tfMmNlMzY2OTRkYmVlNDk3YzkwNmM3NzA1MTYxNmFmZGY0Y2QxOWNjMzpjc180ZDBjODNiNDhmM2U2MzYwYmE5NWFmYzMzMmZhMWYzODYxYmYwN2I0
-   * Y2tfMmNlMzY2OTRkYmVlNDk3YzkwNmM3NzA1MTYxNmFmZGY0Y2QxOWNjMzpjc180ZDBjODNiNDhmM2U2MzYwYmE5NWFmYzMzMmZhMWYzODYxYmYwN2I0
-   */
-  return (
-    <Touchable onPress={onPlaceItemPress} activeOpacity={0.5}>
+
+  const Content = useCallback(
+    () => (
       <Box
         flexDirection='row'
         padding='s'
@@ -49,15 +71,14 @@ export const AnuncioItem: FC<AnuncioProps> = ({ data, isFav }) => {
         borderRadius='m'
         margin='s'
       >
-        {image && (
-          <Image
-            width={120}
-            height={120}
-            borderRadius='m'
-            marginRight='m'
-            source={image}
-          />
-        )}
+        <Image
+          width={120}
+          height={120}
+          borderRadius='m'
+          marginRight='m'
+          source={image ?? IMAGE_URL_FALLBACK}
+        />
+
         <Box flex={1} justifyContent={'center'}>
           <Box>
             <Text
@@ -68,125 +89,29 @@ export const AnuncioItem: FC<AnuncioProps> = ({ data, isFav }) => {
             >
               {title}
             </Text>
-            <Text
-              variant='secondary'
-              marginTop='xs'
-              marginBottom='s'
-              fontSize={fontSize.s}
-              numberOfLines={3}
-            >
-              {estados.map((e) => e.name).join()}
-            </Text>
-            <Box flexDirection={'row'} gap={'s'}>
-              {Categories.map((cat) => {
-                return (
-                  <Box
-                    key={cat.id.toString()}
-                    backgroundColor={'secondary'}
-                    borderRadius={'s'}
-                    paddingHorizontal={'s'}
-                    overflow={'hidden'}
-                    style={{ backgroundColor: '#C01034' }}
-                  >
-                    <Text fontWeight='bold' color='white' fontSize={10}>
-                      {cat.name}
-                    </Text>
-                  </Box>
-                )
-              })}
-            </Box>
+            {extraData}
             <Text fontWeight='normal' color='black' fontSize={fontSize.s}>
-              {defaultPrice ?? pricesAsSalary}
+              {/* {attributes?.price ?? attributes?.salary} */}$ price
             </Text>
           </Box>
         </Box>
       </Box>
-    </Touchable>
+    ),
+    [
+      extraData,
+      image,
+      is_featured,
+      title,
+      // attributes?.price,
+      // attributes?.salary,
+    ],
   )
-}
 
-export const OldAnuncioItem: FC<{ data: OldMappedAnuncio }> = ({ data }) => {
-  const {
-    defaultImages,
-    defaultPrices,
-    pricesAsSalary,
-    Categories: Categories,
-    estados,
-    title: { rendered },
-  } = data
-  const navigation = useSearchStackNavigation()
-
-  const onPlaceItemPress = () => {
-    navigation.jumpTo('SearchTab', {
-      screen: 'AnuncioDetailsModal',
-      params: { data: { id: data.id } },
-    })
-  }
-
-  return (
+  return 'isFav' in props ? (
     <Touchable onPress={onPlaceItemPress} activeOpacity={0.5}>
-      <Box
-        flexDirection='row'
-        padding='s'
-        backgroundColor='card'
-        borderWidth={1}
-        elevation={3}
-        borderColor='card'
-        borderRadius='m'
-        margin='s'
-      >
-        {defaultImages && defaultImages[0] && (
-          <Image
-            width={120}
-            height={120}
-            borderRadius='m'
-            marginRight='m'
-            source={defaultImages[0]}
-          />
-        )}
-        <Box flex={1} justifyContent={'center'}>
-          <Box>
-            <Text
-              fontWeight='bold'
-              fontSize={fontSize.m}
-              color={'primary'}
-              style={{ color: '#1a1a1a' }}
-            >
-              {rendered}
-            </Text>
-            <Text
-              variant='secondary'
-              marginTop='xs'
-              marginBottom='s'
-              fontSize={fontSize.s}
-              numberOfLines={3}
-            >
-              {estados.join(', ')}
-            </Text>
-            <Box flexDirection={'row'} gap={'s'}>
-              {Categories.map((cat) => {
-                return (
-                  <Box
-                    key={cat.toString()}
-                    backgroundColor={'secondary'}
-                    borderRadius={'s'}
-                    paddingHorizontal={'s'}
-                    overflow={'hidden'}
-                    style={{ backgroundColor: '#C01034' }}
-                  >
-                    <Text fontWeight='bold' color='white' fontSize={10}>
-                      {cat}
-                    </Text>
-                  </Box>
-                )
-              })}
-            </Box>
-            <Text fontWeight='normal' color='black' fontSize={fontSize.s}>
-              {defaultPrices[0] ?? pricesAsSalary[0]}
-            </Text>
-          </Box>
-        </Box>
-      </Box>
+      <Content />
     </Touchable>
+  ) : (
+    <Content />
   )
 }

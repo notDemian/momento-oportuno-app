@@ -2,7 +2,6 @@ import { memo, useCallback } from 'react'
 import { ListRenderItem } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
-import { Order } from '@src/api/Woocommerce/Woocommerce.type'
 import { Box, Button, Icon, List, Text } from '@src/components'
 import { SvgEmptyBox } from '@src/components/svgs'
 import { useAccountStackNavigation } from '@src/hooks'
@@ -14,7 +13,7 @@ const MisOrdenes = () => {
 
   // const { data: orders, isLoading, refetch } = useMyOrders()
 
-  const renderItem = useCallback<ListRenderItem<Order>>(({ item }) => {
+  const renderItem = useCallback<ListRenderItem<any>>(({ item }) => {
     return (
       <Box
         {...getShadowBoxProps()}
@@ -107,7 +106,7 @@ const MisOrdenes = () => {
             <Text>Estado</Text>
           </Box>
         </Box> */}
-      <List<Order>
+      <List
         renderItem={renderItem}
         data={[]}
         ListEmptyComponent={ListEmptyComponent}

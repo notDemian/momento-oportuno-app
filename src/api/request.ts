@@ -5,7 +5,7 @@ import { Constants, type ENDPOINTS } from '@src/utils/constants'
 import axios from 'axios'
 
 export default function Request(service: ENDPOINTS): MyAxiosInstance {
-  const url = Constants.IS_DEV ? Constants.URL.DEV : Constants.URL.PROD
+  const url = Constants.API_URL
 
   const req = axios.create({
     baseURL: `${url}${service}`,
@@ -29,21 +29,5 @@ export default function Request(service: ENDPOINTS): MyAxiosInstance {
     },
   )
 
-  return req
-}
-
-export function CustomRequest(url: string): MyAxiosInstance {
-  const fullUrl = Constants.IS_DEV
-    ? Constants.URL.CUSTOM_DEV
-    : Constants.URL.CUSTOM
-
-  const req = axios.create({
-    baseURL: `${fullUrl}${url}`,
-    timeout: 1000,
-    maxBodyLength: Infinity,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
   return req
 }

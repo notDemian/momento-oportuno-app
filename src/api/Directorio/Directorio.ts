@@ -18,7 +18,9 @@ const DirectorioServices = {
 
     return data
   },
-  async getDirectorioById(id: number) {
+  async getDirectorioById(id: number | undefined) {
+    if (!id) return null
+
     const { data } = await api.get<Directorio>(`/get/${id}`)
 
     return data

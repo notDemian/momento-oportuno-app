@@ -17,14 +17,15 @@ import {
   RefreshControl,
   Text,
 } from '@src/components'
-import { useAnuncio } from '@src/hooks'
+import { useAnuncioByid } from '@src/hooks'
 import { useAppTheme } from '@src/theme'
+import { IMAGE_URL_FALLBACK } from '@src/utils'
 
 export const AnuncioDetails: FC<AnuncioProps> = ({
   route: { params },
-  navigation: _nav,
+  navigation: nav,
 }) => {
-  const { data, isLoading, refetch } = useAnuncio(params.data.id)
+  const { data, isLoading, refetch } = useAnuncioByid(params.data.id)
 
   const [loadingImage, setLoadingImage] = useState(true)
 
@@ -32,7 +33,14 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
   const { colors } = useAppTheme()
   const { bottom } = useSafeAreaInsets()
 
-  // TODO: IMPLEMENT addToCart
+  const { width } = useWindowDimensions()
+
+  // useEffect(() => {
+  //   CLOG({
+  //     onAnuncioDetails: error,
+  //   })
+  //   handleAxiosErrWithMessageGoBack(error, nav.goBack)
+  // }, [error])
 
   const coverTranslateY = scrollY.interpolate({
     inputRange: [-4, 0, 10],
@@ -50,8 +58,6 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
     outputRange: [0, 1],
     extrapolate: 'clamp',
   })
-
-  const { width } = useWindowDimensions()
 
   return (
     <Box
@@ -101,7 +107,7 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
                 ]}
               >
                 <Animated.Image
-                  source={{ uri: data.defaultImages[0] }}
+                  source={{ uri: data.data.image ?? IMAGE_URL_FALLBACK }}
                   style={[
                     styles.coverPhoto,
                     {
@@ -134,16 +140,18 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
                   />
                 )}
               </Animated.View>
-              <HeadingInformation data={data} />
-              <Box paddingHorizontal={'m'} backgroundColor={'card'}>
-                <Text variant={'subHeader'}>Descripción</Text>
-                <RenderHtml
-                  contentWidth={width}
-                  source={{ html: data.description }}
-                />
-              </Box>
-              <UserInfo user={data.user} />
-              <BottomButtons link={data.url} id={data.id} />
+              <HeadingInformation data={data.data} />
+              {data.data.description && (
+                <Box paddingHorizontal={'m'} backgroundColor={'card'}>
+                  <Text variant={'subHeader'}>Descripción</Text>
+                  <RenderHtml
+                    contentWidth={width}
+                    source={{ html: data.data.description }}
+                  />
+                </Box>
+              )}
+              <UserInfo user={data.data.user} />
+              <BottomButtons link={data.data.url} id={data.data.id} />
             </Animated.ScrollView>
           </KeyboardAvoidingView>
 
@@ -157,10 +165,10 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
             ]}
           >
             <Text variant='subHeader' numberOfLines={1} paddingHorizontal='l'>
-              {data.title.length ?? 0 > 14 ? (
-                data.title.slice(0, 14) + '...'
+              {data.data.title.length ?? 0 > 14 ? (
+                data.data.title.slice(0, 14) + '...'
               ) : (
-                <>{data.title}</>
+                <>{data.data.title}</>
               )}
             </Text>
           </Animated.View>

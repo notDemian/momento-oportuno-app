@@ -12,39 +12,39 @@ import { Constants } from '@src/utils/constants'
 
 const api = Request(Constants.ENDPOINTS.INDEX)
 
-const UsuariosServices = {
-  async logIn(params: logInParams): Promise<logInRes> {
+export class UsuariosServices {
+  static async logIn(params: logInParams): Promise<logInRes> {
     const { data } = await api.post('/login', params)
     const parsed = GeneralLogInSchema.parse(data)
 
     return parsed
-  },
-  async register(params: registerParams): Promise<registerRes> {
+  }
+  static async register(params: registerParams): Promise<registerRes> {
     const { data } = await api.post('/register', params)
     const parsed = GeneralLogInSchema.parse(data)
 
     return parsed
-  },
+  }
 
-  // async getUserById(id: string | number) {
+  // static async getUserById(id: string | number) {
   //   const res = await api.get<GetUserByIdResponse>(`/users/${id}`)
   //   return res.data
   // },
 
-  // async getFavorites() {
+  // static async getFavorites() {
   //   const res = await api.get<GetFavoritesResponse>('favorites/get')
   //   return res.data
   // },
-  // async addFavorite(id: number) {
+  // static async addFavorite(id: number) {
   //   const res = await api.post(`favorites/add/${id}`)
   //   return res.data
   // },
-  // async removeFavorite(id: number) {
+  // static async removeFavorite(id: number) {
   //   const res = await api.delete(`favorites/delete/${id}`)
   //   return res.data
   // },
 
-  // async toggleFavorite(id: number) {
+  // static async toggleFavorite(id: number) {
   //   try {
   //     const res = await api.post(`favorites/add/${id}`)
   //     return res.data
@@ -54,13 +54,11 @@ const UsuariosServices = {
   //     return res.data
   //   }
   // },
-  async me(): Promise<GetMeResponse> {
+  static async me(): Promise<GetMeResponse> {
     const res = await api.get(Constants.ENDPOINTS.USERS + '/me')
 
     const parsed = GetMeResponseSchema.parse(res.data)
 
     return parsed
-  },
+  }
 }
-
-export default UsuariosServices

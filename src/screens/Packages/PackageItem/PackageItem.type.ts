@@ -1,6 +1,5 @@
-import type { Paquete } from '@src/api'
+import type { Package } from '@src/api'
 
 export type PackageItemProps = {
-  paquete: Paquete
-  // Paquete
+  paquete: Package
 }

@@ -4,18 +4,28 @@ import { HeadingInformationProps } from './HeadingInformation.type'
 
 import { Box, Text } from '@src/components/elements'
 import { fontSize } from '@src/theme'
+import { toRelative } from '@src/utils/dates'
 
 export const HeadingInformation: React.FC<HeadingInformationProps> = ({
   data,
 }) => {
   const {
     title,
-    defaultPrice,
-    pricesAsSalary,
-    Categories,
-    created_at,
-    jointCategories,
-    estados,
+    // defaultPrice,
+    // pricesAsSalary,
+    // Categories,
+    // created_at,
+    // jointCategories,
+    // estados,
+    attributes,
+    category,
+    create_at,
+    description,
+    status,
+    image,
+    is_featured,
+    is_multistate,
+    state,
   } = data
 
   return (
@@ -27,12 +37,12 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
           </Text>
         </Box>
         <Text fontSize={fontSize.m} color='primary' fontWeight={'bold'}>
-          {defaultPrice ?? pricesAsSalary}
+          precio
         </Text>
       </Box>
       {/**TODO: ADD EXTRA DATA HERE */}
       <Box paddingVertical={'s'}>
-        <Text color={'gray'}>{created_at}</Text>
+        <Text color={'gray'}>{toRelative(create_at)}</Text>
       </Box>
       <Box
         flexDirection={'row'}
@@ -40,7 +50,8 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
         marginVertical={'s'}
         flexWrap={'wrap'}
       >
-        {Categories.map((cat) => {
+        <Text>{category.name}</Text>
+        {category.children.map((cat) => {
           return (
             <Box
               key={cat.id.toString()}
@@ -56,18 +67,20 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
           )
         })}
       </Box>
-      <Text>{estados.map((p) => p.name).join()}</Text>
+      <Text>{state.name}</Text>
       <Box flexDirection={'row'} gap={'s'} flexWrap={'wrap'}>
-        {jointCategories.map((cat) => {
+        {attributes.map((attr) => {
           return (
             <Box
-              key={cat.toString()}
-              backgroundColor={'creamy'}
+              key={attr.id.toString()}
+              backgroundColor={'secondary'}
               borderRadius={'s'}
-              p={'s'}
+              paddingHorizontal={'s'}
               overflow={'hidden'}
             >
-              <Text>{cat}</Text>
+              <Text fontWeight='bold' color='white'>
+                {attr.name}
+              </Text>
             </Box>
           )
         })}
