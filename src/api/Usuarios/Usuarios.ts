@@ -26,34 +26,6 @@ export class UsuariosServices {
     return parsed
   }
 
-  // static async getUserById(id: string | number) {
-  //   const res = await api.get<GetUserByIdResponse>(`/users/${id}`)
-  //   return res.data
-  // },
-
-  // static async getFavorites() {
-  //   const res = await api.get<GetFavoritesResponse>('favorites/get')
-  //   return res.data
-  // },
-  // static async addFavorite(id: number) {
-  //   const res = await api.post(`favorites/add/${id}`)
-  //   return res.data
-  // },
-  // static async removeFavorite(id: number) {
-  //   const res = await api.delete(`favorites/delete/${id}`)
-  //   return res.data
-  // },
-
-  // static async toggleFavorite(id: number) {
-  //   try {
-  //     const res = await api.post(`favorites/add/${id}`)
-  //     return res.data
-  //   } catch (error) {
-  //     if (!(error instanceof AxiosError)) throw error
-  //     const res = await api.post(`favorites/delete/${id}`)
-  //     return res.data
-  //   }
-  // },
   static async me(): Promise<GetMeResponse> {
     const res = await api.get(Constants.ENDPOINTS.USERS + '/me')
 

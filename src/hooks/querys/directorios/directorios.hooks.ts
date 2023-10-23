@@ -17,13 +17,15 @@ const useCreateDirectorio = () => {
 }
 const useDirectorioById = (id: number | undefined) => {
   const qc = useQueryClient()
-  return useQuery({
+  const query = useQuery({
     queryKey: DirectoriosQuerys.getDirectorioById(id),
     queryFn: () => DirectorioServices.getDirectorioById(id),
     onSuccess: () => {
       qc.invalidateQueries(DirectoriosQuerys.getAllDirectorios)
     },
+    enabled: !!id,
   })
+  return query
 }
 const useDirectorios = () => {
   return useQuery({

@@ -1,46 +1,61 @@
+import { StateSchema } from '../listivos'
+import { UserSchema } from '../Usuarios'
+
 import * as z from 'zod'
-export type Directorio = Omit<CreateDirectorio, 'package' | 'state'> & {
-  id: number
-  user_id: number
-  status: string
-  thumbnail: string
-  expire: string
-}
 
-export type DirectorioMapped = Omit<
-  Directorio,
-  '_links' | 'acf' | 'date_gmt' | 'modified_gmt' | 'slug' | 'template'
->
-
-export type GetAllDirectoriosRes = Directorio[]
-
-export const DirectorioSchema = z.object({
-  title: z.string().nonempty(),
-  type: z.string().nonempty(),
-  location: z.string().optional(),
-  hours: z.string().nonempty(),
-  address: z.string().nonempty(),
-  phone: z.string().nonempty(),
-  email: z.string().nonempty(),
-})
-
-export type DirectorioType = z.infer<typeof DirectorioSchema>
-
-export type CreateDirectorio = DirectorioType & {
-  package: number
-  state: number
-}
-
-export type CreateDirectorioResponse = {
-  id: number
+export type CreateDirectorioParams = {
   title: string
-  state: null
+  state_id: number
   type: string
   hours: string
   address: string
   phone: string
   email: string
   user_id: number
-  expire: string
-  status: string
+  thumbnail: string
 }
+
+const UserDirectorioSchema = UserSchema.pick({
+  id: true,
+  name: true,
+  email: true,
+})
+
+export const DirectorioSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  status: z.string(),
+  type: z.string(),
+  hours: z.string(),
+  address: z.string(),
+  phone: z.string(),
+  email: z.string(),
+  thumbnail: z.string(),
+  userPackage: z.null(),
+  user: UserDirectorioSchema,
+  state: StateSchema,
+  updated_at: z.coerce.date(),
+  created_at: z.coerce.date(),
+})
+export type Directorio = z.infer<typeof DirectorioSchema>
+
+export const GetAllDirectoriosResponseSchema = z.object({
+  data: z.array(DirectorioSchema),
+})
+export type GetAllDirectoriosResponse = z.infer<
+  typeof GetAllDirectoriosResponseSchema
+>
+
+export const GetDirectorioByIdResponseSchema = z.object({
+  data: DirectorioSchema,
+})
+
+export type GetDirectorioByIdResponse = z.infer<
+  typeof GetDirectorioByIdResponseSchema
+>
+
+export const CreateDirectorioResponseSchema = GetDirectorioByIdResponseSchema
+
+export type CreateDirectorioResponse = z.infer<
+  typeof CreateDirectorioResponseSchema
+>

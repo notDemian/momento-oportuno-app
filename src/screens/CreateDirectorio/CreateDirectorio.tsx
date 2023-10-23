@@ -2,14 +2,8 @@ import { type FC, useCallback, useState } from 'react'
 import { Alert, AlertButton } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-import {
-  CreateDirectorio,
-  DirectorioSchema,
-  DirectorioType,
-  Estado,
-} from '@src/api'
-import { generateLinkToCheckout } from '@src/api/Directorio/Directorio'
-import { DirectorioVariant } from '@src/api/Woocommerce/Woocommerce.type'
+import { CreateDirectorioParams, Directorio as _, State } from '@src/api'
+type a = _
 import {
   ActivityIndicator,
   Box,
@@ -21,8 +15,10 @@ import {
 } from '@src/components'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
 import { useCreateDirectorio, useDirectorioById, useEstados } from '@src/hooks'
+import { useUser } from '@src/hooks/useUser'
 import { DirectorioStackParamList, ScreenProps } from '@src/navigation'
 import { fontSize } from '@src/theme'
+import { IMAGE_URL_FALLBACK } from '@src/utils'
 
 type CreateDirectorioScreenProps = ScreenProps<
   DirectorioStackParamList,
@@ -33,21 +29,28 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
 }) => {
   const { data: estados } = useEstados()
   // const { data: dirVariants } = useDirectoriosVariations()
-  const { mutateAsync, data, isLoading: isCreatingDIr } = useCreateDirectorio()
-  const { data: newDirectorio } = useDirectorioById(data?.id)
+  const {
+    mutateAsync,
+    data: { data: createDirRes } = {},
+    isLoading: isCreatingDIr,
+  } = useCreateDirectorio()
+  const { data: newDirectorio } = useDirectorioById(createDirRes?.id)
 
   const [showEstadosModal, setShowEstadosModal] = useState(false)
-  const [showPaquetesModal, setShowPaquetesModal] = useState(false)
 
-  const [estado, setEstado] = useState<Estado>()
-  const [paquete, setPaquete] = useState<DirectorioVariant>()
-  const [form, setForm] = useState<DirectorioType>({
+  const [estado, setEstado] = useState<State>()
+  const [{ id }] = useUser()
+  // const [paquete, setPaquete] = useState<DirectorioVariant>()
+  const [form, setForm] = useState<CreateDirectorioParams>({
     address: '',
     email: '',
     hours: '',
     phone: '',
+    state_id: -1,
     title: '',
+    thumbnail: IMAGE_URL_FALLBACK,
     type: '',
+    user_id: id,
   })
   const [checked, setChecked] = useState(false)
 
@@ -56,7 +59,7 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
   const closeWebModal = useCallback(async () => {
     setShowWebModal(false)
     setWebUrl('')
-    if (!data?.id) return
+    if (!createDirRes?.id) return
 
     const buttons: AlertButton[] = [
       {
@@ -66,7 +69,7 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
         },
       },
     ]
-    if (newDirectorio?.status.toLowerCase() === 'published') {
+    if (newDirectorio?.data?.status.toLowerCase() === 'published') {
       Alert.alert('Felicidades', 'Tu directorio ha sido publicado', buttons)
     } else {
       // Alert.alert(
@@ -76,11 +79,18 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
       // )
       navigation.navigate('Directorio')
     }
-  }, [data, newDirectorio])
+  }, [createDirRes, newDirectorio])
 
   const onSubmit = useCallback(async () => {
-    const data = DirectorioSchema.safeParse(form)
-    if (!data.success) {
+    const keys = Object.keys(form).filter(
+      (key) => !['state_id', 'thumbnail'].includes(key),
+    )
+    if (
+      keys.some(
+        (key) => !form[key] || ['', '-1'].includes(form[key].toString().trim()),
+      ) ||
+      !estado
+    ) {
       return Alert.alert('Error', 'Favor de llenar todos los campos')
     }
     if (!checked) {
@@ -89,36 +99,41 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
     if (!estado) {
       return Alert.alert('Error', 'Favor de seleccionar un estado')
     }
-    if (!paquete) {
-      return Alert.alert('Error', 'Favor de seleccionar un paquete')
-    }
-    const p = {
+    // if (!paquete) {
+    //   return Alert.alert('Error', 'Favor de seleccionar un paquete')
+    // }
+    const p: CreateDirectorioParams = {
       ...form,
-      state: estado.id,
-      package: paquete.id,
+      state_id: estado.id,
+      // package: paquete.id,
     }
     try {
       const res = await mutateAsync(p)
       if (!res) {
         return Alert.alert('Error', 'Ocurrio un error al crear el directorio')
       }
-      const url = generateLinkToCheckout({
-        type: 'directory',
-        directoryId: res.id,
-        package: paquete.id,
-      })
-      if (!url) {
-        return Alert.alert('Error', 'Ocurrio un error al crear el directorio')
-      }
-      setWebUrl(url)
-      setShowWebModal(true)
+      // const url = generateLinkToCheckout({
+      //   type: 'directory',
+      //   directoryId: res.data.id,
+      //   package: 0,
+      // })
+      // if (!url) {
+      //   return Alert.alert('Error', 'Ocurrio un error al crear el directorio')
+      // }
+      // setWebUrl(url)
+      // setShowWebModal(true)
+      Alert.alert(
+        'Felicidades',
+        'Tu directorio ha sido creado\nRecuerda que tu anuncio estará en revisión por 24 horas',
+      )
+      navigation.navigate('Directorio')
     } catch (error) {
       Alert.alert('Error', 'Ocurrio un error al crear el directorio')
     }
-  }, [form, checked, estado, paquete])
+  }, [form, checked, estado])
 
   const setFormValue = useCallback(
-    (key: keyof CreateDirectorio) => (value: string) => {
+    (key: keyof CreateDirectorioParams) => (value: string) => {
       setForm((prev) => ({ ...prev, [key]: value }))
     },
     [],
@@ -235,15 +250,15 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
           {estados && (
             <ModalRadioButton
               isVisible={showEstadosModal}
-              data={estados.map((e) => ({ label: e.name, value: e.id }))}
+              data={estados.data.map((e) => ({ label: e.name, value: e.id }))}
               hideModal={() => setShowEstadosModal(false)}
               title='Estado'
               onPressItem={(e) =>
-                setEstado(estados.find((es) => es.id === e.value))
+                setEstado(estados.data.find((es) => es.id === e.value))
               }
             />
           )}
-          <Button
+          {/* <Button
             onPress={() => {
               setShowPaquetesModal(true)
             }}
@@ -254,7 +269,7 @@ export const CreateDirectorioScreen: FC<CreateDirectorioScreenProps> = ({
             {!paquete
               ? 'Selecciona el paquete'
               : `${paquete.attributes[0].option} días por $${paquete.regular_price}`}
-          </Button>
+          </Button> */}
           {/* {dirVariants && (
             <ModalRadioButton
               isVisible={showPaquetesModal}

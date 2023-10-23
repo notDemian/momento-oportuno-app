@@ -1,39 +1,54 @@
 import Request from '../request'
 
-import {
-  CreateDirectorio,
+import type {
   CreateDirectorioResponse,
-  Directorio,
-  GetAllDirectoriosRes,
+  GetAllDirectoriosResponse,
+  GetDirectorioByIdResponse,
+} from './Directorio.type'
+import {
+  CreateDirectorioParams,
+  CreateDirectorioResponseSchema,
+  GetAllDirectoriosResponseSchema,
+  GetDirectorioByIdResponseSchema,
 } from './Directorio.type'
 
 import { store } from '@src/redux'
 import { Constants } from '@src/utils'
 
-const api = Request('/directories')
+const api = Request(Constants.ENDPOINTS.DIRECTORY)
 
 const DirectorioServices = {
-  async getAllDirectorio() {
-    const { data } = await api.get<GetAllDirectoriosRes>('/get')
+  async getAllDirectorio(): Promise<GetAllDirectoriosResponse> {
+    const { data } = await api.get('/')
 
-    return data
+    const parsed = GetAllDirectoriosResponseSchema.parse(data)
+
+    return parsed
   },
-  async getDirectorioById(id: number | undefined) {
+  async getDirectorioById(
+    id: number | undefined,
+  ): Promise<GetDirectorioByIdResponse | null> {
     if (!id) return null
 
-    const { data } = await api.get<Directorio>(`/get/${id}`)
+    const { data } = await api.get(`/${id}`)
 
-    return data
+    const parsed = GetDirectorioByIdResponseSchema.parse(data)
+
+    return parsed
   },
-  async createDirectorio(params: CreateDirectorio) {
-    const { data } = await api.post<CreateDirectorioResponse>('/add', params, {
+  async createDirectorio(
+    params: CreateDirectorioParams,
+  ): Promise<CreateDirectorioResponse> {
+    const { data } = await api.post('/', params, {
       maxBodyLength: Infinity,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     })
 
-    return data
+    const parsed = CreateDirectorioResponseSchema.parse(data)
+
+    return parsed
   },
 }
 

@@ -1,5 +1,7 @@
 import { Alert } from 'react-native'
-import { UseMutateFunction, useMutation } from 'react-query'
+import { UseMutateFunction, useMutation, useQuery } from 'react-query'
+
+import { UsersQuerys } from './users.keys'
 
 import { UsuariosServices } from '@src/api'
 import type {
@@ -23,7 +25,7 @@ type IUseRegister = [
   },
 ]
 
-export function useRegister(callbackFnOn?: callbackFn): IUseRegister {
+function useRegister(callbackFnOn?: callbackFn): IUseRegister {
   // const queryClient = useQueryClient()
   const nav = useAuthStackNavigation()
 
@@ -36,7 +38,7 @@ export function useRegister(callbackFnOn?: callbackFn): IUseRegister {
     {
       onSuccess: (data) => {
         Alert.alert(
-          'Inicio de sesión exitoso',
+          'Registro exitoso',
           `${data.user.name}\nPor favor, inicia sesión`,
         )
         nav.navigate('Login')
@@ -65,7 +67,7 @@ type IUseLogIn = [
   { isLoading: boolean; error: unknown },
 ]
 
-export function useLogIn(_callbackOnSuccess?: (user: User) => void): IUseLogIn {
+function useLogIn(_callbackOnSuccess?: (user: User) => void): IUseLogIn {
   const dispatch = useAppDispatch()
 
   const {
@@ -93,3 +95,12 @@ export function useLogIn(_callbackOnSuccess?: (user: User) => void): IUseLogIn {
     },
   ]
 }
+
+function useMe() {
+  return useQuery({
+    queryKey: UsersQuerys.me,
+    queryFn: UsuariosServices.me,
+  })
+}
+
+export { useLogIn, useMe, useRegister }

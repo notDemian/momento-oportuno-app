@@ -3,13 +3,13 @@ import { Alert } from 'react-native'
 
 import { OrderSuccessModal } from './SuccessOrderModal'
 
-import { Paquete } from '@src/api'
+import { Package } from '@src/api'
 import { generateLinkToCheckout } from '@src/api'
 import { Box, Button, Text, WebModal } from '@src/components'
 import { formatCurrency } from '@src/utils'
 
 type PlaceOrderProps = {
-  paquete: Paquete
+  paquete: Package
 }
 
 export const PlaceOrder: React.FC<PlaceOrderProps> = ({

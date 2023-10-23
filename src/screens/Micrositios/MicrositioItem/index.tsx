@@ -9,7 +9,7 @@ import { getShadowBoxProps } from '@src/theme'
 const { height } = Dimensions.get('window')
 
 export const MicrositioItem: FC<{ data: Microsite }> = ({ data }) => {
-  const { description, id, image, title } = data
+  const { description: _, id, image, title } = data
 
   const nav = useMicrositiosStackNavigation()
 

@@ -1,13 +1,21 @@
-import type { DirectorioMapped } from '@src/api/Directorio/Directorio.type'
+import type { Directorio } from '@src/api'
 import { Box, Button, Icon, Image, Text } from '@src/components'
 import { getShadowBoxProps, useAppTheme } from '@src/theme'
 import { redirectToEmail } from '@src/utils'
 
 export const DirectorioItem: React.FC<{
-  data: DirectorioMapped
+  data: Directorio
 }> = ({ data }) => {
-  const { address, location, type, hours, title, email, phone, thumbnail } =
-    data
+  const {
+    address,
+    type,
+    hours,
+    title,
+    email,
+    phone,
+    thumbnail,
+    state: { name: stateName },
+  } = data
 
   const { colors } = useAppTheme()
 
@@ -50,7 +58,7 @@ export const DirectorioItem: React.FC<{
             size={16}
             color={colors.white}
           />
-          <Text color={'white'}>{location}</Text>
+          <Text color={'white'}>{stateName}</Text>
         </Box>
         <Box
           backgroundColor={'orangy'}

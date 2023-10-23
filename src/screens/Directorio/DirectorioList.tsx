@@ -3,7 +3,7 @@ import { ListRenderItem } from 'react-native'
 
 import { DirectorioItem } from './DirectorioItem'
 
-import { DirectorioMapped } from '@src/api/Directorio/Directorio.type'
+import { Directorio } from '@src/api'
 import { Box, List, LoadingPageModal, RefreshControl } from '@src/components'
 import { useDirectorios } from '@src/hooks'
 import { DirectorioStackParamList, ScreenProps } from '@src/navigation'
@@ -14,20 +14,17 @@ type MicrositiosProps = ScreenProps<DirectorioStackParamList, 'Directorio'>
 export const DirectorioList: React.FC<MicrositiosProps> = () => {
   const { data, isLoading, refetch: refresh } = useDirectorios()
 
-  const renderItem = useCallback<ListRenderItem<DirectorioMapped>>(
-    ({ item }) => {
-      return <DirectorioItem data={item} />
-    },
-    [],
-  )
+  const renderItem = useCallback<ListRenderItem<Directorio>>(({ item }) => {
+    return <DirectorioItem data={item} />
+  }, [])
   return (
     <Box flex={1}>
       {!data || isLoading ? (
         <LoadingPageModal loading />
       ) : (
-        <List<DirectorioMapped>
+        <List<Directorio>
           renderItem={renderItem}
-          data={data.reverse()}
+          data={data.data.reverse()}
           keyExtractor={keyExtractor}
           ItemSeparatorComponent={() => null}
           refreshControl={
