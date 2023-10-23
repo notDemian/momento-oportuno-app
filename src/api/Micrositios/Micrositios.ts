@@ -1,23 +1,39 @@
 import Request from '../request'
 
 import type {
-  getMicrositioByIdRes,
-  GetMicrositiosRes,
+  GetMicrositeByIdResponse,
+  GetMicrositesResponse,
+} from './Micrositios.type'
+import {
+  GetMicrositeByIdResponseSchema,
+  GetMicrositesResponseSchema,
 } from './Micrositios.type'
 
-const api = Request('/microsites')
+import { Constants } from '@src/utils'
+
+const api = Request(Constants.ENDPOINTS.MICROSITIOS)
 
 export class MicrositiosServices {
-  static async getAllMicrositios() {
-    const { data } = await api.get<GetMicrositiosRes>('/get')
+  static async getAllMicrositios(params?: {
+    state?: string
+  }): Promise<GetMicrositesResponse> {
+    let q = '/'
+    if (params?.state) {
+      q = `?state=${params.state}`
+    }
+    const { data } = await api.get(q)
+    const parsed = GetMicrositesResponseSchema.parse(data)
 
-    return data
+    return parsed
   }
 
-  static async getMicrositioById(id: number) {
-    const { data } = await api.get<getMicrositioByIdRes>(`/get/${id}`)
+  static async getMicrositioById(
+    id: number,
+  ): Promise<GetMicrositeByIdResponse> {
+    const { data } = await api.get(`/${id}`)
+    const parsed = GetMicrositeByIdResponseSchema.parse(data)
 
-    return data
+    return parsed
   }
 }
 

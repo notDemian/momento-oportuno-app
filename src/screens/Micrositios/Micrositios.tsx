@@ -3,7 +3,7 @@ import { ListRenderItem } from 'react-native'
 
 import { MicrositioItem } from './MicrositioItem'
 
-import { Micrositio } from '@src/api'
+import { Microsite } from '@src/api'
 import { Box, List, LoadingPageModal, RefreshControl } from '@src/components'
 import { useMicrositios } from '@src/hooks'
 import { MicrositiosStackParamList, ScreenProps } from '@src/navigation'
@@ -14,7 +14,7 @@ type MicrositiosProps = ScreenProps<MicrositiosStackParamList, 'Micrositios'>
 export const Micrositios: React.FC<MicrositiosProps> = () => {
   const { data, isLoading, refetch: refresh } = useMicrositios()
 
-  const renderItem = useCallback<ListRenderItem<Micrositio>>(({ item }) => {
+  const renderItem = useCallback<ListRenderItem<Microsite>>(({ item }) => {
     return <MicrositioItem data={item} />
   }, [])
   return (
@@ -22,9 +22,9 @@ export const Micrositios: React.FC<MicrositiosProps> = () => {
       {!data || isLoading ? (
         <LoadingPageModal loading />
       ) : (
-        <List<Micrositio>
+        <List<Microsite>
           renderItem={renderItem}
-          data={data}
+          data={data.data}
           keyExtractor={keyExtractor}
           ItemSeparatorComponent={() => null}
           refreshControl={

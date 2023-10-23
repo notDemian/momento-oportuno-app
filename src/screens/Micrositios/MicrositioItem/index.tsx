@@ -1,15 +1,15 @@
 import { FC } from 'react'
 import { Dimensions } from 'react-native'
 
-import { Micrositio } from '@src/api'
+import { Microsite } from '@src/api'
 import { Box, Button, Image, Text } from '@src/components'
 import { useMicrositiosStackNavigation } from '@src/hooks'
 import { getShadowBoxProps } from '@src/theme'
 
 const { height } = Dimensions.get('window')
 
-export const MicrositioItem: FC<{ data: Micrositio }> = ({ data }) => {
-  const { description, id, image, title, url } = data
+export const MicrositioItem: FC<{ data: Microsite }> = ({ data }) => {
+  const { description, id, image, title } = data
 
   const nav = useMicrositiosStackNavigation()
 

@@ -30,7 +30,7 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
     params: { id },
   },
 }) => {
-  const { data, isLoading, isSuccess } = useMicrositio(id)
+  const { data: { data } = {}, isLoading, isSuccess } = useMicrositio(id)
 
   const handleWA = () => {
     if (!data?.phone) return
@@ -53,7 +53,7 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
     ])
   }
 
-  if (isLoading || !isSuccess) return <LoadingPageModal loading />
+  if (isLoading || !isSuccess || !data) return <LoadingPageModal loading />
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={{}}>
@@ -92,7 +92,9 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
         <Box flexDirection={'row'} p={'s'} paddingHorizontal={'l'} g='xxl'>
           <Box width={'30%'} flexDirection={'row'} g={'s'}>
             <Icon type='FontAwesome5' name='user-circle' size={20} />
-            <Text fontSize={fontSize.s}>Miembro desde {data.member_since}</Text>
+            <Text fontSize={fontSize.s}>
+              Miembro desde {data.created_at.toLocaleDateString()}
+            </Text>
           </Box>
           {data.address ? (
             <Box width={'60%'} flexDirection={'row'} g={'s'}>

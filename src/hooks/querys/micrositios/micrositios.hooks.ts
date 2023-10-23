@@ -11,10 +11,12 @@ const useMicrositio = (id: number) => {
   })
 }
 
-const useMicrositios = () => {
+const useMicrositios = (
+  p?: Parameters<typeof MicrositiosServices.getAllMicrositios>[0],
+) => {
   return useQuery({
     queryKey: MicrositiosQuerys.getMicrositios,
-    queryFn: MicrositiosServices.getAllMicrositios,
+    queryFn: () => MicrositiosServices.getAllMicrositios(p),
   })
 }
 
