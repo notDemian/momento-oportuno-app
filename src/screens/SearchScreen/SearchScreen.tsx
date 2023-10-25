@@ -21,7 +21,6 @@ import {
 import { useAnuncios } from '@src/hooks'
 import { ScreenProps, SearchStackParamList } from '@src/navigation'
 import { useAppTheme } from '@src/theme'
-import { CLOG } from '@src/utils'
 
 type SearchScreenProps = ScreenProps<SearchStackParamList, 'Search'>
 
@@ -53,7 +52,6 @@ export const SearchScreen: FC<SearchScreenProps> = ({
     state,
     query: deboncedSearch,
   })
-  data?.pages?.[0]?.data?.[1] && CLOG(data.pages[0].data[1])
 
   const fetchMore = useCallback(() => {
     if (hasNextPage) {

@@ -1,8 +1,13 @@
-import { useInfiniteQuery, useQuery } from 'react-query'
+import { useInfiniteQuery, useMutation, useQuery } from 'react-query'
 
 import { AnunciosQuerys } from './anuncios.keys'
 
-import { AnunciosServices, GetAdByIdResponse } from '@src/api'
+import {
+  AnunciosServices,
+  CreateAnuncioParams,
+  CreateAnuncioResponse,
+  GetAdByIdResponse,
+} from '@src/api'
 import { QueryErrors } from '@src/api/request.type'
 import { FilterParams } from '@src/redux'
 
@@ -50,4 +55,11 @@ const useMisAnuncios = () => {
   })
 }
 
-export { useAnuncioByid, useAnuncios, useMisAnuncios }
+const useCreateAnuncio = () => {
+  return useMutation<CreateAnuncioResponse, QueryErrors, CreateAnuncioParams>({
+    mutationKey: AnunciosQuerys.createAnuncio,
+    mutationFn: AnunciosServices.createAd,
+  })
+}
+
+export { useAnuncioByid, useAnuncios, useCreateAnuncio, useMisAnuncios }

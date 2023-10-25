@@ -90,24 +90,11 @@ export const GetMyAdsResponseSchema = GetAllAdsResponseSchema
 
 export type GetMyAdsResponse = z.infer<typeof GetMyAdsResponseSchema>
 
-// export interface Attributes {
-//   id: string | number
-//   value:
-//     | string
-//     | NonNullable<FieldSchema['terms']>
-//     | NonNullable<FieldSchema['terms']>[number]
-//     | { listivo_130_listivo_459: string }
-//     | undefined
-// }
+export const CreateAnuncioResponseSchema = z.object({
+  data: AdSchema,
+})
 
-// export type createAnuncioParams = {
-//   model: {
-//     name: string
-//     description: string
-//     packageId: number
-//     attributes: Attributes[]
-//   }
-// }
+export type CreateAnuncioResponse = z.infer<typeof CreateAnuncioResponseSchema>
 
 export type GeneralCreateAnuncioParams = {
   title: string

@@ -59,7 +59,7 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
     })
   }
 
-  const Content = useCallback(
+  const renderContent = useCallback(
     () => (
       <Box
         flexDirection='row'
@@ -67,7 +67,7 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
         backgroundColor='card'
         borderWidth={is_featured ? 3 : 1}
         elevation={3}
-        borderColor={is_featured ? 'secondary' : 'card'}
+        borderColor={is_featured ? 'secondary' : 'white'}
         borderRadius='m'
         margin='s'
       >
@@ -97,21 +97,14 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
         </Box>
       </Box>
     ),
-    [
-      extraData,
-      image,
-      is_featured,
-      title,
-      // attributes?.price,
-      // attributes?.salary,
-    ],
+    [extraData, image, is_featured, title],
   )
 
-  return 'isFav' in props ? (
+  return !('isFav' in props) ? (
     <Touchable onPress={onPlaceItemPress} activeOpacity={0.5}>
-      <Content />
+      {renderContent()}
     </Touchable>
   ) : (
-    <Content />
+    <>{renderContent()}</>
   )
 }

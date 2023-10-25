@@ -75,7 +75,9 @@ export type AccountStackParamList = {
 
   NewAnuncioForm: undefined
   NewAnuncioFormByCat: Omit<Categorie, 'children'>
-  MisAnuncios: undefined
+  CheckoutAnuncio: {
+    id: Ad['id']
+  }
 
   Checkout: Package
   PaymentMethod: undefined

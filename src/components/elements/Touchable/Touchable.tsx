@@ -4,7 +4,6 @@ import {
   TouchableNativeFeedback,
   TouchableOpacity,
 } from 'react-native'
-import {} from 'react-native-gesture-handler'
 
 import { TouchableProps } from './Touchable.type'
 

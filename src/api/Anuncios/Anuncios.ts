@@ -1,6 +1,9 @@
 import Request from '../request'
 
-import type {
+import {
+  CreateAnuncioParams,
+  CreateAnuncioResponse,
+  CreateAnuncioResponseSchema,
   GetAdByIdResponse,
   GetAllAdsResponse,
   GetMyAdsResponse,
@@ -69,22 +72,15 @@ export class AnunciosServices {
     return dataValidated
   }
 
-  // /**
-  //  * @throws {AxiosError}
-  //  */
-  // static async createAd(params: createAnuncioParams) {
-  //   const { data } = await req.post<createAnuncioResponse>(
-  //     '/create',
-  //     params
-  //   );
-  //   return data;
-  // }
+  /**
+   * @throws {AxiosError}
+   */
+  static async createAd(
+    params: CreateAnuncioParams,
+  ): Promise<CreateAnuncioResponse> {
+    const { data } = await req.post('/', params)
 
-  // static async getAllFields(): Promise<GetAllFieldsResponse> {
-  //   const { data } = await req.get('/fields');
-  //   const dataValidated = GetAllFieldsResponseSchema.safeParse(data);
-  //   if (!dataValidated.success) throw new Error(dataValidated.error.message);
-
-  //   return dataValidated.data;
-  // }
+    const parsed = CreateAnuncioResponseSchema.parse(data)
+    return parsed
+  }
 }

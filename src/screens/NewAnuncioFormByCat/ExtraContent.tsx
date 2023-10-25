@@ -10,7 +10,6 @@ export const ExtraContent: FC<{
 }> = ({ fields, setInputs }) => {
   const fieldsSorted = useMemo(() => {
     return fields.sort((a, b) => {
-      //put item.type === 'number || text' at the start
       if (a.type === 'number' || a.type === 'text') return -1
       if (b.type === 'number' || b.type === 'text') return 1
       return 0
@@ -87,7 +86,7 @@ export const ExtraContent: FC<{
             <TextField
               inputProps={{
                 placeholder: field.placeholder ?? field.name,
-                keyboardType: 'numeric',
+                keyboardType: field.type === 'number' ? 'numeric' : 'default',
                 onChangeText: onInputChange(field.id),
               }}
               required={field.is_required}
@@ -95,20 +94,7 @@ export const ExtraContent: FC<{
             />
           )
         if (!field.attributeValues) return null
-        if (!field.is_multiple)
-          return (
-            <Box key={fIndex} width={'100%'} g={'m'}>
-              <Text variant={'subHeader'}>{field.name}</Text>
-              <ButtonModalGenerator
-                data={field.attributeValues.map((term) => ({
-                  label: term.name,
-                  value: term.id + '',
-                }))}
-                title={field.name}
-                onPressItem={onSelectedItemsChange(field.id, field.is_multiple)}
-              />
-            </Box>
-          )
+
         return (
           <Box key={fIndex} width={'100%'} g={'m'}>
             <Text variant={'subHeader'}>{field.name}</Text>
@@ -119,7 +105,7 @@ export const ExtraContent: FC<{
               }))}
               title={field.name}
               onPressItem={onSelectedItemsChange(field.id, field.is_multiple)}
-              multiple
+              multiple={field.is_multiple}
             />
           </Box>
         )

@@ -76,7 +76,7 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
         component={PaymentMethod}
       />
       <Stack.Screen
-        name='MisAnuncios'
+        name='CheckoutAnuncio'
         options={{
           headerTitle: 'Anuncios',
         }}

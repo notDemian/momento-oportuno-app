@@ -26,12 +26,17 @@ export const Constants = {
     STATES: '/states',
     DIRECTORY: '/directories',
     MICROSITIOS: '/microsites',
+    ORDERS: '/orders',
     UPLOAD_IMAGE: '/media',
     MEDIA: '/media',
   },
   IS_DEV: true,
   get API_URL() {
     return this.IS_DEV ? this.URL.DEV : this.URL.PROD
+  },
+  STRIPE: {
+    PUBLISHABLE_KEY:
+      'pk_test_51JNtfLEY6W5Ckq57baxsZaxjlEE5zZ0kPzyfbPOFylvo5AVmFd3iHQndDklrV1bXToC4RqYbfnZCauRjklFXBQPe00bII6O79s',
   },
 } as const
 

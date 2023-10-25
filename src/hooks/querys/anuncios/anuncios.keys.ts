@@ -7,3 +7,7 @@ export const AnunciosQuerys = {
   updateAnuncio: 'updateAnuncio',
   deleteAnuncio: 'deleteAnuncio',
 } as const
+
+export const AnunciosMutationsKeys = {
+  createAnuncio: 'createAnuncio',
+} as const

@@ -10,9 +10,14 @@ import {
 } from '@src/components'
 import { PaymentMethods, paymentMethods } from '@src/data/mock-payment-method'
 import { useAppDispatch, useAppSelector } from '@src/hooks'
+import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { setPaymentMethod } from '@src/redux'
 
-export const PaymentMethod: React.FC = () => {
+type PaymentMethodProps = ScreenProps<AccountStackParamList, 'CheckoutAnuncio'>
+
+export const PaymentMethod: React.FC<PaymentMethodProps> = ({
+  route: { params },
+}) => {
   const data = paymentMethods.map((item) => {
     const { name, icon } = item
     return {
