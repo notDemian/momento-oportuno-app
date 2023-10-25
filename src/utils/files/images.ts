@@ -74,3 +74,43 @@ export function uploadImage({
     headers: extraHeaders,
   })
 }
+
+// const handleUploadPhoto = async () => {
+//   if (!photo) return
+//   const uri =
+//     Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', '')
+//   const filename = photo.uri.split('/').pop()
+//   const match = /\.(\w+)$/.exec(filename as string)
+//   const ext = match?.[1]
+//   const type = match ? `image/${match[1]}` : 'image'
+//   const formData = new FormData()
+//   formData.append('photo', {
+//     uri,
+//     name: `image.${ext}`,
+//     type,
+//   })
+
+//   try {
+//     const res = await axios.post(`${SERVER_URL}/api/upload`, formData, {
+//       headers: { 'Content-Type': 'multipart/form-data' },
+//     })
+
+//     console.log({ json: res.data })
+//   } catch (error: any) {
+//     const err: AxiosError = error
+//     console.log('error ------>')
+//     CLOG({ err })
+//   }
+// }
+
+// const handleChoosePhoto = async () => {
+//   try {
+//     const res = await launchImageLibraryAsync({
+//       mediaTypes: MediaTypeOptions.Images,
+//     })
+
+//     if (res.assets && res.assets[0]) setPhoto(res.assets[0])
+//   } catch (error: any) {
+//     console.log('error', error.stack)
+//   }
+// }

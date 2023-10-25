@@ -13,4 +13,13 @@ export type RadioButtonProps = {
   value?: RadioOption['value']
   onItemPress: (option: RadioOption) => void
   containerProps?: BoxProps<Theme>
+  selectedItems?: RadioOption[]
 }
+// | {
+//     multiple: true
+//     data: RadioOption[]
+//     defaultValue?: RadioOption['value'][]
+//     value?: RadioOption['value'][]
+//     onItemPress: (option: RadioOption) => void
+//     containerProps?: BoxProps<Theme>
+//   }

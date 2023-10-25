@@ -10,6 +10,8 @@ const SubCategorie = z.object({
   updated_at: z.coerce.date(),
 })
 
+export type SubCategory = z.infer<typeof SubCategorie>
+
 export const CategorieSchema = z.object({
   id: z.number(),
   slug: z.string(),
@@ -50,7 +52,7 @@ export const AttributeSchema = z.object({
   type: AttributeType,
   is_required: z.boolean(),
   is_multiple: z.boolean(),
-  category_id: z.number(),
+  category_id: z.number().nullable(),
   value: z.null().optional(),
   attributeValues: z.array(AttributeValueSchema),
 })

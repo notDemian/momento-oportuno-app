@@ -74,7 +74,7 @@ export type AccountStackParamList = {
   SupportCenter: undefined
 
   NewAnuncioForm: undefined
-  NewAnuncioFormByCat: Categorie
+  NewAnuncioFormByCat: Omit<Categorie, 'children'>
   MisAnuncios: undefined
 
   Checkout: Package

@@ -41,21 +41,22 @@ const Favoritos = () => {
       {isLoading && <ActivityIndicator />}
       <List<AdFavorite>
         renderItem={renderItem}
-        data={[
-          ...(data?.data ?? []),
-          ...(data?.data ?? []).map((d) => ({
-            ...d,
-            id: d.id + (data?.data.length ?? 1) * 1,
-          })),
-          ...(data?.data ?? []).map((d) => ({
-            ...d,
-            id: d.id + (data?.data.length ?? 1) * 2,
-          })),
-          ...(data?.data ?? []).map((d) => ({
-            ...d,
-            id: d.id + (data?.data.length ?? 1) * 3,
-          })),
-        ]}
+        // data={[
+        //   ...(data?.data ?? []),
+        //   ...(data?.data ?? []).map((d) => ({
+        //     ...d,
+        //     id: d.id + (data?.data.length ?? 1) * 1,
+        //   })),
+        //   ...(data?.data ?? []).map((d) => ({
+        //     ...d,
+        //     id: d.id + (data?.data.length ?? 1) * 2,
+        //   })),
+        //   ...(data?.data ?? []).map((d) => ({
+        //     ...d,
+        //     id: d.id + (data?.data.length ?? 1) * 3,
+        //   })),
+        // ]}
+        data={data?.data ?? []}
         ListEmptyComponent={ListEmptyComponent}
         contentContainerStyle={{ flexGrow: 1 }}
         scrollEnabled={true}

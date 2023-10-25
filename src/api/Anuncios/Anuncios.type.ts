@@ -109,9 +109,26 @@ export type GetMyAdsResponse = z.infer<typeof GetMyAdsResponseSchema>
 //   }
 // }
 
+export type GeneralCreateAnuncioParams = {
+  title: string
+  description: string
+  state_id: number
+  user_id: number
+  category_id: number
+}
+
+export type ListingAttribute = {
+  attribute_id: number
+  value: string
+}
+
+export type CreateAnuncioParams = GeneralCreateAnuncioParams & {
+  listingAttributes: ListingAttribute[]
+}
+
 // export type createAnuncioResponse = createAnuncioParams
 
-export const isAd = (ad: any): ad is Ad => {
+export const isAd = (ad: unknown): ad is Ad => {
   // prettier-ignore
-  return ad && ad.id && ad.title && ad.slug && ad.url && ad.status && ad.image && ad.description && ad.is_featured && ad.is_multistate && ad.is_active && ad.auto_renew && ad.user && ad.user_package && ad.state && ad.category && ad.attributes && ad.create_at && ad.updated_at
+  return Boolean(typeof ad === 'object' && ad && 'id' in ad && 'title' in ad && 'slug' in ad && 'url' in ad && 'status' in ad && 'image' in ad && 'description' in ad && 'is_featured' in ad && 'is_multistate' in ad && 'is_active' in ad && 'auto_renew' in ad && 'user' in ad && 'user_package' in ad && 'state' in ad && 'category' in ad && 'attributes' in ad && 'create_at' in ad && 'updated_at' in ad && ad.id && ad.title && ad.slug && ad.url && ad.status && ad.image && ad.description && ad.is_featured && ad.is_multistate && ad.is_active && ad.auto_renew && ad.user && ad.user_package && ad.state && ad.category && ad.attributes && ad.create_at && ad.updated_at)
 }

@@ -53,7 +53,7 @@ export const SearchScreen: FC<SearchScreenProps> = ({
     state,
     query: deboncedSearch,
   })
-  data?.pages?.[0]?.data?.[1] && CLOG(data.pages[0].data[1].image)
+  data?.pages?.[0]?.data?.[1] && CLOG(data.pages[0].data[1])
 
   const fetchMore = useCallback(() => {
     if (hasNextPage) {

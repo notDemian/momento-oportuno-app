@@ -3,14 +3,16 @@ import { Alert, Dimensions } from 'react-native'
 import { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types'
 import { useDispatch } from 'react-redux'
 
+import { GeneralCreateAnuncioParams } from '@src/api'
 import { Box, Button, Image, NewAnucioLayout, TextField } from '@src/components'
 import {
   ButtonModalGenerator,
   ModalRadioButton,
 } from '@src/components/ModalRadioButton'
 import { useCategorias, useEstados, useUserPaquetes } from '@src/hooks'
+import { useUser } from '@src/hooks/useUser'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
-import { InitialParams, setInitialParams } from '@src/redux'
+import { setInitialParams } from '@src/redux'
 import { fontSize } from '@src/theme'
 import * as ImagePicker from 'expo-image-picker'
 
@@ -71,15 +73,18 @@ export const NewAnuncioForm: React.FC<
   const { data: cat, isLoading: loadingCat } = useCategorias()
   const { data: userPaquetes, isLoading: loadingPaq } = useUserPaquetes()
 
-  const [params, setParams] = useState<InitialParams>({
+  const [{ id }] = useUser()
+
+  const [params, setParams] = useState<GeneralCreateAnuncioParams>({
+    title: '',
     description: '',
-    name: '',
-    packageId: 0,
-    stateId: 0,
+    category_id: 0,
+    state_id: 0,
+    user_id: id,
   })
 
   const setParamsFactory = useCallback(
-    (key: keyof InitialParams) => (value: string) => {
+    (key: keyof typeof params) => (value: string) => {
       setParams((p) => ({ ...p, [key]: value }))
     },
     [],
@@ -88,7 +93,11 @@ export const NewAnuncioForm: React.FC<
   const dispatch = useDispatch()
 
   const showCategoriaModalHandler = useCallback(() => {
-    if (params.description === '' || params.name === '' || params.stateId === 0)
+    if (
+      params.description === '' ||
+      params.title === '' ||
+      params.state_id === 0
+    )
       return Alert.alert('Llena los campos', 'Debes llenar todos los campos')
     setShowCategoriaModal(true)
   }, [params])
@@ -108,7 +117,7 @@ export const NewAnuncioForm: React.FC<
       {!loadingCat && cat ? (
         <ModalRadioButton
           isVisible={showCategoriaModal}
-          data={cat.map((cat) => ({
+          data={cat.data.map((cat) => ({
             label: cat.name,
             value: cat.id,
           }))}
@@ -116,10 +125,17 @@ export const NewAnuncioForm: React.FC<
           title='Para continuar, selecciona la categoría de tu publicación'
           onPressItem={(item) => {
             setShowCategoriaModal(false)
-            const catFound = cat.find((c) => c.id === item.value)
+            const catFound = cat.data.find((c) => c.id === item.value)
             if (catFound) {
-              dispatch(setInitialParams(params))
-              navigation.navigate('NewAnuncioFormByCat', catFound)
+              dispatch(
+                setInitialParams({
+                  ...params,
+                  category_id: catFound.id,
+                }),
+              )
+              const { children: _, ...rest } = catFound
+
+              navigation.navigate('NewAnuncioFormByCat', rest)
             }
           }}
         />
@@ -128,7 +144,7 @@ export const NewAnuncioForm: React.FC<
         <TextField
           inputProps={{
             placeholder: 'Nombre de la Publicación',
-            onChangeText: setParamsFactory('name'),
+            onChangeText: setParamsFactory('title'),
           }}
           required
         />
@@ -141,35 +157,33 @@ export const NewAnuncioForm: React.FC<
         >
           {estados && (
             <ButtonModalGenerator
-              data={estados.map((estado) => ({
+              data={estados.data.map((estado) => ({
                 label: estado.name,
                 value: estado.id.toString(),
               }))}
               onPressItem={(item) => {
-                const itemFound = estados.find(
+                const itemFound = estados.data.find(
                   (c) => c.id.toString() === item.value.toString(),
                 )
-                console.log({
-                  itemFound,
-                })
+
                 if (!itemFound) return
-                setParamsFactory('stateId')(itemFound.id.toString())
+                setParamsFactory('state_id')(itemFound.id.toString())
               }}
               title='Estado'
             />
           )}
         </Box>
-        <Box flexDirection='row' alignItems='center' gap='m'>
+        {/* <Box flexDirection='row' alignItems='center' gap='m'>
           {!loadingPaq &&
             userPaquetes &&
-            (userPaquetes.length > 0 ? (
+            (userPaquetes.data.length > 0 ? (
               <ButtonModalGenerator
-                data={userPaquetes.map((paquete) => ({
+                data={userPaquetes.data.map((paquete) => ({
                   label: paquete.name,
-                  value: paquete.key,
+                  value: paquete.id.toString(),
                 }))}
                 onPressItem={(item) => {
-                  setParamsFactory('packageId')(item.value.toString())
+                  setParamsFactory('')(item.value.toString())
                 }}
                 title='Paquete'
               />
@@ -179,7 +193,7 @@ export const NewAnuncioForm: React.FC<
                 onPress={() => navigation.navigate('Package')}
               />
             ))}
-        </Box>
+        </Box> */}
         <Box height={fontSize.xxxl * 5}>
           <TextField
             inputProps={{

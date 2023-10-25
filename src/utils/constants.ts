@@ -27,6 +27,7 @@ export const Constants = {
     DIRECTORY: '/directories',
     MICROSITIOS: '/microsites',
     UPLOAD_IMAGE: '/media',
+    MEDIA: '/media',
   },
   IS_DEV: true,
   get API_URL() {

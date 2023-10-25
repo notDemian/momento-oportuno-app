@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { Button } from '@src/components'
 import {
   AccountScreenProps,
   AccountStackParamList,
@@ -25,6 +26,17 @@ const Stack = createNativeStackNavigator<AccountStackParamList>()
 export const AccountStack: React.FC<AccountScreenProps> = (props) => {
   const { colors } = useAppTheme()
 
+  const headerRight = useCallback(() => {
+    return (
+      <Button
+        label='+'
+        onPress={() => {
+          props.navigation.navigate('NewAnuncioForm')
+        }}
+      />
+    )
+  }, [])
+
   return (
     <Stack.Navigator
       initialRouteName='Account'
@@ -39,6 +51,7 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
             },
             headerTintColor: colors.white,
             // headerShown: false,
+            headerRight,
           }
         }}
         name='Account'

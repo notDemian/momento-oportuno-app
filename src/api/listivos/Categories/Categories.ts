@@ -8,7 +8,7 @@ import {
 } from './Categories.type'
 
 import Request from '@src/api/request'
-import { Constants } from '@src/utils'
+import { CLOG, Constants } from '@src/utils'
 
 const req = Request(Constants.ENDPOINTS.CATEGORIAS)
 export class CategoriesServices {
@@ -28,6 +28,9 @@ export class CategoriesServices {
     categoryId: number,
   ): Promise<GetCategoryAttributes> {
     const { data } = await req.get(`/${categoryId}/attributes`)
+    CLOG({
+      rawData: data,
+    })
     const parsed = GetCategoryAttributesSchema.parse(data)
 
     return parsed

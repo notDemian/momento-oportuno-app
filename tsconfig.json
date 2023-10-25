@@ -2,21 +2,18 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
-    "lib": [
-      "es6"
-    ],
+    "lib": ["es6"],
     "allowJs": true,
     "jsx": "react-native",
     "noEmit": true,
     "isolatedModules": true,
     "strict": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "@src/*": [
-        "src/*"
-      ]
+      "@src/*": ["src/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true

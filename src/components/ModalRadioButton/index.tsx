@@ -17,6 +17,7 @@ type ChangeLanguageModalProps = {
   data: RadioOption[]
   title: string
   onPressItem: (item: RadioOption) => void
+  selectedItems?: RadioOption[] | undefined
 }
 
 export const ModalRadioButton: FC<ChangeLanguageModalProps> = ({
@@ -25,6 +26,7 @@ export const ModalRadioButton: FC<ChangeLanguageModalProps> = ({
   data,
   title,
   onPressItem,
+  selectedItems,
 }) => {
   const onItemPress = useCallback(
     (item: RadioOption) => {
@@ -46,9 +48,10 @@ export const ModalRadioButton: FC<ChangeLanguageModalProps> = ({
         </Text>
         <Box marginTop='m'>
           <RadioButton
-            defaultValue={data[0].value}
+            defaultValue={data?.[0]?.value}
             data={data}
             onItemPress={onItemPress}
+            selectedItems={selectedItems}
           />
         </Box>
       </Box>
@@ -60,17 +63,43 @@ export const ButtonModalGenerator: FC<{
   data: { label: string; value: string }[]
   title: string
   onPressItem: (item: RadioOption) => void
-}> = ({ data, title, onPressItem }) => {
+  multiple?: boolean
+}> = ({ data, title, onPressItem, multiple }) => {
   const [showModal, setShowModal] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<RadioOption>()
+  const [selectedItem, setSelectedItem] = useState<
+    RadioOption | RadioOption[]
+  >()
   const { colors } = useAppTheme()
   return (
     <>
       <Button
-        label={selectedItem ? selectedItem.label : `Seleccionar ${title}`}
+        label={
+          // selectedItem?.[0] ? selectedItem[0].label : `Seleccionar ${title}`
+          Array.isArray(selectedItem)
+            ? selectedItem.length > 0
+              ? selectedItem.map((s) => s.label).join(', ')
+              : title
+            : selectedItem?.label ?? title
+        }
         onPress={() => setShowModal(true)}
-        variant={selectedItem ? 'orangy' : 'outline'}
-        opacity={selectedItem ? 1 : 0.5}
+        variant={
+          Array.isArray(selectedItem)
+            ? selectedItem.length > 0
+              ? 'orangy'
+              : 'outline'
+            : selectedItem
+            ? 'orangy'
+            : 'outline'
+        }
+        opacity={
+          Array.isArray(selectedItem)
+            ? selectedItem.length > 0
+              ? 1
+              : 0.5
+            : selectedItem
+            ? 1
+            : 0.5
+        }
         isFullWidth
         isModal
         modalColor={colors.secondary}
@@ -80,10 +109,38 @@ export const ButtonModalGenerator: FC<{
         isVisible={showModal}
         hideModal={() => setShowModal(false)}
         onPressItem={(item) => {
-          setSelectedItem(item)
-          setShowModal(false)
+          setSelectedItem((p) => {
+            if (multiple) {
+              if (Array.isArray(p)) {
+                const index = p.findIndex((i) => i.value === item.value)
+                if (index === -1) return [...p, item]
+                p.splice(index, 1)
+                return [...p]
+              }
+              return [item]
+            }
+            return item
+          })
+
+          !multiple && setShowModal(false)
           onPressItem(item)
         }}
+        // selectedItems={
+        //   multiple
+        //     ? Array.isArray(selectedItem)
+        //       ? selectedItem
+        //       : [selectedItem ?? data[0]]
+        //     : undefined
+        // }
+        {...(multiple
+          ? {
+              selectedItems: Array.isArray(selectedItem)
+                ? selectedItem
+                : selectedItem
+                ? [selectedItem]
+                : [],
+            }
+          : {})}
         title={title}
       />
     </>
