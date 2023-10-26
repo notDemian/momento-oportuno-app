@@ -50,6 +50,8 @@ export const theme = createTheme({
     google: palette.google,
     gray: palette.gray[400],
     grayLight: palette.gray[300],
+    stripe: palette.stripe,
+    paypal: palette.paypal,
   },
   breakpoints: {
     phone: 0,
@@ -110,6 +112,16 @@ export const theme = createTheme({
       backgroundColor: 'transparent',
       borderWidth: 1,
       borderColor: 'primary',
+    },
+    stripe: {
+      backgroundColor: 'stripe',
+      borderWidth: 1,
+      borderColor: 'stripe',
+    },
+    paypal: {
+      backgroundColor: 'paypal',
+      borderWidth: 1,
+      borderColor: 'paypal',
     },
     transparent: {
       backgroundColor: 'transparent',

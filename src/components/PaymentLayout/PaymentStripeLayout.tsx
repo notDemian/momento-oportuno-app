@@ -2,28 +2,30 @@ import React, { useEffect, useState } from 'react'
 import { type PropsWithChildren } from 'react'
 import { ActivityIndicator, ScrollView, StyleSheet } from 'react-native'
 
+import { useAppTheme } from '@src/theme'
 import { Constants } from '@src/utils'
 import { initStripe } from '@stripe/stripe-react-native'
 
 interface Props {
-  paymentMethod?: string
   onInit?(): void
 }
 
 const PaymentScreen: React.FC<PropsWithChildren<Props>> = ({
-  paymentMethod,
   children,
   onInit,
 }) => {
   const [loading, setLoading] = useState(true)
 
+  const {
+    colors: { background: backgroundColor },
+  } = useAppTheme()
+
   useEffect(() => {
     async function initialize() {
-      const publishableKey = Constants
+      const publishableKey = Constants.STRIPE.PUBLISHABLE_KEY
       if (publishableKey) {
         await initStripe({
           publishableKey,
-          merchantIdentifier: 'merchant.com.stripe.react.native',
           urlScheme: 'stripe-example',
           setReturnUrlSchemeOnAndroid: true,
         })
@@ -32,7 +34,6 @@ const PaymentScreen: React.FC<PropsWithChildren<Props>> = ({
       }
     }
     initialize()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return loading ? (
@@ -40,7 +41,7 @@ const PaymentScreen: React.FC<PropsWithChildren<Props>> = ({
   ) : (
     <ScrollView
       accessibilityLabel='payment-screen'
-      style={styles.container}
+      style={[styles.container, { backgroundColor }]}
       keyboardShouldPersistTaps='always'
     >
       {children}
@@ -51,7 +52,6 @@ const PaymentScreen: React.FC<PropsWithChildren<Props>> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
     paddingTop: 20,
     paddingHorizontal: 16,
   },

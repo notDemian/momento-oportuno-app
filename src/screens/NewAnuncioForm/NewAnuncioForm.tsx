@@ -14,6 +14,7 @@ import { useUser } from '@src/hooks/useUser'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { setInitialParams } from '@src/redux'
 import { fontSize } from '@src/theme'
+import { wait } from '@src/utils/wait'
 import * as ImagePicker from 'expo-image-picker'
 
 export const NewAnuncioForm: React.FC<
@@ -135,7 +136,9 @@ export const NewAnuncioForm: React.FC<
               )
               const { children: _, ...rest } = catFound
 
-              navigation.navigate('NewAnuncioFormByCat', rest)
+              wait(600).then(() => {
+                navigation.navigate('NewAnuncioFormByCat', rest)
+              })
             }
           }}
         />

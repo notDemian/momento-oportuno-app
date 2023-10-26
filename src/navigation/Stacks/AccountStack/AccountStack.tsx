@@ -31,6 +31,8 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
       <Button
         label='+'
         onPress={() => {
+          //FIXME: remove this
+          // props.navigation.navigate('CheckoutAnuncio', { id: 20 })
           props.navigation.navigate('NewAnuncioForm')
         }}
       />

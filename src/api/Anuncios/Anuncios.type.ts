@@ -91,7 +91,14 @@ export const GetMyAdsResponseSchema = GetAllAdsResponseSchema
 export type GetMyAdsResponse = z.infer<typeof GetMyAdsResponseSchema>
 
 export const CreateAnuncioResponseSchema = z.object({
-  data: AdSchema,
+  data: AdSchema.omit({
+    status: true,
+    user: true,
+    user_package: true,
+    state: true,
+    category: true,
+    attributes: true,
+  }),
 })
 
 export type CreateAnuncioResponse = z.infer<typeof CreateAnuncioResponseSchema>

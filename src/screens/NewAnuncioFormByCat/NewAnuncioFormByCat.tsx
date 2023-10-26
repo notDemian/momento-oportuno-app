@@ -51,6 +51,7 @@ export const NewAnuncioFormByCat: FC<
       Alert.alert('Error', 'Debes llenar todos los campos')
       return
     }
+    console.log({ subCategoriaSelected, a: 'WTF!!!!!!!!!!' })
     if (!subCategoriaSelected) {
       Alert.alert('Error', 'Selecciona una subcategoría')
       return
@@ -75,7 +76,7 @@ export const NewAnuncioFormByCat: FC<
       Alert.alert('Error', 'Ocurrió un error al crear el anuncio')
       navigation.dispatch(StackActions.popToTop())
     }
-  }, [inputs, initialParams, attributes])
+  }, [inputs, initialParams, attributes, subCategoriaSelected])
   //   if (!subCategoriaSelected)
   //     return Alert.alert('Error', 'Selecciona una subcategoría')
   //   const fromInputs: Attributes[] = [
@@ -145,7 +146,7 @@ export const NewAnuncioFormByCat: FC<
         <Button
           label='Continuar'
           isFullWidth
-          isDisabled={loadingSubCat}
+          isDisabled={loadingSubCat || isLoading}
           onPress={onContinue}
         />
       }
@@ -161,7 +162,8 @@ export const NewAnuncioFormByCat: FC<
               value: c.id.toString(),
             }))}
             onPressItem={(item) => {
-              const itemFound = subcategories.find((c) => c.id === item.value)
+              const itemFound = subcategories.find((c) => c.id === +item.value)
+              CLOG({ itemFound, item, subcategories })
               if (!itemFound) return
               setSubCategoriaSelected(itemFound)
             }}

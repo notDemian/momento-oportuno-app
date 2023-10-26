@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native'
 import { Text } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import Toast from 'react-native-toast-message'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
 
@@ -66,6 +67,7 @@ function App() {
                 <AppThemeProvider>
                   <RootNavigation />
                 </AppThemeProvider>
+                <Toast />
               </PersistGate>
             </Provider>
           </QueryClientProvider>

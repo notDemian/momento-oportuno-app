@@ -22,7 +22,7 @@ export const mockCategories: Category[] = [
   },
   {
     id: '4',
-    name: 'Vehículos',
+    name: 'Vehiculos',
     icon: 'directions-car',
   },
   {

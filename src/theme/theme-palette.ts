@@ -30,6 +30,9 @@ export const palette = {
   },
   facebook: '#3b5998',
   google: '#db4437',
+
+  stripe: '#6772e5',
+  paypal: '#009cde',
 } as const
 
 export const ALL_Colors = {
