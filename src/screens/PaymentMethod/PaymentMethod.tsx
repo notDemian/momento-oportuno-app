@@ -78,14 +78,14 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = ({
       // try {
       //   if (!billingAddress)
       //     throw new Error('Debes ingresar una dirección de facturación')
-      const { order } = await mutateAsync({
-        type: 'listing',
-        billing_address: billingAddress,
-        package_id: 0,
-        payment_method: type,
-        related_id: params.id,
-        token: token.id,
-      })
+      // const { order } = await mutateAsync({
+      //   type: 'listing',
+      //   billing_address: billingAddress,
+      //   package_id: 0,
+      //   payment_method: type,
+      //   related_id: params.id,
+      //   token: token.id,
+      // })
       // } catch (error) {
       //   Toast.show({
       //     type: 'error',
