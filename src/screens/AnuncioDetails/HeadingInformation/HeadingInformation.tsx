@@ -11,22 +11,16 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
 }) => {
   const {
     title,
-    // defaultPrice,
-    // pricesAsSalary,
-    // Categories,
-    // created_at,
-    // jointCategories,
-    // estados,
     attributes,
     category,
     create_at,
-    description,
-    status,
-    image,
-    is_featured,
-    is_multistate,
+
     state,
   } = data
+
+  const priceOrSalary =
+    attributes.find((attr) => attr.name === 'Precio')?.value.toString() ??
+    attributes.find((attr) => attr.name === 'Salario')?.value.toString()
 
   return (
     <Box backgroundColor='card' padding='m'>
@@ -37,20 +31,20 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
           </Text>
         </Box>
         <Text fontSize={fontSize.m} color='primary' fontWeight={'bold'}>
-          precio
+          $ {priceOrSalary} MXN
         </Text>
       </Box>
       {/**TODO: ADD EXTRA DATA HERE */}
       <Box paddingVertical={'s'}>
         <Text color={'gray'}>{toRelative(create_at)}</Text>
       </Box>
+      <Text>{category.name}</Text>
       <Box
         flexDirection={'row'}
         gap={'s'}
         marginVertical={'s'}
         flexWrap={'wrap'}
       >
-        <Text>{category.name}</Text>
         {category.children.map((cat) => {
           return (
             <Box
@@ -73,7 +67,7 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
           return (
             <Box
               key={attr.id.toString()}
-              backgroundColor={'secondary'}
+              backgroundColor={'orangy'}
               borderRadius={'s'}
               paddingHorizontal={'s'}
               overflow={'hidden'}

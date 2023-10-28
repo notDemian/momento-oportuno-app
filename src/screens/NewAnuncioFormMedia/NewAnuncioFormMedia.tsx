@@ -27,7 +27,7 @@ interface PaqueteMedia {
 
 const paquetes_imgs: PaqueteMedia[] = [
   {
-    title: '3 imágenes sin costo',
+    title: '3 imágenes',
     quantity: 3,
     price: 0,
     id: 0,
@@ -54,7 +54,7 @@ const videoItem: PaqueteMedia = {
 }
 
 const paqs_radio = paquetes_imgs.map((p) => ({
-  label: `${p.title} $${p.price}`,
+  label: `${p.title}`,
   value: p.id.toString(),
 }))
 
@@ -154,17 +154,17 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
     if (!paquete) return Alert.alert('Selecciona un paquete')
     if (!images) return Alert.alert('Selecciona imágenes')
     const lImages = [...images]
-    if (video) {
-      if (videoAsset) {
-        lImages.push(videoAsset)
-      } else {
-        return Toast.show({
-          type: 'error',
-          text1: 'Selecciona un video',
-          visibilityTime: 1000,
-        })
-      }
-    }
+    // if (video) {
+    //   if (videoAsset) {
+    //     lImages.push(videoAsset)
+    //   } else {
+    //     return Toast.show({
+    //       type: 'error',
+    //       text1: 'Selecciona un video',
+    //       visibilityTime: 1000,
+    //     })
+    //   }
+    // }
     if (lImages.length === 0 || !lImages[0])
       return Toast.show({
         type: 'error',
@@ -216,7 +216,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
           alignContent={'flex-end'}
           gap={'xs'}
         >
-          {paquete ? (
+          {/* {paquete ? (
             <Box
               flexDirection={'row'}
               width={'100%'}
@@ -237,8 +237,8 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
               <Text>{videoItem.title}</Text>
               <Text>$ {videoItem.price} MXN</Text>
             </Box>
-          ) : null}
-          {paquete || video ? (
+          ) : null} */}
+          {/* {paquete || video ? (
             <>
               <Box
                 flexDirection={'row'}
@@ -257,7 +257,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
                 </Text>
               </Box>
             </>
-          ) : null}
+          ) : null} */}
           <Button
             label='Continuar'
             isFullWidth

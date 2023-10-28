@@ -100,7 +100,10 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
                 ]}
               >
                 <Animated.Image
-                  source={{ uri: data.data.image ?? IMAGE_URL_FALLBACK }}
+                  source={{
+                    uri:
+                      data.data.media?.[0]?.original_url ?? IMAGE_URL_FALLBACK,
+                  }}
                   style={[
                     styles.coverPhoto,
                     {

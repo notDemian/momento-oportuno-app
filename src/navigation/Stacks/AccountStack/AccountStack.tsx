@@ -34,30 +34,30 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
           // props.navigation.navigate('NewAnuncioForm')
           //FIXME: remove this
           // props.navigation.navigate('NewAnuncioForm')
-          // props.navigation.navigate('NewAnuncioFormByCat',{ id: 1 })
-          // props.navigation.navigate('NewAnuncioFormMedia', { id: 22 })
+          // props.navigation.navigate('NewAnuncioFormByCat', { id: 1 })
+          props.navigation.navigate('NewAnuncioFormMedia', { id: 22 })
           // props.navigation.navigate('Packages', { id: 22, type: 'listing' })
-          props.navigation.navigate('Checkout', {
-            id: 22,
-            type: 'listing',
-            package: {
-              id: 1,
-              name: 'Paquete Anuncio Básico',
-              label: 'Paquete Anuncio Básico',
-              type: 'listing',
-              description: 'Descripcion del paquete',
-              expire: 7,
-              price: 200,
-              display_price: '$200',
-              is_featured: 0,
-              is_active: 1,
-              is_multistate: 0,
-              includes_video: 0,
-              includes_printing: 0,
-              max_number_of_characters: 0,
-              number_of_images: 0,
-            },
-          })
+          // props.navigation.navigate('Checkout', {
+          //   id: 22,
+          //   type: 'listing',
+          //   package: {
+          //     id: 1,
+          //     name: 'Paquete Anuncio Básico',
+          //     label: 'Paquete Anuncio Básico',
+          //     type: 'listing',
+          //     description: 'Descripcion del paquete',
+          //     expire: 7,
+          //     price: 200,
+          //     display_price: '$200',
+          //     is_featured: 0,
+          //     is_active: 1,
+          //     is_multistate: 0,
+          //     includes_video: 0,
+          //     includes_printing: 0,
+          //     max_number_of_characters: 0,
+          //     number_of_images: 0,
+          //   },
+          // })
         }}
       />
     )

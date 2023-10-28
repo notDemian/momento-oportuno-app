@@ -22,12 +22,12 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
 }) => {
   const nav = useSearchStackNavigation()
   const renderItem = useCallback((props: CarouselRenderItemInfo<Ad>) => {
-    const { id, image } = props.item
+    const { id, image, media } = props.item
 
     return (
       <Card
         key={id}
-        coverImage={image ?? IMAGE_URL_FALLBACK}
+        coverImage={media?.[0]?.original_url ?? IMAGE_URL_FALLBACK}
         coverImageSize='m'
         title={props.item.title}
         marginLeft='m'
