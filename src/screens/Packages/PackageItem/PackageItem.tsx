@@ -7,7 +7,7 @@ import { SvgCheck } from '@src/components/svgs'
 import { useAccountStackNavigation } from '@src/hooks'
 import { fontSize, getShadowBoxProps, useAppTheme } from '@src/theme'
 import { formatCurrency } from '@src/utils'
-export const PackageItem: FC<PackageItemProps> = ({ paquete }) => {
+export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
   const _theme = useAppTheme()
 
   const innerBackground = paquete.is_featured ? 'primary' : 'grayLight'
@@ -35,7 +35,9 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete }) => {
   }, [paquete])
 
   const onPackagePressed = useCallback(() => {
-    nav.navigate('Checkout', paquete)
+    const { created_at: _, updated_at: __, ...noDates } = paquete
+
+    nav.navigate('Checkout', { package: noDates, id, type })
   }, [paquete])
 
   return (

@@ -78,6 +78,7 @@ export class AnunciosServices {
   static async createAd(
     params: CreateAnuncioParams,
   ): Promise<CreateAnuncioResponse> {
+    // params.status = 'published'
     const { data } = await req.post('/', params)
 
     const parsed = CreateAnuncioResponseSchema.parse(data)

@@ -13,7 +13,14 @@ import type {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack'
-import type { Ad, Categorie, Package } from '@src/api'
+import type {
+  Ad,
+  Categorie,
+  Directorio,
+  Microsite,
+  Package,
+  TypePackage,
+} from '@src/api'
 
 // Stack Param List
 export type RootStackParamList = {
@@ -64,6 +71,8 @@ export type SearchStackParamList = {
   }
 }
 
+type JointIds = Ad['id'] | Microsite['id'] | Directorio['id']
+
 export type AccountStackParamList = {
   Account: undefined
   EditProfile: undefined
@@ -75,16 +84,35 @@ export type AccountStackParamList = {
 
   NewAnuncioForm: undefined
   NewAnuncioFormByCat: Omit<Categorie, 'children'>
-  CheckoutAnuncio: {
-    id: Ad['id']
+  NewAnuncioFormMedia: {
+    id: JointIds
+  }
+  Packages: {
+    id: JointIds
+    type: TypePackage
+  }
+  Checkout: {
+    type: TypePackage
+    package: Omit<Package, 'created_at' | 'updated_at'>
+    id: JointIds
   }
 
-  Checkout: Package
-  PaymentMethod: undefined
-  Promotion: undefined
+  CheckoutAnuncio: {
+    id: JointIds
+  }
   MyPackages: undefined
-  Package: undefined
+  Promotion: undefined
 }
+//TODO: TODOs
+// check impreso
+// - limitar caracteres (máximo 700 impresos)
+// # imagenes
+// check video
+
+// 3 sin costo
+// 5 +50
+// 10 +100
+// video +50
 
 export type MicrositiosStackParamList = {
   Micrositios: undefined

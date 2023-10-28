@@ -1,3 +1,3 @@
-import { AccountStackParamList,ScreenProps } from '@src/navigation'
+import { AccountStackParamList, ScreenProps } from '@src/navigation'
 
-export type PackageScreenProps = ScreenProps<AccountStackParamList, 'Package'>
+export type PackageScreenProps = ScreenProps<AccountStackParamList, 'Packages'>

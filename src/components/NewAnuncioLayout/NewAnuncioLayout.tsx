@@ -13,19 +13,25 @@ export const NewAnucioLayout = ({
 }: NewAnuncioLayout) => {
   const styles = useSafeAreaScrollViewStyles(true)
   return (
-    <ScrollView contentContainerStyle={[styles.contentContainer]}>
-      <Box marginTop='l' marginBottom='m'>
-        <Text fontWeight='bold' variant='largeHeader'>
-          {title}
-        </Text>
-        {subtitle ? (
-          <Text variant='secondary' marginVertical='s'>
-            {subtitle}
+    <>
+      <ScrollView contentContainerStyle={[styles.contentContainer]}>
+        <Box marginTop='l' marginBottom='m'>
+          <Text fontWeight='bold' variant='largeHeader'>
+            {title}
           </Text>
-        ) : null}
-        <Box marginTop='m'>{children}</Box>
-      </Box>
-      {footer ? <Box>{footer}</Box> : null}
-    </ScrollView>
+          {subtitle ? (
+            <Text variant='secondary' marginVertical='s'>
+              {subtitle}
+            </Text>
+          ) : null}
+          <Box marginTop='m'>{children}</Box>
+        </Box>
+      </ScrollView>
+      {footer ? (
+        <Box paddingHorizontal={'m'} marginBottom={'m'}>
+          {footer}
+        </Box>
+      ) : null}
+    </>
   )
 }

@@ -1,10 +1,18 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Alert, Dimensions } from 'react-native'
 import { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types'
 import { useDispatch } from 'react-redux'
 
 import { GeneralCreateAnuncioParams } from '@src/api'
-import { Box, Button, Image, NewAnucioLayout, TextField } from '@src/components'
+import {
+  Box,
+  Button,
+  CheckBox,
+  Image,
+  NewAnucioLayout,
+  Text,
+  TextField,
+} from '@src/components'
 import {
   ButtonModalGenerator,
   ModalRadioButton,
@@ -14,6 +22,7 @@ import { useUser } from '@src/hooks/useUser'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { setInitialParams } from '@src/redux'
 import { fontSize } from '@src/theme'
+import { Constants } from '@src/utils'
 import { wait } from '@src/utils/wait'
 import * as ImagePicker from 'expo-image-picker'
 
@@ -70,7 +79,7 @@ export const NewAnuncioForm: React.FC<
     setShowCategoriaModal(false)
   }
 
-  const { data: estados, isLoading: loadingEstados } = useEstados()
+  const { data: estados, isLoading: loadingEstados } = useEstados(false)
   const { data: cat, isLoading: loadingCat } = useCategorias()
   const { data: userPaquetes, isLoading: loadingPaq } = useUserPaquetes()
 
@@ -82,14 +91,32 @@ export const NewAnuncioForm: React.FC<
     category_id: 0,
     state_id: 0,
     user_id: id,
+    includes_printing: false,
+    includes_video: false,
+    is_featured: false,
+    includes_socials: false,
   })
 
   const setParamsFactory = useCallback(
-    (key: keyof typeof params) => (value: string) => {
+    (key: keyof typeof params) => (value: string | number | boolean) => {
+      if (typeof value === 'boolean')
+        return setParams((p) => ({ ...p, [key]: value }))
       setParams((p) => ({ ...p, [key]: value }))
     },
     [],
   )
+
+  const isPrintingMultiState = useMemo(() => {
+    return (
+      params.includes_printing && params.state_id === Constants.IDS.allStates
+    )
+  }, [params])
+
+  useEffect(() => {
+    if (!isPrintingMultiState) {
+      return setParams((p) => ({ ...p, printing_state_id: undefined }))
+    }
+  }, [isPrintingMultiState])
 
   const dispatch = useDispatch()
 
@@ -100,8 +127,18 @@ export const NewAnuncioForm: React.FC<
       params.state_id === 0
     )
       return Alert.alert('Llena los campos', 'Debes llenar todos los campos')
+
+    if (
+      isPrintingMultiState &&
+      (!params.printing_state_id || params.printing_state_id === 0)
+    )
+      return Alert.alert(
+        'Llena los campos',
+        'Debes seleccionar un estado para el medio impreso',
+      )
+
     setShowCategoriaModal(true)
-  }, [params])
+  }, [params, isPrintingMultiState])
 
   return (
     <NewAnucioLayout
@@ -151,52 +188,6 @@ export const NewAnuncioForm: React.FC<
           }}
           required
         />
-
-        <Box
-          flexDirection='row'
-          // justifyContent='space-between'
-          alignItems='center'
-          gap='m'
-        >
-          {estados && (
-            <ButtonModalGenerator
-              data={estados.data.map((estado) => ({
-                label: estado.name,
-                value: estado.id.toString(),
-              }))}
-              onPressItem={(item) => {
-                const itemFound = estados.data.find(
-                  (c) => c.id.toString() === item.value.toString(),
-                )
-
-                if (!itemFound) return
-                setParamsFactory('state_id')(itemFound.id.toString())
-              }}
-              title='Estado'
-            />
-          )}
-        </Box>
-        {/* <Box flexDirection='row' alignItems='center' gap='m'>
-          {!loadingPaq &&
-            userPaquetes &&
-            (userPaquetes.data.length > 0 ? (
-              <ButtonModalGenerator
-                data={userPaquetes.data.map((paquete) => ({
-                  label: paquete.name,
-                  value: paquete.id.toString(),
-                }))}
-                onPressItem={(item) => {
-                  setParamsFactory('')(item.value.toString())
-                }}
-                title='Paquete'
-              />
-            ) : (
-              <Button
-                label='Comprar paquete'
-                onPress={() => navigation.navigate('Package')}
-              />
-            ))}
-        </Box> */}
         <Box height={fontSize.xxxl * 5}>
           <TextField
             inputProps={{
@@ -213,7 +204,67 @@ export const NewAnuncioForm: React.FC<
             flex={1}
             height={'100%'}
           />
+          <Text color={'gray'}>{params.description.length}/700</Text>
         </Box>
+
+        <Box flexDirection='row' alignItems='center' gap='m'>
+          {estados && (
+            <ButtonModalGenerator
+              data={estados.data.map((estado) => ({
+                label: estado.name,
+                value: estado.id.toString(),
+              }))}
+              onPressItem={(item) => {
+                const itemFound = estados.data.find(
+                  (c) => c.id.toString() === item.value.toString(),
+                )
+
+                if (!itemFound) return
+                setParamsFactory('state_id')(itemFound.id)
+              }}
+              title='Estado'
+            />
+          )}
+        </Box>
+        <CheckBox
+          label='Publicar tu anuncio en medio impreso'
+          onChange={setParamsFactory('includes_printing')}
+        />
+        {isPrintingMultiState ? (
+          <Box flexDirection='row' alignItems='center' gap='m'>
+            {estados && (
+              <ButtonModalGenerator
+                data={estados.data
+                  .filter((p) => p.id !== Constants.IDS.allStates)
+                  .map((estado) => ({
+                    label: estado.name,
+                    value: estado.id.toString(),
+                  }))}
+                onPressItem={(item) => {
+                  const itemFound = estados.data.find(
+                    (c) => c.id.toString() === item.value.toString(),
+                  )
+
+                  if (!itemFound) return
+                  setParamsFactory('printing_state_id')(itemFound.id)
+                }}
+                title='Medio impreso'
+              />
+            )}
+          </Box>
+        ) : null}
+        <CheckBox
+          label='Poner una mención de tu anuncio en Redes sociales'
+          onChange={setParamsFactory('includes_socials')}
+        />
+        <CheckBox
+          label='Destacar mi anuncio'
+          onChange={setParamsFactory('is_featured')}
+        />
+        <CheckBox
+          label='Incluir video'
+          onChange={setParamsFactory('includes_video')}
+        />
       </Box>
     </NewAnucioLayout>
   )

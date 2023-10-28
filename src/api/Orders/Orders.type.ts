@@ -9,17 +9,18 @@ export const PaymentMethods = {
 export type PaymentMethods =
   (typeof PaymentMethods)[keyof typeof PaymentMethods]
 
-export type CreateOrderParams = {
+export type BaseCreateOrderParams = {
   billing_address: string
-  // payment_method: PaymentMethods
   package_id: number
   related_id: number
   type: TypePackage
-  // token: string
-} & (
-  | { payment_method: typeof PaymentMethods.PAYPAL }
-  | { payment_method: typeof PaymentMethods.STRIPE; token: string }
-)
+}
+
+export type CreateOrderParams = BaseCreateOrderParams &
+  (
+    | { payment_method: typeof PaymentMethods.PAYPAL }
+    | { payment_method: typeof PaymentMethods.STRIPE; token: string }
+  )
 
 export const OrderStatus = z.union([
   z.literal('pending'),

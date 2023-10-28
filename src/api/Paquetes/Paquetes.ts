@@ -1,16 +1,16 @@
 import Request from '../request'
 
 import type {
+  GetPackagesParams,
   GetPackagesResponse,
   GetUserPackages,
-  TypePackage,
 } from './Paquetes.type'
 import {
   GetPackagesResponseSchema,
   GetUserPackagesSchema,
 } from './Paquetes.type'
 
-import { Constants } from '@src/utils'
+import { CLOG, Constants } from '@src/utils'
 
 const req = Request(Constants.ENDPOINTS.PACKAGES)
 export class PackagesServices {
@@ -18,13 +18,19 @@ export class PackagesServices {
    * @throws {AxiosError,ZodError}
    */
   static async getAllPaquetes(
-    type?: TypePackage,
+    params?: GetPackagesParams,
   ): Promise<GetPackagesResponse> {
-    let q = ''
-    if (type) {
-      q = `?type=${type}`
+    const q = new URL('')
+    if (params?.type) {
+      q.searchParams.append('type', params.type)
     }
-    const { data } = await req.get('/' + q)
+    if (params?.resource_id) {
+      q.searchParams.append('resource_id', params.resource_id.toString())
+    }
+    CLOG({
+      query: q.toString(),
+    })
+    const { data } = await req.get(q.toString())
     const parsed = GetPackagesResponseSchema.parse(data)
 
     return parsed

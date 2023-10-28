@@ -8,15 +8,30 @@ import { Package } from '@src/api'
 import { List, LoadingPageModal, Section } from '@src/components'
 import { usePaquetes } from '@src/hooks'
 import { useAppTheme } from '@src/theme'
+import { CLOG } from '@src/utils'
 
-export const Packages: React.FC<PackageScreenProps> = ({ navigation: _ }) => {
-  const { data: paquetes, isLoading } = usePaquetes()
+export const Packages: React.FC<PackageScreenProps> = ({
+  navigation,
+  route: {
+    params: { id, type },
+  },
+}) => {
+  const { data: paquetes, isLoading } = usePaquetes({
+    resource_id: id,
+    type,
+  })
+  CLOG({
+    id,
+  })
 
   const { colors } = useAppTheme()
 
-  const renderItem = useCallback<ListRenderItem<Package>>(({ item }) => {
-    return <PackageItem paquete={item} />
-  }, [])
+  const renderItem = useCallback<ListRenderItem<Package>>(
+    ({ item }) => {
+      return <PackageItem paquete={item} id={id} type={type} />
+    },
+    [id, type],
+  )
   if (isLoading || !paquetes) return <LoadingPageModal loading={isLoading} />
 
   return (

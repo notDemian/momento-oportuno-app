@@ -35,13 +35,6 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
 
   const { width } = useWindowDimensions()
 
-  // useEffect(() => {
-  //   CLOG({
-  //     onAnuncioDetails: error,
-  //   })
-  //   handleAxiosErrWithMessageGoBack(error, nav.goBack)
-  // }, [error])
-
   const coverTranslateY = scrollY.interpolate({
     inputRange: [-4, 0, 10],
     outputRange: [-2, 0, 3],

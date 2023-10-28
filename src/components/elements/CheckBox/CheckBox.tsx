@@ -49,7 +49,7 @@ export const CheckBox: React.FC<CheckBoxProps> = ({
             }}
             onPress={handleOnChange}
           />
-          <Text numberOfLines={1}>{label}</Text>
+          <Text paddingHorizontal={'m'}>{label}</Text>
         </Box>
         {rightElement ? (
           <Box flex={1} alignItems='flex-end'>

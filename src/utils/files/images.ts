@@ -1,5 +1,9 @@
+import { Constants } from '../constants'
+import { CLOG } from '../system'
+
 import { ensureDirExists } from './files'
 
+import { Media } from '@src/api'
 import * as FileSystem from 'expo-file-system'
 import * as ImagePicker from 'expo-image-picker'
 
@@ -75,42 +79,8 @@ export function uploadImage({
   })
 }
 
-// const handleUploadPhoto = async () => {
-//   if (!photo) return
-//   const uri =
-//     Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', '')
-//   const filename = photo.uri.split('/').pop()
-//   const match = /\.(\w+)$/.exec(filename as string)
-//   const ext = match?.[1]
-//   const type = match ? `image/${match[1]}` : 'image'
-//   const formData = new FormData()
-//   formData.append('photo', {
-//     uri,
-//     name: `image.${ext}`,
-//     type,
-//   })
-
-//   try {
-//     const res = await axios.post(`${SERVER_URL}/api/upload`, formData, {
-//       headers: { 'Content-Type': 'multipart/form-data' },
-//     })
-
-//     console.log({ json: res.data })
-//   } catch (error: any) {
-//     const err: AxiosError = error
-//     console.log('error ------>')
-//     CLOG({ err })
-//   }
-// }
-
-// const handleChoosePhoto = async () => {
-//   try {
-//     const res = await launchImageLibraryAsync({
-//       mediaTypes: MediaTypeOptions.Images,
-//     })
-
-//     if (res.assets && res.assets[0]) setPhoto(res.assets[0])
-//   } catch (error: any) {
-//     console.log('error', error.stack)
-//   }
-// }
+export function getImageUrl(media: Media): string {
+  const url = `${Constants.URL.RAW}/storage/${media.id}/${media.file_name}`
+  CLOG({ url })
+  return url
+}

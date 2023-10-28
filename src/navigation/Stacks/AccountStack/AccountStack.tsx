@@ -8,10 +8,10 @@ import {
 } from '@src/navigation/types'
 import {
   Account,
-  Checkout,
   EditProfile,
   NewAnuncioForm,
   NewAnuncioFormByCat,
+  NewAnuncioFormMediaScreen,
   Packages,
   PaymentMethod,
   Promotion,
@@ -31,9 +31,33 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
       <Button
         label='+'
         onPress={() => {
+          // props.navigation.navigate('NewAnuncioForm')
           //FIXME: remove this
-          // props.navigation.navigate('CheckoutAnuncio', { id: 20 })
-          props.navigation.navigate('NewAnuncioForm')
+          // props.navigation.navigate('NewAnuncioForm')
+          // props.navigation.navigate('NewAnuncioFormByCat',{ id: 1 })
+          // props.navigation.navigate('NewAnuncioFormMedia', { id: 22 })
+          // props.navigation.navigate('Packages', { id: 22, type: 'listing' })
+          props.navigation.navigate('Checkout', {
+            id: 22,
+            type: 'listing',
+            package: {
+              id: 1,
+              name: 'Paquete Anuncio Básico',
+              label: 'Paquete Anuncio Básico',
+              type: 'listing',
+              description: 'Descripcion del paquete',
+              expire: 7,
+              price: 200,
+              display_price: '$200',
+              is_featured: 0,
+              is_active: 1,
+              is_multistate: 0,
+              includes_video: 0,
+              includes_printing: 0,
+              max_number_of_characters: 0,
+              number_of_images: 0,
+            },
+          })
         }}
       />
     )
@@ -59,31 +83,7 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
         name='Account'
         component={Account}
       />
-      <Stack.Screen
-        options={() => {
-          return {
-            headerTintColor: colors.white,
-            headerShown: false,
-          }
-        }}
-        name='Package'
-        component={Packages}
-      />
 
-      <Stack.Screen
-        name='PaymentMethod'
-        options={{
-          headerTitle: 'Método de pago',
-        }}
-        component={PaymentMethod}
-      />
-      <Stack.Screen
-        name='CheckoutAnuncio'
-        options={{
-          headerTitle: 'Anuncios',
-        }}
-        component={PaymentMethod}
-      />
       <Stack.Screen
         name='Promotion'
         options={{
@@ -121,13 +121,6 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
         }}
         component={SelectLocation}
       />
-      <Stack.Screen
-        name='Checkout'
-        options={{
-          headerTitle: 'Pago',
-        }}
-        component={Checkout}
-      />
 
       <Stack.Screen
         options={(params) => {
@@ -147,6 +140,41 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
         name='NewAnuncioFormByCat'
         component={NewAnuncioFormByCat}
       />
+      <Stack.Screen
+        options={(params) => {
+          return {
+            title: 'Imágenes',
+          }
+        }}
+        name='NewAnuncioFormMedia'
+        component={NewAnuncioFormMediaScreen}
+      />
+      <Stack.Screen
+        options={() => {
+          return {
+            headerTintColor: colors.white,
+            headerShown: false,
+            title: 'Selecciona un paquete',
+          }
+        }}
+        name='Packages'
+        component={Packages}
+      />
+
+      <Stack.Screen
+        name='Checkout'
+        options={{
+          headerTitle: 'Pago',
+        }}
+        component={PaymentMethod}
+      />
+      {/* <Stack.Screen
+        name='Checkout'
+        options={{
+          headerTitle: 'Pago',
+        }}
+        component={Checkout}
+      /> */}
     </Stack.Navigator>
   )
 }

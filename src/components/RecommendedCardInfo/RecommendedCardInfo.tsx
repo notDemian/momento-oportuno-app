@@ -1,17 +1,34 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Box, Text } from '../elements'
 
 import { Ad } from '@src/api'
 import { fontSize } from '@src/theme'
+import { Constants } from '@src/utils'
 
 type RecommendedCardInfoProps = {
   data: Ad
 }
 
+//FIXME: remove this
+const PRICE_ID = Constants.IDS.price
+const SALARY_ID = Constants.IDS.salary
+
 export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
   data,
 }) => {
   const { attributes, category } = data
+
+  const price = useMemo(() => {
+    const price = attributes.find((a) => a.id === PRICE_ID)
+
+    return price?.value.toString() ?? null
+  }, [attributes])
+
+  const salary = useMemo(() => {
+    const salary = attributes.find((a) => a.id === SALARY_ID)
+
+    return salary?.value.toString() ?? null
+  }, [attributes])
 
   return (
     <Box
@@ -26,7 +43,7 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
         {category.name}
       </Text>
 
-      {attributes.slice(0, 2).map((attribute) => {
+      {/* {attributes.slice(0, 2).map((attribute) => {
         const { name, value, id } = attribute
 
         return (
@@ -46,7 +63,16 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
             )}
           </Box>
         )
-      })}
+      })} */}
+      {price ? (
+        <Text color='naranjaClarito' marginLeft='xs' fontSize={fontSize.m}>
+          $ {price} MXN
+        </Text>
+      ) : salary ? (
+        <Text color='naranjaClarito' marginLeft='xs' fontSize={fontSize.m}>
+          $ {price} MXN
+        </Text>
+      ) : null}
     </Box>
   )
 }

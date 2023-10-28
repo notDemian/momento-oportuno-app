@@ -4,6 +4,7 @@ import {
   CategorieSchema,
   StateSchema,
 } from '../listivos'
+import { MediaSchema } from '../Media/Media.module'
 import { UserPackageSchema } from '../Paquetes'
 import { UserSchema } from '../Usuarios'
 
@@ -12,7 +13,7 @@ import * as z from 'zod'
 const LinkSchema = z.object({
   url: z.union([z.null(), z.string()]),
   label: z.string(),
-  active: z.boolean(),
+  active: z.coerce.boolean(),
 })
 
 const MetaSchema = z.object({
@@ -60,17 +61,19 @@ export const AdSchema = z.object({
   status: z.string(),
   image: z.union([z.null(), z.string()]),
   description: z.string().nullable().optional(),
-  is_featured: z.boolean(),
-  is_multistate: z.boolean(),
-  is_active: z.boolean(),
-  auto_renew: z.boolean(),
+  is_featured: z.coerce.boolean(),
+  is_multistate: z.coerce.boolean(),
+  is_active: z.coerce.boolean(),
+  send_to_print: z.coerce.boolean().nullable().optional(),
+  auto_renew: z.coerce.boolean(),
   user: UserAdSchema,
-  user_package: UserPackageSchema,
+  user_package: UserPackageSchema.nullable().optional(),
   state: StateSchema,
   category: CategorieSchema,
   attributes: z.array(AttributeAdSchema),
   create_at: z.coerce.date(),
   updated_at: z.coerce.date(),
+  media: z.array(MediaSchema).nullable().optional(),
 })
 export type Ad = z.infer<typeof AdSchema>
 
@@ -109,6 +112,11 @@ export type GeneralCreateAnuncioParams = {
   state_id: number
   user_id: number
   category_id: number
+  is_featured: boolean
+  includes_printing: boolean
+  includes_video: boolean
+  includes_socials: boolean
+  printing_state_id?: number
 }
 
 export type ListingAttribute = {
@@ -117,6 +125,7 @@ export type ListingAttribute = {
 }
 
 export type CreateAnuncioParams = GeneralCreateAnuncioParams & {
+  subcategory_id: number
   listingAttributes: ListingAttribute[]
 }
 

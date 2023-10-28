@@ -3,13 +3,13 @@ import { useQuery } from 'react-query'
 
 import { PaquetesQuerys } from './paquetes.keys'
 
-import { PackagesServices, TypePackage } from '@src/api'
+import { GetPackagesParams, PackagesServices } from '@src/api'
 import { AxiosError } from 'axios'
 
-const usePaquetes = (type?: TypePackage) => {
+const usePaquetes = (params?: GetPackagesParams) => {
   return useQuery({
     queryKey: PaquetesQuerys.getAllPaquetes,
-    queryFn: () => PackagesServices.getAllPaquetes(type),
+    queryFn: () => PackagesServices.getAllPaquetes(params),
     onError: (error: AxiosError) => {
       const data = error.response?.data as { message: string } | undefined
       const message = data?.message ? data.message : 'Error'

@@ -6,6 +6,11 @@ export const TypePackageSchema = z.union([
   z.literal('directory'),
 ])
 
+export type GetPackagesParams = {
+  type?: TypePackage
+  resource_id?: number
+}
+
 export type TypePackage = z.infer<typeof TypePackageSchema>
 
 export const PackageSchema = z.object({

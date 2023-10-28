@@ -1,17 +1,19 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Alert, StyleSheet } from 'react-native'
 import Toast from 'react-native-toast-message'
 
-import type { PaymentMethods as PaymentMethodsType } from '@src/api'
+import {
+  CreateOrderParams,
+  type PaymentMethods as PaymentMethodsType,
+} from '@src/api'
 import {
   Box,
   Button,
   Icon,
-  type IconProps,
   PaymentStripeLayout,
-  RadioOption,
+  Text,
+  TextField,
 } from '@src/components'
-import { paymentMethods } from '@src/data/mock-payment-method'
 import { useCreateOrder } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { useAppTheme } from '@src/theme'
@@ -23,143 +25,165 @@ import {
   useStripe,
 } from '@stripe/stripe-react-native'
 
-type PaymentMethodProps = ScreenProps<AccountStackParamList, 'CheckoutAnuncio'>
+type PaymentMethodProps = ScreenProps<AccountStackParamList, 'Checkout'>
 
 export const PaymentMethod: React.FC<PaymentMethodProps> = ({
   route: { params },
+  navigation,
 }) => {
-  const data = paymentMethods.map((item) => {
-    const { name, icon } = item
-    return {
-      label: name,
-      value: name,
-      rightElement: <Icon name={icon as IconProps['name']} />,
-    }
-  }) satisfies RadioOption[]
-
   const { colors } = useAppTheme()
   const [validForm, setValidForm] = useState(false)
-  const [billingAddress, setBillingAddress] = useState<string>()
+
+  const [billing_address, setBilling_address] = useState('')
 
   const { createToken } = useStripe()
   const { mutateAsync, isLoading: loadingOrder } = useCreateOrder()
 
-  const handlePayment = (type: PaymentMethodsType) => async () => {
-    if (type === 'stripe') {
-      if (!validForm) {
-        Alert.alert('Error', 'Debes llenar todos los campos')
-        return
+  const handlePayment = useCallback(
+    (type: PaymentMethodsType) => async () => {
+      if (type === 'stripe') {
+        if (
+          !validForm ||
+          !billing_address ||
+          billing_address.trim().length === 0
+        ) {
+          Alert.alert('Error', 'Debes llenar todos los campos')
+          return
+        }
+
+        Toast.show({
+          type: 'info',
+          text1: 'Cargando...',
+          autoHide: true,
+          visibilityTime: 300,
+        })
+
+        const { error, token } = await createToken({
+          type: 'Card',
+        })
+
+        if (error) {
+          Alert.alert(`Error code: ${error.code}`, error.message)
+          CLOG(error)
+          return
+        }
+
+        Toast.show({
+          type: 'success',
+          text1: 'Generando orden...',
+          autoHide: true,
+          visibilityTime: 1000,
+        })
+
+        const form: CreateOrderParams = {
+          billing_address,
+          package_id: params.package.id,
+          payment_method: type,
+          related_id: params.id,
+          token: token.id,
+          type: params.type,
+        }
+
+        CLOG({ form })
+
+        try {
+          const { order } = await mutateAsync(form)
+          CLOG({ order })
+
+          Toast.show({
+            type: 'success',
+            text1: `Orden #${order.id} generada`,
+            autoHide: true,
+            visibilityTime: 3000,
+            onHide() {
+              navigation.navigate
+            },
+          })
+        } catch (error) {
+          Toast.show({
+            type: 'error',
+            text1: 'Error al generar la orden',
+            autoHide: true,
+            visibilityTime: 1000,
+          })
+          CLOG({
+            error,
+          })
+        }
+      } else if (type === 'paypal') {
+        //TODO: paypal
+        console.log('paypal')
       }
-
-      Toast.show({
-        type: 'info',
-        text1: 'Cargando...',
-        autoHide: true,
-        visibilityTime: 300,
-      })
-
-      const { error, token } = await createToken({
-        type: 'Card',
-      })
-
-      if (error) {
-        Alert.alert(`Error code: ${error.code}`, error.message)
-        console.log(`Error: ${JSON.stringify(error)}`)
-        return
-      }
-
-      Toast.show({
-        type: 'success',
-        text1: 'Generando orden...',
-        autoHide: true,
-        visibilityTime: 1000,
-      })
-
-      // try {
-      //   if (!billingAddress)
-      //     throw new Error('Debes ingresar una dirección de facturación')
-      // const { order } = await mutateAsync({
-      //   type: 'listing',
-      //   billing_address: billingAddress,
-      //   package_id: 0,
-      //   payment_method: type,
-      //   related_id: params.id,
-      //   token: token.id,
-      // })
-      // } catch (error) {
-      //   Toast.show({
-      //     type: 'error',
-      //     text1: 'Error al generar la orden',
-      //     autoHide: true,
-      //     visibilityTime: 1000,
-      //   })
-      //   console.log(error)
-      // }
-    } else if (type === 'paypal') {
-      console.log('paypal')
-    }
-  }
+    },
+    [validForm, billing_address, params.id],
+  )
 
   return (
-    <Box flex={1} backgroundColor='card'>
-      <PaymentStripeLayout>
-        <Box>
-          <Box
-            flexDirection='row'
-            justifyContent='space-between'
-            alignItems='center'
-            paddingHorizontal='m'
-          >
-            <Box flex={1} height={1} backgroundColor='border' />
-            <Box paddingHorizontal='s'>
-              <Icon
-                type='FontAwesome5'
-                name='cc-stripe'
-                color={colors.stripe}
-              />
-            </Box>
-            <Box flex={1} height={1} backgroundColor='border' />
+    <PaymentStripeLayout>
+      <Text variant='header' marginBottom={'m'}>
+        Datos de facturación
+      </Text>
+      <Box marginVertical={'m'}>
+        <TextField
+          inputProps={{
+            placeholder: 'Dirección de facturación',
+            onChangeText: (text) => setBilling_address(text),
+          }}
+          required
+        />
+      </Box>
+      <Box>
+        <Box
+          flexDirection='row'
+          justifyContent='space-between'
+          alignItems='center'
+          paddingHorizontal='m'
+        >
+          <Box flex={1} height={1} backgroundColor='border' />
+          <Box paddingHorizontal='s'>
+            <Icon type='FontAwesome5' name='cc-stripe' color={colors.stripe} />
           </Box>
-          <CardField
-            cardStyle={inputStyles}
-            style={styles.cardField}
-            onCardChange={(cardDetails) => {
-              CLOG(cardDetails)
-              setValidForm(cardDetails.complete)
-            }}
-            postalCodeEnabled={false}
-          />
+          <Box flex={1} height={1} backgroundColor='border' />
+        </Box>
+        <CardField
+          cardStyle={inputStyles}
+          style={styles.cardField}
+          onCardChange={(cardDetails) => {
+            CLOG(cardDetails)
+            setValidForm(cardDetails.complete)
+          }}
+          postalCodeEnabled={false}
+        />
+        <Button
+          label='Pagar con stripe'
+          variant={'stripe'}
+          onPress={handlePayment('stripe')}
+          isDisabled={loadingOrder}
+        />
+      </Box>
+      <Box marginTop={'m'}>
+        <Box
+          flexDirection='row'
+          justifyContent='space-between'
+          alignItems='center'
+          paddingHorizontal='m'
+        >
+          <Box flex={1} height={1} backgroundColor='border' />
+          <Box paddingHorizontal='s'>
+            <Icon type='Fontisto' name='paypal' color={colors.paypal} />
+          </Box>
+          <Box flex={1} height={1} backgroundColor='border' />
+        </Box>
+        <Box paddingVertical={'m'}>
           <Button
-            label='Pagar con stripe'
-            variant={'stripe'}
-            onPress={handlePayment('stripe')}
+            label='Pagar con PayPal'
+            variant={'paypal'}
+            onPress={handlePayment('paypal')}
             isDisabled={loadingOrder}
           />
         </Box>
-        <Box marginTop={'m'}>
-          <Box
-            flexDirection='row'
-            justifyContent='space-between'
-            alignItems='center'
-            paddingHorizontal='m'
-          >
-            <Box flex={1} height={1} backgroundColor='border' />
-            <Box paddingHorizontal='s'>
-              <Icon type='Fontisto' name='paypal' color={colors.paypal} />
-            </Box>
-            <Box flex={1} height={1} backgroundColor='border' />
-          </Box>
-          <Box paddingVertical={'m'}>
-            <Button
-              label='Pagar con PayPal'
-              variant={'paypal'}
-              onPress={handlePayment('paypal')}
-              isDisabled={loadingOrder}
-            />
-          </Box>
-        </Box>
-      </PaymentStripeLayout>
-    </Box>
+      </Box>
+    </PaymentStripeLayout>
   )
 }
 

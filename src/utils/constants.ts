@@ -38,6 +38,11 @@ export const Constants = {
     PUBLISHABLE_KEY:
       'pk_test_51JNtfLEY6W5Ckq57baxsZaxjlEE5zZ0kPzyfbPOFylvo5AVmFd3iHQndDklrV1bXToC4RqYbfnZCauRjklFXBQPe00bII6O79s',
   },
+  IDS: {
+    price: 4,
+    salary: 100,
+    allStates: 5,
+  },
 } as const
 
 export type ENDPOINTS =

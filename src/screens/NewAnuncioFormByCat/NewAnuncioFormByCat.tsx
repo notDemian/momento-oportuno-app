@@ -15,7 +15,6 @@ import {
   useCreateAnuncio,
 } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
-import { CLOG } from '@src/utils'
 
 export const NewAnuncioFormByCat: FC<
   ScreenProps<AccountStackParamList, 'NewAnuncioFormByCat'>
@@ -37,8 +36,11 @@ export const NewAnuncioFormByCat: FC<
   const { mutateAsync, isLoading } = useCreateAnuncio()
 
   const onContinue = useCallback(async () => {
+    if (!subCategoriaSelected)
+      return Alert.alert('Error', 'Selecciona una subcategoría')
     const data: CreateAnuncioParams = {
       ...initialParams,
+      subcategory_id: subCategoriaSelected.id,
       listingAttributes: inputs,
     }
 
@@ -51,7 +53,6 @@ export const NewAnuncioFormByCat: FC<
       Alert.alert('Error', 'Debes llenar todos los campos')
       return
     }
-    console.log({ subCategoriaSelected, a: 'WTF!!!!!!!!!!' })
     if (!subCategoriaSelected) {
       Alert.alert('Error', 'Selecciona una subcategoría')
       return
@@ -60,84 +61,21 @@ export const NewAnuncioFormByCat: FC<
     try {
       const { data: res } = await mutateAsync(data)
       if (res) {
-        CLOG({ res })
-        Alert.alert('Éxito', 'Anuncio creado correctamente', [
+        Alert.alert('Éxito', `Anuncio #${res.id + 1} creado correctamente`, [
           {
             text: 'OK',
             isPreferred: true,
             onPress: () => {
-              navigation.navigate('CheckoutAnuncio', { id: res.id })
+              navigation.navigate('NewAnuncioFormMedia', { id: res.id })
             },
           },
         ])
       }
     } catch (error: any) {
-      CLOG({ error: { ...error } })
       Alert.alert('Error', 'Ocurrió un error al crear el anuncio')
       navigation.dispatch(StackActions.popToTop())
     }
   }, [inputs, initialParams, attributes, subCategoriaSelected])
-  //   if (!subCategoriaSelected)
-  //     return Alert.alert('Error', 'Selecciona una subcategoría')
-  //   const fromInputs: Attributes[] = [
-  //     ...inputs,
-  //     ...selectedItems,
-  //     {
-  //       id: 0,
-  //       value: [
-  //         {
-  //           dependencies: [],
-  //           hasMultilevelChildren: false,
-  //           id: params.id,
-  //           key: `listivo_${params.id}`,
-  //           name: params.name,
-  //           parent: params.parent,
-  //           searchFormPlaceholder: '',
-  //           parentTermIds: [],
-  //         },
-  //         {
-  //           dependencies: [],
-  //           hasMultilevelChildren: false,
-  //           id: subCategoriaSelected.id,
-  //           key: `listivo_${subCategoriaSelected.id}`,
-  //           name: subCategoriaSelected.name,
-  //           parent: subCategoriaSelected.parent,
-  //           searchFormPlaceholder: '',
-  //           parentTermIds: [],
-  //         },
-  //       ],
-  //     },
-  //   ]
-
-  //   const data: createAnuncioParams = {
-  //     model: {
-  //       name: prevparams.name,
-  //       description: prevparams.description,
-  //       packageId: prevparams.packageId,
-  //       attributes: fromInputs,
-  //     },
-  //   }
-  //   // return
-  //   // try {
-  //   //   const res = await mutateAsync(data)
-  //   //   if (res) {
-  //   //     CLOG({ res })
-  //   //     Alert.alert('Éxito', 'Anuncio creado correctamente', [
-  //   //       {
-  //   //         text: 'OK',
-  //   //         isPreferred: true,
-  //   //         onPress: () => {
-  //   //           navigation.navigate('CheckoutAnuncio')
-  //   //         },
-  //   //       },
-  //   //     ])
-  //   //   }
-  //   // } catch (error: any) {
-  //   //   CLOG({ error: { ...error } })
-  //   //   Alert.alert('Error', 'Ocurrió un error al crear el anuncio')
-  //   //   navigation.goBack()
-  //   // }
-  // }, [prevparams, inputs, selectedItems, subCategoriaSelected, price, params])
 
   return (
     <NewAnucioLayout
@@ -163,7 +101,6 @@ export const NewAnuncioFormByCat: FC<
             }))}
             onPressItem={(item) => {
               const itemFound = subcategories.find((c) => c.id === +item.value)
-              CLOG({ itemFound, item, subcategories })
               if (!itemFound) return
               setSubCategoriaSelected(itemFound)
             }}

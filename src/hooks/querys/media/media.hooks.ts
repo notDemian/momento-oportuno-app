@@ -4,11 +4,11 @@ import { MediaMutationsKeys } from './media.keys'
 
 import { MediaServices } from '@src/api'
 
-const useUploadImage = () => {
+const useUploadMedias = () => {
   return useMutation({
     mutationKey: MediaMutationsKeys.uploadImage,
-    mutationFn: MediaServices.uploadImageToResource,
+    mutationFn: MediaServices.uploadMediasToResource,
   })
 }
 
-export { useUploadImage }
+export { useUploadMedias }

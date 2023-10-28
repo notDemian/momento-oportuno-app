@@ -10,7 +10,6 @@ import { AccountStackParamList, ScreenProps } from '@src/navigation'
 type CheckoutProps = ScreenProps<AccountStackParamList, 'Checkout'>
 
 export const Checkout: FC<CheckoutProps> = ({ navigation, route }) => {
-  route.params
   // const totalPrice = React.useMemo(() => {
   //   route.params.isFeatured
   //   return route.params.price
@@ -19,9 +18,9 @@ export const Checkout: FC<CheckoutProps> = ({ navigation, route }) => {
   return (
     <Box flex={1}>
       <ScrollView>
-        <OrderSummary order={route.params} />
+        <OrderSummary order={route.params.package} />
       </ScrollView>
-      <PlaceOrder paquete={route.params} />
+      <PlaceOrder paquete={route.params.package} />
     </Box>
   )
 }

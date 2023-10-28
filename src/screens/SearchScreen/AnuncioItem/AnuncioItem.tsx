@@ -5,12 +5,17 @@ import { AnuncioProps } from './AnuncioItem.type'
 import { Box, Image, Text, Touchable } from '@src/components'
 import { useSearchStackNavigation } from '@src/hooks'
 import { fontSize } from '@src/theme'
-import { IMAGE_URL_FALLBACK } from '@src/utils'
+import { Constants, IMAGE_URL_FALLBACK } from '@src/utils'
 
 export const AnuncioItem: FC<AnuncioProps> = (props) => {
   let extraData = <></>
   if (!('isFav' in props)) {
     const { attributes, category, state } = props.data
+
+    const price = attributes
+      .find((a) => a.id === Constants.IDS.price)
+      ?.value.toString()
+
     extraData = (
       <>
         <Text
@@ -43,6 +48,17 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
             )
           })}
         </Box>
+        {price ? (
+          <Text
+            variant='secondary'
+            marginTop='xs'
+            marginBottom='s'
+            fontSize={fontSize.s}
+            numberOfLines={3}
+          >
+            {price}
+          </Text>
+        ) : null}
       </>
     )
   }
@@ -90,9 +106,6 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
               {title}
             </Text>
             {extraData}
-            <Text fontWeight='normal' color='black' fontSize={fontSize.s}>
-              {/* {attributes?.price ?? attributes?.salary} */}$ price
-            </Text>
           </Box>
         </Box>
       </Box>

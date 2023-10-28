@@ -37,8 +37,8 @@ const tabData: TabViewData = [
   { key: '3', title: 'Mis ordenes', content: MisOrdenes },
   { key: '4', title: 'Ajustes', content: Ajustes },
   { key: '5', title: 'Directorios', content: DirectoriosTab },
-  { key: '6', title: 'Selecciona un paquete', content: PlaceHolder },
-  { key: '7', title: 'Cerrar sesión', content: NullComponent },
+  // { key: '6', title: 'Selecciona un paquete', content: PlaceHolder },
+  { key: '6', title: 'Cerrar sesión', content: NullComponent },
 ]
 
 export const AccountTabs = () => {
@@ -61,10 +61,11 @@ export const AccountTabs = () => {
     if (e.route.key === '7') {
       e.preventDefault()
       onLogoutButtonPress()
-    } else if (e.route.key === '6') {
-      e.preventDefault()
-      nav.navigate('Package')
     }
+    // else if (e.route.key === '6') {
+    //   e.preventDefault()
+    //   nav.navigate('Package')
+    // }
   }, [])
 
   return <TabView tabData={tabData} isFullWidth onTabPress={onTabPress} />
