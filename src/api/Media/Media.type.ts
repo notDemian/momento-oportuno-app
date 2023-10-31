@@ -8,7 +8,7 @@ export type MediaType = 'listing' | 'directory' | 'microsite'
 export type UploadImageParams = {
   type?: MediaType
   resourceId: number
-  photo: ImagePickerAsset | ImagePickerAsset[]
+  photo: ImagePickerAsset[]
 }
 
 export const AppendImageResponseSchema = AdSchema.pick({

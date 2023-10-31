@@ -13,6 +13,7 @@ import {
   PaymentStripeLayout,
   Text,
   TextField,
+  WebModal,
 } from '@src/components'
 import { useCreateOrder } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
@@ -39,14 +40,24 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = ({
   const { createToken } = useStripe()
   const { mutateAsync, isLoading: loadingOrder } = useCreateOrder()
 
+  //webmodal related
+  const [visible, setVisible] = useState(false)
+  const [url, setUrl] = useState('')
+  const handleSuccess = useCallback(() => {
+    setVisible(false)
+  }, [])
+  const handleDismis = useCallback(() => {
+    setVisible(false)
+  }, [])
+
   const handlePayment = useCallback(
     (type: PaymentMethodsType) => async () => {
+      if (!billing_address || billing_address.trim().length === 0) {
+        Alert.alert('Error', 'Debes llenar todos los campos')
+        return
+      }
       if (type === 'stripe') {
-        if (
-          !validForm ||
-          !billing_address ||
-          billing_address.trim().length === 0
-        ) {
+        if (!validForm) {
           Alert.alert('Error', 'Debes llenar todos los campos')
           return
         }
@@ -64,7 +75,6 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = ({
 
         if (error) {
           Alert.alert(`Error code: ${error.code}`, error.message)
-          CLOG(error)
           return
         }
 
@@ -84,11 +94,10 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = ({
           type: params.type,
         }
 
-        CLOG({ form })
+        // form.token = 'tok_visa'
 
         try {
           const { order } = await mutateAsync(form)
-          CLOG({ order })
 
           Toast.show({
             type: 'success',
@@ -111,8 +120,39 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = ({
           })
         }
       } else if (type === 'paypal') {
-        //TODO: paypal
-        console.log('paypal')
+        const form: CreateOrderParams = {
+          billing_address,
+          package_id: params.package.id,
+          payment_method: type,
+          related_id: params.id,
+          type: params.type,
+        }
+        try {
+          const { paypal_link } = await mutateAsync(form)
+          if (!paypal_link) throw new Error()
+          setUrl(paypal_link)
+          setVisible(true)
+
+          // Toast.show({
+          //   type: 'success',
+          //   text1: `Orden #${order.id} generada`,
+          //   autoHide: true,
+          //   visibilityTime: 3000,
+          //   onHide() {
+          //     navigation.navigate
+          //   },
+          // })
+        } catch (error) {
+          Toast.show({
+            type: 'error',
+            text1: 'Error al generar la orden',
+            autoHide: true,
+            visibilityTime: 1000,
+          })
+          CLOG({
+            error,
+          })
+        }
       }
     },
     [validForm, billing_address, params.id],
@@ -120,6 +160,13 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = ({
 
   return (
     <PaymentStripeLayout>
+      <WebModal
+        onDismiss={handleDismis}
+        onSuccess={handleSuccess}
+        title='Paypal'
+        url={url}
+        visible={visible}
+      />
       <Text variant='header' marginBottom={'m'}>
         Datos de facturación
       </Text>

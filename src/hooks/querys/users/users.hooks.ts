@@ -45,7 +45,6 @@ function useRegister(callbackFnOn?: callbackFn): IUseRegister {
         callbackFnOn?.(data)
       },
       onError: (_error) => {
-        // TODO: on error signup
         if (!(_error instanceof AxiosError)) return
 
         Alert.alert('Error', 'Error al registrar el usuario')

@@ -35,8 +35,13 @@ export const Constants = {
     return this.IS_DEV ? this.URL.DEV : this.URL.PROD
   },
   STRIPE: {
-    PUBLISHABLE_KEY:
-      'pk_test_51JNtfLEY6W5Ckq57baxsZaxjlEE5zZ0kPzyfbPOFylvo5AVmFd3iHQndDklrV1bXToC4RqYbfnZCauRjklFXBQPe00bII6O79s',
+    PK_DEV:
+      'pk_test_51O3l3TKsMUZdYHBYf1tQxzYgxuI3AnwaHApYA8GFH9QR0mFkq222o9ISceK4Ucg1nQqZt9nkr4wr5Ryn1LBXwKRs00m40i9780',
+    PK_PROD:
+      'pk_test_51O3l3TKsMUZdYHBYf1tQxzYgxuI3AnwaHApYA8GFH9QR0mFkq222o9ISceK4Ucg1nQqZt9nkr4wr5Ryn1LBXwKRs00m40i9780',
+  },
+  get PUBLISHABLE_KEY() {
+    return this.IS_DEV ? this.STRIPE.PK_DEV : this.STRIPE.PK_PROD
   },
   IDS: {
     price: 4,

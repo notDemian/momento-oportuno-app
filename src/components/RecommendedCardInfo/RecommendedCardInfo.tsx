@@ -9,7 +9,6 @@ type RecommendedCardInfoProps = {
   data: Ad
 }
 
-//FIXME: remove this
 const PRICE_ID = Constants.IDS.price
 const SALARY_ID = Constants.IDS.salary
 

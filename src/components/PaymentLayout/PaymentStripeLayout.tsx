@@ -22,7 +22,7 @@ const PaymentScreen: React.FC<PropsWithChildren<Props>> = ({
 
   useEffect(() => {
     async function initialize() {
-      const publishableKey = Constants.STRIPE.PUBLISHABLE_KEY
+      const publishableKey = Constants.PUBLISHABLE_KEY
       if (publishableKey) {
         await initStripe({
           publishableKey,

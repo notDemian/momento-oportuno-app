@@ -34,7 +34,6 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
           $ {priceOrSalary} MXN
         </Text>
       </Box>
-      {/**TODO: ADD EXTRA DATA HERE */}
       <Box paddingVertical={'s'}>
         <Text color={'gray'}>{toRelative(create_at)}</Text>
       </Box>

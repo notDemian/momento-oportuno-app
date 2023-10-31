@@ -103,16 +103,6 @@ export type AccountStackParamList = {
   MyPackages: undefined
   Promotion: undefined
 }
-//TODO: TODOs
-// check impreso
-// - limitar caracteres (máximo 700 impresos)
-// # imagenes
-// check video
-
-// 3 sin costo
-// 5 +50
-// 10 +100
-// video +50
 
 export type MicrositiosStackParamList = {
   Micrositios: undefined

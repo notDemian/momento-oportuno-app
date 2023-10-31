@@ -31,11 +31,11 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
       <Button
         label='+'
         onPress={() => {
-          // props.navigation.navigate('NewAnuncioForm')
+          props.navigation.navigate('NewAnuncioForm')
           //FIXME: remove this
           // props.navigation.navigate('NewAnuncioForm')
           // props.navigation.navigate('NewAnuncioFormByCat', { id: 1 })
-          props.navigation.navigate('NewAnuncioFormMedia', { id: 22 })
+          // props.navigation.navigate('NewAnuncioFormMedia', { id: 22 })
           // props.navigation.navigate('Packages', { id: 22, type: 'listing' })
           // props.navigation.navigate('Checkout', {
           //   id: 22,

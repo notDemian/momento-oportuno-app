@@ -1,7 +1,8 @@
-import { type FC, useCallback, useEffect, useState } from 'react'
+import { type FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { Alert } from 'react-native'
 import Toast from 'react-native-toast-message'
 
+import { ImageTooBigError, VIDEO_MIME_TYPES } from '@src/api'
 import { Box, Button, Image, NewAnucioLayout, Text } from '@src/components'
 import { ButtonModalGenerator } from '@src/components/ModalRadioButton'
 import { useAnuncioByid, useUploadMedias } from '@src/hooks'
@@ -72,8 +73,13 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
   const { data: ad } = useAnuncioByid(id)
   const { mutateAsync, isLoading } = useUploadMedias()
 
-  //FIXME: change it to includes_video
-  const video = ad?.data.is_featured
+  const video = useMemo(
+    () =>
+      Boolean(
+        ad?.data.media?.some((m) => VIDEO_MIME_TYPES.includes(m.mime_type)),
+      ),
+    [ad?.data.media],
+  )
 
   const onShowImagePicker = useCallback(
     (imgOrVid: 'img' | 'vid' = 'img') =>
@@ -84,7 +90,6 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
             const result = await ImagePicker.launchImageLibraryAsync({
               mediaTypes: ImagePicker.MediaTypeOptions.Images,
               allowsMultipleSelection: true,
-              // base64: true,
               selectionLimit: paquete.quantity,
             })
             if (!result.canceled) {
@@ -151,7 +156,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
   }, [])
 
   const uploadImage = useCallback(async () => {
-    if (!paquete) return Alert.alert('Selecciona un paquete')
+    if (!paquete) return Alert.alert('Selecciona un paquete de imágenes')
     if (!images) return Alert.alert('Selecciona imágenes')
     const lImages = [...images]
     // if (video) {
@@ -172,15 +177,15 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         visibilityTime: 1000,
       })
     try {
-      await mutateAsync({
-        //FIXME: cambiar esto, debe enviar toda la media
-        photo: lImages[0],
+      const { media } = await mutateAsync({
+        photo: lImages,
         resourceId: id,
         type: 'listing',
       })
+
       Toast.show({
         type: 'success',
-        text1: 'Archivos subidos',
+        text1: `${media?.length ?? 0} archivos subidos`,
         text2: 'Redireccionando...',
         visibilityTime: 1000,
         onHide() {
@@ -188,22 +193,19 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         },
       })
     } catch (error) {
+      if (error instanceof ImageTooBigError) {
+        return Toast.show({
+          type: 'error',
+          text1: 'Una o más imágenes son muy grandes',
+          visibilityTime: 1000,
+        })
+      }
       Toast.show({
         type: 'error',
         text1: 'Error al subir archivos',
         visibilityTime: 1000,
       })
     }
-
-    // finally
-    // Toast.show({
-    //   type: 'info',
-    //   text1: 'Archivos subidos',
-    //   visibilityTime: 1000,
-    //   onHide() {
-    //     navigation.navigate('Packages')
-    //   },
-    // })
   }, [images, video, videoAsset, id])
 
   return (
@@ -263,7 +265,6 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
             isFullWidth
             onPress={uploadImage}
             isDisabled={isLoading}
-            // isDisabled={loadingEstados || loadingCat}
             // onPress={showCategoriaModalHandler}
           />
         </Box>
