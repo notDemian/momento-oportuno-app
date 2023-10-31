@@ -102,7 +102,8 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
                 <Animated.Image
                   source={{
                     uri:
-                      data.data.media?.[0]?.original_url ?? IMAGE_URL_FALLBACK,
+                      data.data.media?.[(data.data.media?.length ?? 1) - 1]
+                        ?.original_url ?? IMAGE_URL_FALLBACK,
                   }}
                   style={[
                     styles.coverPhoto,
@@ -147,7 +148,7 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
                 </Box>
               )}
               <UserInfo user={data.data.user} />
-              <BottomButtons link={data.data.url} id={data.data.id} />
+              <BottomButtons slug={data.data.slug} id={data.data.id} />
             </Animated.ScrollView>
           </KeyboardAvoidingView>
 

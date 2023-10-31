@@ -31,7 +31,8 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
           <Text fontWeight='bold' color='black' fontSize={fontSize.s}>
             {category.name}
           </Text>
-          {category.children.map((cat) => {
+          {/**FIXME: this should give me the actual subcategory */}
+          {category.children.slice(0, 1).map((cat) => {
             return (
               <Box
                 key={cat.id.toString()}

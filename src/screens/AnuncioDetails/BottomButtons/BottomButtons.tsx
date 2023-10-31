@@ -13,14 +13,15 @@ import {
 } from '@src/components'
 import { useAddFavorite, useMyFavorites, useRemoveFavorite } from '@src/hooks'
 import { getShadowBoxProps, palette } from '@src/theme'
+import { getShareUrl } from '@src/utils'
 
 type BottomButtonsProps = {
-  link: string | null | undefined
+  slug: string | null | undefined
   id: number
 }
 
 export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
-  link,
+  slug,
   id,
 }) => {
   const { data: favorites } = useMyFavorites()
@@ -33,7 +34,8 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
     () => ({
       share: async () => {
         try {
-          if (!link) return
+          if (!slug) return
+          const link = getShareUrl(slug)
           await Share.share({
             message: link,
             title: 'Compartir',
@@ -50,7 +52,7 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
       print: () => {},
       danger: () => {},
     }),
-    [link, id, isFavorite],
+    [slug, id, isFavorite],
   )
 
   return (

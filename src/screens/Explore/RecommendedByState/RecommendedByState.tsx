@@ -11,7 +11,7 @@ import { RecommendedCardInfo } from '@src/components/RecommendedCardInfo'
 import {
   useAnuncios,
   useAppDispatch,
-  useSearchStackNavigation,
+  useExploreStackNavigation,
 } from '@src/hooks'
 import { setState } from '@src/redux'
 import { getShadowBoxProps } from '@src/theme'
@@ -20,7 +20,7 @@ import { IMAGE_URL_FALLBACK } from '@src/utils'
 export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
   state,
 }) => {
-  const nav = useSearchStackNavigation()
+  const nav = useExploreStackNavigation()
   const renderItem = useCallback((props: CarouselRenderItemInfo<Ad>) => {
     const { id, image, media } = props.item
 
@@ -38,6 +38,7 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
           nav.jumpTo('SearchTab', {
             screen: 'AnuncioDetailsModal',
             params: { data: { id } },
+            initial: false,
           })
         }}
       >
@@ -51,8 +52,6 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
   const onButtonActionPress = useCallback(() => {
     dispatch(setState(state.id))
     nav.navigate('SearchTab', { screen: 'Search' })
-
-    // navigation.navigate('PlaceList', { title: state })
   }, [state])
 
   const { data: anuncios, isLoading } = useAnuncios({ state: state.id })
