@@ -104,10 +104,8 @@ export const PaymentMethod: React.FC<PaymentMethodProps> = ({
             text1: `Orden #${order.id} generada`,
             autoHide: true,
             visibilityTime: 3000,
-            onHide() {
-              navigation.navigate
-            },
           })
+          navigation.navigate('Account')
         } catch (error) {
           Toast.show({
             type: 'error',

@@ -22,7 +22,7 @@ export const MicrositioItem: FC<{ data: Microsite }> = ({ data }) => {
     >
       <Image
         source={{
-          uri: getImageUrl(),
+          uri: getImageUrl({ url: image }),
         }}
         width={'100%'}
         height={280}

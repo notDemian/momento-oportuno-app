@@ -281,7 +281,11 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         }}
       />
       {paquete ? (
-        <Button label='Seleccionar imágenes' onPress={onShowImagePicker()} />
+        <Button
+          label='Seleccionar imágenes'
+          onPress={onShowImagePicker()}
+          paddingVertical={'m'}
+        />
       ) : null}
       {video ? (
         <Button

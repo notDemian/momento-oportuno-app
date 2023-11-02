@@ -1,7 +1,7 @@
 import type { Directorio } from '@src/api'
 import { Box, Button, Icon, Image, Text } from '@src/components'
 import { getShadowBoxProps, useAppTheme } from '@src/theme'
-import { redirectToEmail } from '@src/utils'
+import { getImageUrl, redirectToEmail } from '@src/utils'
 
 export const DirectorioItem: React.FC<{
   data: Directorio
@@ -14,6 +14,7 @@ export const DirectorioItem: React.FC<{
     email,
     phone,
     thumbnail,
+
     state: { name: stateName },
   } = data
 
@@ -38,7 +39,7 @@ export const DirectorioItem: React.FC<{
       <Box flexDirection={'column'} gap={'s'} width={'35%'} maxWidth={'35%'}>
         <Image
           source={{
-            uri: thumbnail ? thumbnail : 'https://placehold.co/200',
+            uri: getImageUrl({ url: thumbnail }),
           }}
           width={'100%'}
           height={120}
