@@ -161,7 +161,7 @@ export const NewAnuncioForm: React.FC<
           }))}
           hideModal={hideModal}
           title='Para continuar, selecciona la categoría de tu publicación'
-          onPressItem={(item) => {
+          onPressItem={async (item) => {
             setShowCategoriaModal(false)
             const catFound = cat.data.find((c) => c.id === item.value)
             if (catFound) {
@@ -173,9 +173,9 @@ export const NewAnuncioForm: React.FC<
               )
               const { children: _, ...rest } = catFound
 
-              wait(600).then(() => {
-                navigation.navigate('NewAnuncioFormByCat', rest)
-              })
+              setShowCategoriaModal(false)
+              await wait(600)
+              navigation.navigate('NewAnuncioFormByCat', rest)
             }
           }}
         />

@@ -14,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "config": {
         "googleMapsApiKey": "AIzaSyD7_x-IaDtLZle9C37GEnizuCkEOSnkkBg"

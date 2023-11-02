@@ -9,7 +9,7 @@ import {
   GetMicrositesResponseSchema,
 } from './Micrositios.type'
 
-import { Constants } from '@src/utils'
+import { CLOG, Constants } from '@src/utils'
 
 const api = Request(Constants.ENDPOINTS.MICROSITIOS)
 
@@ -22,6 +22,9 @@ export class MicrositiosServices {
       q = `?state=${params.state}`
     }
     const { data } = await api.get(q)
+    CLOG({
+      rawData: data,
+    })
     const parsed = GetMicrositesResponseSchema.parse(data)
 
     return parsed

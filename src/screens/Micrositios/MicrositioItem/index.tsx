@@ -5,6 +5,7 @@ import { Microsite } from '@src/api'
 import { Box, Button, Image, Text } from '@src/components'
 import { useMicrositiosStackNavigation } from '@src/hooks'
 import { getShadowBoxProps } from '@src/theme'
+import { getImageUrl } from '@src/utils'
 
 const { height } = Dimensions.get('window')
 
@@ -21,7 +22,7 @@ export const MicrositioItem: FC<{ data: Microsite }> = ({ data }) => {
     >
       <Image
         source={{
-          uri: typeof image === 'string' ? image : 'https://placehold.co/120',
+          uri: getImageUrl(),
         }}
         width={'100%'}
         height={280}

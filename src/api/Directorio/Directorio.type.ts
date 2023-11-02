@@ -1,4 +1,5 @@
 import { StateSchema } from '../listivos'
+import { UserPackageSchema } from '../Paquetes'
 import { UserSchema } from '../Usuarios'
 
 import * as z from 'zod'
@@ -31,7 +32,7 @@ export const DirectorioSchema = z.object({
   phone: z.string(),
   email: z.string(),
   thumbnail: z.string(),
-  userPackage: z.null(),
+  userPackage: UserPackageSchema.nullable().optional(),
   user: UserDirectorioSchema,
   state: StateSchema,
   updated_at: z.coerce.date(),
