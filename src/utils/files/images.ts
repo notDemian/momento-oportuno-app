@@ -79,8 +79,12 @@ export function uploadImage({
   })
 }
 
-export function getImageUrl(media: Media): string {
-  const url = `${Constants.URL.RAW}/storage/${media.id}/${media.file_name}`
+type GetImageUrlProps = { media: Media } | { url: string }
+
+export function getImageUrl(props: GetImageUrlProps): string {
+  if ('url' in props) return `${Constants.URL.RAW}storage/${props.url}`
+  const { media } = props
+  const url = `${Constants.URL.RAW}storage/${media.id}/${media.file_name}`
   CLOG({ url })
   return url
 }

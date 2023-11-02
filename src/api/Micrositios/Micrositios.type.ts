@@ -1,4 +1,5 @@
 import { StateSchema } from '../listivos'
+import { UserPackageSchema } from '../Paquetes'
 import { UserSchema } from '../Usuarios'
 
 import * as z from 'zod'
@@ -15,12 +16,12 @@ export const MicrositeSchema = z.object({
   id: z.number(),
   title: z.string(),
   image: z.string(),
-  description: z.null(),
+  description: z.string().nullable().optional(),
   address: z.string(),
   email: z.string(),
   phone: z.string(),
   status: z.string(),
-  user_package: z.null(),
+  user_package: UserPackageSchema.nullable(),
   user: UserMicrositeSchema,
   state: StateSchema,
   expires_at: z.coerce.date(),

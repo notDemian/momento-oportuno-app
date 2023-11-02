@@ -64,7 +64,8 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
     )
   }
 
-  const { image, title, is_featured } = props.data
+  const { title, is_featured } = props.data
+  const image = props.data.media?.[0]?.original_url
   const navigation = useSearchStackNavigation()
 
   const onPlaceItemPress = () => {
