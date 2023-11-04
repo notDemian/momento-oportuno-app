@@ -17,7 +17,7 @@ const Favoritos = () => {
   const { data, isLoading, refetch } = useMyFavorites()
 
   const ListEmptyComponent = useCallback(() => {
-    return (
+    return !isLoading ? (
       <Box
         flex={1}
         justifyContent='center'
@@ -29,8 +29,12 @@ const Favoritos = () => {
         </Text>
         <SvgEmptyBox />
       </Box>
+    ) : (
+      <>
+        <ActivityIndicator />
+      </>
     )
-  }, [])
+  }, [isLoading])
 
   const renderItem: ListRenderItem<AdFavorite> = useCallback(({ item }) => {
     return <AnuncioItem data={item} isFav />
@@ -38,33 +42,21 @@ const Favoritos = () => {
 
   return (
     <>
-      {isLoading && <ActivityIndicator />}
-      <List<AdFavorite>
-        renderItem={renderItem}
-        // data={[
-        //   ...(data?.data ?? []),
-        //   ...(data?.data ?? []).map((d) => ({
-        //     ...d,
-        //     id: d.id + (data?.data.length ?? 1) * 1,
-        //   })),
-        //   ...(data?.data ?? []).map((d) => ({
-        //     ...d,
-        //     id: d.id + (data?.data.length ?? 1) * 2,
-        //   })),
-        //   ...(data?.data ?? []).map((d) => ({
-        //     ...d,
-        //     id: d.id + (data?.data.length ?? 1) * 3,
-        //   })),
-        // ]}
-        data={data?.data ?? []}
-        ListEmptyComponent={ListEmptyComponent}
-        contentContainerStyle={{ flexGrow: 1 }}
-        scrollEnabled={true}
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl refreshing={isLoading} onRefresh={refetch} />
-        }
-      />
+      {isLoading || !data?.data ? (
+        <ActivityIndicator />
+      ) : (
+        <List<AdFavorite>
+          renderItem={renderItem}
+          data={data.data}
+          ListEmptyComponent={ListEmptyComponent}
+          contentContainerStyle={{ flexGrow: 1 }}
+          scrollEnabled={true}
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+          }
+        />
+      )}
     </>
   )
 }
