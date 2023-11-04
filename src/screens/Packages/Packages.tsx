@@ -5,10 +5,16 @@ import { PackageItem } from './PackageItem/PackageItem'
 import { PackageScreenProps } from './Packages.type'
 
 import { Package } from '@src/api'
-import { List, LoadingPageModal, Section } from '@src/components'
-import { usePaquetes } from '@src/hooks'
+import {
+  Box,
+  Button,
+  List,
+  LoadingPageModal,
+  Section,
+  Text,
+} from '@src/components'
+import { usePaquetes, usePreventNavigationOrPop } from '@src/hooks'
 import { useAppTheme } from '@src/theme'
-import { CLOG } from '@src/utils'
 
 export const Packages: React.FC<PackageScreenProps> = ({
   navigation,
@@ -20,9 +26,6 @@ export const Packages: React.FC<PackageScreenProps> = ({
     resource_id: id,
     type,
   })
-  CLOG({
-    id,
-  })
 
   const { colors } = useAppTheme()
 
@@ -32,11 +35,36 @@ export const Packages: React.FC<PackageScreenProps> = ({
     },
     [id, type],
   )
+
+  const ListEmptyComponent = useCallback(() => {
+    return (
+      <Box flex={1} justifyContent='center' alignItems='center'>
+        <Text
+          variant='header'
+          textAlign='center'
+          paddingHorizontal='l'
+          marginBottom='m'
+        >
+          ¡Ups! No hay paquetes disponibles
+        </Text>
+        <Button
+          label='Regresar'
+          variant='primary'
+          onPress={() => navigation.popToTop()}
+        />
+      </Box>
+    )
+  }, [])
+
+  usePreventNavigationOrPop({
+    navToPop: navigation,
+  })
+
   if (isLoading || !paquetes) return <LoadingPageModal loading={isLoading} />
 
   return (
     <Section
-      title='Selecciona un paquete'
+      title={paquetes?.data.length !== 0 ? 'Selecciona un paquete' : ''}
       backgroundColor={'background'}
       paddingBottom={'xxl'}
     >
@@ -45,6 +73,7 @@ export const Packages: React.FC<PackageScreenProps> = ({
         renderItem={renderItem}
         ItemSeparatorComponent={() => null}
         contentContainerStyle={{ backgroundColor: colors.background }}
+        ListEmptyComponent={ListEmptyComponent}
       />
     </Section>
   )

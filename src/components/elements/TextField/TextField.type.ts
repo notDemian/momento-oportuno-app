@@ -30,4 +30,5 @@ export type TextFieldProps = {
   hasMargin?: boolean
   inputProps: TextInputProps
   required?: boolean
+  error?: string
 } & InputRestyleProps

@@ -6,4 +6,5 @@ export interface CartState {
   favorites: number[] | undefined
   createAnuncioParams: Partial<CreateAnuncioParams> &
     Required<GeneralCreateAnuncioParams>
+  orderConfirmationId: number | null
 }

@@ -1,16 +1,23 @@
 import React from 'react'
-import { Animated } from 'react-native'
+import { Animated, StyleSheet } from 'react-native'
 
-import styles from './SuccessOrderModal.style'
+const styles = StyleSheet.create({
+  processingOrderContainer: {
+    marginTop: 10,
+  },
+  successMessageContainer: {
+    alignItems: 'center',
+  },
+  footerButtonContainer: {
+    width: '100%',
+    paddingVertical: 16,
+  },
+})
 
-import {
-  BottomSheetModal,
-  Box,
-  Button,
-  LottieView,
-  Text,
-} from '@src/components'
-import { useExploreStackNavigation } from '@src/hooks'
+import Toast from 'react-native-toast-message'
+import { BottomSheetModal, Box, Button, LottieView, Text } from '../elements'
+
+import { useAccountStackNavigation, useAppSelector } from '@src/hooks'
 
 type OrderSuccessModalProps = {
   isVisible: boolean
@@ -21,22 +28,24 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
   isVisible,
   setIsVisble,
 }) => {
-  const navigation = useExploreStackNavigation()
+  const navigation = useAccountStackNavigation()
   const fadeIn = React.useRef(new Animated.Value(0)).current
   const fadeOut = React.useRef(new Animated.Value(1)).current
   const [isAnimationFinished, setIsAnimationFinished] = React.useState(false)
   React.useEffect(() => {
     Animated.timing(fadeIn, {
       toValue: isAnimationFinished ? 1 : 0,
-      duration: 200,
+      duration: 400,
       useNativeDriver: true,
     }).start()
     Animated.timing(fadeOut, {
       toValue: isAnimationFinished ? 0 : 1,
-      duration: 300,
+      duration: 500,
       useNativeDriver: true,
     }).start()
   }, [isAnimationFinished, fadeIn, fadeOut])
+
+  const orderId = useAppSelector((p) => p.cart.orderConfirmationId)
 
   const onAnimationFinish = () => {
     setIsAnimationFinished(true)
@@ -45,16 +54,24 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
   const onBackdropPress = () => {
     setIsVisble(false)
     setIsAnimationFinished(false)
+    redirect()
   }
 
-  const onOrderSomethingElseButtonPress = () => {
-    setIsVisble(false)
-    navigation.navigate('Explore')
+  const redirect = () => {
+    if (!orderId) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'No se pudo obtener el id de la orden',
+      })
+      return navigation.navigate('Account')
+    }
+    navigation.replace('PaymentConfirmation', { id: orderId })
   }
 
   const onTrackOrderButtonPress = () => {
     setIsVisble(false)
-    navigation.replace('TrackOrder')
+    redirect()
   }
 
   return (
@@ -76,17 +93,17 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
             <Animated.View
               style={[styles.processingOrderContainer, { opacity: fadeOut }]}
             >
-              <Text fontWeight='bold'>Processing Your Order...</Text>
+              <Text fontWeight='bold'>Procesando Órden</Text>
             </Animated.View>
           )}
           <Animated.View
             style={[styles.successMessageContainer, { opacity: fadeIn }]}
           >
             <Text variant='header' fontWeight='bold' color='primary'>
-              Thank you for your order.
+              Gracias por tu compra
             </Text>
             <Text textAlign='center' marginTop='s'>
-              You can track the delivery in the Orders section.
+              Tu orden ha sido procesada exitosamente
             </Text>
           </Animated.View>
         </Box>
@@ -94,16 +111,9 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
           style={[styles.footerButtonContainer, { opacity: fadeIn }]}
         >
           <Button
-            label='Track My Order'
+            label='Ver confirmación'
             isFullWidth
             onPress={onTrackOrderButtonPress}
-          />
-          <Button
-            label='Order Something Else'
-            isFullWidth
-            variant='transparent'
-            marginTop='s'
-            onPress={onOrderSomethingElseButtonPress}
           />
         </Animated.View>
       </Box>

@@ -1,35 +1,29 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Icon, Touchable } from '@src/components'
+import { AddButtonComponent } from '@src/navigation/StacksComponents'
 import {
   MicrositiosScreenProps,
   MicrositiosStackParamList,
 } from '@src/navigation/types'
-import { MicrositioById, Micrositios } from '@src/screens'
+import {
+  MicrositioById,
+  Micrositios,
+  NewMicrositioFormScreen,
+  NewMicrositioMediaScreen,
+} from '@src/screens'
 import { palette } from '@src/theme'
 
 const Stack = createNativeStackNavigator<MicrositiosStackParamList>()
 
-export const MicrositiosStack: React.FC<MicrositiosScreenProps> = () => {
-  const headerRight = useCallback(function headerRight() {
-    return (
-      <Touchable onPress={() => {}}>
-        <Icon name='add' size={36} color={palette.white} />
-      </Touchable>
-    )
-  }, [])
-
+export const MicrositiosStack: React.FC<MicrositiosScreenProps> = ({
+  navigation,
+}) => {
   return (
     <Stack.Navigator initialRouteName='Micrositios'>
       <Stack.Screen
         options={() => {
           return {
-            // headerBackground: () => (
-            //   <HeaderBackground
-            //     style={{ backgroundColor: palette.rojoMomento }}
-            //   />
-            // ),
             headerStyle: {
               backgroundColor: palette.rojoMomento,
             },
@@ -37,7 +31,11 @@ export const MicrositiosStack: React.FC<MicrositiosScreenProps> = () => {
             headerTitleStyle: {
               color: palette.white,
             },
-            // headerRight,
+            headerRight: () => (
+              <AddButtonComponent
+                nav={() => navigation.navigate('NewMicrositioForm')}
+              />
+            ),
           }
         }}
         name='Micrositios'
@@ -51,6 +49,26 @@ export const MicrositiosStack: React.FC<MicrositiosScreenProps> = () => {
         }}
         name='MicrositioById'
         component={MicrositioById}
+      />
+      <Stack.Screen
+        options={() => {
+          return {
+            headerShown: true,
+            title: 'Crear Micrositio',
+          }
+        }}
+        name='NewMicrositioForm'
+        component={NewMicrositioFormScreen}
+      />
+      <Stack.Screen
+        options={() => {
+          return {
+            headerShown: true,
+            title: 'Crear Micrositio',
+          }
+        }}
+        name='NewMicrositioMedia'
+        component={NewMicrositioMediaScreen}
       />
     </Stack.Navigator>
   )

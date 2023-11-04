@@ -3,9 +3,13 @@ import { Alert } from 'react-native'
 import Toast from 'react-native-toast-message'
 
 import { ImageTooBigError, VIDEO_MIME_TYPES } from '@src/api'
-import { Box, Button, Image, NewAnucioLayout, Text } from '@src/components'
+import { Box, Button, Image, NewRecursoLayout, Text } from '@src/components'
 import { ButtonModalGenerator } from '@src/components/ModalRadioButton'
-import { useAnuncioByid, useUploadMedias } from '@src/hooks'
+import {
+  useAnuncioByid,
+  usePreventNavigationOrPop,
+  useUploadMedias,
+} from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import * as ImagePicker from 'expo-image-picker'
 
@@ -127,33 +131,9 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
     }
   }, [paquete])
 
-  useEffect(() => {
-    const listener = navigation.addListener('beforeRemove', (e) => {
-      e.preventDefault()
-      Alert.alert(
-        '¿Estás seguro de que quieres salir?',
-        'Si sales ahora, tu anuncio no se guardará.',
-        [
-          {
-            text: 'Permanecer',
-            style: 'cancel',
-            onPress: () => {},
-          },
-          {
-            text: 'Salir',
-            style: 'destructive',
-            onPress: () => {
-              navigation.dispatch(e.data.action)
-            },
-          },
-        ],
-      )
-    })
-
-    return () => {
-      listener()
-    }
-  }, [])
+  usePreventNavigationOrPop({
+    navToPop: navigation,
+  })
 
   const uploadImage = useCallback(async () => {
     if (!paquete) return Alert.alert('Selecciona un paquete de imágenes')
@@ -209,7 +189,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
   }, [images, video, videoAsset, id])
 
   return (
-    <NewAnucioLayout
+    <NewRecursoLayout
       title='Imágenes y video'
       footer={
         <Box
@@ -323,6 +303,6 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
           </>
         ) : null}
       </Box>
-    </NewAnucioLayout>
+    </NewRecursoLayout>
   )
 }

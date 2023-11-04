@@ -5,7 +5,7 @@ import { AnuncioProps } from './AnuncioItem.type'
 import { Box, Image, Text, Touchable } from '@src/components'
 import { useSearchStackNavigation } from '@src/hooks'
 import { fontSize } from '@src/theme'
-import { Constants, IMAGE_URL_FALLBACK } from '@src/utils'
+import { Constants, getImageUrl, IMAGE_URL_FALLBACK } from '@src/utils'
 
 export const AnuncioItem: FC<AnuncioProps> = (props) => {
   let extraData = <></>
@@ -65,7 +65,11 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
   }
 
   const { title, is_featured } = props.data
-  const image = props.data.media?.[0]?.original_url
+  const image =
+    props.data.media?.[0]?.original_url ??
+    (props.data.image
+      ? getImageUrl({ url: props.data.image })
+      : IMAGE_URL_FALLBACK)
   const navigation = useSearchStackNavigation()
 
   const onPlaceItemPress = () => {
@@ -94,7 +98,7 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
           height={120}
           borderRadius='m'
           marginRight='m'
-          source={image ?? IMAGE_URL_FALLBACK}
+          source={image}
         />
 
         <Box flex={1} justifyContent={'center'}>

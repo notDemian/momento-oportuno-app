@@ -1,12 +1,16 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Icon, Touchable } from '@src/components'
+import { AddButtonComponent } from '@src/navigation/StacksComponents'
 import {
   DirectorioScreenProps,
   DirectorioStackParamList,
 } from '@src/navigation/types'
-import { CreateDirectorioScreen, DirectorioList } from '@src/screens'
+import {
+  DirectorioList,
+  NewDirectorioFormScreen,
+  NewDirectorioMediaScreen,
+} from '@src/screens'
 import { palette } from '@src/theme'
 
 const Stack = createNativeStackNavigator<DirectorioStackParamList>()
@@ -14,17 +18,6 @@ const Stack = createNativeStackNavigator<DirectorioStackParamList>()
 export const DirectorioStack: React.FC<DirectorioScreenProps> = ({
   navigation,
 }) => {
-  const headerRight = useCallback(function headerRight() {
-    return (
-      <Touchable
-        onPress={() => {
-          navigation.navigate('CreateDirectorio')
-        }}
-      >
-        <Icon name='add' size={36} color={palette.white} />
-      </Touchable>
-    )
-  }, [])
   return (
     <Stack.Navigator initialRouteName='Directorio'>
       <Stack.Screen
@@ -37,7 +30,11 @@ export const DirectorioStack: React.FC<DirectorioScreenProps> = ({
             headerTitleStyle: {
               color: palette.white,
             },
-            headerRight,
+            headerRight: () => (
+              <AddButtonComponent
+                nav={() => navigation.navigate('NewDirectorioForm')}
+              />
+            ),
           }
         }}
         name='Directorio'
@@ -49,8 +46,17 @@ export const DirectorioStack: React.FC<DirectorioScreenProps> = ({
             headerTitle: 'Crear Directorio',
           }
         }}
-        name='CreateDirectorio'
-        component={CreateDirectorioScreen}
+        name='NewDirectorioForm'
+        component={NewDirectorioFormScreen}
+      />
+      <Stack.Screen
+        options={() => {
+          return {
+            headerTitle: 'Crear Directorio',
+          }
+        }}
+        name='NewDirectorioMedia'
+        component={NewDirectorioMediaScreen}
       />
     </Stack.Navigator>
   )

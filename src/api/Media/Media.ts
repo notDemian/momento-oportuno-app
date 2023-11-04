@@ -12,7 +12,7 @@ import {
   UploadImageParams,
 } from './Media.type'
 
-import { CLOG, Constants } from '@src/utils'
+import { Constants } from '@src/utils'
 import { AxiosResponse } from 'axios'
 
 const api = Request(Constants.ENDPOINTS.MEDIA)
@@ -44,9 +44,7 @@ export class MediaServices {
       })
     })
     const awaited = await Promise.allSettled(promises)
-    CLOG({
-      awaited,
-    })
+
     const rejeted = awaited.filter(
       (p): p is PromiseRejectedResult => p.status === 'rejected',
     )
@@ -66,50 +64,4 @@ export class MediaServices {
 
     return parsed
   }
-
-  // static async testImg({ photo: photos }: Pick<UploadImageParams, 'photo'>) {
-  //   const formData = new FormData()
-
-  //   if (Array.isArray(photos)) {
-  //     photos.forEach((photo) => {
-  //       const uri = photo.uri
-  //       const filename = photo.uri.split('/').pop() ?? ''
-  //       const imgType = filename?.split('.').pop()
-  //       const typeFD = `image/${imgType}`
-
-  //       const blob = {
-  //         uri,
-  //         name: filename,
-  //         type: typeFD,
-  //       }
-
-  //       formData.append(imageField, blob)
-  //     })
-  //   } else {
-  //     const uri = photos.uri
-  //     const filename = photos.uri.split('/').pop() ?? ''
-  //     const imgType = filename?.split('.').pop()
-  //     const typeFD = `image/${imgType}`
-
-  //     const blob = {
-  //       uri,
-  //       name: filename,
-  //       type: typeFD,
-  //     }
-
-  //     formData.append(imageField, blob)
-  //   }
-
-  //   const { data } = await axios.post(
-  //     'http://192.168.0.167:3000/upload',
-  //     formData,
-  //     {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     },
-  //   )
-
-  //   return data as any
-  // }
 }

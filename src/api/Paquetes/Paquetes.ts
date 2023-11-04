@@ -10,7 +10,7 @@ import {
   GetUserPackagesSchema,
 } from './Paquetes.type'
 
-import { CLOG, Constants } from '@src/utils'
+import { Constants } from '@src/utils'
 
 const req = Request(Constants.ENDPOINTS.PACKAGES)
 export class PackagesServices {
@@ -27,9 +27,7 @@ export class PackagesServices {
     if (params?.resource_id) {
       q.searchParams.append('resource_id', params.resource_id.toString())
     }
-    CLOG({
-      query: q.toString(),
-    })
+
     const { data } = await req.get(q.toString())
     const parsed = GetPackagesResponseSchema.parse(data)
 

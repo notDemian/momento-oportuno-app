@@ -45,7 +45,6 @@ export class AnunciosServices {
 
     const { data } = await req.get(`?page=${page}&per_page=${per_page}` + q)
     const dataValidated = GetAllAdsResponseSchema.parse(data)
-    // CLOG(dataValidated)
 
     return dataValidated
   }

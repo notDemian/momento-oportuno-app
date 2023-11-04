@@ -2,8 +2,6 @@ import React from 'react'
 import { Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import {} from './index'
-
 import { Images } from '@src/assets'
 import { Box, Button, Image, Text } from '@src/components'
 import { AuthStackParamList, ScreenProps } from '@src/navigation/types'

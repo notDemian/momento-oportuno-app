@@ -40,7 +40,9 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
             message: link,
             title: 'Compartir',
           })
-        } catch (error) {}
+        } catch (error) {
+          console.log(error)
+        }
       },
       favorite: async () => {
         if (isFavorite) {

@@ -9,7 +9,7 @@ import {
   Button,
   CheckBox,
   Image,
-  NewAnucioLayout,
+  NewRecursoLayout,
   Text,
   TextField,
 } from '@src/components'
@@ -141,7 +141,7 @@ export const NewAnuncioForm: React.FC<
   }, [params, isPrintingMultiState])
 
   return (
-    <NewAnucioLayout
+    <NewRecursoLayout
       title='Detalles generales'
       footer={
         <Button
@@ -266,6 +266,6 @@ export const NewAnuncioForm: React.FC<
           onChange={setParamsFactory('includes_video')}
         />
       </Box>
-    </NewAnucioLayout>
+    </NewRecursoLayout>
   )
 }

@@ -1,15 +1,18 @@
 import Request from '../request'
 
 import type {
+  CreateMicrositeParams,
+  CreateMicrositeResponse,
   GetMicrositeByIdResponse,
   GetMicrositesResponse,
 } from './Micrositios.type'
 import {
+  CreateMicrositeResponseSchema,
   GetMicrositeByIdResponseSchema,
   GetMicrositesResponseSchema,
 } from './Micrositios.type'
 
-import { CLOG, Constants } from '@src/utils'
+import { Constants } from '@src/utils'
 
 const api = Request(Constants.ENDPOINTS.MICROSITIOS)
 
@@ -22,9 +25,7 @@ export class MicrositiosServices {
       q = `?state=${params.state}`
     }
     const { data } = await api.get(q)
-    CLOG({
-      rawData: data,
-    })
+
     const parsed = GetMicrositesResponseSchema.parse(data)
 
     return parsed
@@ -35,6 +36,15 @@ export class MicrositiosServices {
   ): Promise<GetMicrositeByIdResponse> {
     const { data } = await api.get(`/${id}`)
     const parsed = GetMicrositeByIdResponseSchema.parse(data)
+
+    return parsed
+  }
+
+  static async createMicrositio(
+    params: CreateMicrositeParams,
+  ): Promise<CreateMicrositeResponse> {
+    const { data } = await api.post('/', params)
+    const parsed = CreateMicrositeResponseSchema.parse(data)
 
     return parsed
   }

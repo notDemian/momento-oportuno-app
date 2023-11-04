@@ -19,7 +19,7 @@ interface Props {
   nextScreen?: () => void
 }
 
-const WebModal = ({ url, visible, onDismiss, title }: Props) => {
+const WebModal = ({ url, visible, onDismiss, title, onSuccess }: Props) => {
   const { colors } = useAppTheme()
   const [prog, setProg] = useState(false)
   const [progClr, setProgClr] = useState<string>(colors.black)
@@ -30,7 +30,7 @@ const WebModal = ({ url, visible, onDismiss, title }: Props) => {
     const URL_INCLUDES = ['panel/list']
 
     if (URL_INCLUDES.some((u) => navState.url.includes(u))) {
-      onDismiss()
+      onSuccess()
     }
   }
 

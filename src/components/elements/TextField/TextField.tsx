@@ -2,6 +2,7 @@ import React from 'react'
 import { I18nManager, TextInput } from 'react-native'
 import { Box } from '../Box'
 import { Icon } from '../Icon'
+import { Text } from '../Text/Text'
 
 import { InputRestyleProps, TextFieldProps } from './TextField.type'
 
@@ -39,6 +40,7 @@ export const TextField: React.FC<TextFieldProps> = ({
   leftIcon,
   leftIconSize = fontSize.l,
   lefIconOnPress = () => {},
+  error,
   leftIconColor,
   required = false,
   hasMargin,
@@ -113,6 +115,16 @@ export const TextField: React.FC<TextFieldProps> = ({
             type='Fontisto'
           />
         </Box>
+      ) : null}
+      {error ? (
+        <Text
+          color='secondary'
+          fontSize={fontSize.xs}
+          marginHorizontal='xs'
+          paddingVertical='s'
+        >
+          {error}
+        </Text>
       ) : null}
     </Box>
   )

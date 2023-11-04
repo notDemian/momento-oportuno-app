@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 
 import { MicrositiosQuerys } from './micrositios.keys'
 
@@ -20,4 +20,11 @@ const useMicrositios = (
   })
 }
 
-export { useMicrositio, useMicrositios }
+const useCreateMicrositio = () => {
+  return useMutation({
+    mutationFn: MicrositiosServices.createMicrositio,
+    mutationKey: MicrositiosQuerys.createMicrositio,
+  })
+}
+
+export { useCreateMicrositio, useMicrositio, useMicrositios }

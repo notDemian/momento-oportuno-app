@@ -16,7 +16,13 @@ const initialState: CartState = {
     title: '',
     user_id: 0,
     listingAttributes: [],
+    is_featured: false,
+    includes_printing: false,
+    includes_socials: false,
+    includes_video: false,
+    printing_state_id: -1,
   },
+  orderConfirmationId: null,
 }
 
 export const cartSlice = createSlice({
@@ -54,8 +60,35 @@ export const cartSlice = createSlice({
       //   ...(state.createAnuncioParams ?? {}),
       //   ...action.payload,
       // }
-      state.createAnuncioParams = action.payload
+      const {
+        category_id,
+        description,
+        includes_printing,
+        includes_socials,
+        includes_video,
+        is_featured,
+        state_id,
+        title,
+        user_id,
+        printing_state_id,
+      } = action.payload
+      state.createAnuncioParams.category_id = category_id
+      state.createAnuncioParams.description = description
+      state.createAnuncioParams.includes_printing = includes_printing
+      state.createAnuncioParams.includes_socials = includes_socials
+      state.createAnuncioParams.includes_video = includes_video
+      state.createAnuncioParams.is_featured = is_featured
+      state.createAnuncioParams.state_id = state_id
+      state.createAnuncioParams.title = title
+      state.createAnuncioParams.user_id = user_id
+      printing_state_id &&
+        (state.createAnuncioParams.printing_state_id = printing_state_id)
     },
+
+    setOrderConfirmationId(state, action: PayloadAction<number>) {
+      state.orderConfirmationId = action.payload
+    },
+
     resetCart(state) {
       state.paymentMethod = 'Efectivo'
     },
@@ -68,5 +101,6 @@ export const {
   addToFavorites,
   toggleFavorite,
   setInitialParams,
+  setOrderConfirmationId,
 } = cartSlice.actions
 export default cartSlice.reducer

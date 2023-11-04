@@ -18,6 +18,7 @@ import type {
   Categorie,
   Directorio,
   Microsite,
+  Order,
   Package,
   TypePackage,
 } from '@src/api'
@@ -96,10 +97,10 @@ export type AccountStackParamList = {
     package: Omit<Package, 'created_at' | 'updated_at'>
     id: JointIds
   }
-
-  CheckoutAnuncio: {
-    id: JointIds
+  PaymentConfirmation: {
+    id: Order['id']
   }
+
   MyPackages: undefined
   Promotion: undefined
 }
@@ -109,11 +110,17 @@ export type MicrositiosStackParamList = {
   MicrositioById: {
     id: number
   }
-  CreateMicrositio: undefined
+  NewMicrositioForm: undefined
+  NewMicrositioMedia: {
+    id: JointIds
+  }
 }
 export type DirectorioStackParamList = {
   Directorio: undefined
-  CreateDirectorio: undefined
+  NewDirectorioForm: undefined
+  NewDirectorioMedia: {
+    id: JointIds
+  }
 }
 
 export type TabParamList = {

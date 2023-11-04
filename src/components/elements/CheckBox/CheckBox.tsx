@@ -10,11 +10,13 @@ type CheckBoxProps = {
   label: string
   onChange: (checked: boolean) => void
   rightElement?: React.ReactNode
+  error?: string
 }
 export const CheckBox: React.FC<CheckBoxProps> = ({
   label,
   onChange,
   rightElement,
+  error,
 }) => {
   const {
     colors: { primary, secondary, text, card },
@@ -29,9 +31,9 @@ export const CheckBox: React.FC<CheckBoxProps> = ({
     <Touchable flex={1} onPress={handleOnChange}>
       <Box
         flex={1}
-        flexDirection='row'
+        // flexDirection='row'
         justifyContent='space-between'
-        alignItems='center'
+        alignItems='stretch'
         padding='m'
       >
         <Box flexDirection='row' alignItems='center' flex={2}>
@@ -54,6 +56,11 @@ export const CheckBox: React.FC<CheckBoxProps> = ({
         {rightElement ? (
           <Box flex={1} alignItems='flex-end'>
             {rightElement}
+          </Box>
+        ) : null}
+        {error ? (
+          <Box flex={1} alignItems={'center'}>
+            <Text color={'secondary'}>{error}</Text>
           </Box>
         ) : null}
       </Box>

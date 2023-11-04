@@ -1,4 +1,3 @@
-import { CLOG } from '@src/utils'
 import * as FileSystem from 'expo-file-system'
 import { ImagePickerAsset } from 'expo-image-picker'
 import z from 'zod'
@@ -47,7 +46,6 @@ export const VIDEO_MIME_TYPES = [
 export async function validateSize({ photo }: { photo: ImagePickerAsset }) {
   const file = await FileSystem.getInfoAsync(photo.uri)
   if (!file.exists) throw new ImageDoesntExistError()
-  CLOG({ file })
   const size = file.size
   return size < FILE_SIZE_LIMIT
 }

@@ -1,19 +1,20 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Button } from '@src/components'
+import { AddButtonComponent } from '@src/navigation/StacksComponents'
 import {
   AccountScreenProps,
   AccountStackParamList,
 } from '@src/navigation/types'
 import {
   Account,
+  Checkout,
   EditProfile,
   NewAnuncioForm,
   NewAnuncioFormByCat,
   NewAnuncioFormMediaScreen,
   Packages,
-  PaymentMethod,
+  PaymentConfirmationScreen,
   Promotion,
   SelectLocation,
   Settings,
@@ -26,48 +27,35 @@ const Stack = createNativeStackNavigator<AccountStackParamList>()
 export const AccountStack: React.FC<AccountScreenProps> = (props) => {
   const { colors } = useAppTheme()
 
-  const headerRight = useCallback(() => {
-    return (
-      <Button
-        label='+'
-        onPress={() => {
-          props.navigation.navigate('NewAnuncioForm')
-          //FIXME: remove this
-          // props.navigation.navigate('NewAnuncioForm')
-          // props.navigation.navigate('NewAnuncioFormByCat', { id: 1 })
-          // props.navigation.navigate('NewAnuncioFormMedia', { id: 22 })
-          // props.navigation.navigate('Packages', { id: 22, type: 'listing' })
-          // props.navigation.navigate('Checkout', {
-          //   id: 22,
-          //   type: 'listing',
-          //   package: {
-          //     id: 1,
-          //     name: 'Paquete Anuncio Básico',
-          //     label: 'Paquete Anuncio Básico',
-          //     type: 'listing',
-          //     description: 'Descripcion del paquete',
-          //     expire: 7,
-          //     price: 200,
-          //     display_price: '$200',
-          //     is_featured: 0,
-          //     is_active: 1,
-          //     is_multistate: 0,
-          //     includes_video: 0,
-          //     includes_printing: 0,
-          //     max_number_of_characters: 0,
-          //     number_of_images: 0,
-          //   },
-          // })
-        }}
-      />
-    )
-  }, [])
+  //FIXME: remove this
+  // props.navigation.navigate('NewAnuncioForm')
+  // props.navigation.navigate('NewAnuncioFormByCat', { id: 1 })
+  // props.navigation.navigate('NewAnuncioFormMedia', { id: 22 })
+  // props.navigation.navigate('Packages', { id: 22, type: 'listing' })
+  // props.navigation.navigate('Checkout', {
+  //   id: 22,
+  //   type: 'listing',
+  //   package: {
+  //     id: 1,
+  //     name: 'Paquete Anuncio Básico',
+  //     label: 'Paquete Anuncio Básico',
+  //     type: 'listing',
+  //     description: 'Descripcion del paquete',
+  //     expire: 7,
+  //     price: 200,
+  //     display_price: '$200',
+  //     is_featured: 0,
+  //     is_active: 1,
+  //     is_multistate: 0,
+  //     includes_video: 0,
+  //     includes_printing: 0,
+  //     max_number_of_characters: 0,
+  //     number_of_images: 0,
+  //   },
+  // })
 
   return (
-    <Stack.Navigator
-      initialRouteName='Account'
-      // screenOptions={{ headerShown: false }}
-    >
+    <Stack.Navigator initialRouteName='Account'>
       <Stack.Screen
         options={() => {
           return {
@@ -76,8 +64,11 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
               backgroundColor: colors.primary,
             },
             headerTintColor: colors.white,
-            // headerShown: false,
-            headerRight,
+            headerRight: () => (
+              <AddButtonComponent
+                nav={() => props.navigation.navigate('NewAnuncioForm')}
+              />
+            ),
           }
         }}
         name='Account'
@@ -152,8 +143,6 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
       <Stack.Screen
         options={() => {
           return {
-            headerTintColor: colors.white,
-            headerShown: false,
             title: 'Selecciona un paquete',
           }
         }}
@@ -166,15 +155,15 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
         options={{
           headerTitle: 'Pago',
         }}
-        component={PaymentMethod}
-      />
-      {/* <Stack.Screen
-        name='Checkout'
-        options={{
-          headerTitle: 'Pago',
-        }}
         component={Checkout}
-      /> */}
+      />
+      <Stack.Screen
+        name='PaymentConfirmation'
+        options={{
+          headerTitle: 'Confirmación de tu pago',
+        }}
+        component={PaymentConfirmationScreen}
+      />
     </Stack.Navigator>
   )
 }

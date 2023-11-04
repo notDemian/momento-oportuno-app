@@ -6,7 +6,7 @@ import { ExtraContent } from './ExtraContent'
 
 import { StackActions } from '@react-navigation/native'
 import { CreateAnuncioParams, ListingAttribute, SubCategory } from '@src/api'
-import { Box, Button, NewAnucioLayout } from '@src/components'
+import { Box, Button, NewRecursoLayout } from '@src/components'
 import { ButtonModalGenerator } from '@src/components/ModalRadioButton'
 import {
   useAppSelector,
@@ -78,7 +78,7 @@ export const NewAnuncioFormByCat: FC<
   }, [inputs, initialParams, attributes, subCategoriaSelected])
 
   return (
-    <NewAnucioLayout
+    <NewRecursoLayout
       title={`${params.name}`}
       footer={
         <Button
@@ -108,6 +108,6 @@ export const NewAnuncioFormByCat: FC<
           />
         )}
       </Box>
-    </NewAnucioLayout>
+    </NewRecursoLayout>
   )
 }
