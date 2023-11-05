@@ -29,6 +29,7 @@ export class PackagesServices {
     }
 
     const { data } = await req.get(q.toString())
+
     const parsed = GetPackagesResponseSchema.parse(data)
 
     return parsed

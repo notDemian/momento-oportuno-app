@@ -5,6 +5,7 @@ import type {
   Ionicons,
   MaterialCommunityIcons,
   MaterialIcons,
+  SimpleLineIcons,
 } from '@expo/vector-icons'
 import { BoxProps } from '@shopify/restyle'
 import { Theme } from '@src/theme'
@@ -14,7 +15,8 @@ type UnionIcons = React.ComponentPropsWithoutRef<typeof Ionicons> &
   React.ComponentPropsWithoutRef<typeof Fontisto> &
   React.ComponentPropsWithoutRef<typeof MaterialIcons> &
   React.ComponentPropsWithoutRef<typeof Feather> &
-  React.ComponentPropsWithoutRef<typeof FontAwesome5>
+  React.ComponentPropsWithoutRef<typeof FontAwesome5> &
+  React.ComponentPropsWithoutRef<typeof SimpleLineIcons>
 
 export type IconProps = {
   isPrimary?: boolean
@@ -25,6 +27,7 @@ export type IconProps = {
     | 'MaterialIcons'
     | 'Feather'
     | 'FontAwesome5'
+    | 'SimpleLineIcons'
   color?: string
   name: string
 } & BoxProps<Theme> &

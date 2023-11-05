@@ -1,14 +1,16 @@
 import Request from '../request'
 
+import {
+  GetMicrositeByIdResponse,
+  GetMicrositeByIdResponseSchema,
+} from './Micrositios.module'
 import type {
   CreateMicrositeParams,
   CreateMicrositeResponse,
-  GetMicrositeByIdResponse,
   GetMicrositesResponse,
 } from './Micrositios.type'
 import {
   CreateMicrositeResponseSchema,
-  GetMicrositeByIdResponseSchema,
   GetMicrositesResponseSchema,
 } from './Micrositios.type'
 

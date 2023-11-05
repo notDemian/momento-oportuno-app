@@ -19,7 +19,7 @@ import {
 } from '@src/components'
 import { useAnuncioByid } from '@src/hooks'
 import { useAppTheme } from '@src/theme'
-import { IMAGE_URL_FALLBACK } from '@src/utils'
+import { getImageUrl } from '@src/utils'
 
 export const AnuncioDetails: FC<AnuncioProps> = ({
   route: { params },
@@ -101,9 +101,10 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
               >
                 <Animated.Image
                   source={{
-                    uri:
-                      data.data.media?.[(data.data.media?.length ?? 1) - 1]
-                        ?.original_url ?? IMAGE_URL_FALLBACK,
+                    uri: getImageUrl({
+                      url: data.data.image,
+                      media: data.data.media?.[0],
+                    }),
                   }}
                   style={[
                     styles.coverPhoto,

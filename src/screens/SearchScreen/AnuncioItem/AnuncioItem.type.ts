@@ -7,3 +7,7 @@ export type AnuncioProps =
       isFav: true
       data: AdFavorite
     }
+  | {
+      isMyAds: true
+      data: Ad
+    }

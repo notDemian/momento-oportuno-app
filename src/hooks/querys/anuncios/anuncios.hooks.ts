@@ -41,17 +41,26 @@ const useAnuncios = (params?: useInfiniteAdsProps) => {
   })
 }
 
-const useAnuncioByid = (id: string | number) => {
+const useAnuncioByid = (id: string | number, includeDrafts = false) => {
   return useQuery<GetAdByIdResponse, QueryErrors>({
-    queryKey: AnunciosQuerys.getAnuncio(id),
-    queryFn: () => AnunciosServices.getAd(id),
+    queryKey: AnunciosQuerys.getAnuncio(id, includeDrafts),
+    queryFn: () => AnunciosServices.getAd(id, includeDrafts),
   })
 }
 
 const useMisAnuncios = () => {
-  return useQuery({
+  return useInfiniteQuery({
     queryKey: AnunciosQuerys.getMyAds,
-    queryFn: () => AnunciosServices.getMyAds(),
+    queryFn: ({ pageParam = 1 }) =>
+      AnunciosServices.getMyAds({
+        page: pageParam,
+      }),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.meta.current_page === lastPage.meta.last_page) {
+        return undefined
+      }
+      return lastPage.meta.current_page + 1
+    },
   })
 }
 

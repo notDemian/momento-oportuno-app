@@ -17,7 +17,12 @@ const styles = StyleSheet.create({
 import Toast from 'react-native-toast-message'
 import { BottomSheetModal, Box, Button, LottieView, Text } from '../elements'
 
-import { useAccountStackNavigation, useAppSelector } from '@src/hooks'
+import {
+  useAccountStackNavigation,
+  useAppDispatch,
+  useAppSelector,
+} from '@src/hooks'
+import { resetCart } from '@src/redux'
 
 type OrderSuccessModalProps = {
   isVisible: boolean
@@ -46,6 +51,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
   }, [isAnimationFinished, fadeIn, fadeOut])
 
   const orderId = useAppSelector((p) => p.cart.orderConfirmationId)
+  const dispatch = useAppDispatch()
 
   const onAnimationFinish = () => {
     setIsAnimationFinished(true)
@@ -66,7 +72,10 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
       })
       return navigation.navigate('Account')
     }
-    navigation.replace('PaymentConfirmation', { id: orderId })
+
+    // navigation.replace('PaymentConfirmation', { id: orderId })
+    dispatch(resetCart())
+    navigation.popToTop()
   }
 
   const onTrackOrderButtonPress = () => {
@@ -111,7 +120,8 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
           style={[styles.footerButtonContainer, { opacity: fadeIn }]}
         >
           <Button
-            label='Ver confirmación'
+            // label='Ver confirmación'
+            label='Ir a inicio'
             isFullWidth
             onPress={onTrackOrderButtonPress}
           />

@@ -7,6 +7,7 @@ import {
   registerParams,
   registerRes,
 } from './Usuarios.type'
+import { ChangePasswordParamsSchema } from './Usuarios.type'
 
 import { Constants } from '@src/utils/constants'
 
@@ -28,6 +29,18 @@ export class UsuariosServices {
 
   static async me(): Promise<GetMeResponse> {
     const res = await api.get(Constants.ENDPOINTS.USERS + '/me')
+
+    const parsed = GetMeResponseSchema.parse(res.data)
+
+    return parsed
+  }
+  static async changePassword(
+    props: ChangePasswordParamsSchema,
+  ): Promise<GetMeResponse> {
+    const res = await api.post(
+      Constants.ENDPOINTS.USERS + '/change-password',
+      props,
+    )
 
     const parsed = GetMeResponseSchema.parse(res.data)
 

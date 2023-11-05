@@ -38,7 +38,7 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
     const { created_at: _, updated_at: __, ...noDates } = paquete
 
     nav.navigate('Checkout', { package: noDates, id, type })
-  }, [paquete])
+  }, [paquete, id, type])
 
   return (
     <Box
@@ -125,6 +125,42 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
           ))}
         </Box>
       </Box>
+      {paquete.addons && paquete.addons.length > 0 ? (
+        <Box
+          m='m'
+          padding='m'
+          borderBottomLeftRadius='l'
+          borderBottomRightRadius='l'
+          {...getShadowBoxProps({ borderRadius: 's' })}
+          backgroundColor={'creamy'}
+          gap={'s'}
+        >
+          {paquete.addons.map((addon) => {
+            return (
+              <Box key={addon.id} flexDirection={'row'} g='xs'>
+                {addon.price ? (
+                  <Box
+                    borderRadius={'m'}
+                    backgroundColor={'white'}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    p={'xs'}
+                  >
+                    <Text
+                      color={'black'}
+                      fontWeight={'bold'}
+                      fontSize={fontSize.m}
+                    >
+                      $ {addon.price} MXN
+                    </Text>
+                  </Box>
+                ) : null}
+                <Text color={'black'}>{addon.name}</Text>
+              </Box>
+            )
+          })}
+        </Box>
+      ) : null}
     </Box>
   )
 }

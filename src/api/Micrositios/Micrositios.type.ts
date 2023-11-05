@@ -10,9 +10,6 @@ export const UserMicrositeSchema = UserSchema.pick({
   name: true,
   email: true,
 })
-
-export type UserMicrosite = z.infer<typeof UserMicrositeSchema>
-
 export const MicrositeSchema = z.object({
   id: z.number(),
   title: z.string(),
@@ -21,7 +18,7 @@ export const MicrositeSchema = z.object({
   address: z.string(),
   email: z.string(),
   phone: z.string(),
-  status: z.string(),
+  status: z.string().nullable().optional(),
   user_package: UserPackageSchema.nullable().optional(),
   user: UserMicrositeSchema,
   state: StateSchema,
@@ -30,20 +27,17 @@ export const MicrositeSchema = z.object({
   updated_at: z.coerce.date(),
   media: z.array(MediaSchema).nullable().optional(),
 })
-export type Microsite = z.infer<typeof MicrositeSchema>
 
 export const GetMicrositesResponseSchema = z.object({
   data: z.array(MicrositeSchema),
 })
+
+export type UserMicrosite = z.infer<typeof UserMicrositeSchema>
+
+export type Microsite = z.infer<typeof MicrositeSchema>
+
 export type GetMicrositesResponse = z.infer<typeof GetMicrositesResponseSchema>
 
-export const GetMicrositeByIdResponseSchema = z.object({
-  data: MicrositeSchema,
-})
-
-export type GetMicrositeByIdResponse = z.infer<
-  typeof GetMicrositeByIdResponseSchema
->
 export const CreateMicrositeParamsSchema = z.object({
   title: z.string().min(3, 'Mínimo 3 caracteres'),
   state_id: z.number().min(1, 'Selecciona un estado'),
@@ -63,12 +57,8 @@ export type CreateMicrositeParams = CreateMicrositeParamsSchema & {
 
 export const CreateMicrositeResponseSchema = z.object({
   data: MicrositeSchema.omit({
-    status: true,
-  }).merge(
-    z.object({
-      status: MicrositeSchema.shape.status.nullable().optional(),
-    }),
-  ),
+    user: true,
+  }),
 })
 
 export type CreateMicrositeResponse = z.infer<

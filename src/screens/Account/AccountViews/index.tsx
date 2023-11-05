@@ -1,10 +1,8 @@
 import { useCallback } from 'react'
 import { Alert } from 'react-native'
-import { DirectoriosTab } from '../Directorios'
 
 import Ajustes from './Ajustes'
 import Favoritos from './Favoritos'
-import Mensajes from './Mensajes'
 import MisAvisos from './MisAvisos'
 import MisOrdenes from './MisOrdenes'
 
@@ -29,16 +27,14 @@ const tabData: TabViewData = [
     title: 'Favoritos',
     content: Favoritos,
   },
-  {
-    key: '2',
-    title: 'Mensajes',
-    content: Mensajes,
-  },
-  { key: '3', title: 'Mis ordenes', content: MisOrdenes },
-  { key: '4', title: 'Ajustes', content: Ajustes },
-  { key: '5', title: 'Directorios', content: DirectoriosTab },
-  // { key: '6', title: 'Selecciona un paquete', content: PlaceHolder },
-  { key: '6', title: 'Cerrar sesión', content: NullComponent },
+  // {
+  //   key: '2',
+  //   title: 'Mensajes',
+  //   content: Mensajes,
+  // },
+  { key: '2', title: 'Mis ordenes', content: MisOrdenes },
+  { key: '3', title: 'Ajustes', content: Ajustes },
+  { key: '4', title: 'Cerrar sesión', content: NullComponent },
 ]
 
 export const AccountTabs = () => {
@@ -58,7 +54,7 @@ export const AccountTabs = () => {
   const onTabPress = useCallback<
     NonNullable<Parameters<typeof TabView>[0]['onTabPress']>
   >((e) => {
-    if (e.route.key === '7') {
+    if (e.route.key === '4') {
       e.preventDefault()
       onLogoutButtonPress()
     }

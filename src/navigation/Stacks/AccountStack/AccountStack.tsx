@@ -54,6 +54,12 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
   //   },
   // })
 
+  // calle
+  // numero
+  // colonia
+  // ciudad/municipio
+  // codigo postal
+
   return (
     <Stack.Navigator initialRouteName='Account'>
       <Stack.Screen
@@ -66,7 +72,15 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
             headerTintColor: colors.white,
             headerRight: () => (
               <AddButtonComponent
-                nav={() => props.navigation.navigate('NewAnuncioForm')}
+                nav={() => {
+                  props.navigation.navigate('NewAnuncioForm')
+                  //FIXME: delete this
+                  // props.navigation.navigate('NewAnuncioFormMedia', { id: 22 })
+                  // props.navigation.navigate('Packages', {
+                  //   id: 22,
+                  //   type: 'listing',
+                  // })
+                }}
               />
             ),
           }
@@ -134,7 +148,7 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
       <Stack.Screen
         options={(params) => {
           return {
-            title: 'Imágenes',
+            title: 'Complementos',
           }
         }}
         name='NewAnuncioFormMedia'
@@ -161,6 +175,8 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
         name='PaymentConfirmation'
         options={{
           headerTitle: 'Confirmación de tu pago',
+          headerBackButtonMenuEnabled: false,
+          headerBackVisible: false,
         }}
         component={PaymentConfirmationScreen}
       />

@@ -1,4 +1,5 @@
-import { TypePackage, TypePackageSchema } from '../Paquetes'
+import { TypePackageSchema } from '../Paquetes'
+import { TypePackagePojo } from '../Paquetes/Paquetes.type'
 
 import { z } from 'zod'
 
@@ -13,13 +14,24 @@ export type BaseCreateOrderParams = {
   billing_address: string
   package_id: number
   related_id: number
-  type: TypePackage
 }
 
-export type CreateOrderParams = BaseCreateOrderParams &
+export type AddonsRecord = Record<`addons[${number}]`, 1>
+
+export type CreateOrderParams = (BaseCreateOrderParams &
   (
     | { payment_method: typeof PaymentMethods.PAYPAL }
     | { payment_method: typeof PaymentMethods.STRIPE; token: string }
+  )) &
+  (
+    | ({
+        type: typeof TypePackagePojo.LISTING
+      } & AddonsRecord)
+    | {
+        type:
+          | typeof TypePackagePojo.DIRECTORY
+          | typeof TypePackagePojo.MICROSITE
+      }
   )
 
 export const OrderStatus = z.union([
@@ -35,7 +47,7 @@ export const OrderSchema = z.object({
   title: z.string(),
   billing_address: z.string(),
   payment_method: z.string(),
-  package_id: z.coerce.number(),
+  package_id: z.unknown(),
   type: TypePackageSchema,
   related_id: z.coerce.number(),
   user_id: z.number(),
@@ -44,8 +56,8 @@ export const OrderSchema = z.object({
   subtotal: z.number(),
   tax: z.number(),
   total: z.number(),
-  updated_at: z.coerce.date(),
-  created_at: z.coerce.date(),
+  updated_at: z.coerce.date().nullable().optional(),
+  created_at: z.coerce.date().nullable().optional(),
   id: z.number(),
 })
 export type Order = z.infer<typeof OrderSchema>

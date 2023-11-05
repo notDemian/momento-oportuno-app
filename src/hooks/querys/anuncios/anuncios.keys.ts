@@ -1,6 +1,10 @@
 export const AnunciosQuerys = {
   getAllAnuncios: (params?: unknown) => ['getAllAnuncios', params],
-  getAnuncio: (id: string | number) => ['getAnuncio', id],
+  getAnuncio: (id: string | number, includeDrafts: boolean) => [
+    'getAnuncio',
+    id,
+    includeDrafts,
+  ],
   getMyAds: 'getMyAds',
 
   createAnuncio: 'createAnuncio',

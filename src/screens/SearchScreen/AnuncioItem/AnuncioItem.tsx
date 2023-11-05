@@ -2,7 +2,7 @@ import { FC, useCallback } from 'react'
 
 import { AnuncioProps } from './AnuncioItem.type'
 
-import { Box, Image, Text, Touchable } from '@src/components'
+import { Box, Icon, Image, Text, Touchable } from '@src/components'
 import { useSearchStackNavigation } from '@src/hooks'
 import { fontSize } from '@src/theme'
 import { Constants, getImageUrl, IMAGE_URL_FALLBACK } from '@src/utils'
@@ -51,13 +51,14 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
         </Box>
         {price ? (
           <Text
-            variant='secondary'
             marginTop='xs'
             marginBottom='s'
             fontSize={fontSize.s}
+            color={'secondary'}
             numberOfLines={3}
+            fontWeight={'bold'}
           >
-            {price}
+            $ {price} MXN
           </Text>
         ) : null}
       </>
@@ -73,7 +74,15 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
   const navigation = useSearchStackNavigation()
 
   const onPlaceItemPress = () => {
-    if ('isFav' in props) return
+    if ('isMyAds' in props) return
+    if ('isFav' in props) {
+      navigation.jumpTo('SearchTab', {
+        screen: 'AnuncioDetailsModal',
+        params: { data: { id: props.data.id } },
+        initial: false,
+      })
+      return
+    }
     navigation.navigate('AnuncioDetailsModal', {
       data: {
         id: props.data.id,
@@ -87,12 +96,21 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
         flexDirection='row'
         padding='s'
         backgroundColor='card'
-        borderWidth={is_featured ? 3 : 1}
+        borderWidth={is_featured ? 1 : 0}
         elevation={3}
         borderColor={is_featured ? 'secondary' : 'white'}
         borderRadius='m'
         margin='s'
       >
+        {is_featured ? (
+          <Icon
+            name='badge'
+            type='SimpleLineIcons'
+            position={'absolute'}
+            top={5}
+            right={5}
+          />
+        ) : null}
         <Image
           width={120}
           height={120}
@@ -119,11 +137,9 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
     [extraData, image, is_featured, title],
   )
 
-  return !('isFav' in props) ? (
+  return (
     <Touchable onPress={onPlaceItemPress} activeOpacity={0.5}>
       {renderContent()}
     </Touchable>
-  ) : (
-    <>{renderContent()}</>
   )
 }

@@ -13,7 +13,7 @@ import {
 } from '@src/components'
 import { useAddFavorite, useMyFavorites, useRemoveFavorite } from '@src/hooks'
 import { getShadowBoxProps, palette } from '@src/theme'
-import { getShareUrl } from '@src/utils'
+import { getShareUrl, redirectToEmail } from '@src/utils'
 
 type BottomButtonsProps = {
   slug: string | null | undefined
@@ -52,7 +52,13 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
         addFav(id)
       },
       print: () => {},
-      danger: () => {},
+      danger: () => {
+        redirectToEmail({
+          email: 'reportes@elmomentooportuno.mx',
+          body: 'Reporte de abuso',
+          subject: `Reporte de abuso en anuncio ${id}`,
+        })
+      },
     }),
     [slug, id, isFavorite],
   )

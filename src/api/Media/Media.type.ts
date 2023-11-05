@@ -1,6 +1,6 @@
 import { AdSchema } from '../Anuncios'
 import { DirectorioSchema } from '../Directorio'
-import { MicrositeSchema } from '../Micrositios'
+import { MicrositeSchema } from '../Micrositios/Micrositios.type'
 
 import { ImagePickerAsset } from 'expo-image-picker'
 import * as z from 'zod'

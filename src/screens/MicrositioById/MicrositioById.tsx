@@ -1,6 +1,8 @@
 import { Alert, Dimensions } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+import { ListingsByMicrosite } from './ListingsByMicrosite'
+
 import { Images } from '@src/assets/index'
 import {
   Box,
@@ -15,7 +17,8 @@ import {
 import { useMicrositio } from '@src/hooks'
 import { MicrositiosStackParamList, ScreenProps } from '@src/navigation'
 import { fontSize } from '@src/theme'
-import { callPhone, redirectToWhatsapp } from '@src/utils'
+import { callPhone, getImageUrl, redirectToWhatsapp } from '@src/utils'
+import { toRelative } from '@src/utils/dates'
 
 type MicrositioByIdProps = ScreenProps<
   MicrositiosStackParamList,
@@ -74,10 +77,10 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
           />
           <Image
             source={{
-              uri:
-                typeof data.image === 'boolean'
-                  ? 'https://placehold.co/120'
-                  : data.image,
+              uri: getImageUrl({
+                url: data.image,
+                media: data.media?.[0],
+              }),
             }}
             width={120}
             height={120}
@@ -93,7 +96,7 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
           <Box width={'30%'} flexDirection={'row'} g={'s'}>
             <Icon type='FontAwesome5' name='user-circle' size={20} />
             <Text fontSize={fontSize.s}>
-              Miembro desde {data.created_at.toLocaleDateString()}
+              Miembro desde {toRelative(data.created_at)}
             </Text>
           </Box>
           {data.address ? (
@@ -147,6 +150,7 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
             </Box>
           </Touchable>
         </Box>
+        <ListingsByMicrosite user={data.user} />
         <Box
           backgroundColor={'creamy'}
           flex={1}

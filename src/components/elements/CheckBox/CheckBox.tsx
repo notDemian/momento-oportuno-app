@@ -35,6 +35,7 @@ export const CheckBox: React.FC<CheckBoxProps> = ({
         justifyContent='space-between'
         alignItems='stretch'
         padding='m'
+        width={'100%'}
       >
         <Box flexDirection='row' alignItems='center' flex={2}>
           <BouncyCheckbox

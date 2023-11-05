@@ -7,7 +7,7 @@ export const UserSchema = z.object({
   phone: z.string().nullable(),
   email_verified_at: z.string().nullable().default(null),
   created_at: z.coerce.date(),
-  updated_at: z.coerce.date(),
+  updated_at: z.coerce.date().nullable().optional(),
 })
 export type User = z.infer<typeof UserSchema>
 
@@ -71,3 +71,16 @@ export interface WoocommerceMeta {
   help_panel_highlight_shown: string
   android_app_banner_dismissed: string
 }
+
+export const ChangePasswordParamsSchema = z
+  .object({
+    password: z.string(),
+    password_confirmation: z.string(),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    message: 'Las contraseñas deben coincidir',
+  })
+
+export type ChangePasswordParamsSchema = z.infer<
+  typeof ChangePasswordParamsSchema
+>

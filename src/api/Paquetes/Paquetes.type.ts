@@ -1,9 +1,17 @@
+import { AddonsSchema } from '../Addons'
+
 import * as z from 'zod'
 
+export const TypePackagePojo = {
+  MICROSITE: 'microsite',
+  LISTING: 'listing',
+  DIRECTORY: 'directory',
+} as const
+
 export const TypePackageSchema = z.union([
-  z.literal('microsite'),
-  z.literal('listing'),
-  z.literal('directory'),
+  z.literal(TypePackagePojo.MICROSITE),
+  z.literal(TypePackagePojo.LISTING),
+  z.literal(TypePackagePojo.DIRECTORY),
 ])
 
 export type GetPackagesParams = {
@@ -29,8 +37,9 @@ export const PackageSchema = z.object({
   includes_printing: z.number(),
   max_number_of_characters: z.number(),
   number_of_images: z.number(),
-  created_at: z.coerce.date(),
-  updated_at: z.coerce.date(),
+  addons: AddonsSchema.array().nullable().optional(),
+  created_at: z.coerce.date().nullable().optional(),
+  updated_at: z.coerce.date().nullable().optional(),
 })
 export type Package = z.infer<typeof PackageSchema>
 

@@ -12,6 +12,7 @@ import {
   Touchable,
 } from '@src/components'
 import { ModalRadioButton } from '@src/components/ModalRadioButton'
+import { RangeSlide } from '@src/components/RangeSlide/RangeSlide'
 import {
   useAppDispatch,
   useAppSelector,
@@ -190,12 +191,17 @@ export const Filter: React.FC<FilterProps> = ({ navigation }) => {
             )}
           </Box>
         ) : null}
-        {/* <Box height={120} mt={'l'}>
+        <Box height={120} mt={'l'}>
           <Text variant='subHeader' mb={'l'}>
             Rango de precio: {params.priceMin} - {params.priceMax}
           </Text>
-          <RangeSlide handleValueChange={handleValueChange} step={100} />
-        </Box> */}
+          <RangeSlide
+            handleValueChange={handleValueChange}
+            step={100}
+            high={params.priceMax}
+            low={params.priceMin}
+          />
+        </Box>
       </ScrollView>
       <Box
         paddingHorizontal='m'

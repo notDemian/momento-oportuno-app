@@ -1,16 +1,21 @@
 import { type FC, useCallback, useEffect, useMemo, useState } from 'react'
-import { Alert } from 'react-native'
 import Toast from 'react-native-toast-message'
 
-import { ImageTooBigError, VIDEO_MIME_TYPES } from '@src/api'
+import { AddonsComponent } from './Addons'
+
+import { Addons, ImageTooBigError } from '@src/api'
 import { Box, Button, Image, NewRecursoLayout, Text } from '@src/components'
 import { ButtonModalGenerator } from '@src/components/ModalRadioButton'
 import {
+  useAddons,
   useAnuncioByid,
+  useAppDispatch,
   usePreventNavigationOrPop,
   useUploadMedias,
 } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
+import { setAddons as setReduxAddons } from '@src/redux/cart'
+import { fontSize } from '@src/theme'
 import * as ImagePicker from 'expo-image-picker'
 
 type NewAnuncioFormMediaScreenProps = ScreenProps<
@@ -26,42 +31,8 @@ type NewAnuncioFormMediaScreenProps = ScreenProps<
 interface PaqueteMedia {
   title: string
   quantity: number
-  price: number
   id: number
 }
-
-const paquetes_imgs: PaqueteMedia[] = [
-  {
-    title: '3 imágenes',
-    quantity: 3,
-    price: 0,
-    id: 0,
-  },
-  {
-    title: '5 imágenes',
-    quantity: 5,
-    price: 50,
-    id: 1,
-  },
-  {
-    title: '10 imágenes',
-    quantity: 10,
-    price: 100,
-    id: 2,
-  },
-]
-
-const videoItem: PaqueteMedia = {
-  title: 'Video',
-  quantity: 1,
-  price: 50,
-  id: 3,
-}
-
-const paqs_radio = paquetes_imgs.map((p) => ({
-  label: `${p.title}`,
-  value: p.id.toString(),
-}))
 
 export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
   navigation,
@@ -70,20 +41,31 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
   },
 }) => {
   const [paquete, setPaquete] = useState<PaqueteMedia>()
+  const dispatch = useAppDispatch()
+
+  const { data: addons } = useAddons()
+  const addonsChecks = useMemo(
+    () => addons?.data?.filter((a) => !a.name.includes('Imá')),
+    [addons],
+  )
+  const imgAddons = useMemo(
+    () => addons?.data?.filter((a) => a.name.includes('Imá')),
+    [addons],
+  )
+  const [selectedAddons, setSelectedAddons] = useState<Addons[]>([])
+  const video = useMemo(
+    () =>
+      Boolean(
+        selectedAddons?.some((a) => a.name.toLowerCase().includes('video')),
+      ),
+    [selectedAddons],
+  )
 
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([])
   const [videoAsset, setVideoAsset] = useState<ImagePicker.ImagePickerAsset>()
 
-  const { data: ad } = useAnuncioByid(id)
+  const { data: ad } = useAnuncioByid(id, true)
   const { mutateAsync, isLoading } = useUploadMedias()
-
-  const video = useMemo(
-    () =>
-      Boolean(
-        ad?.data.media?.some((m) => VIDEO_MIME_TYPES.includes(m.mime_type)),
-      ),
-    [ad?.data.media],
-  )
 
   const onShowImagePicker = useCallback(
     (imgOrVid: 'img' | 'vid' = 'img') =>
@@ -109,6 +91,12 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
               if (!result.assets?.[0]) return
               setVideoAsset(result.assets[0])
             }
+          } else {
+            return Toast.show({
+              type: 'error',
+              text1: 'Selecciona un paquete de imágenes',
+              visibilityTime: 1000,
+            })
           }
         } catch (error) {
           setImages([])
@@ -136,26 +124,45 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
   })
 
   const uploadImage = useCallback(async () => {
-    if (!paquete) return Alert.alert('Selecciona un paquete de imágenes')
-    if (!images) return Alert.alert('Selecciona imágenes')
+    if (!paquete)
+      return Toast.show({
+        type: 'error',
+        text1: 'Selecciona un paquete de imágenes',
+        visibilityTime: 1000,
+      })
+    if (!images)
+      return Toast.show({
+        type: 'error',
+        text1: 'Selecciona al menos una imagen',
+        visibilityTime: 1000,
+      })
+
     const lImages = [...images]
-    // if (video) {
-    //   if (videoAsset) {
-    //     lImages.push(videoAsset)
-    //   } else {
-    //     return Toast.show({
-    //       type: 'error',
-    //       text1: 'Selecciona un video',
-    //       visibilityTime: 1000,
-    //     })
-    //   }
-    // }
+    if (video) {
+      if (videoAsset) {
+        lImages.push(videoAsset)
+      } else {
+        return Toast.show({
+          type: 'error',
+          text1: 'Selecciona un video',
+          visibilityTime: 1000,
+        })
+      }
+    }
     if (lImages.length === 0 || !lImages[0])
       return Toast.show({
         type: 'error',
-        text1: 'Selecciona al menos una imagen o video',
+        text1: 'Selecciona al menos una imagen',
         visibilityTime: 1000,
       })
+
+    if (images.length < paquete.quantity)
+      return Toast.show({
+        type: 'error',
+        text1: 'Selecciona todas las imágenes',
+        visibilityTime: 1000,
+      })
+
     try {
       const { media } = await mutateAsync({
         photo: lImages,
@@ -163,6 +170,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         type: 'listing',
       })
 
+      dispatch(setReduxAddons(selectedAddons))
       Toast.show({
         type: 'success',
         text1: `${media?.length ?? 0} archivos subidos`,
@@ -186,11 +194,11 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         visibilityTime: 1000,
       })
     }
-  }, [images, video, videoAsset, id])
+  }, [paquete, images, video, videoAsset, id])
 
   return (
     <NewRecursoLayout
-      title='Imágenes y video'
+      title='Addons'
       footer={
         <Box
           flexDirection={'column'}
@@ -198,48 +206,6 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
           alignContent={'flex-end'}
           gap={'xs'}
         >
-          {/* {paquete ? (
-            <Box
-              flexDirection={'row'}
-              width={'100%'}
-              justifyContent={'space-between'}
-              paddingHorizontal={'l'}
-            >
-              <Text>{paquete.title}</Text>
-              <Text>$ {paquete.price} MXN</Text>
-            </Box>
-          ) : null}
-          {video ? (
-            <Box
-              flexDirection={'row'}
-              width={'100%'}
-              justifyContent={'space-between'}
-              paddingHorizontal={'l'}
-            >
-              <Text>{videoItem.title}</Text>
-              <Text>$ {videoItem.price} MXN</Text>
-            </Box>
-          ) : null} */}
-          {/* {paquete || video ? (
-            <>
-              <Box
-                flexDirection={'row'}
-                width={'100%'}
-                justifyContent={'space-between'}
-                paddingHorizontal={'l'}
-              >
-                <Text>Total</Text>
-                <Text>
-                  $ {(video ? videoItem.price : 0) + (paquete?.price ?? 0)} MXN
-                </Text>
-              </Box>
-              <Box paddingHorizontal={'l'}>
-                <Text color={'gray'}>
-                  *El precio incluye IVA y se cobrará en pesos mexicanos
-                </Text>
-              </Box>
-            </>
-          ) : null} */}
           <Button
             label='Continuar'
             isFullWidth
@@ -250,16 +216,38 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         </Box>
       }
     >
+      {/* <Text>{JSON.stringify([...selectedAddons, paquete], null, 2)}</Text> */}
+      <AddonsComponent
+        addons={addonsChecks}
+        setSelectedAddons={setSelectedAddons}
+      />
       <ButtonModalGenerator
-        data={paqs_radio}
-        title='Imágenes'
+        data={
+          imgAddons?.map((a) => ({
+            label: a.name,
+            value: a.id.toString(),
+          })) ?? []
+        }
+        title='Selecciona cantidad de imágenes'
         onPressItem={(item) => {
-          const paq = paquetes_imgs.find((p) => p.id.toString() === item.value)
-          if (paq) {
-            setPaquete(paq)
+          const paq = imgAddons?.find((a) => a.id === Number(item.value))
+          if (paq && paq.name.split(' ')[0]) {
+            const data = {
+              id: paq.id,
+              title: paq.name,
+              quantity: isNaN(Number(paq.name.split(' ')[0]))
+                ? 0
+                : Number(paq.name.split(' ')[0]),
+            }
+            setPaquete(data)
           }
         }}
       />
+      {paquete || video ? (
+        <Text color={'orangy'} marginTop={'m'} variant={'header'}>
+          Carga tus archivos
+        </Text>
+      ) : null}
       {paquete ? (
         <Button
           label='Seleccionar imágenes'
@@ -268,11 +256,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         />
       ) : null}
       {video ? (
-        <Button
-          label='Seleccionar video'
-          onPress={onShowImagePicker('vid')}
-          marginTop={'m'}
-        />
+        <Button label='Seleccionar video' onPress={onShowImagePicker('vid')} />
       ) : null}
       <Box gap={'m'} marginVertical={'m'}>
         {images.length > 0 ? (
@@ -302,6 +286,9 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
             </Box>
           </>
         ) : null}
+        <Text color={'gray'} fontSize={fontSize.s}>
+          *Verás los precios después de seleccionar tu paquete
+        </Text>
       </Box>
     </NewRecursoLayout>
   )

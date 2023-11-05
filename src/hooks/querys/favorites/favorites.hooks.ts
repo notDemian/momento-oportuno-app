@@ -58,9 +58,6 @@ export const useRemoveFavorite = () => {
       qC.invalidateQueries(FavoritesQuerysKeys.getMyFavorites)
     },
     async onMutate(newTodoId) {
-      console.log({
-        vars: newTodoId,
-      })
       await qC.cancelQueries(FavoritesQuerysKeys.getMyFavorites)
 
       const previousTodos = qC.getQueryData<GetMyFavoritesResponse>(

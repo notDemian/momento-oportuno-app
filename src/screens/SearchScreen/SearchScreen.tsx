@@ -27,7 +27,7 @@ type SearchScreenProps = ScreenProps<SearchStackParamList, 'Search'>
 export const SearchScreen: FC<SearchScreenProps> = ({
   route: { params: { isSearching } = {} },
 }) => {
-  const { category, state, subCategory } = useAppSelector((p) => p.filter)
+  const { category, subCategory, ...rest } = useAppSelector((p) => p.filter)
   const [searchTerm, setSearchTerm] = React.useState('')
   const navigation = useSearchStackNavigation()
 
@@ -49,8 +49,8 @@ export const SearchScreen: FC<SearchScreenProps> = ({
       subCategory && subCategory !== 0 && subCategory !== -1
         ? subCategory
         : category,
-    state,
     query: deboncedSearch,
+    ...rest,
   })
 
   const fetchMore = useCallback(() => {

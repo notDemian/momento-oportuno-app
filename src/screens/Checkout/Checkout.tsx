@@ -1,9 +1,12 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Alert, Keyboard, StyleSheet } from 'react-native'
 import Toast from 'react-native-toast-message'
+import { fontSize } from '../../theme/theme.util'
 
 import {
+  Addons,
   CreateOrderParams,
+  getAddonRecord,
   type PaymentMethods as PaymentMethodsType,
 } from '@src/api'
 import {
@@ -18,12 +21,13 @@ import {
 } from '@src/components'
 import {
   useAppDispatch,
+  useAppSelector,
   useCreateOrder,
   usePreventNavigationOrPop,
 } from '@src/hooks'
 import type { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { setOrderConfirmationId } from '@src/redux'
-import { useAppTheme } from '@src/theme'
+import { getShadowBoxProps, useAppTheme } from '@src/theme'
 import {
   CardField,
   CardFieldInput,
@@ -39,6 +43,23 @@ export const Checkout: React.FC<CheckoutProps> = ({
 }) => {
   const { colors } = useAppTheme()
   const dispatch = useAppDispatch()
+  const addonsSelected = useAppSelector((state) => state.cart.addons) ?? []
+
+  const jointAddons = useMemo(() => {
+    const tmpArray: Addons[] = []
+    params.package.addons?.forEach((addon) => {
+      if (addonsSelected?.some((a) => a.id === addon.id)) {
+        tmpArray.push(addon)
+      }
+    })
+    return tmpArray
+  }, [params.package.addons, addonsSelected])
+  const totalAddons = useMemo(() => {
+    return jointAddons.reduce((acc, addon) => {
+      return acc + (addon.price ?? 0)
+    }, 0)
+  }, [jointAddons])
+
   const [validForm, setValidForm] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
@@ -79,6 +100,8 @@ export const Checkout: React.FC<CheckoutProps> = ({
   const handlePayment = useCallback(
     (type: PaymentMethodsType) => async () => {
       Keyboard.dismiss()
+      const addonsRecord = getAddonRecord(jointAddons)
+
       if (!billing_address || billing_address.trim().length === 0) {
         Alert.alert('Error', 'Debes llenar todos los campos')
         return
@@ -119,13 +142,8 @@ export const Checkout: React.FC<CheckoutProps> = ({
           related_id: params.id,
           token: token.id,
           type: params.type,
+          ...(params.type === 'listing' ? { ...addonsRecord } : {}),
         }
-
-        // form.token = 'tok_visa'
-        // setShowModal(true)
-        // dispatch(setOrderConfirmationId(18))
-
-        // return
 
         try {
           const { order } = await mutateAsync(form)
@@ -180,7 +198,7 @@ export const Checkout: React.FC<CheckoutProps> = ({
         }
       }
     },
-    [validForm, billing_address, params.id],
+    [validForm, billing_address, params.id, jointAddons],
   )
 
   usePreventNavigationOrPop({
@@ -200,13 +218,81 @@ export const Checkout: React.FC<CheckoutProps> = ({
         url={url}
         visible={visible}
       />
-      <Text variant='header' marginBottom={'m'}>
-        Datos de facturación
+      <Box {...getShadowBoxProps()} p={'m'}>
+        <Text variant='header' marginBottom={'m'}>
+          Resúmen de la orden
+        </Text>
+        <Box
+          paddingVertical='s'
+          paddingHorizontal='m'
+          backgroundColor='white'
+          marginBottom='s'
+          gap={'s'}
+        >
+          <Text fontWeight={'bold'}>
+            Paquete: <Text fontWeight={'normal'}>{params.package.name}</Text>
+          </Text>
+          {jointAddons.length > 0 ? (
+            <Text fontWeight={'bold'}>Complementos seleccionados</Text>
+          ) : null}
+          {jointAddons.map((addon) => {
+            return (
+              <Box
+                key={addon.id}
+                {...getShadowBoxProps({ borderRadius: 's' })}
+                padding={'s'}
+                flexDirection='row'
+                justifyContent='space-between'
+                alignItems='center'
+                backgroundColor='creamy'
+                marginBottom='s'
+              >
+                <Text>{addon.name}</Text>
+                <Text variant='primary'>$ {addon.price} MXN</Text>
+              </Box>
+            )
+          })}
+          <Box
+            flexDirection='row'
+            justifyContent='space-between'
+            alignItems='center'
+          >
+            <Text variant={'subHeader'} color={'primary'}>
+              Subtotal
+            </Text>
+            <Text>$ {params.package.price} MXN</Text>
+          </Box>
+          <Box
+            flexDirection='row'
+            justifyContent='space-between'
+            alignItems='center'
+          >
+            <Text variant={'header'}>Total</Text>
+            {totalAddons > 0 ? (
+              <Text>$ {params.package.price + totalAddons} MXN</Text>
+            ) : (
+              <Text>$ {params.package.price} MXN</Text>
+            )}
+          </Box>
+          <Text
+            color={'gray'}
+            marginTop={'s'}
+            marginBottom={'s'}
+            fontSize={fontSize.m}
+          >
+            *Si seleccionaste un Complemento y no aparece aqui, no se te
+            cobrará, puedes salirte y cancelar el proceso para escoger otro
+            paquete
+          </Text>
+        </Box>
+      </Box>
+      <Text variant='header' marginVertical={'m'}>
+        Datos de pago
       </Text>
       <Box marginVertical={'m'}>
         <TextField
           inputProps={{
-            placeholder: 'Dirección de facturación',
+            placeholder: 'Dirección de pago',
             onChangeText: (text) => setBilling_address(text),
           }}
           required
@@ -240,7 +326,7 @@ export const Checkout: React.FC<CheckoutProps> = ({
           isDisabled={loadingOrder}
         />
       </Box>
-      <Box marginTop={'m'}>
+      <Box marginVertical={'m'}>
         <Box
           flexDirection='row'
           justifyContent='space-between'

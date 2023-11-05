@@ -1,79 +1,24 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Alert, Dimensions } from 'react-native'
-import { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types'
+import { useCallback, useState } from 'react'
+import Toast from 'react-native-toast-message'
 import { useDispatch } from 'react-redux'
 
 import { GeneralCreateAnuncioParams } from '@src/api'
-import {
-  Box,
-  Button,
-  CheckBox,
-  Image,
-  NewRecursoLayout,
-  Text,
-  TextField,
-} from '@src/components'
+import { Box, Button, NewRecursoLayout, Text, TextField } from '@src/components'
 import {
   ButtonModalGenerator,
   ModalRadioButton,
 } from '@src/components/ModalRadioButton'
-import { useCategorias, useEstados, useUserPaquetes } from '@src/hooks'
+import { useCategorias, useEstados } from '@src/hooks'
 import { useUser } from '@src/hooks/useUser'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { setInitialParams } from '@src/redux'
 import { fontSize } from '@src/theme'
-import { Constants } from '@src/utils'
 import { wait } from '@src/utils/wait'
-import * as ImagePicker from 'expo-image-picker'
 
 export const NewAnuncioForm: React.FC<
   ScreenProps<AccountStackParamList, 'NewAnuncioForm'>
 > = ({ navigation }) => {
   const [showCategoriaModal, setShowCategoriaModal] = useState(false)
-
-  const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([])
-
-  const onShowImagePicker = useCallback(async () => {
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsMultipleSelection: true,
-        // base64: true,
-        selectionLimit: 3,
-      })
-      if (!result.canceled) {
-        setImages(result.assets.splice(0, 3))
-      }
-    } catch (error) {
-      setImages([])
-    }
-  }, [])
-
-  const onCleanImages = () => {
-    setImages([])
-  }
-
-  const renderItemImage = useCallback<
-    CarouselRenderItem<ImagePicker.ImagePickerAsset>
-  >((image) => {
-    return (
-      <Box
-        margin={'m'}
-        borderRadius={'m'}
-        overflow={'hidden'}
-        backgroundColor={'white'}
-        justifyContent={'center'}
-        alignItems={'center'}
-      >
-        <Image
-          source={{ uri: image.item.uri }}
-          width={Dimensions.get('window').width}
-          height={(Dimensions.get('window').width * 16) / 9}
-          contentPosition={'center'}
-        />
-      </Box>
-    )
-  }, [])
 
   const hideModal = () => {
     setShowCategoriaModal(false)
@@ -81,7 +26,6 @@ export const NewAnuncioForm: React.FC<
 
   const { data: estados, isLoading: loadingEstados } = useEstados(false)
   const { data: cat, isLoading: loadingCat } = useCategorias()
-  const { data: userPaquetes, isLoading: loadingPaq } = useUserPaquetes()
 
   const [{ id }] = useUser()
 
@@ -91,10 +35,6 @@ export const NewAnuncioForm: React.FC<
     category_id: 0,
     state_id: 0,
     user_id: id,
-    includes_printing: false,
-    includes_video: false,
-    is_featured: false,
-    includes_socials: false,
   })
 
   const setParamsFactory = useCallback(
@@ -106,18 +46,6 @@ export const NewAnuncioForm: React.FC<
     [],
   )
 
-  const isPrintingMultiState = useMemo(() => {
-    return (
-      params.includes_printing && params.state_id === Constants.IDS.allStates
-    )
-  }, [params])
-
-  useEffect(() => {
-    if (!isPrintingMultiState) {
-      return setParams((p) => ({ ...p, printing_state_id: undefined }))
-    }
-  }, [isPrintingMultiState])
-
   const dispatch = useDispatch()
 
   const showCategoriaModalHandler = useCallback(() => {
@@ -126,19 +54,14 @@ export const NewAnuncioForm: React.FC<
       params.title === '' ||
       params.state_id === 0
     )
-      return Alert.alert('Llena los campos', 'Debes llenar todos los campos')
-
-    if (
-      isPrintingMultiState &&
-      (!params.printing_state_id || params.printing_state_id === 0)
-    )
-      return Alert.alert(
-        'Llena los campos',
-        'Debes seleccionar un estado para el medio impreso',
-      )
+      return Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Debes llenar todos los campos',
+      })
 
     setShowCategoriaModal(true)
-  }, [params, isPrintingMultiState])
+  }, [params])
 
   return (
     <NewRecursoLayout
@@ -226,7 +149,7 @@ export const NewAnuncioForm: React.FC<
             />
           )}
         </Box>
-        <CheckBox
+        {/* <CheckBox
           label='Publicar tu anuncio en medio impreso'
           onChange={setParamsFactory('includes_printing')}
         />
@@ -264,7 +187,7 @@ export const NewAnuncioForm: React.FC<
         <CheckBox
           label='Incluir video'
           onChange={setParamsFactory('includes_video')}
-        />
+        /> */}
       </Box>
     </NewRecursoLayout>
   )

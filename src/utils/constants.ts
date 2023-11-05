@@ -1,6 +1,7 @@
 export const Constants = {
   URL: {
-    RAW: 'http://159.203.113.48/',
+    RAW: 'https://elmomentoapi.empresarialti.com/',
+    // RAW: 'http://159.203.113.48/',
     get PROD() {
       return `${this.RAW}api` as const
     },
@@ -26,6 +27,7 @@ export const Constants = {
     STATES: '/states',
     DIRECTORY: '/directories',
     MICROSITIOS: '/microsites',
+    ADDONS: '/addons',
     ORDERS: '/orders',
     UPLOAD_IMAGE: '/media',
     MEDIA: '/media',

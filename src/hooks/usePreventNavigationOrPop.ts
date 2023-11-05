@@ -1,9 +1,12 @@
 import { useEffect } from 'react'
 import { Alert } from 'react-native'
 
+import { useAppDispatch } from './useAppRedux'
+
 import { EventArg, StackActions } from '@react-navigation/native'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { resetCart } from '@src/redux'
 
 function usePreventNavigationOrPop({
   navToPop,
@@ -26,6 +29,7 @@ function usePreventNavigationOrPop({
   ) => boolean
 }) {
   const nav = useNavigation()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const listener = nav.addListener('beforeRemove', (e) => {
@@ -49,6 +53,7 @@ function usePreventNavigationOrPop({
             text: 'Salir',
             style: 'destructive',
             onPress: () => {
+              dispatch(resetCart())
               navToPop.dispatch(StackActions.popToTop())
             },
           },

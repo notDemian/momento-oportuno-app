@@ -1,5 +1,5 @@
-import { memo, useCallback } from 'react'
-import { ListRenderItem } from 'react-native'
+import { memo, useCallback, useMemo, useState } from 'react'
+import { ListRenderItem, Switch } from 'react-native'
 
 import { Ad } from '@src/api'
 import { ActivityIndicator, Box, Button, List, Text } from '@src/components'
@@ -11,10 +11,34 @@ const MisAnuncios = () => {
   const nav = useAccountStackNavigation()
 
   const renderItem = useCallback<ListRenderItem<Ad>>((anuncio) => {
-    return <AnuncioItem data={anuncio.item} isFav />
+    return <AnuncioItem data={anuncio.item} isMyAds />
   }, [])
 
-  const { data: myAds, isLoading } = useMisAnuncios()
+  const [isOnlyPublished, setIsOnlyPublished] = useState(true)
+
+  const {
+    data: myAds,
+    isLoading,
+    hasNextPage,
+    fetchNextPage,
+  } = useMisAnuncios()
+
+  const fetchMore = useCallback(() => {
+    if (hasNextPage) {
+      fetchNextPage()
+    }
+  }, [hasNextPage, fetchNextPage])
+
+  const flattenData = useMemo(
+    () =>
+      (myAds?.pages.flatMap((page) => page.data) ?? []).filter((ad) => {
+        if (isOnlyPublished) {
+          return ad.status === 'published'
+        }
+        return true
+      }),
+    [myAds, isOnlyPublished],
+  )
 
   const ListEmptyComponent = useCallback(() => {
     return (
@@ -42,18 +66,29 @@ const MisAnuncios = () => {
 
   return (
     <>
-      {isLoading || !myAds?.data ? (
+      <Box flexDirection='row' justifyContent='center' alignItems='center'>
+        <Text>Todos</Text>
+        <Switch
+          value={isOnlyPublished}
+          onValueChange={(val) => {
+            setIsOnlyPublished(val)
+          }}
+        />
+        <Text>Solo publicados</Text>
+      </Box>
+      {isLoading || !flattenData ? (
         <Box flex={1} justifyContent='center' alignItems='center'>
           <ActivityIndicator />
         </Box>
       ) : (
         <List<Ad>
           renderItem={renderItem}
-          data={myAds?.data}
+          data={flattenData}
           ListEmptyComponent={ListEmptyComponent}
           contentContainerStyle={{ flexGrow: 1 }}
           scrollEnabled={true}
           showsVerticalScrollIndicator={false}
+          onEndReached={fetchMore}
         />
       )}
     </>

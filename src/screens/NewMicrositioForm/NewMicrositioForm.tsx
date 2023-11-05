@@ -8,7 +8,6 @@ import { ButtonModalGenerator } from '@src/components/ModalRadioButton'
 import { useCreateMicrositio, useEstados, useForm } from '@src/hooks'
 import { useUser } from '@src/hooks/useUser'
 import { MicrositiosStackParamList, ScreenProps } from '@src/navigation'
-import { CLOG } from '@src/utils'
 
 type NewMicrositioFormScreenProps = ScreenProps<
   MicrositiosStackParamList,
@@ -35,7 +34,6 @@ export const NewMicrositioFormScreen: FC<NewMicrositioFormScreenProps> = ({
 
   const onSubmit = useCallback<SubmitHandler<CreateMicrositeParamsSchema>>(
     async (data) => {
-      CLOG(data)
       try {
         const res = await createMicrosite({
           ...data,
@@ -53,7 +51,6 @@ export const NewMicrositioFormScreen: FC<NewMicrositioFormScreenProps> = ({
 
         navigation.navigate('NewMicrositioMedia', { id: res.data.id })
       } catch (error) {
-        CLOG(error)
         Toast.show({
           type: 'error',
           text1: 'Error',

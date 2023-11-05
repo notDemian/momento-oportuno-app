@@ -1,3 +1,4 @@
+export * from './addons'
 export * from './anuncios'
 export * from './directorios'
 export * from './favorites'

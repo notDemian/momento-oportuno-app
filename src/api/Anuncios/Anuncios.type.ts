@@ -6,7 +6,8 @@ import {
 } from '../listivos'
 import { MediaSchema } from '../Media/Media.module'
 import { UserPackageSchema } from '../Paquetes'
-import { UserSchema } from '../Usuarios'
+
+import { UserAdSchema } from './Anuncios.module'
 
 import * as z from 'zod'
 
@@ -36,11 +37,9 @@ const LinksSchema = z.object({
   next: nulishString,
 })
 
-const UserAdSchema = UserSchema.omit({
-  email_verified_at: true,
-  created_at: true,
-  updated_at: true,
-})
+/**
+ *  {"address": "dir", "created_at": "2023-11-02T19:11:54.000000Z", "description": null, "email": "demian.ironhide@gmail.com", "expires_at": "2023-12-02T19:12:23.000000Z", "id": 13, "image": null, "phone": "5547212321", "state_id": 1, "status": "published", "title": "título epico probando flujo", "updated_at": "2023-11-02T19:12:23.000000Z", "user_id": 2, "user_package_id": null}
+ */
 
 export type UserAd = z.infer<typeof UserAdSchema>
 
@@ -112,6 +111,8 @@ export type GeneralCreateAnuncioParams = {
   state_id: number
   user_id: number
   category_id: number
+}
+export type a = {
   is_featured: boolean
   includes_printing: boolean
   includes_video: boolean

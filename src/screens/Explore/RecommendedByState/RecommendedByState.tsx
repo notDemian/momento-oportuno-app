@@ -15,7 +15,7 @@ import {
 } from '@src/hooks'
 import { setState } from '@src/redux'
 import { getShadowBoxProps } from '@src/theme'
-import { getImageUrl, IMAGE_URL_FALLBACK } from '@src/utils'
+import { getImageUrl } from '@src/utils'
 
 export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
   state,
@@ -27,10 +27,7 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
     return (
       <Card
         key={id}
-        coverImage={
-          media?.[0]?.original_url ??
-          (image ? getImageUrl({ url: image }) : IMAGE_URL_FALLBACK)
-        }
+        coverImage={getImageUrl({ url: image, media: media?.[0] })}
         coverImageSize='m'
         title={props.item.title}
         marginLeft='m'

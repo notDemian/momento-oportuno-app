@@ -28,22 +28,34 @@ export class AnunciosServices {
     category,
     query,
     state,
+    priceMax,
+    priceMin,
   }: {
     page?: number
     per_page?: number
   } & FilterParams): Promise<GetAllAdsResponse> {
-    let q = ''
+    const q = new URL('')
+
+    q.searchParams.append('page', page.toString())
+    q.searchParams.append('per_page', per_page.toString())
+
     if (query) {
-      q += `&search=${query}`
+      q.searchParams.append('search', query)
     }
     if (category) {
-      q += `&category=${category}`
+      q.searchParams.append('category', category.toString())
     }
     if (state) {
-      q += `&state=${state}`
+      q.searchParams.append('state', state.toString())
+    }
+    if (priceMax) {
+      q.searchParams.append('price_max', priceMax.toString())
+    }
+    if (priceMin) {
+      q.searchParams.append('price_min', priceMin.toString())
     }
 
-    const { data } = await req.get(`?page=${page}&per_page=${per_page}` + q)
+    const { data } = await req.get(q.toString())
     const dataValidated = GetAllAdsResponseSchema.parse(data)
 
     return dataValidated
@@ -52,8 +64,16 @@ export class AnunciosServices {
   /**
    * @throws {AxiosError}
    */
-  static async getAd(id: string | number): Promise<GetAdByIdResponse> {
-    const { data } = await req.get(`/${id}`)
+  static async getAd(
+    id: string | number,
+    includeDrafts = false,
+  ): Promise<GetAdByIdResponse> {
+    const q = new URLSearchParams()
+    if (includeDrafts) {
+      q.append('include_drafts', 'true')
+    }
+
+    const { data } = await req.get(`/${id}?${q.toString()}`)
 
     const dataValidated = GetAdByIdResponseSchema.parse(data)
 
@@ -63,8 +83,20 @@ export class AnunciosServices {
   /**
    * @throws {AxiosError}
    */
-  static async getMyAds(): Promise<GetMyAdsResponse> {
-    const { data } = await req.get('/mine')
+  static async getMyAds({
+    page = 1,
+    per_page = 10,
+  }: {
+    page?: number
+    per_page?: number
+  }): Promise<GetMyAdsResponse> {
+    const q = new URLSearchParams()
+    q.append('page', page.toString())
+    q.append('per_page', per_page.toString())
+
+    const { data } = await req.get(
+      '/mine?' + q.toString() + '&status=published',
+    )
 
     const dataValidated = GetMyAdsResponseSchema.parse(data)
 

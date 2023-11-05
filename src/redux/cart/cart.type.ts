@@ -1,4 +1,8 @@
-import { CreateAnuncioParams, GeneralCreateAnuncioParams } from '@src/api'
+import {
+  Addons,
+  CreateAnuncioParams,
+  GeneralCreateAnuncioParams,
+} from '@src/api'
 import type { PaymentMethods } from '@src/data'
 
 export interface CartState {
@@ -7,4 +11,6 @@ export interface CartState {
   createAnuncioParams: Partial<CreateAnuncioParams> &
     Required<GeneralCreateAnuncioParams>
   orderConfirmationId: number | null
+
+  addons: Addons[]
 }

@@ -16,12 +16,13 @@ const initialState: CartState = {
     title: '',
     user_id: 0,
     listingAttributes: [],
-    is_featured: false,
-    includes_printing: false,
-    includes_socials: false,
-    includes_video: false,
-    printing_state_id: -1,
+    // is_featured: false,
+    // includes_printing: false,
+    // includes_socials: false,
+    // includes_video: false,
+    // printing_state_id: -1,
   },
+  addons: [],
   orderConfirmationId: null,
 }
 
@@ -56,41 +57,59 @@ export const cartSlice = createSlice({
       }
     },
     setInitialParams(state, action: PayloadAction<GeneralCreateAnuncioParams>) {
-      // state.createAnuncioParams = {
-      //   ...(state.createAnuncioParams ?? {}),
-      //   ...action.payload,
-      // }
       const {
         category_id,
         description,
-        includes_printing,
-        includes_socials,
-        includes_video,
-        is_featured,
+        // includes_printing,
+        // includes_socials,
+        // includes_video,
+        // is_featured,
+        // printing_state_id,
         state_id,
         title,
         user_id,
-        printing_state_id,
       } = action.payload
       state.createAnuncioParams.category_id = category_id
       state.createAnuncioParams.description = description
-      state.createAnuncioParams.includes_printing = includes_printing
-      state.createAnuncioParams.includes_socials = includes_socials
-      state.createAnuncioParams.includes_video = includes_video
-      state.createAnuncioParams.is_featured = is_featured
+      // state.createAnuncioParams.includes_printing = includes_printing
+      // state.createAnuncioParams.includes_socials = includes_socials
+      // state.createAnuncioParams.includes_video = includes_video
+      // state.createAnuncioParams.is_featured = is_featured
+      // printing_state_id &&
+      //   (state.createAnuncioParams.printing_state_id = printing_state_id)
       state.createAnuncioParams.state_id = state_id
       state.createAnuncioParams.title = title
       state.createAnuncioParams.user_id = user_id
-      printing_state_id &&
-        (state.createAnuncioParams.printing_state_id = printing_state_id)
     },
-
+    setAddons(state, action: PayloadAction<CartState['addons']>) {
+      state.addons = action.payload
+    },
+    addAddon(state, action: PayloadAction<CartState['addons'][number]>) {
+      state.addons = [...state.addons, action.payload]
+    },
+    removeAddon(state, action: PayloadAction<CartState['addons'][number]>) {
+      state.addons = state.addons.filter((addon) => addon !== action.payload)
+    },
     setOrderConfirmationId(state, action: PayloadAction<number>) {
       state.orderConfirmationId = action.payload
     },
-
     resetCart(state) {
       state.paymentMethod = 'Efectivo'
+      state.createAnuncioParams = {
+        category_id: 0,
+        description: '',
+        state_id: 0,
+        title: '',
+        user_id: 0,
+        listingAttributes: [],
+        // is_featured: false,
+        // includes_printing: false,
+        // includes_socials: false,
+        // includes_video: false,
+        // printing_state_id: -1,
+      }
+      state.addons = []
+      state.orderConfirmationId = null
     },
   },
 })
@@ -102,5 +121,8 @@ export const {
   toggleFavorite,
   setInitialParams,
   setOrderConfirmationId,
+  setAddons,
+  addAddon,
+  removeAddon,
 } = cartSlice.actions
 export default cartSlice.reducer

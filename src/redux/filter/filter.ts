@@ -21,7 +21,7 @@ export const filterSlice = createSlice({
       state.category = action.payload.category
       state.subCategory = action.payload.subCategory
       state.priceMin = action.payload.priceMin
-      state.priceMin = action.payload.priceMin
+      state.priceMax = action.payload.priceMax
       state.state = action.payload.state
     },
     setState(state, action: PayloadAction<FilterState['state']>) {

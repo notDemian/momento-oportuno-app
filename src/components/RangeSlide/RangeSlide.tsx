@@ -13,6 +13,8 @@ type RangeSlideProps = {
   handleValueChange: (low: number, high: number) => void
   style?: ViewProps['style']
   step?: number
+  high?: number
+  low?: number
 }
 const MAX_PRICE = 9_999
 const MIN_PRICE = 0
@@ -21,6 +23,7 @@ export const RangeSlide: FC<RangeSlideProps> = ({
   handleValueChange,
   style,
   step = 1,
+  ...rest
 }) => {
   const renderThumb = useCallback(() => <Thumb />, [])
   const renderRail = useCallback(() => <Rail />, [])
@@ -43,6 +46,7 @@ export const RangeSlide: FC<RangeSlideProps> = ({
       renderLabel={renderLabel}
       // renderNotch={renderNotch}
       onValueChanged={handleValueChange}
+      {...rest}
     />
   )
 }

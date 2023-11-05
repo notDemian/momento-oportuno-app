@@ -2,7 +2,7 @@ import { memo, useCallback } from 'react'
 import { ListRenderItem } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
-import { Box, Button, Icon, List, Text } from '@src/components'
+import { Box, Icon, List, Text } from '@src/components'
 import { SvgEmptyBox } from '@src/components/svgs'
 import { useAccountStackNavigation } from '@src/hooks'
 import { getShadowBoxProps } from '@src/theme'
@@ -72,40 +72,20 @@ const MisOrdenes = () => {
           Aún no tienes ningún pedido
         </Text>
         <SvgEmptyBox />
-        <Button
+        {/* <Button
           variant={'secondary'}
           label='Comprar paquete'
           margin={'l'}
           onPress={() => {
             nav.navigate('NewAnuncioForm')
           }}
-        />
+        /> */}
       </Box>
     )
   }, [])
 
   return (
     <ScrollView>
-      {/* {isLoading && <ActivityIndicator />} */}
-      {/* <Box
-          width={'100%'}
-          flexDirection={'row'}
-          borderBottomColor={'orangy'}
-          borderBottomWidth={1}
-        >
-          <Box width={'75%'} justifyContent={'center'} alignItems={'center'}>
-            <Text>Información general</Text>
-          </Box>
-          <Box
-            width={'25%'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            borderLeftColor={'orangy'}
-            borderLeftWidth={1}
-          >
-            <Text>Estado</Text>
-          </Box>
-        </Box> */}
       <List
         renderItem={renderItem}
         data={[]}
