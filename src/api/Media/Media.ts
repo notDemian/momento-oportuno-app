@@ -17,7 +17,7 @@ import { AxiosResponse } from 'axios'
 
 const api = Request(Constants.ENDPOINTS.MEDIA)
 
-const imageField = 'image'
+const imageField = 'media' as const
 
 export class MediaServices {
   static async uploadMediasToResource({

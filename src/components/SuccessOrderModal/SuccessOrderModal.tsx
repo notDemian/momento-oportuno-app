@@ -73,7 +73,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
       return navigation.navigate('Account')
     }
 
-    // navigation.replace('PaymentConfirmation', { id: orderId })
+    //navigation.replace('PaymentConfirmation', { id: orderId })
     dispatch(resetCart())
     navigation.popToTop()
   }

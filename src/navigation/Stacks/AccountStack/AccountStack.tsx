@@ -80,6 +80,8 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
                   //   id: 22,
                   //   type: 'listing',
                   // })
+                  // props.navigation.navigate('NewAnuncioFormMedia', { id: 59 })
+                  //props.navigation.navigate('PaymentConfirmation', { id: 40 })
                 }}
               />
             ),

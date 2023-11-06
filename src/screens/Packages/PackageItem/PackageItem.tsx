@@ -2,9 +2,10 @@ import { FC, useCallback, useMemo } from 'react'
 
 import { PackageItemProps } from './PackageItem.type'
 
+import { Addons } from '@src/api'
 import { Box, Button, Text } from '@src/components'
 import { SvgCheck } from '@src/components/svgs'
-import { useAccountStackNavigation } from '@src/hooks'
+import { useAccountStackNavigation, useAppSelector } from '@src/hooks'
 import { fontSize, getShadowBoxProps, useAppTheme } from '@src/theme'
 import { formatCurrency } from '@src/utils'
 export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
@@ -13,6 +14,29 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
   const innerBackground = paquete.is_featured ? 'primary' : 'grayLight'
   const innerColor = paquete.is_featured ? 'white' : 'black'
   const borderColor = paquete.is_featured ? 'primary' : 'grayLight'
+
+  const addons = useAppSelector((s) => s.cart.addons) ?? []
+
+  const jointAddons = useMemo(() => {
+    const tmpArr: Addons[] = []
+    addons.forEach((addon) => {
+      const found = paquete.addons?.find((a) => a.id === addon.id)
+      if (found) {
+        tmpArr.push(found)
+      }
+    })
+
+    // sort putting if name includes 'Imá' first
+    return tmpArr.sort((a, b) => {
+      if (a.name.includes('Imá') && !b.name.includes('Imá')) {
+        return -1
+      } else if (!a.name.includes('Imá') && b.name.includes('Imá')) {
+        return 1
+      } else {
+        return 0
+      }
+    })
+  }, [addons])
 
   const nav = useAccountStackNavigation()
 
@@ -57,7 +81,12 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
         borderTopLeftRadius='l'
         borderTopRightRadius='l'
       >
-        <Text variant='header' color={innerColor}>
+        <Text
+          variant='header'
+          color={innerColor}
+          textAlign={'center'}
+          marginTop={'m'}
+        >
           {paquete.name}
         </Text>
         {paquete.label ? (
@@ -135,27 +164,36 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
           backgroundColor={'creamy'}
           gap={'s'}
         >
-          {paquete.addons.map((addon) => {
+          {jointAddons.map((addon) => {
             return (
-              <Box key={addon.id} flexDirection={'row'} g='xs'>
-                {addon.price ? (
-                  <Box
-                    borderRadius={'m'}
-                    backgroundColor={'white'}
-                    justifyContent={'center'}
-                    alignItems={'center'}
-                    p={'xs'}
-                  >
-                    <Text
-                      color={'black'}
-                      fontWeight={'bold'}
-                      fontSize={fontSize.m}
-                    >
-                      $ {addon.price} MXN
-                    </Text>
-                  </Box>
-                ) : null}
+              <Box
+                key={addon.id}
+                flexDirection={'row'}
+                g='xs'
+                justifyContent={'space-between'}
+              >
                 <Text color={'black'}>{addon.name}</Text>
+                {addon.price != null ? (
+                  addon.price !== 0 ? (
+                    <Box
+                      borderRadius={'m'}
+                      backgroundColor={'white'}
+                      justifyContent={'center'}
+                      alignItems={'center'}
+                      p={'xs'}
+                    >
+                      <Text
+                        color={'black'}
+                        fontWeight={'bold'}
+                        fontSize={fontSize.m}
+                      >
+                        $ {addon.price} MXN
+                      </Text>
+                    </Box>
+                  ) : (
+                    <Text color={'black'}>Gratis</Text>
+                  )
+                ) : null}
               </Box>
             )
           })}

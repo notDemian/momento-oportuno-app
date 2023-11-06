@@ -1,6 +1,6 @@
-import { useMutation } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 
-import { OrdersMutationsKeys } from './orders.keys'
+import { OrdersMutationsKeys, OrdersQuerysKeys } from './orders.keys'
 
 import { OrdersServices } from '@src/api'
 
@@ -11,4 +11,11 @@ const useCreateOrder = () => {
   })
 }
 
-export { useCreateOrder }
+const useGetOrderById = (id: number) => {
+  return useQuery({
+    queryFn: () => OrdersServices.getOrderById(id),
+    queryKey: OrdersQuerysKeys.getOrderById(id),
+  })
+}
+
+export { useCreateOrder, useGetOrderById }

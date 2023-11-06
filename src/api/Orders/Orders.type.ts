@@ -43,6 +43,15 @@ export const OrderStatus = z.union([
 
 export type OrderStatus = z.infer<typeof OrderStatus>
 
+export const ItemSchema = z.object({
+  id: z.number(),
+  package_id: z.union([z.number(), z.null()]),
+  addon_id: z.union([z.number(), z.null()]),
+  quantity: z.number(),
+  price: z.number(),
+})
+export type Item = z.infer<typeof ItemSchema>
+
 export const OrderSchema = z.object({
   title: z.string(),
   billing_address: z.string(),
@@ -59,6 +68,7 @@ export const OrderSchema = z.object({
   updated_at: z.coerce.date().nullable().optional(),
   created_at: z.coerce.date().nullable().optional(),
   id: z.number(),
+  items: z.array(ItemSchema).optional(),
 })
 export type Order = z.infer<typeof OrderSchema>
 
@@ -68,3 +78,8 @@ export const CreateOrderResponseSchema = z.object({
   paypal_link: z.string().nullable().optional(),
 })
 export type CreateOrderResponse = z.infer<typeof CreateOrderResponseSchema>
+
+export const GetOrderByIdResponseSchema = z.object({
+  order: OrderSchema,
+})
+export type GetOrderByIdResponse = z.infer<typeof GetOrderByIdResponseSchema>

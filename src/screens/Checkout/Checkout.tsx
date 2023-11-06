@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { Alert, Keyboard, StyleSheet } from 'react-native'
 import Toast from 'react-native-toast-message'
-import { fontSize } from '../../theme/theme.util'
 
 import {
   Addons,
@@ -12,7 +11,9 @@ import {
 import {
   Box,
   Button,
+  CheckBox,
   Icon,
+  OrderResumeComponent,
   OrderSuccessModal,
   PaymentStripeLayout,
   Text,
@@ -28,6 +29,7 @@ import {
 import type { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { setOrderConfirmationId } from '@src/redux'
 import { getShadowBoxProps, useAppTheme } from '@src/theme'
+import { CLOG } from '@src/utils'
 import {
   CardField,
   CardFieldInput,
@@ -54,6 +56,12 @@ export const Checkout: React.FC<CheckoutProps> = ({
     })
     return tmpArray
   }, [params.package.addons, addonsSelected])
+
+  CLOG({
+    addonsSelectedRedux: addonsSelected,
+    packageAddons: params.package.addons,
+  })
+
   const totalAddons = useMemo(() => {
     return jointAddons.reduce((acc, addon) => {
       return acc + (addon.price ?? 0)
@@ -145,8 +153,16 @@ export const Checkout: React.FC<CheckoutProps> = ({
           ...(params.type === 'listing' ? { ...addonsRecord } : {}),
         }
 
+        CLOG({
+          form,
+        })
+
         try {
           const { order } = await mutateAsync(form)
+
+          CLOG({
+            order,
+          })
 
           Toast.show({
             type: 'success',
@@ -222,7 +238,7 @@ export const Checkout: React.FC<CheckoutProps> = ({
         <Text variant='header' marginBottom={'m'}>
           Resúmen de la orden
         </Text>
-        <Box
+        {/* <Box
           paddingVertical='s'
           paddingHorizontal='m'
           backgroundColor='white'
@@ -284,7 +300,12 @@ export const Checkout: React.FC<CheckoutProps> = ({
             cobrará, puedes salirte y cancelar el proceso para escoger otro
             paquete
           </Text>
-        </Box>
+        </Box> */}
+        <OrderResumeComponent
+          paquete={params.package}
+          addons={jointAddons}
+          totalAddons={totalAddons}
+        />
       </Box>
       <Text variant='header' marginVertical={'m'}>
         Datos de pago
@@ -297,6 +318,8 @@ export const Checkout: React.FC<CheckoutProps> = ({
           }}
           required
         />
+        {/**FIXME: implement this */}
+        <CheckBox label='Renovar automáticamente' onChange={() => {}} />
       </Box>
       <Box>
         <Box

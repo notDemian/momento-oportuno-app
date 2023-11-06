@@ -4,7 +4,7 @@ const SubCategorie = z.object({
   id: z.number(),
   slug: z.string(),
   name: z.string(),
-  description: z.null(),
+  description: z.string().nullable().optional(),
   parent_id: z.number(),
   created_at: z.coerce.date(),
   updated_at: z.coerce.date(),
@@ -16,7 +16,7 @@ export const CategorieSchema = z.object({
   id: z.number(),
   slug: z.string(),
   name: z.string(),
-  description: z.null(),
+  description: z.string().nullable().optional(),
   children: z.array(SubCategorie),
 })
 export type Categorie = z.infer<typeof CategorieSchema>
@@ -53,7 +53,7 @@ export const AttributeSchema = z.object({
   is_required: z.boolean(),
   is_multiple: z.boolean(),
   category_id: z.number().nullable(),
-  value: z.null().optional(),
+  value: z.unknown().nullable().optional(),
   attributeValues: z.array(AttributeValueSchema),
 })
 export type Attribute = z.infer<typeof AttributeSchema>

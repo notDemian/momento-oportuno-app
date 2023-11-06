@@ -34,7 +34,7 @@ export function getBlob({ photo }: { photo: ImagePickerAsset }): BlobType {
 }
 
 // 1mb
-const FILE_SIZE_LIMIT = 1000000 as const
+const FILE_SIZE_LIMIT = 1_000_000 as const
 
 export const VIDEO_MIME_TYPES = [
   'video/mp4',

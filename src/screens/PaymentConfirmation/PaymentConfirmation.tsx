@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 
 import { Box, Text } from '@src/components'
-import { usePreventNavigationOrPop } from '@src/hooks'
+import { useGetOrderById, usePreventNavigationOrPop } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
 
 type PaymentConfirmationScreenProps = ScreenProps<
@@ -18,10 +18,12 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
     navToPop: navigation,
   })
 
+  const { data: order } = useGetOrderById(id)
+
   return (
     <Box>
       <Text>PaymentConfirmationScreen</Text>
-      <Text>{id}</Text>
+      <Text>{JSON.stringify(order, null, 2)}</Text>
     </Box>
   )
 }

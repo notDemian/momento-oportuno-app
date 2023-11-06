@@ -41,17 +41,26 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
   },
 }) => {
   const [paquete, setPaquete] = useState<PaqueteMedia>()
+  const [printing, setPrinting] = useState<Addons>()
   const dispatch = useAppDispatch()
 
   const { data: addons } = useAddons()
   const addonsChecks = useMemo(
-    () => addons?.data?.filter((a) => !a.name.includes('Imá')),
+    () =>
+      addons?.data?.filter(
+        (a) => !a.name.includes('Imá') && !a.name.includes('impreso'),
+      ),
     [addons],
   )
   const imgAddons = useMemo(
     () => addons?.data?.filter((a) => a.name.includes('Imá')),
     [addons],
   )
+  const printingAddons = useMemo(
+    () => addons?.data?.filter((a) => a.name.includes('impreso')),
+    [addons],
+  )
+
   const [selectedAddons, setSelectedAddons] = useState<Addons[]>([])
   const video = useMemo(
     () =>
@@ -119,6 +128,12 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
     }
   }, [paquete])
 
+  useEffect(() => {
+    if (!video) {
+      setVideoAsset(undefined)
+    }
+  }, [video])
+
   usePreventNavigationOrPop({
     navToPop: navigation,
   })
@@ -162,6 +177,10 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         text1: 'Selecciona todas las imágenes',
         visibilityTime: 1000,
       })
+    const paqImg = addons?.data?.find((a) => a.id === paquete.id)
+    const addonsData = [...selectedAddons]
+    if (paqImg) addonsData.push(paqImg)
+    if (printing) addonsData.push(printing)
 
     try {
       const { media } = await mutateAsync({
@@ -170,7 +189,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         type: 'listing',
       })
 
-      dispatch(setReduxAddons(selectedAddons))
+      dispatch(setReduxAddons(addonsData))
       Toast.show({
         type: 'success',
         text1: `${media?.length ?? 0} archivos subidos`,
@@ -194,7 +213,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         visibilityTime: 1000,
       })
     }
-  }, [paquete, images, video, videoAsset, id])
+  }, [paquete, images, video, videoAsset, id, addons, selectedAddons, printing])
 
   return (
     <NewRecursoLayout
@@ -240,6 +259,22 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
                 : Number(paq.name.split(' ')[0]),
             }
             setPaquete(data)
+          }
+        }}
+      />
+      <Box height={'4%'} />
+      <ButtonModalGenerator
+        data={
+          printingAddons?.map((a) => ({
+            label: a.name,
+            value: a.id.toString(),
+          })) ?? []
+        }
+        title='Selecciona tipo de impresión'
+        onPressItem={(item) => {
+          const paq = printingAddons?.find((a) => a.id === Number(item.value))
+          if (paq) {
+            setPrinting(paq)
           }
         }}
       />
