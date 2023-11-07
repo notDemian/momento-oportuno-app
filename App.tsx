@@ -32,6 +32,10 @@ interface TextWithDefaultProps extends Text {
 ;(
   Text as unknown as TextWithDefaultProps
 ).defaultProps!.maxFontSizeMultiplier = 1
+import dayjs from 'dayjs'
+import es from 'dayjs/locale/es'
+es
+dayjs.locale('es')
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -4,4 +4,5 @@ export const OrdersMutationsKeys = {
 
 export const OrdersQuerysKeys = {
   getOrderById: (id: number) => ['getOrderById', id] as const,
+  getMyOrders: 'getMyOrders',
 } as const

@@ -73,15 +73,18 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
             headerRight: () => (
               <AddButtonComponent
                 nav={() => {
-                  props.navigation.navigate('NewAnuncioForm')
+                  // props.navigation.navigate('NewAnuncioForm')
                   //FIXME: delete this
                   // props.navigation.navigate('NewAnuncioFormMedia', { id: 22 })
-                  // props.navigation.navigate('Packages', {
-                  //   id: 22,
-                  //   type: 'listing',
-                  // })
+                  props.navigation.navigate('Packages', {
+                    id: 12,
+                    type: 'directory',
+                  })
                   // props.navigation.navigate('NewAnuncioFormMedia', { id: 59 })
-                  //props.navigation.navigate('PaymentConfirmation', { id: 40 })
+                  // props.navigation.navigate('PaymentConfirmation', {
+                  //   id: 25,
+                  //   // showSuccess: true,
+                  // })
                 }}
               />
             ),

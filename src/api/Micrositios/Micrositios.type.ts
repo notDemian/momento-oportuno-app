@@ -64,3 +64,12 @@ export const CreateMicrositeResponseSchema = z.object({
 export type CreateMicrositeResponse = z.infer<
   typeof CreateMicrositeResponseSchema
 >
+
+export const isMicrosite = (data: unknown): data is Microsite => {
+  try {
+    MicrositeSchema.parse(data)
+    return true
+  } catch (error) {
+    return false
+  }
+}

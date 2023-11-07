@@ -99,6 +99,7 @@ export type AccountStackParamList = {
   }
   PaymentConfirmation: {
     id: Order['id']
+    showSuccess?: boolean
   }
 
   MyPackages: undefined

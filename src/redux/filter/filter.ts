@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Slices } from '../store.helper'
 
 import { FilterState } from './filter.type'

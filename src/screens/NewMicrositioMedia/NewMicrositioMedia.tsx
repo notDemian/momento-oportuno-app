@@ -32,7 +32,7 @@ export const NewMicrositioMediaScreen: FC<NewMicrositioMediaScreenProps> = ({
 
   const onShowImagePicker = useCallback(async () => {
     try {
-      const result = await ImagePicker.launchCameraAsync({
+      const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsMultipleSelection: true,
         selectionLimit: 1,
@@ -59,17 +59,14 @@ export const NewMicrositioMediaScreen: FC<NewMicrositioMediaScreenProps> = ({
         type: 'microsite',
       })
 
-      T.success(`${media?.length ?? 0} archivos subidos`, {
-        onHide() {
-          navigation.reset({
-            routes: [{ name: 'Micrositios' }],
-          })
-          nav.jumpTo('AccountTab', {
-            screen: 'Packages',
-            params: { id, type: 'microsite' },
-            initial: false,
-          })
-        },
+      T.success(`${media?.length ?? 0} archivos subidos`)
+      navigation.reset({
+        routes: [{ name: 'Micrositios' }],
+      })
+      nav.jumpTo('AccountTab', {
+        screen: 'Packages',
+        params: { id, type: 'microsite' },
+        initial: false,
       })
     } catch (error) {
       if (error instanceof ImageTooBigError) {

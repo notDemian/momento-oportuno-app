@@ -5,7 +5,7 @@ import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typ
 import { Ad } from '@src/api'
 import { MicrositeWithListings } from '@src/api/Micrositios/Micrositios.module'
 import { ContentLoader } from '@src/components'
-import { Card, Carousel, Section } from '@src/components/elements'
+import { Box, Card, Carousel, Section } from '@src/components/elements'
 import { RecommendedCardInfo } from '@src/components/RecommendedCardInfo'
 import { useAnuncioByid, useMicrositiosStackNavigation } from '@src/hooks'
 import { getImageUrl } from '@src/utils'
@@ -15,10 +15,12 @@ type ListingsByMicrositeProps = {
 }
 
 const Render = ({ item: { id } }: CarouselRenderItemInfo<Ad>) => {
-  const { data: ad } = useAnuncioByid(id)
+  const { data: ad, error, isLoading: adLoading } = useAnuncioByid(id)
   const nav = useMicrositiosStackNavigation()
 
-  if (!ad) return <ContentLoader />
+  if (adLoading) return <ContentLoader />
+
+  if (error || !ad) return <Box />
 
   const { image, media, title } = ad.data
 

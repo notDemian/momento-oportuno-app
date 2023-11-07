@@ -28,7 +28,7 @@ import {
 import type { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { setOrderConfirmationId } from '@src/redux'
 import { getShadowBoxProps, useAppTheme } from '@src/theme'
-import { CLOG, T } from '@src/utils'
+import { T } from '@src/utils'
 import {
   CardField,
   CardFieldInput,
@@ -55,11 +55,6 @@ export const Checkout: React.FC<CheckoutProps> = ({
     })
     return tmpArray
   }, [params.package.addons, addonsSelected])
-
-  CLOG({
-    addonsSelectedRedux: addonsSelected,
-    packageAddons: params.package.addons,
-  })
 
   const totalAddons = useMemo(() => {
     return jointAddons.reduce((acc, addon) => {
@@ -184,69 +179,6 @@ export const Checkout: React.FC<CheckoutProps> = ({
         <Text variant='header' marginBottom={'m'}>
           Resúmen de la orden
         </Text>
-        {/* <Box
-          paddingVertical='s'
-          paddingHorizontal='m'
-          backgroundColor='white'
-          marginBottom='s'
-          gap={'s'}
-        >
-          <Text fontWeight={'bold'}>
-            Paquete: <Text fontWeight={'normal'}>{params.package.name}</Text>
-          </Text>
-          {jointAddons.length > 0 ? (
-            <Text fontWeight={'bold'}>Complementos seleccionados</Text>
-          ) : null}
-          {jointAddons.map((addon) => {
-            return (
-              <Box
-                key={addon.id}
-                {...getShadowBoxProps({ borderRadius: 's' })}
-                padding={'s'}
-                flexDirection='row'
-                justifyContent='space-between'
-                alignItems='center'
-                backgroundColor='creamy'
-                marginBottom='s'
-              >
-                <Text>{addon.name}</Text>
-                <Text variant='primary'>$ {addon.price} MXN</Text>
-              </Box>
-            )
-          })}
-          <Box
-            flexDirection='row'
-            justifyContent='space-between'
-            alignItems='center'
-          >
-            <Text variant={'subHeader'} color={'primary'}>
-              Subtotal
-            </Text>
-            <Text>$ {params.package.price} MXN</Text>
-          </Box>
-          <Box
-            flexDirection='row'
-            justifyContent='space-between'
-            alignItems='center'
-          >
-            <Text variant={'header'}>Total</Text>
-            {totalAddons > 0 ? (
-              <Text>$ {params.package.price + totalAddons} MXN</Text>
-            ) : (
-              <Text>$ {params.package.price} MXN</Text>
-            )}
-          </Box>
-          <Text
-            color={'gray'}
-            marginTop={'s'}
-            marginBottom={'s'}
-            fontSize={fontSize.m}
-          >
-            *Si seleccionaste un Complemento y no aparece aqui, no se te
-            cobrará, puedes salirte y cancelar el proceso para escoger otro
-            paquete
-          </Text>
-        </Box> */}
         <OrderResumeComponent
           paquete={params.package}
           addons={jointAddons}

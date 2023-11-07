@@ -69,9 +69,12 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
       return navigation.navigate('Account')
     }
 
-    //navigation.replace('PaymentConfirmation', { id: orderId })
     dispatch(resetCart())
-    navigation.popToTop()
+    navigation.replace('PaymentConfirmation', {
+      id: orderId,
+      showSuccess: true,
+    })
+    // navigation.popToTop()
   }
 
   const onTrackOrderButtonPress = () => {
@@ -98,7 +101,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
             <Animated.View
               style={[styles.processingOrderContainer, { opacity: fadeOut }]}
             >
-              <Text fontWeight='bold'>Procesando Órden</Text>
+              <Text fontWeight='bold'>Procesando Orden</Text>
             </Animated.View>
           )}
           <Animated.View
@@ -116,8 +119,8 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
           style={[styles.footerButtonContainer, { opacity: fadeIn }]}
         >
           <Button
-            // label='Ver confirmación'
-            label='Ir a inicio'
+            label='Ver confirmación'
+            // label='Ir a inicio'
             isFullWidth
             onPress={onTrackOrderButtonPress}
           />

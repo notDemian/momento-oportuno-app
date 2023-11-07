@@ -38,7 +38,7 @@ export const NewDirectorioMediaScreen: FC<NewDirectorioMediaScreenProps> = ({
 
   const onShowImagePicker = useCallback(async () => {
     try {
-      const result = await ImagePicker.launchCameraAsync({
+      const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsMultipleSelection: true,
         selectionLimit: 1,
@@ -65,17 +65,14 @@ export const NewDirectorioMediaScreen: FC<NewDirectorioMediaScreenProps> = ({
         type: 'directory',
       })
 
-      T.success(`${media?.length ?? 0} archivos subidos`, {
-        onHide() {
-          navigation.reset({
-            routes: [{ name: 'Directorio' }],
-          })
-          nav.jumpTo('AccountTab', {
-            screen: 'Packages',
-            params: { id, type: 'directory' },
-            initial: false,
-          })
-        },
+      T.success(`${media?.length ?? 0} archivos subidos`)
+      navigation.reset({
+        routes: [{ name: 'Directorio' }],
+      })
+      nav.jumpTo('AccountTab', {
+        screen: 'Packages',
+        params: { id, type: 'directory' },
+        initial: false,
       })
     } catch (error) {
       if (error instanceof ImageTooBigError) {

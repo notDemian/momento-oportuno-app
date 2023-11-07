@@ -79,10 +79,17 @@ export function uploadImage({
 }
 
 type GetImageUrlProps =
-  | { media: Media }
-  | { url: string | null | undefined; media?: Media }
+  | { media: Media; str?: string | null | undefined }
+  | {
+      url: string | null | undefined
+      media?: Media
+      str?: string | null | undefined
+    }
 
 export function getImageUrl(props: GetImageUrlProps): string {
+  if (typeof props.str === 'string')
+    return props.str.replace('empresarialenti', 'empresarialti')
+
   if ('url' in props)
     return props.url
       ? `${Constants.URL.RAW}storage/${props.url}`

@@ -106,3 +106,12 @@ export const CreateDirectorioResponseSchema = z.object({
 export type CreateDirectorioResponse = z.infer<
   typeof CreateDirectorioResponseSchema
 >
+
+export const isDirectorio = (obj: unknown): obj is Directorio => {
+  try {
+    DirectorioSchema.parse(obj)
+    return true
+  } catch (error) {
+    return false
+  }
+}

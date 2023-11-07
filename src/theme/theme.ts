@@ -82,6 +82,13 @@ export const theme = createTheme({
       fontWeight: 'bold',
       fontSize: 20,
     },
+    body: {
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+    body2: {
+      fontSize: 16,
+    },
   },
   buttonVariants: {
     defaults: {

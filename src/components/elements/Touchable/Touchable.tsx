@@ -3,6 +3,7 @@ import {
   Platform,
   TouchableNativeFeedback,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native'
 
 import { TouchableProps } from './Touchable.type'
@@ -13,12 +14,17 @@ import { Theme } from '@src/theme'
 export const InnerTouchable: React.FC<TouchableProps> = ({
   children,
   variant,
+  withoutFeedback = false,
   ...rest
 }) => {
-  return Platform.OS === 'ios' || variant === 'transparent' ? (
-    <TouchableOpacity {...rest}>{children}</TouchableOpacity>
+  return !withoutFeedback ? (
+    Platform.OS === 'ios' || variant === 'transparent' ? (
+      <TouchableOpacity {...rest}>{children}</TouchableOpacity>
+    ) : (
+      <TouchableNativeFeedback {...rest}>{children}</TouchableNativeFeedback>
+    )
   ) : (
-    <TouchableNativeFeedback {...rest}>{children}</TouchableNativeFeedback>
+    <TouchableWithoutFeedback {...rest}>{children}</TouchableWithoutFeedback>
   )
 }
 

@@ -1,19 +1,47 @@
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import { ListRenderItem } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
-import { Box, Icon, List, Text } from '@src/components'
+import { Order } from '@src/api'
+import {
+  Box,
+  Icon,
+  List,
+  LoadingPageModal,
+  RefreshControl,
+  Text,
+  Touchable,
+} from '@src/components'
 import { SvgEmptyBox } from '@src/components/svgs'
-import { useAccountStackNavigation } from '@src/hooks'
+import { useAccountStackNavigation, useGetMyOrders } from '@src/hooks'
 import { getShadowBoxProps } from '@src/theme'
+import { formatCurrency } from '@src/utils'
+import { formatSpanish } from '@src/utils/dates'
 import dayjs from 'dayjs'
+import es from 'dayjs/locale/es'
+es
+dayjs.locale('es')
 
 const MisOrdenes = () => {
   const nav = useAccountStackNavigation()
 
-  // const { data: orders, isLoading, refetch } = useMyOrders()
+  const { data: orders, isLoading, refetch } = useGetMyOrders()
+  const ordersSorted = useMemo(() => {
+    if (!orders?.data) return []
+    return orders.data.sort((a, b) => {
+      return dayjs(b.created_at).unix() - dayjs(a.created_at).unix()
+    })
+  }, [orders?.data])
 
-  const renderItem = useCallback<ListRenderItem<any>>(({ item }) => {
+  const handleOnPress = useCallback(
+    (order: Order) => () => {
+      if (order.status === 'failed') return
+      nav.navigate('PaymentConfirmation', { id: order.id })
+    },
+    [],
+  )
+
+  const renderItem = useCallback<ListRenderItem<Order>>(({ item }) => {
     return (
       <Box
         {...getShadowBoxProps()}
@@ -28,39 +56,58 @@ const MisOrdenes = () => {
           width={'75%'}
           justifyContent={'center'}
           backgroundColor={'transparent'}
-          paddingLeft={'s'}
+          paddingHorizontal={'s'}
         >
           <Text fontWeight={'bold'}>
-            {item.line_items[0].name}{' '}
+            {item.title}{' '}
             <Text color={'orangy'} fontWeight={'normal'}>
               #{`${item.id + 1}`}
             </Text>
           </Text>
-          <Text>
-            Creado: {dayjs(item.date_created).format('DD [de] MMMM YYYY')}
-          </Text>
+          {item.created_at ? (
+            <Text>
+              Creado:{' '}
+              {formatSpanish(item.created_at, {
+                format: 'DD [de] MMMM YYYY',
+              })}
+            </Text>
+          ) : null}
           <Text fontWeight={'bold'}>
-            {item.currency_symbol}
-            {item.total}
-            <Text fontWeight={'normal'}> via {item.payment_method_title}</Text>
+            {formatCurrency(item.total)}
+            <Text fontWeight={'normal'}> via {item.payment_method}</Text>
           </Text>
         </Box>
-        <Box
-          width={'25%'}
-          justifyContent={'center'}
+        <Touchable
+          onPress={handleOnPress(item)}
           alignItems={'center'}
           borderLeftColor={'orangy'}
           borderLeftWidth={1}
           p={'s'}
+          borderRadius={'m'}
+          withoutFeedback
         >
-          {item.status === 'completed' ? (
-            <Icon type='Feather' name='check' color='green' size={30} />
-          ) : item.status === 'pending' ? (
-            <Icon type='MaterialIcons' name='pending' color='red' size={30} />
-          ) : (
-            <Icon type='Ionicons' name='close' color='red' size={30} />
-          )}
-        </Box>
+          <Box
+            width={'25%'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            borderLeftColor={'orangy'}
+            borderLeftWidth={1}
+            p={'s'}
+          >
+            {item.status === 'completed' || item.status === 'paid' ? (
+              <Icon type='Feather' name='check' color='green' size={30} />
+            ) : item.status === 'pending' ? (
+              <Icon
+                type='MaterialIcons'
+                name='pending'
+                color='gray'
+                size={30}
+              />
+            ) : (
+              <Icon type='Ionicons' name='close' color='red' size={30} />
+            )}
+          </Box>
+        </Touchable>
       </Box>
     )
   }, [])
@@ -69,36 +116,35 @@ const MisOrdenes = () => {
     return (
       <Box flex={1} justifyContent='center' alignItems='center'>
         <Text variant='header' textAlign={'center'} m={'l'}>
-          Aún no tienes ningún pedido
+          Aún no tienes ninguna orden
         </Text>
         <SvgEmptyBox />
-        {/* <Button
-          variant={'secondary'}
-          label='Comprar paquete'
-          margin={'l'}
-          onPress={() => {
-            nav.navigate('NewAnuncioForm')
-          }}
-        /> */}
       </Box>
     )
   }, [])
 
   return (
     <ScrollView>
-      <List
-        renderItem={renderItem}
-        data={[]}
-        ListEmptyComponent={ListEmptyComponent}
-        ItemSeparatorComponent={() => null}
-        contentContainerStyle={{ flexGrow: 1, backgroundColor: 'transparent' }}
-        style={{ backgroundColor: 'transparent' }}
-        scrollEnabled={false}
-        showsVerticalScrollIndicator={false}
-        // refreshControl={
-        //   <RefreshControl refreshing={isLoading} onRefresh={refetch} />
-        // }
-      />
+      {ordersSorted && !isLoading ? (
+        <List
+          renderItem={renderItem}
+          data={ordersSorted}
+          ListEmptyComponent={ListEmptyComponent}
+          ItemSeparatorComponent={() => null}
+          contentContainerStyle={{
+            flexGrow: 1,
+            backgroundColor: 'transparent',
+          }}
+          style={{ backgroundColor: 'transparent' }}
+          scrollEnabled={false}
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+          }
+        />
+      ) : (
+        <LoadingPageModal loading={isLoading} />
+      )}
     </ScrollView>
   )
 }

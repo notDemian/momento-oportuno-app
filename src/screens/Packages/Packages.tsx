@@ -22,7 +22,12 @@ export const Packages: React.FC<PackageScreenProps> = ({
     params: { id, type },
   },
 }) => {
-  const { data: paquetes, isLoading } = usePaquetes({
+  const {
+    data: paquetes,
+    isLoading,
+    refetch,
+    isRefetching: isRefreshing,
+  } = usePaquetes({
     resource_id: id,
     type,
   })
@@ -74,6 +79,8 @@ export const Packages: React.FC<PackageScreenProps> = ({
         ItemSeparatorComponent={() => null}
         contentContainerStyle={{ backgroundColor: colors.background }}
         ListEmptyComponent={ListEmptyComponent}
+        onRefresh={refetch}
+        refreshing={isLoading || isRefreshing}
       />
     </Section>
   )

@@ -7,6 +7,9 @@ export const PaymentMethods = {
   STRIPE: 'stripe',
   PAYPAL: 'paypal',
 } as const
+
+export const PaymentMethodsSchema = z.nativeEnum(PaymentMethods)
+
 export type PaymentMethods =
   (typeof PaymentMethods)[keyof typeof PaymentMethods]
 
@@ -55,7 +58,7 @@ export type Item = z.infer<typeof ItemSchema>
 export const OrderSchema = z.object({
   title: z.string(),
   billing_address: z.string(),
-  payment_method: z.string(),
+  payment_method: PaymentMethodsSchema,
   package_id: z.unknown(),
   type: TypePackageSchema,
   related_id: z.coerce.number(),
@@ -80,6 +83,11 @@ export const CreateOrderResponseSchema = z.object({
 export type CreateOrderResponse = z.infer<typeof CreateOrderResponseSchema>
 
 export const GetOrderByIdResponseSchema = z.object({
-  order: OrderSchema,
+  data: OrderSchema,
 })
 export type GetOrderByIdResponse = z.infer<typeof GetOrderByIdResponseSchema>
+
+export const GetMyOrdersResponseSchema = z.object({
+  data: z.array(OrderSchema),
+})
+export type GetMyOrdersResponse = z.infer<typeof GetMyOrdersResponseSchema>

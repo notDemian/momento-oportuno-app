@@ -37,10 +37,6 @@ const LinksSchema = z.object({
   next: nulishString,
 })
 
-/**
- *  {"address": "dir", "created_at": "2023-11-02T19:11:54.000000Z", "description": null, "email": "demian.ironhide@gmail.com", "expires_at": "2023-12-02T19:12:23.000000Z", "id": 13, "image": null, "phone": "5547212321", "state_id": 1, "status": "published", "title": "título epico probando flujo", "updated_at": "2023-11-02T19:12:23.000000Z", "user_id": 2, "user_package_id": null}
- */
-
 export type UserAd = z.infer<typeof UserAdSchema>
 
 const AttributeAdSchema = AttributeSchema.omit({
@@ -133,6 +129,10 @@ export type CreateAnuncioParams = GeneralCreateAnuncioParams & {
 // export type createAnuncioResponse = createAnuncioParams
 
 export const isAd = (ad: unknown): ad is Ad => {
-  // prettier-ignore
-  return Boolean(typeof ad === 'object' && ad && 'id' in ad && 'title' in ad && 'slug' in ad && 'url' in ad && 'status' in ad && 'image' in ad && 'description' in ad && 'is_featured' in ad && 'is_multistate' in ad && 'is_active' in ad && 'auto_renew' in ad && 'user' in ad && 'user_package' in ad && 'state' in ad && 'category' in ad && 'attributes' in ad && 'create_at' in ad && 'updated_at' in ad && ad.id && ad.title && ad.slug && ad.url && ad.status && ad.image && ad.description && ad.is_featured && ad.is_multistate && ad.is_active && ad.auto_renew && ad.user && ad.user_package && ad.state && ad.category && ad.attributes && ad.create_at && ad.updated_at)
+  try {
+    AdSchema.parse(ad)
+    return true
+  } catch (error) {
+    return false
+  }
 }

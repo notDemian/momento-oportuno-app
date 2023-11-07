@@ -2,7 +2,14 @@ import { memo, useCallback, useMemo, useState } from 'react'
 import { ListRenderItem, Switch } from 'react-native'
 
 import { Ad } from '@src/api'
-import { ActivityIndicator, Box, Button, List, Text } from '@src/components'
+import {
+  ActivityIndicator,
+  Box,
+  Button,
+  List,
+  RefreshControl,
+  Text,
+} from '@src/components'
 import SvgEmptyBox from '@src/components/svgs/SvgEmptyBox'
 import { useAccountStackNavigation, useMisAnuncios } from '@src/hooks'
 import { AnuncioItem } from '@src/screens/SearchScreen/AnuncioItem/AnuncioItem'
@@ -21,6 +28,7 @@ const MisAnuncios = () => {
     isLoading,
     hasNextPage,
     fetchNextPage,
+    refetch,
   } = useMisAnuncios()
 
   const fetchMore = useCallback(() => {
@@ -89,6 +97,9 @@ const MisAnuncios = () => {
           scrollEnabled={true}
           showsVerticalScrollIndicator={false}
           onEndReached={fetchMore}
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+          }
         />
       )}
     </>

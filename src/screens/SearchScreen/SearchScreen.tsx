@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC, useCallback, useEffect } from 'react'
 
 import { AnuncioItem } from './AnuncioItem/AnuncioItem'
 
@@ -14,12 +14,14 @@ import {
   TextField,
 } from '@src/components'
 import {
+  useAppDispatch,
   useAppSelector,
   useDebounce,
   useSearchStackNavigation,
 } from '@src/hooks'
 import { useAnuncios } from '@src/hooks'
 import { ScreenProps, SearchStackParamList } from '@src/navigation'
+import { resetFilter } from '@src/redux'
 import { useAppTheme } from '@src/theme'
 
 type SearchScreenProps = ScreenProps<SearchStackParamList, 'Search'>
@@ -58,6 +60,17 @@ export const SearchScreen: FC<SearchScreenProps> = ({
       fetchNextPage()
     }
   }, [hasNextPage, fetchNextPage])
+
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    const listener = navigation.addListener('blur', () => {
+      setSearchTerm('')
+      dispatch(resetFilter())
+    })
+
+    return listener
+  }, [])
 
   const flattenData = data?.pages.flatMap((page) => page.data) ?? []
 

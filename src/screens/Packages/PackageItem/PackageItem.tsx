@@ -6,11 +6,8 @@ import { Addons } from '@src/api'
 import { Box, Button, Text } from '@src/components'
 import { SvgCheck } from '@src/components/svgs'
 import { useAccountStackNavigation, useAppSelector } from '@src/hooks'
-import { fontSize, getShadowBoxProps, useAppTheme } from '@src/theme'
-import { formatCurrency } from '@src/utils'
+import { fontSize, getShadowBoxProps } from '@src/theme'
 export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
-  const _theme = useAppTheme()
-
   const innerBackground = paquete.is_featured ? 'primary' : 'grayLight'
   const innerColor = paquete.is_featured ? 'white' : 'black'
   const borderColor = paquete.is_featured ? 'primary' : 'grayLight'
@@ -26,7 +23,6 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
       }
     })
 
-    // sort putting if name includes 'Imá' first
     return tmpArr.sort((a, b) => {
       if (a.name.includes('Imá') && !b.name.includes('Imá')) {
         return -1
@@ -45,10 +41,6 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
 
     if (paquete.expire && paquete.expire > 0) {
       tmpArray.push(`Duración: ${paquete.expire} días`)
-    }
-
-    if (paquete.expire && paquete.expire > 0) {
-      tmpArray.push(`Destacado: ${paquete.expire} días`)
     }
 
     if (paquete.includes_video) {
@@ -117,7 +109,7 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
         g={'l'}
       >
         <Text variant='header' color='black' textAlign={'center'}>
-          {formatCurrency(paquete.price)} MXN
+          {paquete.display_price}
         </Text>
         <Box>
           <Button

@@ -32,7 +32,9 @@ export const DirectorioStack: React.FC<DirectorioScreenProps> = ({
             },
             headerRight: () => (
               <AddButtonComponent
-                nav={() => navigation.navigate('NewDirectorioForm')}
+                nav={() => {
+                  navigation.navigate('NewDirectorioForm')
+                }}
               />
             ),
           }
