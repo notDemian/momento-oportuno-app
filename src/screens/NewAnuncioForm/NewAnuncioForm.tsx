@@ -15,6 +15,8 @@ import { fontSize } from '@src/theme'
 import { T } from '@src/utils'
 import { wait } from '@src/utils/wait'
 
+const DESC_LENGTH = 300 as const
+
 export const NewAnuncioForm: React.FC<
   ScreenProps<AccountStackParamList, 'NewAnuncioForm'>
 > = ({ navigation }) => {
@@ -55,6 +57,13 @@ export const NewAnuncioForm: React.FC<
       params.state_id === 0
     )
       return T.error('Debes llenar todos los campos')
+
+    if (params.description.length < 50)
+      return T.error('La descripción debe tener al menos 50 caracteres')
+    if (params.description.length > DESC_LENGTH)
+      return T.error(
+        `La descripción debe tener menos de ${DESC_LENGTH} caracteres`,
+      )
 
     setShowCategoriaModal(true)
   }, [params])
@@ -117,13 +126,16 @@ export const NewAnuncioForm: React.FC<
               style: {
                 textAlignVertical: 'top',
               },
+              maxLength: DESC_LENGTH,
               onChangeText: setParamsFactory('description'),
             }}
             required
             flex={1}
             height={'100%'}
           />
-          <Text color={'gray'}>{params.description.length}/700</Text>
+          <Text color={'gray'}>
+            {params.description.length}/{DESC_LENGTH}
+          </Text>
         </Box>
 
         <Box flexDirection='row' alignItems='center' gap='m'>

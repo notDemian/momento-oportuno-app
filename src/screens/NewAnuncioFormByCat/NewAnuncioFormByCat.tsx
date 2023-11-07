@@ -15,6 +15,7 @@ import {
 } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { T } from '@src/utils'
+import { AxiosError } from 'axios'
 
 export const NewAnuncioFormByCat: FC<
   ScreenProps<AccountStackParamList, 'NewAnuncioFormByCat'>
@@ -63,8 +64,13 @@ export const NewAnuncioFormByCat: FC<
         T.success('Anuncio creado')
         navigation.navigate('NewAnuncioFormMedia', { id: res.id })
       }
-    } catch (error: any) {
-      T.error(error)
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const msg = error?.response?.data?.message ?? 'Error al crear anuncio'
+        T.error(msg)
+        return
+      }
+      T.error('Error al crear anuncio')
       navigation.dispatch(StackActions.popToTop())
     }
   }, [inputs, initialParams, attributes, subCategoriaSelected])
