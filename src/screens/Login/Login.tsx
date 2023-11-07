@@ -67,7 +67,7 @@ export const Login: React.FC<ScreenProps<AuthStackParamList, 'Login'>> = ({
             autoFocus: true,
             value: email,
             onChangeText: onEmailFieldChange,
-            placeholder: 'Email o usuario',
+            placeholder: 'Email',
           }}
         />
         <TextField

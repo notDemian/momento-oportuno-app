@@ -5,21 +5,17 @@ import { Constants } from '../../utils/constants'
 import { Addons, isAd, isDirectorio, isMicrosite } from '@src/api'
 import {
   Box,
+  Button,
   Icon,
   Image,
   LoadingPageModal,
   OrderResumeComponent,
   Text,
 } from '@src/components'
-import {
-  useAddons,
-  useGetOrderById,
-  usePreventNavigationOrPop,
-  useResource,
-} from '@src/hooks'
+import { useAddons, useGetOrderById, useResource } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
-import { fontSize, useAppTheme } from '@src/theme'
-import { formatCurrency, IMAGE_URL_FALLBACK } from '@src/utils'
+import { fontSize, getShadowBoxProps, useAppTheme } from '@src/theme'
+import { formatCurrency, getImageUrl } from '@src/utils'
 
 type PaymentConfirmationScreenProps = ScreenProps<
   AccountStackParamList,
@@ -62,9 +58,9 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
     params: { id, showSuccess = false },
   },
 }) => {
-  usePreventNavigationOrPop({
-    navToPop: navigation,
-  })
+  // usePreventNavigationOrPop({
+  //   navToPop: navigation,
+  // })
 
   const { colors } = useAppTheme()
   const { data, isLoading } = useGetOrderById(id)
@@ -93,35 +89,39 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
       case isAd(d):
         Content = (
           <>
-            <Box flex={1}>
-              <Text>Duración de tu anuncio</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.user_package?.expire} días
-              </Text>
+            <Box
+              flex={1}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Fecha de creación</Text>
+              <Text marginLeft={'m'}>{d.create_at.toLocaleDateString()}</Text>
             </Box>
-            <Box flex={1}>
-              <Text>Descripción</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.description}
-              </Text>
+            <Box
+              flex={1}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant='body'>• Duración de tu anuncio</Text>
+              <Text marginLeft={'m'}>{d.user_package?.expire} días</Text>
             </Box>
-            <Box flex={1}>
-              <Text>Atributos del anuncio</Text>
-              <Box
-                flex={1}
-                flexDirection='column'
-                marginVertical={'s'}
-                marginHorizontal={'m'}
-              >
+            <Box
+              flex={1}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant='body'>• Descripción</Text>
+              <Text marginLeft={'m'}>{d.description}</Text>
+            </Box>
+            <Box>
+              <Text variant='body'>• Atributos del anuncio</Text>
+              <Box flex={1} flexDirection='column'>
                 {d.attributes.map((att) => (
-                  <Box
-                    flex={1}
-                    flexDirection='row'
-                    key={att.id}
-                    justifyContent={'space-between'}
-                  >
-                    <Text fontWeight={'normal'}>{att.name} </Text>
-                    <Text variant='body' marginLeft={'m'}>
+                  <Box flex={1} flexDirection='row' key={att.id}>
+                    <Box width={'60%'}>
+                      <Text variant='body'>• {att.name}</Text>
+                    </Box>
+                    <Text marginLeft={'m'} textAlignVertical={'center'}>
                       {typeof att.value === 'string'
                         ? att.id === Constants.IDS.price
                           ? formatCurrency(att.value)
@@ -131,12 +131,6 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
                   </Box>
                 ))}
               </Box>
-            </Box>
-            <Box flex={1}>
-              <Text>Fecha de creación</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.create_at.toLocaleDateString()}
-              </Text>
             </Box>
           </>
         )
@@ -330,67 +324,82 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
       <Box flex={1} margin={'s'}>
         <OrderResumeComponent addons={jointAddons} />
       </Box>
-      <Box flex={1} margin={'m'} g='m'>
-        <Text variant={'subHeader'} textAlign={'center'}>
-          Datos del recurso
-        </Text>
-
-        <Image
-          source={{
-            // uri: image?.original_url
-            //   ? image?.original_url
-            //   : getImageUrl({
-            //       url: image?.original_url,
-            //       media: image,
-            //     }),
-            uri: IMAGE_URL_FALLBACK,
-          }}
-          width={width * 0.8}
-          height={150}
-          contentFit='cover'
-          alignSelf={'center'}
-        />
-        <Box flex={1}>
-          <Text>Título</Text>
-          <Text variant='body' marginLeft={'m'}>
-            {title}
-          </Text>
-        </Box>
-
-        <Box flex={1}>
-          <Text>Estado</Text>
-          <Text variant='body' marginLeft={'m'}>
-            {state?.name}
-          </Text>
-        </Box>
-
-        <Box flex={1}>
-          <Text>Estatus</Text>
+      <Box flex={1} margin={'m'} g='m' {...getShadowBoxProps()}>
+        <Box
+          flex={1}
+          padding='m'
+          backgroundColor='primary'
+          borderTopLeftRadius='l'
+          borderTopRightRadius='l'
+        >
           <Text
             variant='body'
-            marginLeft={'m'}
-            color={
-              status === 'Pagado' || status === 'Publicado'
-                ? 'success'
-                : status === 'Cancelado'
-                ? 'secondary'
-                : status === 'Pendiente' || status === 'Pendiente de revisión'
-                ? 'orangy'
-                : 'danger'
-            }
+            textAlign='center'
+            marginVertical='s'
+            color={'white'}
           >
-            {status}
+            Información de la publicación
           </Text>
         </Box>
+        <Box p='l'>
+          <Image
+            source={{
+              uri: image?.original_url
+                ? image?.original_url
+                : getImageUrl({
+                    url: image?.original_url,
+                    media: image,
+                  }),
+              // uri: IMAGE_URL_FALLBACK,
+            }}
+            width={width * 0.8}
+            height={150}
+            contentFit='cover'
+            alignSelf={'center'}
+            marginBottom={'m'}
+          />
 
-        {renderExtraContentResource()}
-        {status === 'Pendiente' || status === 'Pendiente de revisión' ? (
-          <Box flex={1} flexDirection='row' justifyContent='center'>
-            <Text variant='body' textAlign='center'>
-              El recurso se publicará una vez haya sido aprobado.
+          <Box flex={1} flexDirection={'row'} justifyContent={'space-between'}>
+            <Text variant='body'>• Título</Text>
+            <Text marginLeft={'m'}>{title}</Text>
+          </Box>
+
+          <Box flex={1} flexDirection={'row'} justifyContent={'space-between'}>
+            <Text variant='body'>• Estado</Text>
+            <Text marginLeft={'m'}>{state?.name}</Text>
+          </Box>
+
+          <Box flex={1} flexDirection={'row'} justifyContent={'space-between'}>
+            <Text variant='body'>• Estatus</Text>
+            <Text
+              marginLeft={'m'}
+              color={
+                status === 'Pagado' || status === 'Publicado'
+                  ? 'success'
+                  : status === 'Cancelado'
+                  ? 'secondary'
+                  : status === 'Pendiente' || status === 'Pendiente de revisión'
+                  ? 'orangy'
+                  : 'danger'
+              }
+            >
+              {status}
             </Text>
           </Box>
-        ) : null}
+
+          {renderExtraContentResource()}
+          {status === 'Pendiente' || status === 'Pendiente de revisión' ? (
+            <Box flex={1} flexDirection='row' justifyContent='center'>
+              <Text variant='body' textAlign='center' color={'secondary'}>
+                *Se publicará una vez que haya sido aprobada.
+              </Text>
+            </Box>
+          ) : null}
+        </Box>
+        <Button
+          label='Regresar al inicio'
+          onPress={() => navigation.popToTop()}
+        />
       </Box>
     </ScrollView>
   )
