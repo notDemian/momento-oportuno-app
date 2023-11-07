@@ -26,8 +26,10 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
       stickyHeaderIndices={[1]}
     >
       <Image source={Images.main_logo} height={'5%'} contentFit='scale-down' />
-      {/**FIXME:  */}
-      <Text>PRUEBA EXPO CHANNELS</Text>
+      {/**FIXME:   */}
+      <Text>
+        PRUEBA EXPO CHANNELS -{'>'} ESTE TEXTO DEBERIA APARECER TAMBIEN
+      </Text>
       <SearchHeader />
       <PopularCategories />
       <PopularPlaces estados={data?.data} />
