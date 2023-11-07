@@ -1,5 +1,4 @@
 import { type FC, useCallback, useState } from 'react'
-import Toast from 'react-native-toast-message'
 
 import { ImageTooBigError } from '@src/api'
 import {
@@ -17,6 +16,7 @@ import {
   useUploadMedias,
 } from '@src/hooks'
 import { DirectorioStackParamList, ScreenProps } from '@src/navigation'
+import { T } from '@src/utils'
 import * as ImagePicker from 'expo-image-picker'
 
 type NewDirectorioMediaScreenProps = ScreenProps<
@@ -56,12 +56,7 @@ export const NewDirectorioMediaScreen: FC<NewDirectorioMediaScreenProps> = ({
   })
 
   const uploadImage = useCallback(async () => {
-    if (!image)
-      return Toast.show({
-        type: 'error',
-        text1: 'Selecciona una imagen',
-        visibilityTime: 1000,
-      })
+    if (!image) return T.error('Selecciona una imágen')
 
     try {
       const { media } = await mutateAsync({
@@ -70,11 +65,7 @@ export const NewDirectorioMediaScreen: FC<NewDirectorioMediaScreenProps> = ({
         type: 'directory',
       })
 
-      Toast.show({
-        type: 'success',
-        text1: `${media?.length ?? 0} archivos subidos`,
-        text2: 'Redireccionando...',
-        visibilityTime: 1000,
+      T.success(`${media?.length ?? 0} archivos subidos`, {
         onHide() {
           navigation.reset({
             routes: [{ name: 'Directorio' }],
@@ -88,17 +79,9 @@ export const NewDirectorioMediaScreen: FC<NewDirectorioMediaScreenProps> = ({
       })
     } catch (error) {
       if (error instanceof ImageTooBigError) {
-        return Toast.show({
-          type: 'error',
-          text1: 'La imágen es muy grande',
-          visibilityTime: 1000,
-        })
+        return T.error('La imágen es muy grande')
       }
-      Toast.show({
-        type: 'error',
-        text1: 'Error al subir archivos',
-        visibilityTime: 1000,
-      })
+      T.error('Ocurrió un error al subir la imágen')
     }
   }, [image, id])
 

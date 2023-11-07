@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
   },
 })
 
-import Toast from 'react-native-toast-message'
 import { BottomSheetModal, Box, Button, LottieView, Text } from '../elements'
 
 import {
@@ -23,6 +22,7 @@ import {
   useAppSelector,
 } from '@src/hooks'
 import { resetCart } from '@src/redux'
+import { T } from '@src/utils'
 
 type OrderSuccessModalProps = {
   isVisible: boolean
@@ -65,11 +65,7 @@ export const OrderSuccessModal: React.FC<OrderSuccessModalProps> = ({
 
   const redirect = () => {
     if (!orderId) {
-      Toast.show({
-        type: 'error',
-        text1: 'Error',
-        text2: 'No se pudo obtener el id de la orden',
-      })
+      T.error('No se pudo obtener el id de la orden')
       return navigation.navigate('Account')
     }
 

@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
 import { FC } from 'react'
-import { Alert } from 'react-native'
 
 import { ExtraContent } from './ExtraContent'
 
@@ -15,6 +14,7 @@ import {
   useCreateAnuncio,
 } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
+import { T } from '@src/utils'
 
 export const NewAnuncioFormByCat: FC<
   ScreenProps<AccountStackParamList, 'NewAnuncioFormByCat'>
@@ -36,8 +36,7 @@ export const NewAnuncioFormByCat: FC<
   const { mutateAsync, isLoading } = useCreateAnuncio()
 
   const onContinue = useCallback(async () => {
-    if (!subCategoriaSelected)
-      return Alert.alert('Error', 'Selecciona una subcategoría')
+    if (!subCategoriaSelected) return T.error('Selecciona una subcategoría')
     const data: CreateAnuncioParams = {
       ...initialParams,
       subcategory_id: subCategoriaSelected.id,
@@ -50,29 +49,22 @@ export const NewAnuncioFormByCat: FC<
         attributes?.data?.length !== 0) ||
       data.listingAttributes.some((a) => a.value.trim().length === 0)
     ) {
-      Alert.alert('Error', 'Debes llenar todos los campos')
+      T.error('Debes llenar todos los campos')
       return
     }
     if (!subCategoriaSelected) {
-      Alert.alert('Error', 'Selecciona una subcategoría')
+      T.error('Selecciona una subcategoría')
       return
     }
 
     try {
       const { data: res } = await mutateAsync(data)
       if (res) {
-        Alert.alert('Éxito', `Anuncio #${res.id + 1} creado correctamente`, [
-          {
-            text: 'OK',
-            isPreferred: true,
-            onPress: () => {
-              navigation.navigate('NewAnuncioFormMedia', { id: res.id })
-            },
-          },
-        ])
+        T.success('Anuncio creado')
+        navigation.navigate('NewAnuncioFormMedia', { id: res.id })
       }
     } catch (error: any) {
-      Alert.alert('Error', 'Ocurrió un error al crear el anuncio')
+      T.error(error)
       navigation.dispatch(StackActions.popToTop())
     }
   }, [inputs, initialParams, attributes, subCategoriaSelected])

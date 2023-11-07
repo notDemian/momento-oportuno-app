@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { Alert, Keyboard, StyleSheet } from 'react-native'
-import Toast from 'react-native-toast-message'
 
 import {
   Addons,
@@ -29,7 +28,7 @@ import {
 import type { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { setOrderConfirmationId } from '@src/redux'
 import { getShadowBoxProps, useAppTheme } from '@src/theme'
-import { CLOG } from '@src/utils'
+import { CLOG, T } from '@src/utils'
 import {
   CardField,
   CardFieldInput,
@@ -85,24 +84,14 @@ export const Checkout: React.FC<CheckoutProps> = ({
   }, [])
 
   const onPaypalSuccess = useCallback(async () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Pago realizado con éxito',
-      autoHide: true,
-      visibilityTime: 3000,
-    })
+    T.success('Pago realizado con éxito')
     const order = await { id: 1 }
     setShowModal(true)
     dispatch(setOrderConfirmationId(order.id))
   }, [params.id])
 
   const onPaypalError = useCallback(() => {
-    Toast.show({
-      type: 'error',
-      text1: 'Error al realizar el pago',
-      autoHide: true,
-      visibilityTime: 3000,
-    })
+    T.error('Error al realizar el pago')
   }, [])
 
   const handlePayment = useCallback(
@@ -120,28 +109,18 @@ export const Checkout: React.FC<CheckoutProps> = ({
           return
         }
 
-        Toast.show({
-          type: 'info',
-          text1: 'Cargando...',
-          autoHide: true,
-          visibilityTime: 300,
-        })
+        T.info('Cargando...')
 
         const { error, token } = await createToken({
           type: 'Card',
         })
 
         if (error) {
-          Alert.alert(`Error code: ${error.code}`, error.message)
+          T.error(`Error code: ${error.code}`)
           return
         }
 
-        Toast.show({
-          type: 'success',
-          text1: 'Generando orden...',
-          autoHide: true,
-          visibilityTime: 1000,
-        })
+        T.success('Generando orden...', { visibilityTime: 1000 })
 
         const form: CreateOrderParams = {
           billing_address,
@@ -153,33 +132,15 @@ export const Checkout: React.FC<CheckoutProps> = ({
           ...(params.type === 'listing' ? { ...addonsRecord } : {}),
         }
 
-        CLOG({
-          form,
-        })
-
         try {
           const { order } = await mutateAsync(form)
 
-          CLOG({
-            order,
-          })
-
-          Toast.show({
-            type: 'success',
-            text1: `Orden #${order.id} generada`,
-            autoHide: true,
-            visibilityTime: 3000,
-          })
+          T.success(`Orden #${order.id} generada`)
 
           dispatch(setOrderConfirmationId(order.id))
           setShowModal(true)
         } catch (error) {
-          Toast.show({
-            type: 'error',
-            text1: 'Error al generar la orden',
-            autoHide: true,
-            visibilityTime: 1000,
-          })
+          T.error('Error al generar la orden')
         }
       } else if (type === 'paypal') {
         const form: CreateOrderParams = {
@@ -194,23 +155,8 @@ export const Checkout: React.FC<CheckoutProps> = ({
           if (!paypal_link) throw new Error()
           setUrl(paypal_link)
           setVisible(true)
-
-          // Toast.show({
-          //   type: 'success',
-          //   text1: `Orden #${order.id} generada`,
-          //   autoHide: true,
-          //   visibilityTime: 3000,
-          //   onHide() {
-          //     navigation.navigate
-          //   },
-          // })
         } catch (error) {
-          Toast.show({
-            type: 'error',
-            text1: 'Error al generar la orden',
-            autoHide: true,
-            visibilityTime: 1000,
-          })
+          T.error('Error al generar la orden')
         }
       }
     },

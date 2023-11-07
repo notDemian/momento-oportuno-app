@@ -1,6 +1,5 @@
 import { type FC, useCallback } from 'react'
 import { Controller, SubmitHandler } from 'react-hook-form'
-import Toast from 'react-native-toast-message'
 
 import { CreateMicrositeParamsSchema } from '@src/api'
 import { Box, Button, NewRecursoLayout, Text, TextField } from '@src/components'
@@ -8,6 +7,7 @@ import { ButtonModalGenerator } from '@src/components/ModalRadioButton'
 import { useCreateMicrositio, useEstados, useForm } from '@src/hooks'
 import { useUser } from '@src/hooks/useUser'
 import { MicrositiosStackParamList, ScreenProps } from '@src/navigation'
+import { T } from '@src/utils'
 
 type NewMicrositioFormScreenProps = ScreenProps<
   MicrositiosStackParamList,
@@ -43,19 +43,11 @@ export const NewMicrositioFormScreen: FC<NewMicrositioFormScreenProps> = ({
         if (!res) {
           throw new Error('No se pudo crear el micrositio')
         }
-        Toast.show({
-          type: 'success',
-          text1: 'Éxito',
-          text2: `Micrositio #${res.data.id} creado correctamente`,
-        })
+        T.success(`Micrositio #${res.data.id} creado correctamente`)
 
         navigation.navigate('NewMicrositioMedia', { id: res.data.id })
       } catch (error) {
-        Toast.show({
-          type: 'error',
-          text1: 'Error',
-          text2: 'Ocurrió un error al crear el micrositio',
-        })
+        T.error('Ocurrió un error al crear el micrositio')
       }
     },
     [],

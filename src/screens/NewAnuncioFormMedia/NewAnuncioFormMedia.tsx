@@ -1,5 +1,4 @@
 import { type FC, useCallback, useEffect, useMemo, useState } from 'react'
-import Toast from 'react-native-toast-message'
 
 import { AddonsComponent } from './Addons'
 
@@ -16,6 +15,7 @@ import {
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { setAddons as setReduxAddons } from '@src/redux/cart'
 import { fontSize } from '@src/theme'
+import { T } from '@src/utils'
 import * as ImagePicker from 'expo-image-picker'
 
 type NewAnuncioFormMediaScreenProps = ScreenProps<
@@ -43,6 +43,14 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
   const [paquete, setPaquete] = useState<PaqueteMedia>()
   const [printing, setPrinting] = useState<Addons>()
   const dispatch = useAppDispatch()
+
+  const [state, requestPermission] = ImagePicker.useMediaLibraryPermissions()
+
+  useEffect(() => {
+    if (!state || !state.granted) {
+      requestPermission()
+    }
+  }, [state, requestPermission])
 
   const { data: addons } = useAddons()
   const addonsChecks = useMemo(
@@ -101,11 +109,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
               setVideoAsset(result.assets[0])
             }
           } else {
-            return Toast.show({
-              type: 'error',
-              text1: 'Selecciona un paquete de imágenes',
-              visibilityTime: 1000,
-            })
+            return T.error('Selecciona un paquete de imágenes')
           }
         } catch (error) {
           setImages([])
@@ -140,43 +144,22 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
 
   const uploadImage = useCallback(async () => {
     if (!paquete)
-      return Toast.show({
-        type: 'error',
-        text1: 'Selecciona un paquete de imágenes',
-        visibilityTime: 1000,
-      })
-    if (!images)
-      return Toast.show({
-        type: 'error',
-        text1: 'Selecciona al menos una imagen',
-        visibilityTime: 1000,
-      })
+      return T.error('Selecciona un paquete de imágenes para continuar')
+    if (!images) return T.error('Selecciona al menos una imagen para continuar')
 
     const lImages = [...images]
     if (video) {
       if (videoAsset) {
         lImages.push(videoAsset)
       } else {
-        return Toast.show({
-          type: 'error',
-          text1: 'Selecciona un video',
-          visibilityTime: 1000,
-        })
+        return T.error('Selecciona un video para continuar')
       }
     }
     if (lImages.length === 0 || !lImages[0])
-      return Toast.show({
-        type: 'error',
-        text1: 'Selecciona al menos una imagen',
-        visibilityTime: 1000,
-      })
+      return T.error('Selecciona al menos una imagen para continuar')
 
     if (images.length < paquete.quantity)
-      return Toast.show({
-        type: 'error',
-        text1: 'Selecciona todas las imágenes',
-        visibilityTime: 1000,
-      })
+      return T.error('Selecciona todas las imágenes para continuar')
     const paqImg = addons?.data?.find((a) => a.id === paquete.id)
     const addonsData = [...selectedAddons]
     if (paqImg) addonsData.push(paqImg)
@@ -190,10 +173,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
       })
 
       dispatch(setReduxAddons(addonsData))
-      Toast.show({
-        type: 'success',
-        text1: `${media?.length ?? 0} archivos subidos`,
-        text2: 'Redireccionando...',
+      T.success(`${media?.length ?? 0} archivos subidos`, {
         visibilityTime: 1000,
         onHide() {
           navigation.navigate('Packages', { id, type: 'listing' })
@@ -201,17 +181,9 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
       })
     } catch (error) {
       if (error instanceof ImageTooBigError) {
-        return Toast.show({
-          type: 'error',
-          text1: 'Una o más imágenes son muy grandes',
-          visibilityTime: 1000,
-        })
+        return T.error('Una o más imágenes son muy pesadas')
       }
-      Toast.show({
-        type: 'error',
-        text1: 'Error al subir archivos',
-        visibilityTime: 1000,
-      })
+      T.error('Error al subir las imágenes')
     }
   }, [paquete, images, video, videoAsset, id, addons, selectedAddons, printing])
 

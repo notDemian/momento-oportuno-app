@@ -1,8 +1,6 @@
 import { type FC, useCallback } from 'react'
 import { Controller, SubmitHandler } from 'react-hook-form'
-import { Alert } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import Toast from 'react-native-toast-message'
 
 import { CreateDirectorioParamsSchema } from '@src/api'
 import {
@@ -18,6 +16,7 @@ import { useCreateDirectorio, useEstados, useForm } from '@src/hooks'
 import { useUser } from '@src/hooks/useUser'
 import { DirectorioStackParamList, ScreenProps } from '@src/navigation'
 import { fontSize } from '@src/theme'
+import { T } from '@src/utils'
 
 type NewDirectorioFormScreenProps = ScreenProps<
   DirectorioStackParamList,
@@ -50,20 +49,12 @@ export const NewDirectorioFormScreen: FC<NewDirectorioFormScreenProps> = ({
       try {
         const res = await mutateAsync({ ...noTyC, user_id: id })
         if (!res) {
-          return Toast.show({
-            type: 'error',
-            text1: 'Error',
-            text2: 'Ocurrió un error al crear el directorio',
-          })
+          return T.error('Ocurrio un error al crear el directorio')
         }
-        Toast.show({
-          type: 'success',
-          text1: 'Éxito',
-          text2: `Directorio #${res.data.id} creado correctamente`,
-        })
+        T.success(`Directorio #${res.data.id} creado correctamente`)
         navigation.navigate('NewDirectorioMedia', { id: res.data.id })
       } catch (error) {
-        Alert.alert('Error', 'Ocurrio un error al crear el directorio')
+        T.error('Ocurrio un error al crear el directorio')
       }
     },
     [],

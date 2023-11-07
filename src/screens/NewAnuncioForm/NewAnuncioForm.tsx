@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react'
-import Toast from 'react-native-toast-message'
 import { useDispatch } from 'react-redux'
 
 import { GeneralCreateAnuncioParams } from '@src/api'
@@ -13,6 +12,7 @@ import { useUser } from '@src/hooks/useUser'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { setInitialParams } from '@src/redux'
 import { fontSize } from '@src/theme'
+import { T } from '@src/utils'
 import { wait } from '@src/utils/wait'
 
 export const NewAnuncioForm: React.FC<
@@ -54,11 +54,7 @@ export const NewAnuncioForm: React.FC<
       params.title === '' ||
       params.state_id === 0
     )
-      return Toast.show({
-        type: 'error',
-        text1: 'Error',
-        text2: 'Debes llenar todos los campos',
-      })
+      return T.error('Debes llenar todos los campos')
 
     setShowCategoriaModal(true)
   }, [params])
