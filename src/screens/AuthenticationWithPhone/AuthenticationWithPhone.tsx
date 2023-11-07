@@ -1,5 +1,4 @@
 import React from 'react'
-import { Alert } from 'react-native'
 
 import { AuthenticationWithPhoneProps } from './AuthenticationWithPhone.type'
 
@@ -12,6 +11,7 @@ import {
   TextField,
 } from '@src/components'
 import { fontSize } from '@src/theme'
+import { T } from '@src/utils'
 import { wait } from '@src/utils/wait'
 
 export const AuthenticationWithPhone: React.FC<
@@ -30,7 +30,7 @@ export const AuthenticationWithPhone: React.FC<
 
   const onNextButtonPress = () => {
     if (!phoneNumber) {
-      Alert.alert('Error', '¡Debes introducir un número telefónico!')
+      T.error('¡Debes introducir un número telefónico!')
       return
     }
     setIsModalOpened(true)

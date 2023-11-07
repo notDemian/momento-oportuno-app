@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Alert } from 'react-native'
 
 import { AuthenticationLayout, Box, Button, TextField } from '@src/components'
 import { useLogIn } from '@src/hooks'
 import { AuthStackParamList, ScreenProps } from '@src/navigation/types'
+import { T } from '@src/utils'
 
 export const Login: React.FC<ScreenProps<AuthStackParamList, 'Login'>> = ({
   navigation,
@@ -11,7 +11,9 @@ export const Login: React.FC<ScreenProps<AuthStackParamList, 'Login'>> = ({
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   const [mutateLogIn, { isLoading }] = useLogIn((d) => {
-    Alert.alert('Inicio de sesión exitoso', `Bienvenido ${d.name}`)
+    T.success('Inicio de sesión exitoso', {
+      text2: `Bienvenido ${d.name}`,
+    })
   })
 
   const onPasswordFieldChange = (value: string) => {
@@ -24,7 +26,7 @@ export const Login: React.FC<ScreenProps<AuthStackParamList, 'Login'>> = ({
 
   const onSignIn = async () => {
     if (!password || !email) {
-      Alert.alert('Error', 'Please enter your password!')
+      T.error('¡Debes introducir un email y una contraseña!')
       return
     }
     mutateLogIn({

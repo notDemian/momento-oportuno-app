@@ -1,4 +1,3 @@
-import { Alert } from 'react-native'
 import { useQuery } from 'react-query'
 
 import { PaquetesQuerys } from './paquetes.keys'
@@ -13,7 +12,6 @@ const usePaquetes = (params?: GetPackagesParams) => {
     onError: (error: AxiosError) => {
       const data = error.response?.data as { message: string } | undefined
       const message = data?.message ? data.message : 'Error'
-      Alert.alert('Error', message)
     },
   })
 }

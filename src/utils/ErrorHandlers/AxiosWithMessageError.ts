@@ -1,4 +1,5 @@
-import { Alert, Platform, ToastAndroid } from 'react-native'
+import { Platform, ToastAndroid } from 'react-native'
+import { T } from '../T'
 
 import { QueryErrors } from '@src/api/request.type'
 import { isAxiosError } from 'axios'
@@ -21,7 +22,7 @@ export function handleAxiosErrWithMessageGoBack(
         : error.response.data.message
     if (Platform.OS === 'android')
       ToastAndroid.showWithGravity(msg, ToastAndroid.SHORT, ToastAndroid.CENTER)
-    else Alert.alert(msg, '', [{ text: 'OK' }])
+    else T.error(msg)
     fn()
   }
 }

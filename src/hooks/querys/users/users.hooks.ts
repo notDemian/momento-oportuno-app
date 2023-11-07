@@ -1,4 +1,3 @@
-import { Alert } from 'react-native'
 import { UseMutateFunction, useMutation, useQuery } from 'react-query'
 
 import { UsersQuerys } from './users.keys'
@@ -14,6 +13,7 @@ import type {
 import { useAppDispatch } from '@src/hooks/useAppRedux'
 import { useAuthStackNavigation } from '@src/hooks/useStackNavigation'
 import { setUser } from '@src/redux'
+import { T } from '@src/utils'
 import { AxiosError } from 'axios'
 
 type callbackFn = (data: registerRes) => void
@@ -37,17 +37,38 @@ function useRegister(callbackFnOn?: callbackFn): IUseRegister {
     (params) => UsuariosServices.register(params),
     {
       onSuccess: (data) => {
-        Alert.alert(
-          'Registro exitoso',
-          `${data.user.name}\nPor favor, inicia sesión`,
-        )
+        T.success('Registro exitoso', {
+          text2: `${data.user.name}\nPor favor, inicia sesión`,
+        })
+
         nav.navigate('Login')
         callbackFnOn?.(data)
       },
       onError: (_error) => {
         if (!(_error instanceof AxiosError)) return
 
-        Alert.alert('Error', 'Error al registrar el usuario')
+        const { response } = _error
+        if (response?.status === 409) {
+          T.error('Error', {
+            text2: 'El correo ya está registrado',
+          })
+        }
+
+        if (response?.status === 400) {
+          T.error('Error', {
+            text2: 'Error en los datos',
+          })
+        }
+
+        if (response?.status === 500) {
+          T.error('Error', {
+            text2: 'Error en el servidor',
+          })
+        }
+
+        T.error('Error', {
+          text2: 'Error en el servidor',
+        })
       },
     },
   )
@@ -81,7 +102,30 @@ function useLogIn(_callbackOnSuccess?: (user: User) => void): IUseLogIn {
         _callbackOnSuccess?.(data.user)
       },
       onError: (_error) => {
-        Alert.alert('Error', 'Usuario o contraseña incorrectos')
+        if (!(_error instanceof AxiosError)) return
+
+        const { response } = _error
+        if (response?.status === 404) {
+          T.error('Error', {
+            text2: 'Usuario no encontrado',
+          })
+        }
+
+        if (response?.status === 400) {
+          T.error('Error', {
+            text2: 'Error en los datos',
+          })
+        }
+
+        if (response?.status === 500) {
+          T.error('Error', {
+            text2: 'Error en el servidor',
+          })
+        }
+
+        T.error('Error', {
+          text2: 'Error en el servidor',
+        })
       },
     },
   )

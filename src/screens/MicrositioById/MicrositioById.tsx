@@ -1,4 +1,4 @@
-import { Alert, Dimensions } from 'react-native'
+import { Dimensions } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { ListingsByMicrosite } from './ListingsByMicrosite'
@@ -17,7 +17,7 @@ import {
 import { useMicrositio } from '@src/hooks'
 import { MicrositiosStackParamList, ScreenProps } from '@src/navigation'
 import { fontSize } from '@src/theme'
-import { callPhone, getImageUrl, redirectToWhatsapp } from '@src/utils'
+import { callPhone, getImageUrl, redirectToWhatsapp, T } from '@src/utils'
 import { toRelative } from '@src/utils/dates'
 
 type MicrositioByIdProps = ScreenProps<
@@ -48,12 +48,10 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
   const handleMessage = () => {
     // TODO: IMPLEMENT sendMessage
     // navigation.navigate('Chat', { id: 1 })
-    Alert.alert('Mensaje enviado', 'Su mensaje ha sido enviado con éxito', [
-      {
-        text: 'Aceptar',
-        onPress: () => navigation.goBack(),
-      },
-    ])
+    T.success('Mensaje enviado', {
+      text2: 'Su mensaje ha sido enviado con éxito',
+      onHide: () => navigation.goBack(),
+    })
   }
 
   if (isLoading || !isSuccess || !data) return <LoadingPageModal loading />

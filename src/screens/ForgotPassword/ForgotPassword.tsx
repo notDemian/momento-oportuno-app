@@ -1,11 +1,11 @@
 import React from 'react'
-import { Alert } from 'react-native'
 
 import { EmailSentModal } from './EmailSentModal'
 import { ForgotPasswordProps } from './ForgotPassword.type'
 
 import { AuthenticationLayout } from '@src/components'
-import { Button,TextField } from '@src/components/elements'
+import { Button, TextField } from '@src/components/elements'
+import { T } from '@src/utils'
 
 export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
   navigation,
@@ -20,7 +20,7 @@ export const ForgotPassword: React.FC<ForgotPasswordProps> = ({
 
   const onConfirmButtonPress = () => {
     if (!email) {
-      Alert.alert('Error', 'Please enter your email!')
+      T.error('¡Debes introducir un email!')
       return
     }
     setSentEmailModalVisible(true)

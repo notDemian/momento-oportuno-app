@@ -1,5 +1,4 @@
 import React from 'react'
-import { Alert } from 'react-native'
 import {
   CodeField,
   Cursor,
@@ -11,6 +10,7 @@ import { AuthenticationCodeVerificationProps } from './AuthenticationCodeVerific
 
 import { AuthenticationLayout, Box, Button, Text } from '@src/components'
 import { fontSize } from '@src/theme'
+import { T } from '@src/utils'
 
 const CELL_COUNT = 5
 const CODE_FIELD_SIZE = 60
@@ -27,7 +27,7 @@ export const AuthenticationCodeVerification: React.FC<
 
   const onNextButtonPress = () => {
     if (value.length !== 5) {
-      Alert.alert('Error', 'Código de verificación no válido')
+      T.error('El código de verificación debe tener 5 dígitos')
       return
     }
     navigation.replace('Login')

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react'
-import { Alert, Keyboard, StyleSheet } from 'react-native'
+import { Keyboard, StyleSheet } from 'react-native'
 
 import {
   Addons,
@@ -95,12 +95,12 @@ export const Checkout: React.FC<CheckoutProps> = ({
       const addonsRecord = getAddonRecord(jointAddons)
 
       if (!billing_address || billing_address.trim().length === 0) {
-        Alert.alert('Error', 'Debes llenar todos los campos')
+        T.error('Debes llenar todos los campos')
         return
       }
       if (type === 'stripe') {
         if (!validForm) {
-          Alert.alert('Error', 'Debes llenar todos los campos')
+          T.error('Debes llenar todos los campos')
           return
         }
 

@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react'
-import { Alert } from 'react-native'
 
 import { AuthenticationLayout, Box, Button, TextField } from '@src/components'
 import { useRegister } from '@src/hooks'
 import { AuthStackParamList, ScreenProps } from '@src/navigation/types'
+import { T } from '@src/utils'
 
 export const Register: React.FC<
   ScreenProps<AuthStackParamList, 'Register'>
@@ -30,11 +30,11 @@ export const Register: React.FC<
 
   const onSignIn = useCallback(async () => {
     if (params.password !== params.password_confirmation) {
-      Alert.alert('Las contraseñas no coinciden')
+      T.error('Las contraseñas no coinciden')
       return
     }
     if (params.password.length < 8) {
-      Alert.alert('La contraseña debe tener al menos 8 caracteres')
+      T.error('La contraseña debe tener al menos 8 caracteres')
       return
     }
     mutateLogIn(params)

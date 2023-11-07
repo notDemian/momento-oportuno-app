@@ -1,12 +1,8 @@
 import React, { FC, useCallback } from 'react'
-import { Alert } from 'react-native'
 
-import {
-  Button,
-  Section,
-  TextField,
-} from '@src/components'
+import { Button, Section, TextField } from '@src/components'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
+import { T } from '@src/utils'
 
 type PromotionProps = ScreenProps<AccountStackParamList, 'Promotion'>
 
@@ -15,7 +11,9 @@ export const Promotion: FC<PromotionProps> = ({ navigation: { goBack } }) => {
 
   const onApplyCode = useCallback(() => {
     if (code.length === 0) return
-    Alert.alert('Cupón aplicado', `Cupón ${code} aplicado con éxito`)
+    T.success('Cupón aplicado', {
+      text2: `Cupón ${code} aplicado con éxito`,
+    })
     goBack()
   }, [code])
 
