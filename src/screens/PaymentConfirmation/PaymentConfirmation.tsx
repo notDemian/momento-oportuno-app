@@ -1,7 +1,8 @@
-import { type FC, useCallback, useMemo } from 'react'
+import { type FC, useCallback, useEffect, useMemo } from 'react'
 import { Dimensions, ScrollView } from 'react-native'
 import { Constants } from '../../utils/constants'
 
+import { StackActions } from '@react-navigation/native'
 import { Addons, isAd, isDirectorio, isMicrosite } from '@src/api'
 import {
   Box,
@@ -78,6 +79,20 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
     return tmpArray
   }, [data?.data.items, addons])
 
+  useEffect(() => {
+    const listener = navigation.addListener('beforeRemove', (e) => {
+      e.preventDefault()
+      const action = StackActions.popToTop()
+      if (e.data.action.type === action.type) {
+        navigation.dispatch(e.data.action)
+        return
+      }
+      navigation.dispatch(action)
+    })
+
+    return listener
+  }, [])
+
   const renderExtraContentResource = useCallback(() => {
     let Content: React.ReactNode = null
 
@@ -91,6 +106,7 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
           <>
             <Box
               flex={1}
+              flexWrap={'wrap'}
               flexDirection={'row'}
               justifyContent={'space-between'}
             >
@@ -99,6 +115,7 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
             </Box>
             <Box
               flex={1}
+              flexWrap={'wrap'}
               flexDirection={'row'}
               justifyContent={'space-between'}
             >
@@ -107,6 +124,7 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
             </Box>
             <Box
               flex={1}
+              flexWrap={'wrap'}
               flexDirection={'row'}
               justifyContent={'space-between'}
             >
@@ -138,47 +156,77 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
       case isDirectorio(d):
         Content = (
           <>
-            <Box flex={1}>
-              <Text>Duración de tu anuncio</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.userPackage?.expire} días
-              </Text>
+            <Box
+              flex={1}
+              flexWrap={'wrap'}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Fecha de creación</Text>
+              <Text marginLeft={'m'}>{d.created_at.toLocaleDateString()}</Text>
             </Box>
-            <Box flex={1}>
-              <Text>Dirección</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.address}
-              </Text>
+            <Box
+              flex={1}
+              flexWrap={'wrap'}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Duración de tu directorio</Text>
+              <Text marginLeft={'m'}>{d.userPackage?.expire} días</Text>
             </Box>
-            <Box flex={1}>
-              <Text>Horario</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.hours}
-              </Text>
+            <Box
+              flex={1}
+              flexWrap={'wrap'}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Dirección</Text>
+              <Text marginLeft={'m'}>{d.address}</Text>
             </Box>
-            <Box flex={1}>
-              <Text>Tipo</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.type}
-              </Text>
+            <Box
+              flex={1}
+              flexWrap={'wrap'}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Horario</Text>
+              <Text marginLeft={'m'}>{d.hours}</Text>
             </Box>
-            <Box flex={1}>
-              <Text>Contacto</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.email}
-              </Text>
+            <Box
+              flex={1}
+              flexWrap={'wrap'}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Tipo</Text>
+              <Text marginLeft={'m'}>{d.type}</Text>
             </Box>
-            <Box flex={1}>
-              <Text>Teléfono</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.phone}
-              </Text>
+            <Box
+              flex={1}
+              flexWrap={'wrap'}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Contacto</Text>
+              <Text marginLeft={'m'}>{d.email}</Text>
             </Box>
-            <Box flex={1}>
-              <Text>Fecha de creación</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.created_at.toLocaleDateString()}
-              </Text>
+            <Box
+              flex={1}
+              flexWrap={'wrap'}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Teléfono</Text>
+              <Text marginLeft={'m'}>{d.phone}</Text>
+            </Box>
+            <Box
+              flex={1}
+              flexWrap={'wrap'}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Fecha de creación</Text>
+              <Text marginLeft={'m'}>{d.created_at.toLocaleDateString()}</Text>
             </Box>
           </>
         )
@@ -186,43 +234,61 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
       case isMicrosite(d):
         Content = (
           <>
-            <Box flex={1}>
-              <Text>Duración de tu Micrositio</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.user_package?.expire} días
-              </Text>
+            <Box
+              flex={1}
+              flexWrap={'wrap'}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Duración de tu Micrositio</Text>
+              <Text marginLeft={'m'}>{d.user_package?.expire} días</Text>
             </Box>
             {d.description?.trim().length !== 0 ?? (
-              <Box flex={1}>
-                <Text>Descripción</Text>
-                <Text variant='body' marginLeft={'m'}>
-                  {d.description}
-                </Text>
+              <Box
+                flex={1}
+                flexWrap={'wrap'}
+                flexDirection={'row'}
+                justifyContent={'space-between'}
+              >
+                <Text variant={'body'}>• Descripción</Text>
+                <Text marginLeft={'m'}>{d.description}</Text>
               </Box>
             )}
-            <Box flex={1}>
-              <Text>Dirección</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.address}
-              </Text>
+            <Box
+              flex={1}
+              flexWrap={'wrap'}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Dirección</Text>
+              <Text marginLeft={'m'}>{d.address}</Text>
             </Box>
-            <Box flex={1}>
-              <Text>Correo de contacto</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.email}
-              </Text>
+            <Box
+              flex={1}
+              flexWrap={'wrap'}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Correo de contacto</Text>
+              <Text marginLeft={'m'}>{d.email}</Text>
             </Box>
-            <Box flex={1}>
-              <Text>Teléfono de contacto</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.phone}
-              </Text>
+            <Box
+              flex={1}
+              flexWrap={'wrap'}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Teléfono de contacto</Text>
+              <Text marginLeft={'m'}>{d.phone}</Text>
             </Box>
-            <Box flex={1}>
-              <Text>Fecha de creación</Text>
-              <Text variant='body' marginLeft={'m'}>
-                {d.created_at.toLocaleDateString()}
-              </Text>
+            <Box
+              flex={1}
+              flexWrap={'wrap'}
+              flexDirection={'row'}
+              justifyContent={'space-between'}
+            >
+              <Text variant={'body'}>• Fecha de creación</Text>
+              <Text marginLeft={'m'}>{d.created_at.toLocaleDateString()}</Text>
             </Box>
           </>
         )
