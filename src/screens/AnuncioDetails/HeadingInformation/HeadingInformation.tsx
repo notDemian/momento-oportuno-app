@@ -23,9 +23,7 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
     attributes.find((a) => a.id === Constants.IDS.price)?.value.toString() ??
     attributes.find((a) => a.id === Constants.IDS.salary)?.value.toString()
 
-  const priceDisplay = priceOrSalary
-    ? formatCurrency(priceOrSalary)
-    : `$ ${priceOrSalary} MXN`
+  const priceDisplay = priceOrSalary ? formatCurrency(priceOrSalary) : '$  MXN'
 
   return (
     <Box backgroundColor='card' padding='m'>
