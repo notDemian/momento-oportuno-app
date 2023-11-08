@@ -12,7 +12,7 @@ import { useUser } from '@src/hooks/useUser'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { setInitialParams } from '@src/redux'
 import { fontSize } from '@src/theme'
-import { T } from '@src/utils'
+import { Constants, T } from '@src/utils'
 import { wait } from '@src/utils/wait'
 
 const DESC_LENGTH = 300 as const
@@ -102,7 +102,10 @@ export const NewAnuncioForm: React.FC<
               const { children: _, ...rest } = catFound
 
               setShowCategoriaModal(false)
-              await wait(600)
+              await wait(300)
+              if (params.category_id == Constants.IDS.variousCategory) {
+                navigation.navigate('NewAnuncioFormByCat', rest)
+              }
               navigation.navigate('NewAnuncioFormByCat', rest)
             }
           }}
@@ -119,7 +122,8 @@ export const NewAnuncioForm: React.FC<
         <Box height={fontSize.xxxl * 5}>
           <TextField
             inputProps={{
-              placeholder: 'Descripción',
+              placeholder:
+                'Descripción. Recuerda que la descripción es el éxito\nde tu anuncio.',
               multiline: true,
               numberOfLines: 5,
               placeholderTextColor: 'rgba(0,0,0,0.5)',

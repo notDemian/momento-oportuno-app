@@ -41,6 +41,7 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
             initial: false,
           })
         }}
+        backgroundColor={'white'}
       >
         <RecommendedCardInfo data={props.item} />
       </Card>
@@ -63,7 +64,11 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
 
   return (
     <Section
-      title={`Recomendados ${state.name}`}
+      title={
+        <Text>
+          Recomendados <Text color={'orangy'}>{state.name}</Text>
+        </Text>
+      }
       actionButtonText='Ver más'
       onButtonActionPress={onButtonActionPress}
     >

@@ -5,15 +5,15 @@ import {
   ActivityIndicator,
   Box,
   Button,
+  Icon,
   SvgHeartFavorite,
-  SvgShare,
   SvgWarning,
   Text,
   Touchable,
 } from '@src/components'
 import { useAddFavorite, useMyFavorites, useRemoveFavorite } from '@src/hooks'
 import { getShadowBoxProps, palette } from '@src/theme'
-import { getShareUrl, redirectToEmail } from '@src/utils'
+import { CLOG, getShareUrl, redirectToEmail } from '@src/utils'
 
 type BottomButtonsProps = {
   slug: string | null | undefined
@@ -41,7 +41,7 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
             title: 'Compartir',
           })
         } catch (error) {
-          console.log(error)
+          CLOG.error(error)
         }
       },
       favorite: async () => {
@@ -92,11 +92,8 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
           )}
         </Button>
         <Button variant='outline' onPress={funcs.share} borderRadius={'xxxl'}>
-          <SvgShare />
+          <Icon name='share' type='Entypo' />
         </Button>
-        {/* <Button variant='outline' onPress={funcs.print} borderRadius={'xxxl'}>
-          <SvgPrint />
-        </Button> */}
       </Box>
       <Touchable
         variant={'transparent'}

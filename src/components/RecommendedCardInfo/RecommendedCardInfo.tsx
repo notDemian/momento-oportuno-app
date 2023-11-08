@@ -38,10 +38,17 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
       minHeight={1000}
       height={'auto'}
     >
-      <Text color='primary' marginLeft='xs' fontSize={fontSize.m}>
-        {category.name}
-      </Text>
-
+      <Box
+        backgroundColor={'secondary'}
+        p={'xs'}
+        borderRadius={'m'}
+        justifyContent={'center'}
+        alignItems={'center'}
+      >
+        <Text color='white' marginLeft='xs' fontSize={fontSize.m}>
+          {category.name}
+        </Text>
+      </Box>
       {/* {attributes.slice(0, 2).map((attribute) => {
         const { name, value, id } = attribute
 

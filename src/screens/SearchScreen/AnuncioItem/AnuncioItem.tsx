@@ -12,9 +12,9 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
   if (!('isFav' in props)) {
     const { attributes, category, state } = props.data
 
-    const price = attributes
-      .find((a) => a.id === Constants.IDS.price)
-      ?.value.toString()
+    const price =
+      attributes.find((a) => a.id === Constants.IDS.price)?.value.toString() ??
+      attributes.find((a) => a.id === Constants.IDS.salary)?.value.toString()
 
     extraData = (
       <>

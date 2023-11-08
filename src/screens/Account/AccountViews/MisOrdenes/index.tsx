@@ -15,7 +15,7 @@ import {
 import { SvgEmptyBox } from '@src/components/svgs'
 import { useAccountStackNavigation, useGetMyOrders } from '@src/hooks'
 import { getShadowBoxProps } from '@src/theme'
-import { formatCurrency } from '@src/utils'
+import { formatCurrency, translateDEPRECATED } from '@src/utils'
 import { formatSpanish } from '@src/utils/dates'
 import dayjs from 'dayjs'
 import es from 'dayjs/locale/es'
@@ -58,9 +58,9 @@ const MisOrdenes = () => {
           backgroundColor={'transparent'}
           paddingHorizontal={'s'}
         >
-          <Text fontWeight={'bold'}>
-            {item.title}{' '}
-            <Text color={'orangy'} fontWeight={'normal'}>
+          <Text fontWeight={'bold'} color={'orangy'}>
+            {translateDEPRECATED(item.title)}{' '}
+            <Text color={'secondary'} fontWeight={'normal'}>
               #{`${item.id + 1}`}
             </Text>
           </Text>

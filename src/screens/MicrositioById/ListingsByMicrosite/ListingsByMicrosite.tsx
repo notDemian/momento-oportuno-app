@@ -1,21 +1,21 @@
-import React, { useCallback } from 'react'
-import { Dimensions } from 'react-native'
-import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types'
+import React, { useCallback, useMemo } from 'react'
+import { ListRenderItem } from 'react-native'
 
-import { Ad } from '@src/api'
 import { MicrositeWithListings } from '@src/api/Micrositios/Micrositios.module'
 import { ContentLoader } from '@src/components'
-import { Box, Card, Carousel, Section } from '@src/components/elements'
+import { Box, Card, List, Text } from '@src/components/elements'
 import { RecommendedCardInfo } from '@src/components/RecommendedCardInfo'
 import { useAnuncioByid, useMicrositiosStackNavigation } from '@src/hooks'
+import { useAppTheme } from '@src/theme'
 import { getImageUrl } from '@src/utils'
 
 type ListingsByMicrositeProps = {
   user: MicrositeWithListings['user']
+  name: string
 }
 
-const Render = ({ item: { id } }: CarouselRenderItemInfo<Ad>) => {
-  const { data: ad, error, isLoading: adLoading } = useAnuncioByid(id)
+const Render: ListRenderItem<{ id: number }> = ({ item: { id } }) => {
+  const { data: ad, error, isLoading: adLoading } = useAnuncioByid(id, true)
   const nav = useMicrositiosStackNavigation()
 
   if (adLoading) return <ContentLoader />
@@ -34,6 +34,7 @@ const Render = ({ item: { id } }: CarouselRenderItemInfo<Ad>) => {
       titleProps={{
         numberOfLines: 1,
       }}
+      backgroundColor={'white'}
       onPress={() => {
         nav.jumpTo('SearchTab', {
           screen: 'AnuncioDetailsModal',
@@ -49,20 +50,54 @@ const Render = ({ item: { id } }: CarouselRenderItemInfo<Ad>) => {
 
 export const ListingsByMicrosite: React.FC<ListingsByMicrositeProps> = ({
   user,
+  name,
 }) => {
-  const renderItem = useCallback((props: CarouselRenderItemInfo<Ad>) => {
-    return <Render {...props} />
+  const renderItem = useCallback<ListRenderItem<{ id: number }>>((props) => {
+    return (
+      <Box width={300} height={250}>
+        <Render {...props} />
+      </Box>
+    )
   }, [])
 
-  return user.listings && user.listings.length > 0 ? (
-    <Section title={`Anuncios del usuario ${user.name}`}>
-      <Carousel
-        numItemsPerSlide={1.4}
-        data={user.listings}
-        width={Dimensions.get('window').width}
-        renderItem={renderItem}
-        height={250}
-      />
-    </Section>
+  const ListEmptyComponent = useCallback(() => {
+    return (
+      <Box
+        flex={1}
+        justifyContent='center'
+        alignItems='center'
+        backgroundColor={'background'}
+      >
+        <Text variant='header' textAlign={'center'} m={'l'}>
+          No hay anuncios
+        </Text>
+      </Box>
+    )
+  }, [])
+
+  const theme = useAppTheme()
+
+  const filtered = useMemo(() => {
+    if (!user.listings) return []
+
+    return user.listings.filter((item) => {
+      return item.status === 'published'
+    })
+  }, [user.listings])
+
+  return filtered.length > 0 ? (
+    <List<{ id: number }>
+      renderItem={renderItem}
+      data={filtered}
+      ListEmptyComponent={ListEmptyComponent}
+      contentContainerStyle={{
+        alignItems: 'center',
+        backgroundColor: theme.colors.background,
+      }}
+      scrollEnabled={false}
+      nestedScrollEnabled={false}
+      showsVerticalScrollIndicator={false}
+      ItemSeparatorComponent={() => null}
+    />
   ) : null
 }

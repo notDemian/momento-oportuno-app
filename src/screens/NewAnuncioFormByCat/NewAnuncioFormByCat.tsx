@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FC } from 'react'
 
 import { ExtraContent } from './ExtraContent'
@@ -14,7 +14,7 @@ import {
   useCreateAnuncio,
 } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
-import { T } from '@src/utils'
+import { Constants, T } from '@src/utils'
 import { AxiosError } from 'axios'
 
 export const NewAnuncioFormByCat: FC<
@@ -36,44 +36,54 @@ export const NewAnuncioFormByCat: FC<
   const initialParams = useAppSelector((s) => s.cart.createAnuncioParams)
   const { mutateAsync, isLoading } = useCreateAnuncio()
 
-  const onContinue = useCallback(async () => {
-    if (!subCategoriaSelected) return T.error('Selecciona una subcategoría')
-    const data: CreateAnuncioParams = {
-      ...initialParams,
-      subcategory_id: subCategoriaSelected.id,
-      listingAttributes: inputs,
-    }
-
-    //validate
-    if (
-      (data.listingAttributes.length !== attributes?.data?.length &&
-        attributes?.data?.length !== 0) ||
-      data.listingAttributes.some((a) => a.value.trim().length === 0)
-    ) {
-      T.error('Debes llenar todos los campos')
-      return
-    }
-    if (!subCategoriaSelected) {
-      T.error('Selecciona una subcategoría')
-      return
-    }
-
-    try {
-      const { data: res } = await mutateAsync(data)
-      if (res) {
-        T.success('Anuncio creado')
-        navigation.navigate('NewAnuncioFormMedia', { id: res.id })
-      }
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        const msg = error?.response?.data?.message ?? 'Error al crear anuncio'
-        T.error(msg)
+  const onContinue = useCallback(
+    async (ignore = false) => {
+      if (subcategories.length !== 0 && !subCategoriaSelected) {
+        T.error('Selecciona una subcategoría')
         return
       }
-      T.error('Error al crear anuncio')
-      navigation.dispatch(StackActions.popToTop())
+      const data: CreateAnuncioParams = {
+        ...initialParams,
+        subcategory_id: subCategoriaSelected?.id ?? 0,
+        listingAttributes: inputs,
+      }
+
+      //validate
+      if (
+        (!ignore &&
+          data.listingAttributes.length !== attributes?.data?.length &&
+          attributes?.data?.length !== 0) ||
+        data.listingAttributes.some((a) => a.value.trim().length === 0)
+      ) {
+        T.error('Debes llenar todos los campos')
+        return
+      }
+      console.log({ subcategories })
+
+      try {
+        const { data: res } = await mutateAsync(data)
+        if (res) {
+          T.success('Anuncio creado')
+          navigation.navigate('NewAnuncioFormMedia', { id: res.id })
+        }
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          const msg = error?.response?.data?.message ?? 'Error al crear anuncio'
+          T.error(msg)
+          return
+        }
+        T.error('Error al crear anuncio')
+        navigation.dispatch(StackActions.popToTop())
+      }
+    },
+    [inputs, initialParams, attributes, subCategoriaSelected, subcategories],
+  )
+
+  useEffect(() => {
+    if (params.id === Constants.IDS.variousCategory) {
+      onContinue(true)
     }
-  }, [inputs, initialParams, attributes, subCategoriaSelected])
+  }, [params.id])
 
   return (
     <NewRecursoLayout
@@ -83,7 +93,7 @@ export const NewAnuncioFormByCat: FC<
           label='Continuar'
           isFullWidth
           isDisabled={loadingSubCat || isLoading}
-          onPress={onContinue}
+          onPress={() => onContinue()}
         />
       }
     >
