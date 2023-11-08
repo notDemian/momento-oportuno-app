@@ -1,0 +1,28 @@
+meta {
+  name: login
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}wp-json/jwt-auth/v1/token
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "lesliebside@gmail.com",
+    // "username": "leslie.viri@gmail.com",
+    "password": 123456
+  }
+}
+
+script:post-response {
+  bru.setVar("token", null);
+  let data = res.getBody();
+  let token = data?.token;
+  if(!token) return;
+  bru.setVar("token", token);
+  
+}
