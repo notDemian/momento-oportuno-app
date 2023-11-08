@@ -28,7 +28,7 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
       <Image source={Images.main_logo} height={'5%'} contentFit='scale-down' />
       <SearchHeader />
       {/**FIXME: */}
-      <Text>CAMBIO PROBANDO WORKFLOW, NO VOY A HACER NADA, CAMBIO 2</Text>
+      <Text>CAMBIO PROBANDO WORKFLOW, NO VOY A HACER NADA, CAMBIO 2. A</Text>
       <PopularCategories />
       <PopularPlaces estados={data?.data} />
       <Image source={Images.opcionesPasos} height={200} />
