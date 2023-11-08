@@ -6,17 +6,15 @@ import { ListingsByMicrosite } from './ListingsByMicrosite'
 import { Images } from '@src/assets/index'
 import {
   Box,
-  Button,
   Icon,
   Image,
   LoadingPageModal,
   Text,
-  TextField,
   Touchable,
 } from '@src/components'
 import { useMicrositio } from '@src/hooks'
 import { MicrositiosStackParamList, ScreenProps } from '@src/navigation'
-import { fontSize } from '@src/theme'
+import { fontSize, getShadowBoxProps } from '@src/theme'
 import { callPhone, getImageUrl, redirectToWhatsapp, T } from '@src/utils'
 import { toRelative } from '@src/utils/dates'
 
@@ -107,6 +105,7 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
         <Box flexDirection={'row'} g={'s'} p={'xl'}>
           <Touchable onPress={handlePhone}>
             <Box
+              {...getShadowBoxProps()}
               borderColor={'creamy'}
               borderWidth={1}
               width={'75%'}
@@ -115,6 +114,7 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
               justifyContent={'space-evenly'}
               alignItems={'center'}
               p={'s'}
+              backgroundColor={'white'}
             >
               <Box
                 borderRadius={'xxxl'}
@@ -129,11 +129,13 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
           </Touchable>
           <Touchable onPress={handleWA}>
             <Box
+              {...getShadowBoxProps()}
               borderColor={'creamy'}
               borderWidth={1}
               width={'25%'}
               borderRadius={'m'}
               justifyContent={'center'}
+              backgroundColor={'white'}
               alignItems={'center'}
               p={'s'}
             >
@@ -148,8 +150,10 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
             </Box>
           </Touchable>
         </Box>
-        <ListingsByMicrosite user={data.user} />
-        <Box
+        <Box flex={1} width={'100%'} p={'m'}>
+          <ListingsByMicrosite user={data.user} name={data.title} />
+        </Box>
+        {/* <Box
           backgroundColor={'creamy'}
           flex={1}
           width={'100%'}
@@ -174,7 +178,7 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
             height={'100%'}
           />
           <Button label='Enviar mensaje' onPress={handleMessage} />
-        </Box>
+        </Box> */}
       </Box>
     </KeyboardAwareScrollView>
   )

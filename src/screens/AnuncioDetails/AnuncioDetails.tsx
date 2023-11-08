@@ -140,7 +140,11 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
               </Animated.View>
               <HeadingInformation data={data.data} />
               {data.data.description && (
-                <Box paddingHorizontal={'m'} backgroundColor={'card'}>
+                <Box
+                  paddingHorizontal={'m'}
+                  paddingBottom={'m'}
+                  backgroundColor={'white'}
+                >
                   <Text variant={'subHeader'}>Descripción</Text>
                   <RenderHtml
                     contentWidth={width}

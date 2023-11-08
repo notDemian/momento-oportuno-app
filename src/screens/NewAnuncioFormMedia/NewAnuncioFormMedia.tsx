@@ -1,13 +1,13 @@
 import { type FC, useCallback, useEffect, useMemo, useState } from 'react'
+import { Alert } from 'react-native'
 
 import { AddonsComponent } from './Addons'
 
-import { Addons, ImageTooBigError } from '@src/api'
+import { Addons, ImageTooBigError, validateSize } from '@src/api'
 import { Box, Button, Image, NewRecursoLayout, Text } from '@src/components'
 import { ButtonModalGenerator } from '@src/components/ModalRadioButton'
 import {
   useAddons,
-  useAnuncioByid,
   useAppDispatch,
   usePreventNavigationOrPop,
   useUploadMedias,
@@ -81,7 +81,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([])
   const [videoAsset, setVideoAsset] = useState<ImagePicker.ImagePickerAsset>()
 
-  const { data: ad } = useAnuncioByid(id, true)
+  // const { data: ad } = useAnuncioByid(id, true)
   const { mutateAsync, isLoading } = useUploadMedias()
 
   const onShowImagePicker = useCallback(
@@ -106,6 +106,13 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
             })
             if (!result.canceled) {
               if (!result.assets?.[0]) return
+              const res = await validateSize({
+                photo: result.assets[0],
+              })
+              if (!res) {
+                setVideoAsset(undefined)
+                return T.error('El video es muy pesado, intenta con otro')
+              }
               setVideoAsset(result.assets[0])
             }
           } else {
@@ -159,32 +166,43 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
       return T.error('Selecciona al menos una imagen para continuar')
 
     if (images.length < paquete.quantity)
-      return T.error('Selecciona todas las imágenes para continuar')
-    const paqImg = addons?.data?.find((a) => a.id === paquete.id)
-    const addonsData = [...selectedAddons]
-    if (paqImg) addonsData.push(paqImg)
-    if (printing) addonsData.push(printing)
+      return Alert.alert(
+        'Faltan imágenes',
+        'No estás aprovechando la cantidad de imágenes seleccionada',
+        [
+          {
+            text: 'Continuar de todas formas',
+            onPress: async () => {
+              const paqImg = addons?.data?.find((a) => a.id === paquete.id)
+              const addonsData = [...selectedAddons]
+              if (paqImg) addonsData.push(paqImg)
+              if (printing) addonsData.push(printing)
 
-    try {
-      const { media } = await mutateAsync({
-        photo: lImages,
-        resourceId: id,
-        type: 'listing',
-      })
+              try {
+                const { media } = await mutateAsync({
+                  photo: lImages,
+                  resourceId: id,
+                  type: 'listing',
+                })
 
-      dispatch(setReduxAddons(addonsData))
-      T.success(`${media?.length ?? 0} archivos subidos`, {
-        visibilityTime: 1000,
-        onHide() {
-          navigation.navigate('Packages', { id, type: 'listing' })
-        },
-      })
-    } catch (error) {
-      if (error instanceof ImageTooBigError) {
-        return T.error('Una o más imágenes son muy pesadas')
-      }
-      T.error('Error al subir las imágenes')
-    }
+                dispatch(setReduxAddons(addonsData))
+                T.success(`${media?.length ?? 0} archivos subidos`, {
+                  visibilityTime: 1000,
+                  onHide() {
+                    navigation.navigate('Packages', { id, type: 'listing' })
+                  },
+                })
+              } catch (error) {
+                if (error instanceof ImageTooBigError) {
+                  return T.error('Una o más imágenes son muy pesadas')
+                }
+                T.error('Error al subir las imágenes')
+              }
+            },
+          },
+          { text: 'Cancelar' },
+        ],
+      )
   }, [paquete, images, video, videoAsset, id, addons, selectedAddons, printing])
 
   return (

@@ -45,7 +45,7 @@ export const NewDirectorioFormScreen: FC<NewDirectorioFormScreenProps> = ({
   const [{ id }] = useUser()
 
   const onSubmit = useCallback<SubmitHandler<CreateDirectorioParamsSchema>>(
-    async ({ TyC, ...noTyC }) => {
+    async ({ TyC: _, ...noTyC }) => {
       try {
         const res = await mutateAsync({ ...noTyC, user_id: id })
         if (!res) {
@@ -276,11 +276,7 @@ export const NewDirectorioFormScreen: FC<NewDirectorioFormScreenProps> = ({
           isDisabled={isCreatingDIr}
           paddingVertical={'m'}
         >
-          {isCreatingDIr ? (
-            <ActivityIndicator />
-          ) : (
-            'Crear anuncio en Directorio'
-          )}
+          {isCreatingDIr ? <ActivityIndicator /> : 'Continuar'}
         </Button>
       </Box>
     </KeyboardAwareScrollView>

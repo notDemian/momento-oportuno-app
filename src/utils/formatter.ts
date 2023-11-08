@@ -2,7 +2,7 @@ import accounting from 'accounting'
 
 export const formatCurrency = (
   amount: number | string,
-  minimumFractionDigits = 2,
+  minimumFractionDigits = 0,
   symbol = '$',
   prefix = true,
 ): string => {

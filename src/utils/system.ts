@@ -10,6 +10,12 @@ export const CLOG = (arg: unknown) => {
   }
 }
 
+CLOG.error = (arg: unknown) => {
+  if (Constants.IS_DEV) {
+    console.error(`arg ----------->\n${JSON.stringify(arg, null, 2)}`)
+  }
+}
+
 export type Prettify<T> = {
   [K in keyof T]: T[K]
 } & {}

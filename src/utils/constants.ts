@@ -47,8 +47,9 @@ export const Constants = {
   },
   IDS: {
     price: 4,
-    salary: 100,
+    salary: 14,
     allStates: 5,
+    variousCategory: 73,
   },
 } as const
 
