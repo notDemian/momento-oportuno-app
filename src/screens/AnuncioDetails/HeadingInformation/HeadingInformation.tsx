@@ -4,7 +4,7 @@ import { HeadingInformationProps } from './HeadingInformation.type'
 
 import { Box, Text } from '@src/components/elements'
 import { fontSize } from '@src/theme'
-import { Constants, formatCurrency } from '@src/utils'
+import { Constants, formatCurrency, getPriceOrSalary } from '@src/utils'
 import { toRelative } from '@src/utils/dates'
 
 export const HeadingInformation: React.FC<HeadingInformationProps> = ({
@@ -19,11 +19,10 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
     state,
   } = data
 
-  const priceOrSalary =
-    attributes.find((a) => a.id === Constants.IDS.price)?.value.toString() ??
-    attributes.find((a) => a.id === Constants.IDS.salary)?.value.toString()
-
-  const priceDisplay = priceOrSalary ? formatCurrency(priceOrSalary) : '$  MXN'
+  const priceOrSalary = getPriceOrSalary({
+    attributes,
+    formatted: true,
+  })
 
   return (
     <Box backgroundColor='card' padding='m'>
@@ -38,7 +37,7 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
           </Text>
         </Box>
         <Text variant='subHeader' color='primary' fontSize={fontSize.m}>
-          {priceDisplay}
+          {priceOrSalary}
         </Text>
       </Box>
       <Box paddingVertical={'s'}>

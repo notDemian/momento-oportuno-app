@@ -5,17 +5,17 @@ import { AnuncioProps } from './AnuncioItem.type'
 import { Box, Icon, Image, Text, Touchable } from '@src/components'
 import { useSearchStackNavigation } from '@src/hooks'
 import { fontSize } from '@src/theme'
-import { Constants, getImageUrl } from '@src/utils'
+import { getImageUrl, getPriceOrSalary } from '@src/utils'
 
 export const AnuncioItem: FC<AnuncioProps> = (props) => {
   let extraData = <></>
   if (!('isFav' in props)) {
     const { attributes, category, state } = props.data
 
-    const price =
-      attributes.find((a) => a.id === Constants.IDS.price)?.value.toString() ??
-      attributes.find((a) => a.id === Constants.IDS.salary)?.value.toString()
-
+    const price = getPriceOrSalary({
+      attributes,
+      formatted: true,
+    })
     extraData = (
       <>
         <Text
@@ -58,7 +58,7 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
             numberOfLines={3}
             fontWeight={'bold'}
           >
-            $ {price} MXN
+            {price}
           </Text>
         ) : null}
       </>
