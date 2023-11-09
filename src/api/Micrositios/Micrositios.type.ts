@@ -13,7 +13,7 @@ export const UserMicrositeSchema = UserSchema.pick({
 export const MicrositeSchema = z.object({
   id: z.number(),
   title: z.string(),
-  image: z.string().nullable().optional(),
+  thumbnail: z.string().nullable().optional(),
   description: z.string().nullable().optional(),
   address: z.string(),
   email: z.string(),

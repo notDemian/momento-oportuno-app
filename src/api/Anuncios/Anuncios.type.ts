@@ -54,7 +54,7 @@ export const AdSchema = z.object({
   slug: z.string(),
   url: z.string().nullable().optional(),
   status: z.string(),
-  image: z.union([z.null(), z.string()]),
+  thumbnail: z.string().nullable().optional(),
   description: z.string().nullable().optional(),
   is_featured: z.coerce.boolean(),
   is_multistate: z.coerce.boolean(),
@@ -122,7 +122,6 @@ export type ListingAttribute = {
 }
 
 export type CreateAnuncioParams = GeneralCreateAnuncioParams & {
-  subcategory_id: number
   listingAttributes: ListingAttribute[]
 }
 

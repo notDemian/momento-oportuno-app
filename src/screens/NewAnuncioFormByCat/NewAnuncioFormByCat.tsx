@@ -44,7 +44,7 @@ export const NewAnuncioFormByCat: FC<
       }
       const data: CreateAnuncioParams = {
         ...initialParams,
-        subcategory_id: subCategoriaSelected?.id ?? 0,
+        category_id: subCategoriaSelected?.id ?? initialParams.category_id,
         listingAttributes: inputs,
       }
 
