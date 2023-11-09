@@ -78,13 +78,11 @@ export function uploadImage({
   })
 }
 
-type GetImageUrlProps =
-  | { media: Media; str?: string | null | undefined }
-  | {
-      url: string | null | undefined
-      media?: Media
-      str?: string | null | undefined
-    }
+type GetImageUrlProps = {
+  url?: string | null | undefined
+  media?: Media
+  str?: string | null | undefined
+}
 
 export function getImageUrl(props: GetImageUrlProps): string {
   if (typeof props.str === 'string')
@@ -97,6 +95,7 @@ export function getImageUrl(props: GetImageUrlProps): string {
       ? getImageUrl({ media: props.media })
       : IMAGE_URL_FALLBACK
   const { media } = props
+  if (!media) return IMAGE_URL_FALLBACK
   const url = `${Constants.URL.RAW}storage/${media.id}/${media.file_name}`
   return url
 }
