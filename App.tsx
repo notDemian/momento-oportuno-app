@@ -32,6 +32,7 @@ interface TextWithDefaultProps extends Text {
 ;(
   Text as unknown as TextWithDefaultProps
 ).defaultProps!.maxFontSizeMultiplier = 1
+import { LoginModalPortal } from '@src/components'
 import dayjs from 'dayjs'
 import es from 'dayjs/locale/es'
 es
@@ -69,7 +70,9 @@ function App() {
             <Provider store={store}>
               <PersistGate loading={null} persistor={persistor}>
                 <AppThemeProvider>
-                  <RootNavigation />
+                  <LoginModalPortal>
+                    <RootNavigation />
+                  </LoginModalPortal>
                 </AppThemeProvider>
                 <Toast />
               </PersistGate>
