@@ -10,7 +10,7 @@ import { getImageUrl } from '@src/utils'
 const { height } = Dimensions.get('window')
 
 export const MicrositioItem: FC<{ data: Microsite }> = ({ data }) => {
-  const { description: _, id, image, title } = data
+  const { description: _, id, image, title, media } = data
 
   const nav = useMicrositiosStackNavigation()
 
@@ -22,7 +22,7 @@ export const MicrositioItem: FC<{ data: Microsite }> = ({ data }) => {
     >
       <Image
         source={{
-          uri: getImageUrl({ url: image }),
+          uri: getImageUrl({ url: image, media: media?.[0] }),
         }}
         width={'100%'}
         height={280}
