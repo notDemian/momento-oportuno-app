@@ -3,7 +3,7 @@ import { Box, Text } from '../elements'
 
 import { Ad } from '@src/api'
 import { fontSize } from '@src/theme'
-import { Constants } from '@src/utils'
+import { Constants, getPriceOrSalary } from '@src/utils'
 
 type RecommendedCardInfoProps = {
   data: Ad
@@ -17,17 +17,14 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
 }) => {
   const { attributes, category } = data
 
-  const price = useMemo(() => {
-    const price = attributes.find((a) => a.id === PRICE_ID)
-
-    return price?.value.toString() ?? null
-  }, [attributes])
-
-  const salary = useMemo(() => {
-    const salary = attributes.find((a) => a.id === SALARY_ID)
-
-    return salary?.value.toString() ?? null
-  }, [attributes])
+  const priceOrSalary = useMemo(
+    () =>
+      getPriceOrSalary({
+        attributes,
+        formatted: true,
+      }),
+    [attributes],
+  )
 
   return (
     <Box
@@ -70,13 +67,9 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
           </Box>
         )
       })} */}
-      {price ? (
+      {priceOrSalary ? (
         <Text color='naranjaClarito' marginLeft='xs' fontSize={fontSize.m}>
-          $ {price} MXN
-        </Text>
-      ) : salary ? (
-        <Text color='naranjaClarito' marginLeft='xs' fontSize={fontSize.m}>
-          $ {price} MXN
+          {priceOrSalary}
         </Text>
       ) : null}
     </Box>

@@ -161,45 +161,6 @@ export const NewAnuncioForm: React.FC<
             />
           )}
         </Box>
-        {/* <CheckBox
-          label='Publicar tu anuncio en medio impreso'
-          onChange={setParamsFactory('includes_printing')}
-        />
-        {isPrintingMultiState ? (
-          <Box flexDirection='row' alignItems='center' gap='m'>
-            {estados && (
-              <ButtonModalGenerator
-                data={estados.data
-                  .filter((p) => p.id !== Constants.IDS.allStates)
-                  .map((estado) => ({
-                    label: estado.name,
-                    value: estado.id.toString(),
-                  }))}
-                onPressItem={(item) => {
-                  const itemFound = estados.data.find(
-                    (c) => c.id.toString() === item.value.toString(),
-                  )
-
-                  if (!itemFound) return
-                  setParamsFactory('printing_state_id')(itemFound.id)
-                }}
-                title='Medio impreso'
-              />
-            )}
-          </Box>
-        ) : null}
-        <CheckBox
-          label='Poner una mención de tu anuncio en Redes sociales'
-          onChange={setParamsFactory('includes_socials')}
-        />
-        <CheckBox
-          label='Destacar mi anuncio'
-          onChange={setParamsFactory('is_featured')}
-        />
-        <CheckBox
-          label='Incluir video'
-          onChange={setParamsFactory('includes_video')}
-        /> */}
       </Box>
     </NewRecursoLayout>
   )
