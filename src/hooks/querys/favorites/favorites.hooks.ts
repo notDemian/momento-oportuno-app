@@ -90,9 +90,17 @@ export const useRemoveFavorite = () => {
     },
   })
 }
-export const useMyFavorites = () => {
+
+type UseMyFavoritesProps = {
+  enabled?: boolean
+}
+
+export const useMyFavorites = (props?: UseMyFavoritesProps) => {
+  const { enabled = true } = props || {}
+
   return useQuery<GetMyFavoritesResponse>({
     queryKey: FavoritesQuerysKeys.getMyFavorites,
     queryFn: FavoritesServices.getMyFavorites,
+    enabled,
   })
 }

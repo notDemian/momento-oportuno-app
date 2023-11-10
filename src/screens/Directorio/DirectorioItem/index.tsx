@@ -1,7 +1,7 @@
 import type { Directorio } from '@src/api'
 import { Box, Button, Icon, Image, Text } from '@src/components'
 import { getShadowBoxProps, useAppTheme } from '@src/theme'
-import { CLOG, getImageUrl, redirectToEmail } from '@src/utils'
+import { getImageUrl, redirectToEmail } from '@src/utils'
 
 export const DirectorioItem: React.FC<{
   data: Directorio
@@ -28,7 +28,6 @@ export const DirectorioItem: React.FC<{
     })
   }
 
-  CLOG({ url: thumbnail, media: media?.[0] })
   return (
     <Box
       {...getShadowBoxProps({ borderRadius: 'm', elevation: 10 })}

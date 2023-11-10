@@ -9,6 +9,7 @@ import 'react-native-gesture-handler'
 import { PortalHost } from '@gorhom/portal'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { LoginModalPortal } from '@src/components'
 import { useAppSelector } from '@src/hooks'
 import {
   darkTheme,
@@ -38,27 +39,29 @@ export const RootNavigation = () => {
           }
           barStyle={theme === 'light' ? 'dark-content' : 'light-content'}
         />
-        <RootStack.Navigator
-          screenOptions={{
-            presentation: 'modal',
-          }}
-        >
-          {userToken ? (
+        <LoginModalPortal>
+          <RootStack.Navigator
+            screenOptions={{
+              presentation: 'modal',
+            }}
+            initialRouteName={userToken ? 'MainStacks' : 'AuthenticationStacks'}
+          >
             <RootStack.Screen
               name='MainStacks'
               options={{ headerShown: false }}
               component={TabNavigation}
             />
-          ) : (
-            <RootStack.Screen
-              options={{
-                headerShown: false,
-              }}
-              name='AuthenticationStacks'
-              component={AuthenticationStack}
-            />
-          )}
-        </RootStack.Navigator>
+            {userToken ? null : (
+              <RootStack.Screen
+                options={{
+                  headerShown: false,
+                }}
+                name='AuthenticationStacks'
+                component={AuthenticationStack}
+              />
+            )}
+          </RootStack.Navigator>
+        </LoginModalPortal>
       </NavigationContainer>
       <PortalHost name='rootPortal' />
     </>

@@ -30,7 +30,6 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
       <PopularCategories />
       <PopularPlaces estados={data?.data} />
       <Image source={Images.opcionesPasos} height={200} />
-      {/* <Button label='CREAR ANUNCIO' /> */}
       {isLoading || !data
         ? null
         : data.data.map((estado) => (

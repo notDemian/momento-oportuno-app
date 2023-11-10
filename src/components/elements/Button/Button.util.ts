@@ -1,7 +1,7 @@
 import { ButtonProps } from './Button.type'
 
 import { ColorProps, TextProps } from '@shopify/restyle'
-import { fontSize,Theme } from '@src/theme'
+import { fontSize, Theme } from '@src/theme'
 
 export const getTextColor = (
   varant: ButtonProps['variant'],
@@ -10,6 +10,8 @@ export const getTextColor = (
     case 'transparent':
     case 'outline':
       return 'primary'
+    case 'outlineSecondary':
+      return 'secondary'
     default:
       return 'white'
   }

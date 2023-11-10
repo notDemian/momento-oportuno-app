@@ -102,7 +102,7 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
                 <Animated.Image
                   source={{
                     uri: getImageUrl({
-                      url: data.data.image,
+                      str: data.data.thumbnail,
                       media: data.data.media?.[0],
                     }),
                   }}
