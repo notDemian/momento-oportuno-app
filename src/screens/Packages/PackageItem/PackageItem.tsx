@@ -164,7 +164,9 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
                 g='xs'
                 justifyContent={'space-between'}
               >
-                <Text color={'black'}>{addon.name}</Text>
+                <Box width={'60%'}>
+                  <Text color={'black'}>{addon.name}</Text>
+                </Box>
                 {addon.price != null ? (
                   addon.price !== 0 ? (
                     <Box
@@ -173,6 +175,7 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
                       justifyContent={'center'}
                       alignItems={'center'}
                       p={'xs'}
+                      width={'30%'}
                     >
                       <Text
                         color={'black'}
@@ -183,7 +186,9 @@ export const PackageItem: FC<PackageItemProps> = ({ paquete, id, type }) => {
                       </Text>
                     </Box>
                   ) : (
-                    <Text color={'black'}>Gratis</Text>
+                    <Box>
+                      <Text color={'black'}>Gratis</Text>
+                    </Box>
                   )
                 ) : null}
               </Box>

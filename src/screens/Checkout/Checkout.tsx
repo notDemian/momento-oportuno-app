@@ -78,12 +78,15 @@ export const Checkout: React.FC<CheckoutProps> = ({
     setVisible(false)
   }, [])
 
-  const onPaypalSuccess = useCallback(async () => {
-    T.success('Pago realizado con éxito')
-    const order = await { id: 1 }
-    setShowModal(true)
-    dispatch(setOrderConfirmationId(order.id))
-  }, [params.id])
+  const onPaypalSuccess = useCallback(
+    async (orderId?: number) => {
+      if (!orderId) return T.error('Error al realizar el pago')
+      T.success('Pago realizado con éxito')
+      dispatch(setOrderConfirmationId(orderId))
+      setShowModal(true)
+    },
+    [params.id],
+  )
 
   const onPaypalError = useCallback(() => {
     T.error('Error al realizar el pago')
@@ -144,6 +147,7 @@ export const Checkout: React.FC<CheckoutProps> = ({
           payment_method: type,
           related_id: params.id,
           type: params.type,
+          ...(params.type === 'listing' ? { ...addonsRecord } : {}),
         }
         try {
           const { paypal_link } = await mutateAsync(form)

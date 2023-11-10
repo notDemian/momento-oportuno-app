@@ -91,6 +91,7 @@ export const NewAnuncioForm: React.FC<
           title='Para continuar, selecciona la categoría de tu publicación'
           onPressItem={async (item) => {
             setShowCategoriaModal(false)
+            await wait(500)
             const catFound = cat.data.find((c) => c.id === item.value)
             if (catFound) {
               dispatch(
@@ -101,8 +102,6 @@ export const NewAnuncioForm: React.FC<
               )
               const { children: _, ...rest } = catFound
 
-              setShowCategoriaModal(false)
-              await wait(300)
               if (params.category_id == Constants.IDS.variousCategory) {
                 navigation.navigate('NewAnuncioFormByCat', rest)
               }
@@ -123,12 +122,13 @@ export const NewAnuncioForm: React.FC<
           <TextField
             inputProps={{
               placeholder:
-                'Descripción. Recuerda que la descripción es el éxito\nde tu anuncio.',
+                'Descripción. Recuerda que la descripción es el éxito de tu anuncio.',
               multiline: true,
               numberOfLines: 5,
               placeholderTextColor: 'rgba(0,0,0,0.5)',
               style: {
                 textAlignVertical: 'top',
+                paddingHorizontal: 15,
               },
               maxLength: DESC_LENGTH,
               onChangeText: setParamsFactory('description'),

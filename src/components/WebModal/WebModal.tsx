@@ -8,12 +8,13 @@ import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import { ActivityIndicator, Box, Icon, Text, Touchable } from '../elements'
 
 import { useAppTheme } from '@src/theme'
+import { CLOG } from '@src/utils'
 
 interface Props {
   url: string
   title: string
   visible: boolean
-  onSuccess: () => void
+  onSuccess: (id?: number) => void
   onDismiss: () => void
   onConfirm?: () => void
   nextScreen?: () => void
@@ -25,12 +26,28 @@ const WebModal = ({ url, visible, onDismiss, title, onSuccess }: Props) => {
   const [progClr, setProgClr] = useState<string>(colors.black)
 
   const listenChanges = (navState: WebViewNavigation) => {
-    // search for the word url in the url and extract the params from it
-    // extract url after "https://creamedicdigital.mx/formulario/pago/"
-    const URL_INCLUDES = ['panel/list']
+    // const URL_INCLUDES = ['panel/list']
 
-    if (URL_INCLUDES.some((u) => navState.url.includes(u))) {
-      onSuccess()
+    // if (URL_INCLUDES.some((u) => navState.url.includes(u))) {
+    //   onSuccess()
+    // }
+
+    // extract id from the url. url look like this: /comprobante/:id, get the id and pass it to onSuccess, but ensure /comprobante/ is in the url
+    const urlParts = navState.url.split('/')
+    const isViewingComprobante = urlParts.includes('comprobante')
+    const idIndex = urlParts.indexOf('comprobante') + 1
+    const id = urlParts[idIndex]
+    const isIdValid = !isNaN(Number(id)) && Number(id) > 0
+    CLOG({
+      urlParts,
+      isViewingComprobante,
+      idIndex,
+      id,
+      isIdValid,
+    })
+    if (isViewingComprobante && isIdValid) {
+      onDismiss()
+      onSuccess(Number(id))
     }
   }
 

@@ -188,10 +188,8 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
                 dispatch(setReduxAddons(addonsData))
                 T.success(`${media?.length ?? 0} archivos subidos`, {
                   visibilityTime: 1000,
-                  onHide() {
-                    navigation.navigate('Packages', { id, type: 'listing' })
-                  },
                 })
+                navigation.navigate('Packages', { id, type: 'listing' })
               } catch (error) {
                 if (error instanceof ImageTooBigError) {
                   return T.error('Una o más imágenes son muy pesadas')
