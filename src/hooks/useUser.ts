@@ -25,8 +25,10 @@ export function useUser(): [User, logOutFunction] {
 
   useEffect(() => {
     if (!user) {
-      nav.navigate('AuthenticationStacks')
       logOut()
+      nav.replace('AuthenticationStacks', {
+        screen: 'Authentication',
+      })
     }
   }, [user])
 
@@ -36,6 +38,13 @@ export function useUser(): [User, logOutFunction] {
       user_display_name: '',
       user_email: '',
       user_nicename: '',
+      created_at: '',
+      email: '',
+      email_verified_at: '',
+      id: 0,
+      name: '',
+      phone: '',
+      updated_at: '',
     }) as User,
     logOut,
   ]

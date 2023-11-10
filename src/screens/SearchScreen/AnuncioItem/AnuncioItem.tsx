@@ -5,7 +5,7 @@ import { AnuncioProps } from './AnuncioItem.type'
 import { Box, Icon, Image, Text, Touchable } from '@src/components'
 import { useSearchStackNavigation } from '@src/hooks'
 import { fontSize } from '@src/theme'
-import { CLOG, getImageUrl, getPriceOrSalary } from '@src/utils'
+import { getImageUrl, getPriceOrSalary } from '@src/utils'
 
 export const AnuncioItem: FC<AnuncioProps> = (props) => {
   let extraData = <></>
@@ -68,16 +68,9 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
   const { title, is_featured } = props.data
 
   const image = getImageUrl({
-    url: props.data.image,
+    str: props.data.thumbnail,
     media: props.data.media?.[0],
   })
-
-  title.includes('Flipper')
-    ? CLOG({
-        url: props.data.image,
-        media: props.data.media?.[0],
-      })
-    : null
 
   const navigation = useSearchStackNavigation()
 

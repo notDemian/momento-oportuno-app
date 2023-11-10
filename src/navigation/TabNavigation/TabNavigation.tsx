@@ -10,7 +10,7 @@ import { TabParamList } from '../types'
 import styles from './TabNavigation.style'
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Icon, IconProps } from '@src/components'
+import { Icon, IconProps, useLoginModal } from '@src/components'
 import { fontSize, useAppTheme } from '@src/theme'
 
 type TabBarIconProps = {
@@ -51,6 +51,9 @@ const renderTabBarIcon = (routeName: keyof TabParamList) => {
 
 const TabNavigation = () => {
   const theme = useAppTheme()
+
+  const { open, isLoggedIn } = useLoginModal()
+
   return (
     <Navigator
       initialRouteName='ExploreTab'
@@ -145,6 +148,18 @@ const TabNavigation = () => {
         options={{
           title: 'Cuenta',
           headerShown: false,
+        }}
+        listeners={({ navigation, route }) => {
+          return {
+            tabPress: (e) => {
+              e.preventDefault()
+              if (!isLoggedIn) {
+                open()
+                return
+              }
+              navigation.navigate('AccountTab')
+            },
+          }
         }}
       />
     </Navigator>

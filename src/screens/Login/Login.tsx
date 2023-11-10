@@ -68,6 +68,7 @@ export const Login: React.FC<ScreenProps<AuthStackParamList, 'Login'>> = ({
             value: email,
             onChangeText: onEmailFieldChange,
             placeholder: 'Email',
+            keyboardType: 'email-address',
           }}
         />
         <TextField

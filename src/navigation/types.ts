@@ -23,10 +23,12 @@ import type {
   TypePackage,
 } from '@src/api'
 
+export type RedirecTypes = 'ListingForm' | 'MicrositioForm' | 'DirectorioForm'
+
 // Stack Param List
 export type RootStackParamList = {
-  MainStacks: undefined
-  AuthenticationStacks: undefined
+  MainStacks: NavigatorScreenParams<TabParamList>
+  AuthenticationStacks: NavigatorScreenParams<AuthStackParamList>
 }
 
 export type AuthStackParamList = {
@@ -224,11 +226,17 @@ export type MicrositiosStackNavigationProp = CompositeNavigationProp<
   NativeStackNavigationProp<RootStackParamList & MicrositiosStackParamList>
 >
 
+export type TabNavigationProp = BottomTabNavigationProp<TabParamList>
+
+export type RootStackNavigationProp =
+  NativeStackNavigationProp<RootStackParamList>
+
 export const useGlobalNavigation = () => {
-  return useNavigation<
-    CompositeNavigationProp<
-      BottomTabNavigationProp<TabParamList>,
-      NativeStackNavigationProp<RootStackParamList>
-    >
-  >()
+  // return useNavigation<
+  //   CompositeNavigationProp<
+  //     BottomTabNavigationProp<TabParamList>,
+  //     NativeStackNavigationProp<RootStackParamList>
+  //   >
+  // >()
+  return useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 }

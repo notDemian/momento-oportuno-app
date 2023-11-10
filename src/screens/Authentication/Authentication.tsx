@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Dimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Images } from '@src/assets'
 import { Box, Button, Image, Text } from '@src/components'
-import { AuthStackParamList, ScreenProps } from '@src/navigation/types'
+import {
+  AuthStackParamList,
+  ScreenProps,
+  useGlobalNavigation,
+} from '@src/navigation/types'
 import { fontSize } from '@src/theme'
 
 export const Authentication: React.FC<
@@ -19,8 +23,29 @@ export const Authentication: React.FC<
     navigation.navigate('Login')
   }
 
+  const nav = useGlobalNavigation()
+
+  const onOmitLogin = useCallback(() => {
+    nav.replace('MainStacks', {
+      screen: 'ExploreTab',
+      params: { screen: 'Explore' },
+    })
+  }, [])
+
   return (
     <Box flex={1} flexDirection='column' backgroundColor='white'>
+      <Box
+        alignItems={'flex-end'}
+        padding='m'
+        zIndex={1}
+        justifyContent={'center'}
+      >
+        <Button
+          label='Omitir'
+          onPress={onOmitLogin}
+          variant={'outlineSecondary'}
+        />
+      </Box>
       <Image
         source={Images.authImage}
         position={'absolute'}

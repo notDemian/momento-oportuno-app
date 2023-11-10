@@ -10,8 +10,14 @@ import {
   SvgWarning,
   Text,
   Touchable,
+  useLoginModal,
 } from '@src/components'
-import { useAddFavorite, useMyFavorites, useRemoveFavorite } from '@src/hooks'
+import {
+  useAddFavorite,
+  useAppSelector,
+  useMyFavorites,
+  useRemoveFavorite,
+} from '@src/hooks'
 import { getShadowBoxProps, palette } from '@src/theme'
 import { CLOG, getShareUrl, redirectToEmail } from '@src/utils'
 
@@ -24,7 +30,11 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
   slug,
   id,
 }) => {
-  const { data: favorites } = useMyFavorites()
+  const userId = useAppSelector((s) => s.auth.user?.id)
+  const { open } = useLoginModal()
+  const { data: favorites } = useMyFavorites({
+    enabled: !!userId,
+  })
   const { mutate: addFav, isLoading } = useAddFavorite()
   const { mutate: rmFav, isLoading: loadRm } = useRemoveFavorite()
 
@@ -45,6 +55,10 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
         }
       },
       favorite: async () => {
+        if (!userId)
+          return open({
+            message: 'Para agregar a favoritos debes iniciar sesión',
+          })
         if (isFavorite) {
           rmFav(id)
           return
@@ -60,7 +74,7 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
         })
       },
     }),
-    [slug, id, isFavorite],
+    [slug, id, isFavorite, userId],
   )
 
   return (
