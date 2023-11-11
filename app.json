@@ -15,9 +15,7 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/0b711459-9591-442b-b8b0-806b293d5d8e"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "config": {
         "googleMapsApiKey": "AIzaSyD7_x-IaDtLZle9C37GEnizuCkEOSnkkBg"
@@ -56,13 +54,13 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Allow Food Star to use your location."
+          "locationAlwaysAndWhenInUsePermission": "Permite a El Momento Oportuno acceder a tu ubicación mientras usas la aplicación."
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app accesses your photos to let you share them with your friends."
+          "photosPermission": "Permite a El Momento Oportuno acceder a tus fotos."
         }
       ]
     ],

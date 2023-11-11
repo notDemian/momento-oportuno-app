@@ -58,7 +58,6 @@ export const NewAnuncioFormByCat: FC<
         T.error('Debes llenar todos los campos')
         return
       }
-      console.log({ subcategories })
 
       try {
         const { data: res } = await mutateAsync(data)
