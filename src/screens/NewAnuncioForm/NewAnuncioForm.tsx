@@ -122,7 +122,7 @@ export const NewAnuncioForm: React.FC<
           <TextField
             inputProps={{
               placeholder:
-                'Descripción. Recuerda que la descripción es el éxito de tu anuncio.',
+                'Descripción.\nRecuerda que la descripción es el éxito de tu anuncio.',
               multiline: true,
               numberOfLines: 5,
               placeholderTextColor: 'rgba(0,0,0,0.5)',
