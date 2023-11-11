@@ -106,8 +106,6 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
               selectionLimit: left,
             })
             if (!result.canceled) {
-              //dont repeat based on uri
-
               setImages((l) => {
                 const newImages = [...l]
                 result.assets?.forEach((a) => {
@@ -193,42 +191,47 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
     if (lImages.length === 0 || !lImages[0])
       return T.error('Selecciona al menos una imagen para continuar')
 
-    if (images.length < paquete.quantity)
+    const continueFn = async () => {
+      const paqImg = addons?.data?.find((a) => a.id === paquete.id)
+      const addonsData = [...selectedAddons]
+      if (paqImg) addonsData.push(paqImg)
+      if (printing) addonsData.push(printing)
+
+      try {
+        const { media } = await mutateAsync({
+          photo: lImages,
+          resourceId: id,
+          type: 'listing',
+        })
+
+        dispatch(setReduxAddons(addonsData))
+        T.success(`${media?.length ?? 0} archivos subidos`, {
+          visibilityTime: 1000,
+        })
+        navigation.navigate('Packages', { id, type: 'listing' })
+      } catch (error) {
+        if (error instanceof ImageTooBigError) {
+          return T.error('Una o más imágenes son muy pesadas')
+        }
+        T.error('Error al subir las imágenes')
+      }
+    }
+
+    if (images.length < paquete.quantity) {
       return Alert.alert(
         'Faltan imágenes',
         'No estás aprovechando la cantidad de imágenes seleccionada',
         [
           {
             text: 'Continuar de todas formas',
-            onPress: async () => {
-              const paqImg = addons?.data?.find((a) => a.id === paquete.id)
-              const addonsData = [...selectedAddons]
-              if (paqImg) addonsData.push(paqImg)
-              if (printing) addonsData.push(printing)
-
-              try {
-                const { media } = await mutateAsync({
-                  photo: lImages,
-                  resourceId: id,
-                  type: 'listing',
-                })
-
-                dispatch(setReduxAddons(addonsData))
-                T.success(`${media?.length ?? 0} archivos subidos`, {
-                  visibilityTime: 1000,
-                })
-                navigation.navigate('Packages', { id, type: 'listing' })
-              } catch (error) {
-                if (error instanceof ImageTooBigError) {
-                  return T.error('Una o más imágenes son muy pesadas')
-                }
-                T.error('Error al subir las imágenes')
-              }
-            },
+            onPress: continueFn,
           },
           { text: 'Cancelar' },
         ],
       )
+    } else {
+      continueFn()
+    }
   }, [paquete, images, video, videoAsset, id, addons, selectedAddons, printing])
 
   return (
@@ -313,6 +316,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         {images.length > 0 ? (
           <>
             <Text color={'orangy'}>Imágenes</Text>
+            <Text>{JSON.stringify(images, null, 2)}</Text>
             <Box flexDirection={'row'} flexWrap={'wrap'} gap={'m'}>
               {images.map((img) => (
                 <Touchable key={img.uri} onPress={onClickImage(img)}>
@@ -345,6 +349,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         {videoAsset ? (
           <>
             <Text color={'orangy'}>Video</Text>
+
             <Box flexDirection={'row'} flexWrap={'wrap'} gap={'m'}>
               <Image
                 source={{ uri: videoAsset.uri }}
