@@ -316,7 +316,6 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         {images.length > 0 ? (
           <>
             <Text color={'orangy'}>Imágenes</Text>
-            <Text>{JSON.stringify(images, null, 2)}</Text>
             <Box flexDirection={'row'} flexWrap={'wrap'} gap={'m'}>
               {images.map((img) => (
                 <Touchable key={img.uri} onPress={onClickImage(img)}>
