@@ -34,7 +34,6 @@ const ONE_MIN_MS = 1000 * 60 * 1
 
 const useGetChatMessages = (chatId: number, props?: EnableProps) => {
   const { enabled = true } = props ?? {}
-  console.log('fetching')
   return useQuery({
     queryFn: () => ChatsServices.getMessages(chatId),
     queryKey: ChatQuerysKeys.getMessages(chatId),

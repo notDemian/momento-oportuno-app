@@ -1,8 +1,9 @@
-import { type FC, useCallback } from 'react'
+import { type FC, useCallback, useMemo } from 'react'
 
 import { Chat } from '@src/api'
 import { Box, Icon, Image, Text, Touchable } from '@src/components'
 import { useAccountStackNavigation } from '@src/hooks'
+import { useUser } from '@src/hooks/useUser'
 import { getShadowBoxProps } from '@src/theme'
 import { getImageUrl } from '@src/utils'
 import { formatSpanish } from '@src/utils/dates'
@@ -20,6 +21,14 @@ export const ChatItem: FC<ChatItemProps> = ({ chat }) => {
       title: chat.seller.name,
     })
   }, [chat])
+
+  const [{ id }] = useUser()
+
+  const name = useMemo(() => {
+    const other = chat.seller.id === id ? chat.buyer.name : chat.seller.name
+
+    return other
+  }, [chat, id])
 
   return (
     <Touchable onPress={onClick}>
@@ -50,7 +59,7 @@ export const ChatItem: FC<ChatItemProps> = ({ chat }) => {
             justifyContent='flex-start'
           >
             <Text variant='header'>
-              {chat.seller.name}
+              {name}
               {' • '}
               <Text variant='body2'>Anuncio: {chat.listing.title}</Text>
             </Text>
