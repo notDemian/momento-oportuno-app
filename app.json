@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "com.momento.oportuno",
     "name": "El momento oportuno",
     "slug": "momento-oportuno",
     "version": "0.0.1",

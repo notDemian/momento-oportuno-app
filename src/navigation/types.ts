@@ -42,10 +42,6 @@ export type AuthStackParamList = {
 
 export type ExploreStackParamList = {
   Explore: undefined
-  PlaceDetails: undefined
-  PlaceList: {
-    title?: string
-  }
 
   ChangeAddress: undefined
   SavedAddresses: undefined
@@ -69,9 +65,7 @@ export type SearchStackParamList = {
         state?: number
       }
   Filter: undefined
-  AnuncioDetailsModal: {
-    data: Ad | Pick<Ad, 'id'>
-  }
+  AnuncioDetailsModal: Pick<Ad, 'id'> | Ad
 }
 
 type JointIds = Ad['id'] | Microsite['id'] | Directorio['id']

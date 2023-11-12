@@ -282,8 +282,6 @@ const IMAGEN_PERFIL_SECTION = memo(() => {
 const DETALLES_CUENTA_SECTION = memo(() => {
   const [user] = useUser()
 
-  const [nombre = '', apellido = ''] = user.name.split(' ')
-
   return (
     <Box g={'m'}>
       <Box gap={'s'}>
@@ -291,7 +289,7 @@ const DETALLES_CUENTA_SECTION = memo(() => {
         <TextField
           inputProps={{
             placeholder: 'Mostrar nombre',
-            value: nombre,
+            value: user.name,
           }}
           borderColor={'orangy'}
           borderWidth={1}

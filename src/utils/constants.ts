@@ -15,6 +15,12 @@ export const Constants = {
       return `${this.RAW}api` as const
     },
   },
+  FRONT_URL: {
+    RAW: 'https://elmomentoop.empresarialti.com/',
+    get str() {
+      return this.RAW
+    },
+  },
   ENDPOINTS: {
     INDEX: '/',
     LISTINGS: '/listings',

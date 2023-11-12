@@ -37,7 +37,7 @@ export const RecommendedByState: React.FC<RecommendedByStateProps> = ({
         onPress={() => {
           nav.jumpTo('SearchTab', {
             screen: 'AnuncioDetailsModal',
-            params: { data: { id } },
+            params: { id },
             initial: false,
           })
         }}

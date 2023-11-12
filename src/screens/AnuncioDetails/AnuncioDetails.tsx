@@ -25,7 +25,7 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
   route: { params },
   navigation: nav,
 }) => {
-  const { data, isLoading, refetch } = useAnuncioByid(params.data.id)
+  const { data, isLoading, refetch } = useAnuncioByid(params.id)
 
   const [loadingImage, setLoadingImage] = useState(true)
 

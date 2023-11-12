@@ -10,8 +10,6 @@ import {
   AddAddress,
   ChangeAddress,
   Explore,
-  PlaceDetails,
-  PlaceList,
   SavedAddresses,
   SelectLocation,
   TrackOrder,
@@ -57,25 +55,6 @@ export const ExploreStack: React.FC<ExploreScreenProps> = ({ navigation }) => {
         component={Explore}
       />
 
-      <Stack.Screen
-        name='PlaceList'
-        component={PlaceList}
-        options={({ route: { params } }) => {
-          return {
-            headerTitle: params?.title || 'Places',
-          }
-        }}
-      />
-      <Stack.Screen
-        name='PlaceDetails'
-        component={PlaceDetails}
-        options={() => {
-          return {
-            headerTitle: 'Neapolitan Pizza',
-            headerRight: renderPlaceDetailHeaderRight,
-          }
-        }}
-      />
       <Stack.Screen
         name='ChangeAddress'
         options={{

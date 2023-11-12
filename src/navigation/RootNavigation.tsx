@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { StatusBar } from 'react-native'
 
+import { linking } from './Linking'
 import { AuthenticationStack } from './Stacks'
 import TabNavigation from './TabNavigation'
 import { RootStackParamList } from './types'
@@ -9,7 +10,7 @@ import 'react-native-gesture-handler'
 import { PortalHost } from '@gorhom/portal'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { LoginModalPortal } from '@src/components'
+import { LoadingPageModal, LoginModalPortal } from '@src/components'
 import { useAppSelector } from '@src/hooks'
 import {
   darkTheme,
@@ -30,7 +31,11 @@ export const RootNavigation = () => {
 
   return (
     <>
-      <NavigationContainer theme={navigationTheme}>
+      <NavigationContainer<RootStackParamList>
+        theme={navigationTheme}
+        linking={linking}
+        fallback={<LoadingPageModal loading />}
+      >
         <StatusBar
           backgroundColor={
             theme === 'light'

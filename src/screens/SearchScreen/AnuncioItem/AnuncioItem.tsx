@@ -79,15 +79,13 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
     if ('isFav' in props) {
       navigation.jumpTo('SearchTab', {
         screen: 'AnuncioDetailsModal',
-        params: { data: { id: props.data.id } },
+        params: { id: props.data.id },
         initial: false,
       })
       return
     }
     navigation.navigate('AnuncioDetailsModal', {
-      data: {
-        id: props.data.id,
-      },
+      id: props.data.id,
     })
   }
 

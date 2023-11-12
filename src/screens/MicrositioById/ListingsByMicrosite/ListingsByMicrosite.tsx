@@ -22,12 +22,12 @@ const Render: ListRenderItem<{ id: number }> = ({ item: { id } }) => {
 
   if (error || !ad) return <Box />
 
-  const { image, media, title } = ad.data
+  const { thumbnail, media, title } = ad.data
 
   return (
     <Card
       key={id}
-      coverImage={getImageUrl({ url: image, media: media?.[0] })}
+      coverImage={getImageUrl({ str: thumbnail, media: media?.[0] })}
       coverImageSize='m'
       title={title}
       marginLeft='m'
@@ -38,7 +38,7 @@ const Render: ListRenderItem<{ id: number }> = ({ item: { id } }) => {
       onPress={() => {
         nav.jumpTo('SearchTab', {
           screen: 'AnuncioDetailsModal',
-          params: { data: { id } },
+          params: { id },
           initial: false,
         })
       }}

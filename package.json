@@ -84,7 +84,8 @@
     "redux-persist": "^6.0.0",
     "rn-range-slider": "^2.2.2",
     "typescript": "^5.1.3",
-    "zod": "^3.21.4"
+    "zod": "^3.21.4",
+    "expo-linking": "~5.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
