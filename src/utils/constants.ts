@@ -1,3 +1,5 @@
+import * as Linking from 'expo-linking'
+const appUrl = Linking.createURL('/')
 export const Constants = {
   URL: {
     RAW: 'https://elmomentoapi.empresarialti.com/',
@@ -15,6 +17,7 @@ export const Constants = {
       return `${this.RAW}api` as const
     },
   },
+  APP_URL: appUrl,
   FRONT_URL: {
     RAW: 'https://elmomentoop.empresarialti.com/',
     get str() {

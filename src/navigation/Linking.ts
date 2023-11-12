@@ -2,11 +2,10 @@ import { RootStackParamList } from './types'
 
 import { LinkingOptions } from '@react-navigation/native'
 import { Constants } from '@src/utils'
-import * as Linking from 'expo-linking'
 
-const appPrefix = Linking.createURL('/')
+const appPrefix = Constants.APP_URL
 
-const webPrefix = Constants.FRONT_URL.str
+// const webPrefix = Constants.FRONT_URL.str
 
 const config: LinkingOptions<RootStackParamList>['config'] = {
   screens: {
@@ -31,7 +30,7 @@ const config: LinkingOptions<RootStackParamList>['config'] = {
 }
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: [appPrefix, webPrefix],
+  prefixes: [appPrefix],
   config,
 }
 

@@ -19,15 +19,13 @@ import {
   useRemoveFavorite,
 } from '@src/hooks'
 import { getShadowBoxProps, palette } from '@src/theme'
-import { CLOG, getShareUrl, redirectToEmail } from '@src/utils'
+import { CLOG, getShareMessage, redirectToEmail } from '@src/utils'
 
 type BottomButtonsProps = {
-  slug: string | null | undefined
   id: number
 }
 
 export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
-  slug,
   id,
 }) => {
   const userId = useAppSelector((s) => s.auth.user?.id)
@@ -44,8 +42,8 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
     () => ({
       share: async () => {
         try {
-          if (!slug) return
-          const link = getShareUrl(slug)
+          if (!id) return
+          const link = getShareMessage(id)
           await Share.share({
             message: link,
             title: 'Compartir',
@@ -65,7 +63,6 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
         }
         addFav(id)
       },
-      print: () => {},
       danger: () => {
         redirectToEmail({
           email: 'reportes@elmomentooportuno.mx',
@@ -74,7 +71,7 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
         })
       },
     }),
-    [slug, id, isFavorite, userId],
+    [id, isFavorite, userId],
   )
 
   return (
