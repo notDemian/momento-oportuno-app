@@ -1,13 +1,20 @@
-import { memo, useCallback } from 'react'
+import { Fragment, memo, useCallback } from 'react'
 import { ListRenderItem } from 'react-native'
 
 import {} from '@src/api'
 import { Box, List, Text } from '@src/components'
 import { SvgEmptyMsg } from '@src/components/svgs'
+import { useGetChats } from '@src/hooks'
 
 const Mensajes = () => {
+  const { data: chats, isLoading } = useGetChats()
+
   const renderItem = useCallback<ListRenderItem<unknown>>((anuncio) => {
-    return <Text>hola!</Text>
+    return (
+      <Fragment>
+        <Text>hola!</Text>
+      </Fragment>
+    )
   }, [])
 
   const ListEmptyComponent = useCallback(() => {
@@ -22,14 +29,6 @@ const Mensajes = () => {
           No tienes mensajes por el momento
         </Text>
         <SvgEmptyMsg />
-        {/* <Button
-          label='Publicar aviso'
-          variant={'secondary'}
-          margin={'l'}
-          onPress={() => {
-            nav.navigate('NewAnuncioTab', { screen: 'NewAnuncioForm' })
-          }}
-        /> */}
       </Box>
     )
   }, [])

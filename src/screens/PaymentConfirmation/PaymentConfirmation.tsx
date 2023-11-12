@@ -16,7 +16,7 @@ import {
 import { useAddons, useGetOrderById, useResource } from '@src/hooks'
 import { AccountStackParamList, ScreenProps } from '@src/navigation'
 import { fontSize, getShadowBoxProps, useAppTheme } from '@src/theme'
-import { formatCurrency, getImageUrl } from '@src/utils'
+import { formatCurrency, getImageUrl, translateDEPRECATED } from '@src/utils'
 
 type PaymentConfirmationScreenProps = ScreenProps<
   AccountStackParamList,
@@ -356,7 +356,7 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
         gap={'s'}
       >
         <Box flex={1}>
-          <Text variant='header'>{order.title}</Text>
+          <Text variant='header'>{translateDEPRECATED(order.title)}</Text>
         </Box>
         {order.created_at ? (
           <Box flex={1} flexDirection='row' justifyContent='space-between'>

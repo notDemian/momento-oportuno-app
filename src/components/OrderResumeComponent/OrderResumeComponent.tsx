@@ -34,6 +34,7 @@ export const OrderResumeComponent: FC<OrderResumeComponentProps> = (props) => {
           <Text fontWeight={'bold'}>Complementos seleccionados</Text>
         ) : null}
         {addons.map((addon) => {
+          if (typeof addon.price !== 'number') return null
           return (
             <Box
               key={addon.id}
@@ -45,8 +46,12 @@ export const OrderResumeComponent: FC<OrderResumeComponentProps> = (props) => {
               backgroundColor='creamy'
               marginBottom='s'
             >
-              <Text>{addon.name}</Text>
-              <Text variant='primary'>$ {addon.price} MXN</Text>
+              <Box width={'60%'}>
+                <Text>{addon.name}</Text>
+              </Box>
+              <Box width={'30%'}>
+                <Text variant='primary'>{formatCurrency(addon.price)}</Text>
+              </Box>
             </Box>
           )
         })}
@@ -58,7 +63,7 @@ export const OrderResumeComponent: FC<OrderResumeComponentProps> = (props) => {
           <Text variant={'subHeader'} color={'primary'}>
             Subtotal
           </Text>
-          <Text>$ {paquete.price} MXN</Text>
+          <Text>{formatCurrency(paquete.price)}</Text>
         </Box>
         <Box
           flexDirection='row'

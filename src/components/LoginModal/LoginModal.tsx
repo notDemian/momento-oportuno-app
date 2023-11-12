@@ -59,7 +59,7 @@ const LoginModal = ({ setShow, show, opts }: LoginModalProps) => {
           marginBottom='l'
           paddingHorizontal='l'
         >
-          {message ?? 'Para continuar, inicia sesión o registrate'}
+          {message ?? 'Para continuar, inicia sesión o regístrate'}
         </Text>
         <Box marginTop='m' gap={'m'}>
           <Button label='Iniciar sesión' onPress={onLogin} />
