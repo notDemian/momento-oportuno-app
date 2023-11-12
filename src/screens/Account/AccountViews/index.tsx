@@ -3,11 +3,11 @@ import { Alert } from 'react-native'
 
 import Ajustes from './Ajustes'
 import Favoritos from './Favoritos'
+import Mensajes from './Mensajes'
 import MisAvisos from './MisAvisos'
 import MisOrdenes from './MisOrdenes'
 
 import { Box, TabView, type TabViewData, Text } from '@src/components'
-import { useAccountStackNavigation } from '@src/hooks'
 import { useUser } from '@src/hooks/useUser'
 
 const PlaceHolder = () => {
@@ -27,20 +27,20 @@ const tabData: TabViewData = [
     title: 'Favoritos',
     content: Favoritos,
   },
-  // {
-  //   key: '2',
-  //   title: 'Mensajes',
-  //   content: Mensajes,
-  // },
-  { key: '2', title: 'Mis ordenes', content: MisOrdenes },
-  { key: '3', title: 'Ajustes', content: Ajustes },
-  { key: '4', title: 'Cerrar sesión', content: NullComponent },
+  {
+    key: '2',
+    title: 'Mensajes',
+    content: Mensajes,
+  },
+  { key: '3', title: 'Mis ordenes', content: MisOrdenes },
+  { key: '4', title: 'Ajustes', content: Ajustes },
+  { key: '5', title: 'Cerrar sesión', content: NullComponent },
 ]
+
+const LogOutKey = tabData[tabData.length - 1]?.key
 
 export const AccountTabs = () => {
   const [_, logOutFunction] = useUser()
-
-  const nav = useAccountStackNavigation()
 
   const onLogoutButtonPress = () => {
     Alert.alert('Confirmación', '¿Seguro que deseas cerrar sesión?', [
@@ -54,7 +54,7 @@ export const AccountTabs = () => {
   const onTabPress = useCallback<
     NonNullable<Parameters<typeof TabView>[0]['onTabPress']>
   >((e) => {
-    if (e.route.key === '4') {
+    if (e.route.key === LogOutKey) {
       e.preventDefault()
       onLogoutButtonPress()
     }

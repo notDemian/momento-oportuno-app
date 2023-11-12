@@ -5,4 +5,5 @@ export const translateDEPRECATED = (text: string) => {
     .replace('directory', 'directorio')
     .replace('microsite', 'micrositio')
     .replace('Paquete', '\nPaquete')
+    .replace('with addons', 'con complementos')
 }

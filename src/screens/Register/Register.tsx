@@ -1,44 +1,33 @@
 import React, { useCallback, useState } from 'react'
+import { Controller, SubmitHandler } from 'react-hook-form'
 
+import { RegisterParams, RegisterParamsSchema } from '@src/api'
 import { AuthenticationLayout, Box, Button, TextField } from '@src/components'
-import { useRegister } from '@src/hooks'
+import { useForm, useRegister } from '@src/hooks'
 import { AuthStackParamList, ScreenProps } from '@src/navigation/types'
-import { T } from '@src/utils'
 
 export const Register: React.FC<
   ScreenProps<AuthStackParamList, 'Register'>
 > = ({ navigation }) => {
-  const [params, setParams] = useState<{
-    name: string
-    email: string
-    password: string
-    password_confirmation: string
-  }>({
-    name: '',
-    password: '',
-    email: '',
-    password_confirmation: '',
+  const { control, handleSubmit, reset } = useForm({
+    schema: RegisterParamsSchema,
+    defaultValues: {
+      name: '',
+      password: '',
+      email: '',
+      password_confirmation: '',
+      phone: '',
+      username: '',
+    },
   })
-
-  const setParam = useCallback((key: keyof NonNullable<typeof params>) => {
-    return (value: string) => setParams((p) => ({ ...p, [key]: value }))
-  }, [])
 
   const [showPassword, setShowPassword] = useState(false)
 
-  const [mutateLogIn, { isLoading }] = useRegister()
+  const { mutateAsync: register, isLoading } = useRegister()
 
-  const onSignIn = useCallback(async () => {
-    if (params.password !== params.password_confirmation) {
-      T.error('Las contraseñas no coinciden')
-      return
-    }
-    if (params.password.length < 8) {
-      T.error('La contraseña debe tener al menos 8 caracteres')
-      return
-    }
-    mutateLogIn(params)
-  }, [params])
+  const onSignIn = useCallback<SubmitHandler<RegisterParams>>(async (data) => {
+    register(data)
+  }, [])
 
   const onBack = useCallback(() => {
     navigation.goBack()
@@ -47,13 +36,12 @@ export const Register: React.FC<
   return (
     <AuthenticationLayout
       title='Únete para empezar'
-      // subtitle='Por favor introduce tus credenciales para usar nuestro producto'
       footer={
         <>
           <Button
             label='Continuar'
             isFullWidth
-            onPress={onSignIn}
+            onPress={handleSubmit(onSignIn)}
             isDisabled={isLoading}
           />
           <Button
@@ -66,44 +54,137 @@ export const Register: React.FC<
       }
     >
       <Box gap={'m'}>
-        <TextField
-          inputProps={{
-            autoFocus: true,
-            placeholder: 'Nombre de usuario',
-            onChangeText: setParam('name'),
+        <Controller
+          control={control}
+          name='name'
+          render={({
+            field: { onBlur, onChange, value },
+            fieldState: { error },
+          }) => {
+            return (
+              <TextField
+                inputProps={{
+                  autoFocus: true,
+                  placeholder: 'Nombre',
+                  onChangeText: onChange,
+                  onBlur,
+                  value,
+                }}
+                error={error?.message}
+              />
+            )
           }}
         />
-        <TextField
-          inputProps={{
-            placeholder: 'Email',
-            keyboardType: 'email-address',
-            onChangeText: setParam('email'),
-            autoCapitalize: 'none',
+        <Controller
+          control={control}
+          name='email'
+          render={({
+            field: { onBlur, onChange, value },
+            fieldState: { error },
+          }) => {
+            return (
+              <TextField
+                inputProps={{
+                  placeholder: 'Email',
+                  onChangeText: onChange,
+                  keyboardType: 'email-address',
+                  onBlur,
+                  value,
+                }}
+                error={error?.message}
+              />
+            )
           }}
         />
-        <TextField
-          inputProps={{
-            placeholder: 'Contraseña',
-            secureTextEntry: !showPassword,
-            onChangeText: setParam('password'),
-          }}
-          leftIcon={showPassword ? 'eye-off' : 'eye'}
-          lefIconOnPress={() => {
-            setShowPassword(!showPassword)
+        <Controller
+          control={control}
+          name='phone'
+          render={({
+            field: { onBlur, onChange, value },
+            fieldState: { error },
+          }) => {
+            return (
+              <TextField
+                inputProps={{
+                  onChangeText: onChange,
+                  placeholder: 'Teléfono',
+                  keyboardType: 'phone-pad',
+                  onBlur,
+                  value,
+                }}
+                error={error?.message}
+              />
+            )
           }}
         />
-        <TextField
-          inputProps={{
-            // placeholder: 'Teléfono',
-            // keyboardType: 'phone-pad',
-            // maxLength: 10,
-            onChangeText: setParam('password_confirmation'),
-            placeholder: 'Confirmar contraseña',
-            secureTextEntry: !showPassword,
+        <Controller
+          control={control}
+          name='username'
+          render={({
+            field: { onBlur, onChange, value },
+            fieldState: { error },
+          }) => {
+            return (
+              <TextField
+                inputProps={{
+                  onChangeText: onChange,
+                  placeholder: 'Nombre de usuario',
+                  onBlur,
+                  value,
+                }}
+                error={error?.message}
+              />
+            )
           }}
-          leftIcon={showPassword ? 'eye-off' : 'eye'}
-          lefIconOnPress={() => {
-            setShowPassword(!showPassword)
+        />
+        <Controller
+          control={control}
+          name='password'
+          render={({
+            field: { onBlur, onChange, value },
+            fieldState: { error },
+          }) => {
+            return (
+              <TextField
+                inputProps={{
+                  onChangeText: onChange,
+                  placeholder: 'Contraseña',
+                  secureTextEntry: !showPassword,
+                  onBlur,
+                  value,
+                }}
+                error={error?.message}
+                leftIcon={showPassword ? 'eye-off' : 'eye'}
+                lefIconOnPress={() => {
+                  setShowPassword(!showPassword)
+                }}
+              />
+            )
+          }}
+        />
+        <Controller
+          control={control}
+          name='password_confirmation'
+          render={({
+            field: { onBlur, onChange, value },
+            fieldState: { error },
+          }) => {
+            return (
+              <TextField
+                inputProps={{
+                  onChangeText: onChange,
+                  placeholder: 'Confirmar contraseña',
+                  secureTextEntry: !showPassword,
+                  onBlur,
+                  value,
+                }}
+                error={error?.message}
+                leftIcon={showPassword ? 'eye-off' : 'eye'}
+                lefIconOnPress={() => {
+                  setShowPassword(!showPassword)
+                }}
+              />
+            )
           }}
         />
       </Box>

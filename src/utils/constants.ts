@@ -18,6 +18,7 @@ export const Constants = {
   ENDPOINTS: {
     INDEX: '/',
     LISTINGS: '/listings',
+    CHATS: '/chats',
     USERS: '/users',
     REGISTER: '/register',
     PRODUCT: '/product',

@@ -74,7 +74,7 @@ export const MicrositioById: React.FC<MicrositioByIdProps> = ({
           <Image
             source={{
               uri: getImageUrl({
-                url: data.thumbnail,
+                str: data.thumbnail,
                 media: data.media?.[0],
               }),
             }}

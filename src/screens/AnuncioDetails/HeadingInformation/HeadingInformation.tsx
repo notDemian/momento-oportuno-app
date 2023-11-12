@@ -4,7 +4,7 @@ import { HeadingInformationProps } from './HeadingInformation.type'
 
 import { Box, Text } from '@src/components/elements'
 import { fontSize } from '@src/theme'
-import { Constants, formatCurrency, getPriceOrSalary } from '@src/utils'
+import { Constants, getPriceOrSalary } from '@src/utils'
 import { toRelative } from '@src/utils/dates'
 
 export const HeadingInformation: React.FC<HeadingInformationProps> = ({
@@ -93,7 +93,7 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
                   {attr.name}
                   {': '}
                   {typeof attr.value === 'object'
-                    ? attr.value.map((v) => v.name).join(',')
+                    ? attr.value?.map((v) => v.name).join(',')
                     : attr.value}
                 </Text>
               </Box>

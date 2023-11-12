@@ -46,27 +46,6 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
           {category.name}
         </Text>
       </Box>
-      {/* {attributes.slice(0, 2).map((attribute) => {
-        const { name, value, id } = attribute
-
-        return (
-          <Box key={id}>
-            <Text color='naranjaClarito' marginLeft='xs' fontSize={fontSize.m}>
-              {name}
-            </Text>
-
-            {Array.isArray(value) ? (
-              value.map((v) => (
-                <Box key={v.id}>
-                  <Text>{v.name}</Text>
-                </Box>
-              ))
-            ) : (
-              <Text>{value}</Text>
-            )}
-          </Box>
-        )
-      })} */}
       {priceOrSalary ? (
         <Text color='naranjaClarito' marginLeft='xs' fontSize={fontSize.m}>
           {priceOrSalary}

@@ -1,13 +1,30 @@
 import { memo, useCallback } from 'react'
 import { ListRenderItem } from 'react-native'
 
-import {} from '@src/api'
-import { Box, List, Text } from '@src/components'
+import { ChatItem } from './ChatItem'
+
+import { Chat } from '@src/api'
+import {
+  Box,
+  List,
+  LoadingPageModal,
+  RefreshControl,
+  Text,
+} from '@src/components'
 import { SvgEmptyMsg } from '@src/components/svgs'
+import { useGetMyChats } from '@src/hooks'
 
 const Mensajes = () => {
-  const renderItem = useCallback<ListRenderItem<unknown>>((anuncio) => {
-    return <Text>hola!</Text>
+  const {
+    data: chats,
+    isLoading,
+    isError,
+    isSuccess,
+    refetch,
+  } = useGetMyChats()
+
+  const renderItem = useCallback<ListRenderItem<Chat>>(({ item }) => {
+    return <ChatItem chat={item} />
   }, [])
 
   const ListEmptyComponent = useCallback(() => {
@@ -22,26 +39,31 @@ const Mensajes = () => {
           No tienes mensajes por el momento
         </Text>
         <SvgEmptyMsg />
-        {/* <Button
-          label='Publicar aviso'
-          variant={'secondary'}
-          margin={'l'}
-          onPress={() => {
-            nav.navigate('NewAnuncioTab', { screen: 'NewAnuncioForm' })
-          }}
-        /> */}
       </Box>
     )
   }, [])
 
+  if (isLoading) return <LoadingPageModal loading={isLoading} />
+
+  if (isError) return <Text>Hubo un error</Text>
+
+  if (!isSuccess) return null
+
+  const chatsSorted = chats.sort((a, b) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  })
+
   return (
     <List
       renderItem={renderItem}
-      data={[]}
+      data={chatsSorted}
       ListEmptyComponent={ListEmptyComponent}
       contentContainerStyle={{ flexGrow: 1 }}
-      scrollEnabled={false}
+      scrollEnabled
       showsVerticalScrollIndicator={false}
+      refreshControl={
+        <RefreshControl refreshing={isLoading} onRefresh={refetch} />
+      }
     />
   )
 }
