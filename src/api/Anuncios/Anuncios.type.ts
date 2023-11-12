@@ -44,7 +44,7 @@ const AttributeAdSchema = AttributeSchema.omit({
   value: true,
 }).merge(
   z.object({
-    value: z.union([z.array(AttributeValueSchema), z.string()]),
+    value: z.union([z.array(AttributeValueSchema), z.string()]).nullable(),
   }),
 )
 
@@ -69,6 +69,7 @@ export const AdSchema = z.object({
   create_at: z.coerce.date(),
   updated_at: z.coerce.date(),
   media: z.array(MediaSchema).nullable().optional(),
+  video_url: z.string().nullable().optional(),
 })
 export type Ad = z.infer<typeof AdSchema>
 

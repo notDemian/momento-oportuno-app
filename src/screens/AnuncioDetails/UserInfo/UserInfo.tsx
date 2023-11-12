@@ -1,17 +1,71 @@
-import { type FC, useCallback } from 'react'
+import { type FC, useCallback, useMemo } from 'react'
 
 import { UserAd } from '@src/api'
-import { Box, Button, Text, Touchable } from '@src/components'
-import { useSearchStackNavigation } from '@src/hooks'
+import { Box, Button, Text, Touchable, useLoginModal } from '@src/components'
+import {
+  useGetMyChats,
+  useInitChat,
+  useSearchStackNavigation,
+} from '@src/hooks'
 import { getShadowBoxProps } from '@src/theme'
-import { redirectToEmail, redirectToSMS } from '@src/utils'
+import { redirectToEmail, redirectToSMS, T } from '@src/utils'
 import { toRelative } from '@src/utils/dates'
 
 type UserInfoProps = {
   user: UserAd
+  listingId: number
 }
 
-export const UserInfo: FC<UserInfoProps> = ({ user }) => {
+export const UserInfo: FC<UserInfoProps> = ({ user, listingId }) => {
+  const { isLoggedIn } = useLoginModal()
+
+  const { data: chats } = useGetMyChats({
+    enabled: !!isLoggedIn,
+  })
+
+  const { mutateAsync: initChat, isLoading: loadingChat } =
+    useInitChat(listingId)
+
+  const hasChat = useMemo(() => {
+    if (!chats) return null
+    return chats.find((chat) => chat.listing_id === listingId)
+  }, [chats, listingId])
+
+  const onChat = useCallback(async () => {
+    if (!isLoggedIn) return
+
+    if (hasChat) {
+      nav.push('MainStacks', {
+        screen: 'AccountTab',
+        params: {
+          screen: 'Chat',
+          params: {
+            id: hasChat.id,
+            title: user.name,
+          },
+          initial: false,
+        },
+      })
+      return
+    }
+
+    const res = await initChat()
+
+    T.info('Chat iniciado')
+
+    nav.push('MainStacks', {
+      screen: 'AccountTab',
+      params: {
+        screen: 'Chat',
+        params: {
+          id: res.chat_id,
+          title: user.name,
+        },
+        initial: false,
+      },
+    })
+  }, [isLoggedIn, hasChat, listingId, user.name])
+
   const onSMS = useCallback(() => {
     if (!user.phone) return
     redirectToSMS({ phone: user.phone })
@@ -55,34 +109,55 @@ export const UserInfo: FC<UserInfoProps> = ({ user }) => {
       <Box
         flex={1}
         flexDirection={'row'}
-        justifyContent={'center'}
+        justifyContent={'space-around'}
         alignItems={'center'}
         gap={'m'}
       >
         {user.microsite ? (
+          <Box flex={1} width={'50%'}>
+            <Button
+              borderRadius={'m'}
+              onPress={() => {
+                if (!user.microsite) return
+                nav.jumpTo('MicrositiosTab', {
+                  screen: 'MicrositioById',
+                  params: {
+                    id: user.microsite.id,
+                  },
+                  initial: false,
+                })
+              }}
+              label='Ir a micrositio'
+            />
+          </Box>
+        ) : null}
+        {user.phone ? (
+          <Box flex={1} width={'50%'}>
+            <Button borderRadius={'m'} onPress={onSMS} label='SMS' />
+          </Box>
+        ) : null}
+      </Box>
+      {isLoggedIn ? (
+        <Box
+          flex={1}
+          flexDirection={'row'}
+          justifyContent={'center'}
+          alignItems={'center'}
+        >
           <Button
             borderRadius={'m'}
             buttonSize={'bigHeader'}
-            onPress={() => {
-              if (!user.microsite) return
-              nav.jumpTo('MicrositiosTab', {
-                screen: 'MicrositioById',
-                params: {
-                  id: user.microsite.id,
-                },
-                initial: false,
-              })
-            }}
-          >
-            <Text color={'white'}>Ir a micrositio</Text>
-          </Button>
-        ) : null}
-        {user.phone ? (
-          <Button borderRadius={'m'} buttonSize={'bigHeader'} onPress={onSMS}>
-            <Text color={'white'}>Mensaje</Text>
-          </Button>
-        ) : null}
-      </Box>
+            variant={'orangy'}
+            isFullWidth
+            onPress={onChat}
+            isLoading={loadingChat}
+            flex={1}
+            alignItems={'center'}
+            justifyContent={'center'}
+            label={hasChat ? 'Ir a chat' : 'Enviar mensaje'}
+          />
+        </Box>
+      ) : null}
     </Box>
   )
 }

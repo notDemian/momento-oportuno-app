@@ -104,6 +104,11 @@ export type AccountStackParamList = {
     showSuccess?: boolean
   }
 
+  Chat: {
+    id: number
+    title?: string
+  }
+
   MyPackages: undefined
   Promotion: undefined
 }

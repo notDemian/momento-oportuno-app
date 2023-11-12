@@ -17,8 +17,8 @@ export function getPriceOrSalary({
   formatted?: boolean
 }): string | null {
   const priceOrSalary =
-    attributes.find((a) => a.id === Constants.IDS.price)?.value.toString() ??
-    attributes.find((a) => a.id === Constants.IDS.salary)?.value.toString()
+    attributes.find((a) => a.id === Constants.IDS.price)?.value?.toString() ??
+    attributes.find((a) => a.id === Constants.IDS.salary)?.value?.toString()
 
   let priceDisplay = priceOrSalary ?? null
 

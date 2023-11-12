@@ -1,4 +1,5 @@
 import type {
+  AntDesign,
   Entypo,
   Feather,
   FontAwesome5,
@@ -18,7 +19,8 @@ type UnionIcons = React.ComponentPropsWithoutRef<typeof Ionicons> &
   React.ComponentPropsWithoutRef<typeof Feather> &
   React.ComponentPropsWithoutRef<typeof FontAwesome5> &
   React.ComponentPropsWithoutRef<typeof SimpleLineIcons> &
-  React.ComponentPropsWithoutRef<typeof Entypo>
+  React.ComponentPropsWithoutRef<typeof Entypo> &
+  React.ComponentPropsWithoutRef<typeof AntDesign>
 
 export type IconProps = {
   isPrimary?: boolean
@@ -31,6 +33,7 @@ export type IconProps = {
     | 'FontAwesome5'
     | 'SimpleLineIcons'
     | 'Entypo'
+    | 'AntDesign'
   color?: string
   name: string
 } & BoxProps<Theme> &

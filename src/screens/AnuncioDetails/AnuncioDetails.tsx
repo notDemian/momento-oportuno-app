@@ -152,7 +152,7 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
                   />
                 </Box>
               )}
-              <UserInfo user={data.data.user} />
+              <UserInfo user={data.data.user} listingId={data.data.id} />
               <BottomButtons slug={data.data.slug} id={data.data.id} />
             </Animated.ScrollView>
           </KeyboardAvoidingView>

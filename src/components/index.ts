@@ -1,4 +1,5 @@
 export * from './AuthenticationLayout'
+export * from './ChatInputComponent'
 export * from './ContentLoader'
 export * from './DishItem'
 export * from './elements'

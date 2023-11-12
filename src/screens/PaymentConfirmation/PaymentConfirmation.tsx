@@ -144,7 +144,7 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
                         ? att.id === Constants.IDS.price
                           ? formatCurrency(att.value)
                           : att.value
-                        : att.value.map((v) => v.name).join(', ')}
+                        : att.value?.map((v) => v.name).join(', ') ?? ''}
                     </Text>
                   </Box>
                 ))}

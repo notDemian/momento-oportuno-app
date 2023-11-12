@@ -8,6 +8,7 @@ import {
 } from '@src/navigation/types'
 import {
   Account,
+  ChatScreen,
   Checkout,
   EditProfile,
   NewAnuncioForm,
@@ -48,6 +49,20 @@ export const AccountStack: React.FC<AccountScreenProps> = (props) => {
         }}
         name='Account'
         component={Account}
+      />
+
+      <Stack.Screen
+        name='Chat'
+        options={({
+          route: {
+            params: { title },
+          },
+        }) => {
+          return {
+            title: title ? `Chat ${title}` : 'Chat',
+          }
+        }}
+        component={ChatScreen}
       />
 
       <Stack.Screen
