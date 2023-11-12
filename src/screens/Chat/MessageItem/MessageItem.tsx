@@ -20,11 +20,13 @@ export const MessageItem: FC<MessageItemProps> = ({ message }) => {
         {...(message.user_id === id
           ? { alignSelf: 'flex-end' }
           : { alignSelf: 'flex-start' })}
+        maxWidth={'80%'}
       >
         <Text
           variant='body2'
           color={message.user_id === id ? 'white' : 'black'}
           textAlign={message.user_id === id ? 'right' : 'left'}
+          selectable
         >
           {message.message}
         </Text>
