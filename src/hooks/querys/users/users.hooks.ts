@@ -13,7 +13,7 @@ import type {
 import { useAppDispatch } from '@src/hooks/useAppRedux'
 import { useAuthStackNavigation } from '@src/hooks/useStackNavigation'
 import { setUser } from '@src/redux'
-import { CLOG, T } from '@src/utils'
+import { T } from '@src/utils'
 import { AxiosError } from 'axios'
 
 type callbackFn = (data: registerRes) => void
@@ -40,7 +40,6 @@ function useRegister(callbackFnOn?: callbackFn) {
         if (!(_error instanceof AxiosError)) return
 
         const { response } = _error
-        CLOG({ data: response?.data })
         if (response?.status === 409) {
           T.error('Error', {
             text2: 'El correo ya está registrado',

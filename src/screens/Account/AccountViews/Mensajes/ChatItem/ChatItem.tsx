@@ -30,6 +30,19 @@ export const ChatItem: FC<ChatItemProps> = ({ chat }) => {
     return other
   }, [chat, id])
 
+  const msg = useMemo(() => {
+    let lastMsg = chat.last_message.message
+
+    const LIMIT = 20
+    if (lastMsg.length > LIMIT) {
+      lastMsg = lastMsg.slice(0, LIMIT) + '...'
+    }
+
+    const other = chat.last_message.user_id === id ? 'Yo' : name
+
+    return `${other}: ${lastMsg}`
+  }, [chat, id, name])
+
   return (
     <Touchable onPress={onClick}>
       <Box
@@ -45,6 +58,7 @@ export const ChatItem: FC<ChatItemProps> = ({ chat }) => {
           source={{
             uri: getImageUrl({
               str: chat.listing.thumbnail,
+              media: chat.listing.media?.[0],
             }),
           }}
           width={120}
@@ -58,7 +72,7 @@ export const ChatItem: FC<ChatItemProps> = ({ chat }) => {
             alignItems='flex-start'
             justifyContent='flex-start'
           >
-            <Text variant='header'>
+            <Text variant='subHeader'>
               {name}
               {' • '}
               <Text variant='body2'>Anuncio: {chat.listing.title}</Text>
@@ -69,9 +83,21 @@ export const ChatItem: FC<ChatItemProps> = ({ chat }) => {
             alignItems='flex-start'
             justifyContent='flex-start'
           >
-            <Text variant='body2'>
-              {formatSpanish(chat.updated_at, {
+            <Text color={'orangy'}>
+              {/* {formatSpanish(chat.updated_at, {
                 format: 'DD/MM/YYYY [a las] HH:mm',
+              })} */}
+              {msg}
+            </Text>
+          </Box>
+          <Box
+            flexDirection='column'
+            alignItems='flex-start'
+            justifyContent='flex-start'
+          >
+            <Text color={'gray'}>
+              {formatSpanish(chat.last_message.updated_at, {
+                format: 'dddd DD [•] HH:mm',
               })}
             </Text>
           </Box>

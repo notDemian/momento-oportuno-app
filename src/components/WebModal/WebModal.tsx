@@ -8,7 +8,6 @@ import { WebViewNavigation } from 'react-native-webview/lib/WebViewTypes'
 import { ActivityIndicator, Box, Icon, Text, Touchable } from '../elements'
 
 import { useAppTheme } from '@src/theme'
-import { CLOG } from '@src/utils'
 
 interface Props {
   url: string
@@ -38,13 +37,7 @@ const WebModal = ({ url, visible, onDismiss, title, onSuccess }: Props) => {
     const idIndex = urlParts.indexOf('comprobante') + 1
     const id = urlParts[idIndex]
     const isIdValid = !isNaN(Number(id)) && Number(id) > 0
-    CLOG({
-      urlParts,
-      isViewingComprobante,
-      idIndex,
-      id,
-      isIdValid,
-    })
+
     if (isViewingComprobante && isIdValid) {
       onDismiss()
       onSuccess(Number(id))

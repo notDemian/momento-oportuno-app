@@ -45,12 +45,27 @@ const Mensajes = () => {
 
   if (isLoading) return <LoadingPageModal loading={isLoading} />
 
-  if (isError) return <Text>Hubo un error</Text>
+  if (isError)
+    return (
+      <Box
+        flex={1}
+        justifyContent='center'
+        alignItems='center'
+        backgroundColor={'background'}
+      >
+        <Text variant='header'>
+          Ha ocurrido un error al obtener los mensajes
+        </Text>
+      </Box>
+    )
 
   if (!isSuccess) return null
 
-  const chatsSorted = chats.sort((a, b) => {
-    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  const chatsSorted = chats.data.sort((a, b) => {
+    return (
+      new Date(b.last_message.created_at).getTime() -
+      new Date(a.last_message.created_at).getTime()
+    )
   })
 
   return (

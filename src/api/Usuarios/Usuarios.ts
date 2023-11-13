@@ -15,7 +15,6 @@ import {
 } from './Usuarios.type'
 import { ChangePasswordParamsSchema } from './Usuarios.type'
 
-import { CLOG } from '@src/utils'
 import { Constants } from '@src/utils/constants'
 
 const api = Request(Constants.ENDPOINTS.INDEX)
@@ -30,8 +29,6 @@ export class UsuariosServices {
   static async register(
     params: Omit<RegisterParams, 'username'>,
   ): Promise<registerRes> {
-    CLOG({ params })
-
     const { data } = await api.post('/register', params, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
