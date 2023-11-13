@@ -28,7 +28,7 @@ export const UserInfo: FC<UserInfoProps> = ({ user, listingId }) => {
 
   const hasChat = useMemo(() => {
     if (!chats) return null
-    return chats.find((chat) => chat.listing_id === listingId)
+    return chats.data.find((chat) => chat.listing_id === listingId)
   }, [chats, listingId])
 
   const onChat = useCallback(async () => {
