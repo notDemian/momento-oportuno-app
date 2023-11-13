@@ -83,12 +83,7 @@ export const ChatItem: FC<ChatItemProps> = ({ chat }) => {
             alignItems='flex-start'
             justifyContent='flex-start'
           >
-            <Text color={'orangy'}>
-              {/* {formatSpanish(chat.updated_at, {
-                format: 'DD/MM/YYYY [a las] HH:mm',
-              })} */}
-              {msg}
-            </Text>
+            <Text color={'secondary'}>{msg}</Text>
           </Box>
           <Box
             flexDirection='column'
