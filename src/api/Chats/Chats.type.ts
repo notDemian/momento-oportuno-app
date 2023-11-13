@@ -46,12 +46,7 @@ export const ListingChatSchema = AdSchema.pick({
   created_at: true,
   updated_at: true,
   video_url: true,
-}).extend({
-  user_id: z.number(),
-  user_package_id: z.number().nullable(),
-  state_id: z.number(),
-  category_id: z.number(),
-  expires_at: z.coerce.date().nullable(),
+  media: true,
 })
 export const ChatSchema = z.object({
   id: z.number(),
@@ -63,10 +58,13 @@ export const ChatSchema = z.object({
   seller_id: z.number(),
   listing_id: z.number(),
   listing: ListingChatSchema,
+  last_message: BaseChatMessageSchema,
 })
 export type Chat = z.infer<typeof ChatSchema>
 
-export const GetMyChatsResponseSchema = ChatSchema.array()
+export const GetMyChatsResponseSchema = z.object({
+  data: ChatSchema.array(),
+})
 export type GetMyChatsResponse = z.infer<typeof GetMyChatsResponseSchema>
 
 export const PostMessageResponseSchema = z.object({

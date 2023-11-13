@@ -3,8 +3,8 @@ import { formatCurrency } from './formatter'
 
 import type { Ad } from '@src/api'
 
-export function getShareUrl(slug: string): string {
-  const url = `${Constants.URL.RAW}ads/${slug}`
+export function getShareUrl(id: number): string {
+  const url = `${Constants.FRONTEND_URL.RAW}ad/${id}`
 
   return url
 }

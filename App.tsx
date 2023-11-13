@@ -34,6 +34,7 @@ interface TextWithDefaultProps extends Text {
 ).defaultProps!.maxFontSizeMultiplier = 1
 import dayjs from 'dayjs'
 import es from 'dayjs/locale/es'
+import { ZodError } from 'zod'
 es
 dayjs.locale('es')
 
@@ -45,6 +46,10 @@ const queryClient = new QueryClient({
           console.log('ERROR ---------------___>')
           console.log('e.response', e.response)
           console.error(e.response?.data)
+        } else if (e instanceof ZodError) {
+          console.log('ERROR ---------------___>')
+          console.log('e', e.errors)
+          console.error(e)
         }
       },
     },
