@@ -75,7 +75,14 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
   const navigation = useSearchStackNavigation()
 
   const onPlaceItemPress = () => {
-    if ('isMyAds' in props) return
+    if ('isMyAds' in props) {
+      if (props.data.status !== 'published') return
+      return navigation.jumpTo('SearchTab', {
+        screen: 'AnuncioDetailsModal',
+        params: { data: { id: props.data.id } },
+        initial: false,
+      })
+    }
     if ('isFav' in props) {
       navigation.jumpTo('SearchTab', {
         screen: 'AnuncioDetailsModal',

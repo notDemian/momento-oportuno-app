@@ -7,6 +7,7 @@ import { ChatsServices } from '@src/api'
 type EnableProps = {
   enabled?: boolean
 }
+const ONE_MIN_MS = 1000 * 60 * 0.2
 
 const useGetMyChats = (props?: EnableProps) => {
   const { enabled = true } = props ?? {}
@@ -15,6 +16,7 @@ const useGetMyChats = (props?: EnableProps) => {
     queryFn: ChatsServices.getMyChats,
     queryKey: ChatQuerysKeys.getMyChats,
     enabled,
+    refetchInterval: enabled ? ONE_MIN_MS : false,
   })
 }
 
@@ -29,8 +31,6 @@ const useInitChat = (listingId: number) => {
     },
   })
 }
-
-const ONE_MIN_MS = 1000 * 60 * 1
 
 const useGetChatMessages = (chatId: number, props?: EnableProps) => {
   const { enabled = true } = props ?? {}
