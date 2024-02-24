@@ -282,12 +282,12 @@ const IMAGEN_PERFIL_SECTION = memo(() => {
 const DETALLES_CUENTA_SECTION = memo(() => {
   const [user] = useUser()
 
-  const [nombre = '', apellido = ''] = user.name.split(' ')
+  const [nombre = ''] = user.name.split(' ')
 
   return (
     <Box g={'m'}>
       <Box gap={'s'}>
-        <Text variant={'subHeader'}>Mostrar nombre</Text>
+        <Text variant={'subHeader'}>Usuario</Text>
         <TextField
           inputProps={{
             placeholder: 'Mostrar nombre',
@@ -335,12 +335,12 @@ const SECTIONS: { body: () => JSX.Element; title: string }[] = [
     },
     title: 'Detalles de la cuenta',
   },
-  {
-    body: () => {
-      return <IMAGEN_PERFIL_SECTION />
-    },
-    title: 'Imagen de perfil',
-  },
+  // {
+  //   body: () => {
+  //     return <IMAGEN_PERFIL_SECTION />
+  //   },
+  //   title: 'Imagen de perfil',
+  // },
   {
     body: () => {
       return <REDES_SOCIALES_SECTION />
