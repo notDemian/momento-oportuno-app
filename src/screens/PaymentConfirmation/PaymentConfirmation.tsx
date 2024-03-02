@@ -384,7 +384,7 @@ export const PaymentConfirmationScreen: FC<PaymentConfirmationScreenProps> = ({
         </Box>
         <Box flex={1} flexDirection='row' justifyContent='space-between'>
           <Text fontSize={fontSize.l}>Total</Text>
-          <Text variant='body'>${order.total} MXN</Text>
+          <Text variant='body'>{formatCurrency(order.total)}</Text>
         </Box>
       </Box>
       <Box flex={1} margin={'s'}>

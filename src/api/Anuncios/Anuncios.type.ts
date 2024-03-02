@@ -55,6 +55,7 @@ export const AdSchema = z.object({
   url: z.string().nullable().optional(),
   status: z.string(),
   thumbnail: z.string().nullable().optional(),
+  image: z.string().nullable().optional(),
   description: z.string().nullable().optional(),
   is_featured: z.coerce.boolean(),
   is_multistate: z.coerce.boolean(),

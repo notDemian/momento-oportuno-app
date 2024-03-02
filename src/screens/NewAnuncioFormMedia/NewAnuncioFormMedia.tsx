@@ -41,6 +41,26 @@ interface PaqueteMedia {
   id: number
 }
 
+class CHECKS {
+  static general(a: Addons) {
+    return (
+      !this.img(a) && !this.printing(a) && !this.medio(a) && !this.printTime(a)
+    )
+  }
+  static img(a: Addons) {
+    return a.key.includes('images')
+  }
+  static printing(a: Addons) {
+    return a.key.includes('impreso')
+  }
+  static printTime(a: Addons) {
+    return a.key.includes('print')
+  }
+  static medio(a: Addons) {
+    return a.key.includes('medio')
+  }
+}
+
 export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
   navigation,
   route: {
@@ -61,18 +81,23 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
 
   const { data: addons } = useAddons()
   const addonsChecks = useMemo(
-    () =>
-      addons?.data?.filter(
-        (a) => !a.name.includes('Imá') && !a.name.includes('impreso'),
-      ),
+    () => addons?.data?.filter((a) => CHECKS.general(a)),
     [addons],
   )
   const imgAddons = useMemo(
-    () => addons?.data?.filter((a) => a.name.includes('Imá')),
+    () => addons?.data?.filter((a) => CHECKS.img(a)),
     [addons],
   )
   const printingAddons = useMemo(
-    () => addons?.data?.filter((a) => a.name.includes('impreso')),
+    () => addons?.data?.filter((a) => CHECKS.printing(a)),
+    [addons],
+  )
+  const mediosAddons = useMemo(
+    () => addons?.data?.filter((a) => CHECKS.medio(a)),
+    [addons],
+  )
+  const printingTimeAddons = useMemo(
+    () => addons?.data?.filter((a) => CHECKS.printTime(a)),
     [addons],
   )
 
@@ -259,44 +284,77 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         addons={addonsChecks}
         setSelectedAddons={setSelectedAddons}
       />
-      <ButtonModalGenerator
-        data={
-          imgAddons?.map((a) => ({
-            label: a.name,
-            value: a.id.toString(),
-          })) ?? []
-        }
-        title='Selecciona cantidad de imágenes'
-        onPressItem={(item) => {
-          const paq = imgAddons?.find((a) => a.id === Number(item.value))
-          if (paq && paq.name.split(' ')[0]) {
-            const data = {
-              id: paq.id,
-              title: paq.name,
-              quantity: isNaN(Number(paq.name.split(' ')[0]))
-                ? 0
-                : Number(paq.name.split(' ')[0]),
+      <Box gap={'l'}>
+        <ButtonModalGenerator
+          data={
+            imgAddons?.map((a) => ({
+              label: a.name,
+              value: a.id.toString(),
+            })) ?? []
+          }
+          title='Selecciona cantidad de imágenes'
+          onPressItem={(item) => {
+            const paq = imgAddons?.find((a) => a.id === Number(item.value))
+            if (paq && paq.name.split(' ')[0]) {
+              const data = {
+                id: paq.id,
+                title: paq.name,
+                quantity: isNaN(Number(paq.name.split(' ')[0]))
+                  ? 0
+                  : Number(paq.name.split(' ')[0]),
+              }
+              setPaquete(data)
             }
-            setPaquete(data)
+          }}
+        />
+        <ButtonModalGenerator
+          data={
+            printingAddons?.map((a) => ({
+              label: a.name,
+              value: a.id.toString(),
+            })) ?? []
           }
-        }}
-      />
-      <Box height={'4%'} />
-      <ButtonModalGenerator
-        data={
-          printingAddons?.map((a) => ({
-            label: a.name,
-            value: a.id.toString(),
-          })) ?? []
-        }
-        title='Selecciona tipo de impresión'
-        onPressItem={(item) => {
-          const paq = printingAddons?.find((a) => a.id === Number(item.value))
-          if (paq) {
-            setPrinting(paq)
+          title='Selecciona tipo de impresión'
+          onPressItem={(item) => {
+            const paq = printingAddons?.find((a) => a.id === Number(item.value))
+            if (paq) {
+              setPrinting(paq)
+            }
+          }}
+        />
+        <ButtonModalGenerator
+          data={
+            mediosAddons?.map((a) => ({
+              label: a.name,
+              value: a.id.toString(),
+            })) ?? []
           }
-        }}
-      />
+          title='Selecciona medio'
+          onPressItem={(item) => {
+            const paq = mediosAddons?.find((a) => a.id === Number(item.value))
+            if (paq) {
+              setSelectedAddons((prev) => [...prev, paq])
+            }
+          }}
+        />
+        <ButtonModalGenerator
+          data={
+            printingTimeAddons?.map((a) => ({
+              label: a.name,
+              value: a.id.toString(),
+            })) ?? []
+          }
+          title='Selecciona tiempo de impresión'
+          onPressItem={(item) => {
+            const paq = printingTimeAddons?.find(
+              (a) => a.id === Number(item.value),
+            )
+            if (paq) {
+              setSelectedAddons((prev) => [...prev, paq])
+            }
+          }}
+        />
+      </Box>
       {paquete || video ? (
         <Text color={'orangy'} marginTop={'m'} variant={'header'}>
           Carga tus archivos
