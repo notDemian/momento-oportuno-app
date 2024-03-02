@@ -102,7 +102,7 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
                 <Animated.Image
                   source={{
                     uri: getImageUrl({
-                      url: data.data.image,
+                      str: data.data.thumbnail,
                       media: data.data.media?.[0],
                     }),
                   }}
@@ -140,7 +140,11 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
               </Animated.View>
               <HeadingInformation data={data.data} />
               {data.data.description && (
-                <Box paddingHorizontal={'m'} backgroundColor={'card'}>
+                <Box
+                  paddingHorizontal={'m'}
+                  paddingBottom={'m'}
+                  backgroundColor={'white'}
+                >
                   <Text variant={'subHeader'}>Descripción</Text>
                   <RenderHtml
                     contentWidth={width}
@@ -148,8 +152,8 @@ export const AnuncioDetails: FC<AnuncioProps> = ({
                   />
                 </Box>
               )}
-              <UserInfo user={data.data.user} />
-              <BottomButtons slug={data.data.slug} id={data.data.id} />
+              <UserInfo user={data.data.user} listingId={data.data.id} />
+              <BottomButtons id={data.data.id} />
             </Animated.ScrollView>
           </KeyboardAvoidingView>
 

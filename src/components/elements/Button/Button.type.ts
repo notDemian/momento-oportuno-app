@@ -40,6 +40,7 @@ export type ButtonProps = ButtonRestyleProps &
     label?: string
     textAlign?: TextProps<Theme>['textAlign']
     isDisabled?: boolean
+    isLoading?: boolean
     disabledText?: string
     children?: React.ReactNode
     leftIcon?: React.ReactNode

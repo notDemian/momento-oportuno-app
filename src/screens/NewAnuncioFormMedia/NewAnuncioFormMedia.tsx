@@ -1,13 +1,20 @@
 import { type FC, useCallback, useEffect, useMemo, useState } from 'react'
+import { Alert } from 'react-native'
 
 import { AddonsComponent } from './Addons'
 
-import { Addons, ImageTooBigError } from '@src/api'
-import { Box, Button, Image, NewRecursoLayout, Text } from '@src/components'
+import { Addons, ImageTooBigError, validateSize } from '@src/api'
+import {
+  Box,
+  Button,
+  Image,
+  NewRecursoLayout,
+  Text,
+  Touchable,
+} from '@src/components'
 import { ButtonModalGenerator } from '@src/components/ModalRadioButton'
 import {
   useAddons,
-  useAnuncioByid,
   useAppDispatch,
   usePreventNavigationOrPop,
   useUploadMedias,
@@ -106,7 +113,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([])
   const [videoAsset, setVideoAsset] = useState<ImagePicker.ImagePickerAsset>()
 
-  const { data: ad } = useAnuncioByid(id, true)
+  // const { data: ad } = useAnuncioByid(id, true)
   const { mutateAsync, isLoading } = useUploadMedias()
 
   const onShowImagePicker = useCallback(
@@ -114,14 +121,25 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
       async () => {
         try {
           if (imgOrVid === 'img' && paquete) {
-            setImages([])
+            const left = paquete.quantity - images.length
+            if (left === 0)
+              return T.error('Ya seleccionaste todas las imágenes')
+
             const result = await ImagePicker.launchImageLibraryAsync({
               mediaTypes: ImagePicker.MediaTypeOptions.Images,
               allowsMultipleSelection: true,
-              selectionLimit: paquete.quantity,
+              selectionLimit: left,
             })
             if (!result.canceled) {
-              setImages(result.assets.splice(0, paquete.quantity))
+              setImages((l) => {
+                const newImages = [...l]
+                result.assets?.forEach((a) => {
+                  if (!l.some((i) => i.uri === a.uri)) {
+                    newImages.push(a)
+                  }
+                })
+                return newImages
+              })
             }
           } else if (imgOrVid === 'vid' && video) {
             const result = await ImagePicker.launchImageLibraryAsync({
@@ -131,6 +149,13 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
             })
             if (!result.canceled) {
               if (!result.assets?.[0]) return
+              const res = await validateSize({
+                photo: result.assets[0],
+              })
+              if (!res) {
+                setVideoAsset(undefined)
+                return T.error('El video es muy pesado, intenta con otro')
+              }
               setVideoAsset(result.assets[0])
             }
           } else {
@@ -139,9 +164,17 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
         } catch (error) {
           setImages([])
           setVideoAsset(undefined)
+          T.error('Error al seleccionar imágenes')
         }
       },
-    [paquete, video],
+    [paquete, video, images.length],
+  )
+
+  const onClickImage = useCallback(
+    (img: ImagePicker.ImagePickerAsset) => () => {
+      setImages((l) => l.filter((i) => i.uri !== img.uri))
+    },
+    [],
   )
 
   useEffect(() => {
@@ -183,32 +216,46 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
     if (lImages.length === 0 || !lImages[0])
       return T.error('Selecciona al menos una imagen para continuar')
 
-    if (images.length < paquete.quantity)
-      return T.error('Selecciona todas las imágenes para continuar')
-    const paqImg = addons?.data?.find((a) => a.id === paquete.id)
-    const addonsData = [...selectedAddons]
-    if (paqImg) addonsData.push(paqImg)
-    if (printing) addonsData.push(printing)
+    const continueFn = async () => {
+      const paqImg = addons?.data?.find((a) => a.id === paquete.id)
+      const addonsData = [...selectedAddons]
+      if (paqImg) addonsData.push(paqImg)
+      if (printing) addonsData.push(printing)
 
-    try {
-      const { media } = await mutateAsync({
-        photo: lImages,
-        resourceId: id,
-        type: 'listing',
-      })
+      try {
+        const { media } = await mutateAsync({
+          photo: lImages,
+          resourceId: id,
+          type: 'listing',
+        })
 
-      dispatch(setReduxAddons(addonsData))
-      T.success(`${media?.length ?? 0} archivos subidos`, {
-        visibilityTime: 1000,
-        onHide() {
-          navigation.navigate('Packages', { id, type: 'listing' })
-        },
-      })
-    } catch (error) {
-      if (error instanceof ImageTooBigError) {
-        return T.error('Una o más imágenes son muy pesadas')
+        dispatch(setReduxAddons(addonsData))
+        T.success(`${media?.length ?? 0} archivos subidos`, {
+          visibilityTime: 1000,
+        })
+        navigation.navigate('Packages', { id, type: 'listing' })
+      } catch (error) {
+        if (error instanceof ImageTooBigError) {
+          return T.error('Una o más imágenes son muy pesadas')
+        }
+        T.error('Error al subir las imágenes')
       }
-      T.error('Error al subir las imágenes')
+    }
+
+    if (images.length < paquete.quantity) {
+      return Alert.alert(
+        'Faltan imágenes',
+        'No estás aprovechando la cantidad de imágenes seleccionada',
+        [
+          {
+            text: 'Continuar de todas formas',
+            onPress: continueFn,
+          },
+          { text: 'Cancelar' },
+        ],
+      )
+    } else {
+      continueFn()
     }
   }, [paquete, images, video, videoAsset, id, addons, selectedAddons, printing])
 
@@ -329,19 +376,37 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
             <Text color={'orangy'}>Imágenes</Text>
             <Box flexDirection={'row'} flexWrap={'wrap'} gap={'m'}>
               {images.map((img) => (
-                <Image
-                  key={img.uri}
-                  source={{ uri: img.uri }}
-                  width={100}
-                  height={100}
-                />
+                <Touchable key={img.uri} onPress={onClickImage(img)}>
+                  <Box borderRadius={'m'} overflow={'hidden'}>
+                    <Box
+                      backgroundColor={'grayLight'}
+                      padding={'xs'}
+                      position={'absolute'}
+                      borderTopRightRadius={'m'}
+                      borderBottomLeftRadius={'m'}
+                      top={0}
+                      right={0}
+                      zIndex={1}
+                    >
+                      <Text color={'white'}>X</Text>
+                    </Box>
+                    <Image source={{ uri: img.uri }} width={100} height={100} />
+                  </Box>
+                </Touchable>
               ))}
             </Box>
+            <Button
+              label='Limpiar imágenes'
+              onPress={() => {
+                setImages([])
+              }}
+            />
           </>
         ) : null}
         {videoAsset ? (
           <>
             <Text color={'orangy'}>Video</Text>
+
             <Box flexDirection={'row'} flexWrap={'wrap'} gap={'m'}>
               <Image
                 source={{ uri: videoAsset.uri }}
@@ -351,7 +416,7 @@ export const NewAnuncioFormMediaScreen: FC<NewAnuncioFormMediaScreenProps> = ({
             </Box>
           </>
         ) : null}
-        <Text color={'gray'} fontSize={fontSize.s}>
+        <Text color={'gray'} fontSize={fontSize.s} marginBottom={'m'}>
           *Verás los precios después de seleccionar tu paquete
         </Text>
       </Box>

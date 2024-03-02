@@ -4,6 +4,7 @@ import { HeadingInformationProps } from './HeadingInformation.type'
 
 import { Box, Text } from '@src/components/elements'
 import { fontSize } from '@src/theme'
+import { Constants, getPriceOrSalary } from '@src/utils'
 import { toRelative } from '@src/utils/dates'
 
 export const HeadingInformation: React.FC<HeadingInformationProps> = ({
@@ -18,26 +19,31 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
     state,
   } = data
 
-  const priceOrSalary =
-    attributes.find((attr) => attr.name === 'Precio')?.value.toString() ??
-    attributes.find((attr) => attr.name === 'Salario')?.value.toString()
+  const priceOrSalary = getPriceOrSalary({
+    attributes,
+    formatted: true,
+  })
 
   return (
     <Box backgroundColor='card' padding='m'>
-      <Box flexDirection='row' justifyContent='space-between'>
+      <Box
+        flexDirection='row'
+        justifyContent='space-between'
+        alignItems={'baseline'}
+      >
         <Box width='65%' paddingRight='s'>
           <Text variant='subHeader' numberOfLines={2}>
             {title}
           </Text>
         </Box>
-        <Text fontSize={fontSize.m} color='primary' fontWeight={'bold'}>
-          $ {priceOrSalary} MXN
+        <Text variant='subHeader' color='primary' fontSize={fontSize.m}>
+          {priceOrSalary}
         </Text>
       </Box>
       <Box paddingVertical={'s'}>
         <Text color={'gray'}>{toRelative(create_at)}</Text>
       </Box>
-      <Text>{category.name}</Text>
+      <Text variant={'body'}>{category.name}</Text>
       <Box
         flexDirection={'row'}
         gap={'s'}
@@ -60,23 +66,39 @@ export const HeadingInformation: React.FC<HeadingInformationProps> = ({
           )
         })}
       </Box>
-      <Text>{state.name}</Text>
+      <Box marginBottom={'s'}>
+        <Text variant={'body'} color='secondary'>
+          {state.name}
+        </Text>
+      </Box>
       <Box flexDirection={'row'} gap={'s'} flexWrap={'wrap'}>
-        {attributes.map((attr) => {
-          return (
-            <Box
-              key={attr.id.toString()}
-              backgroundColor={'orangy'}
-              borderRadius={'s'}
-              paddingHorizontal={'s'}
-              overflow={'hidden'}
-            >
-              <Text fontWeight='bold' color='white'>
-                {attr.name}
-              </Text>
-            </Box>
+        {attributes
+          .filter(
+            (att) =>
+              !(
+                att.id === Constants.IDS.price ||
+                att.id === Constants.IDS.salary
+              ),
           )
-        })}
+          .map((attr) => {
+            return (
+              <Box
+                key={attr.id.toString()}
+                backgroundColor={'orangy'}
+                borderRadius={'s'}
+                paddingHorizontal={'s'}
+                overflow={'hidden'}
+              >
+                <Text fontWeight='bold' color='white'>
+                  {attr.name}
+                  {': '}
+                  {typeof attr.value === 'object'
+                    ? attr.value?.map((v) => v.name).join(',')
+                    : attr.value}
+                </Text>
+              </Box>
+            )
+          })}
       </Box>
     </Box>
   )

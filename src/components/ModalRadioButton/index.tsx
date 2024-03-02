@@ -18,6 +18,7 @@ type ChangeLanguageModalProps = {
   title: string
   onPressItem: (item: RadioOption) => void
   selectedItems?: RadioOption[] | undefined
+  multiple?: boolean
 }
 
 export const ModalRadioButton: FC<ChangeLanguageModalProps> = ({
@@ -27,6 +28,7 @@ export const ModalRadioButton: FC<ChangeLanguageModalProps> = ({
   title,
   onPressItem,
   selectedItems,
+  multiple,
 }) => {
   const onItemPress = useCallback(
     (item: RadioOption) => {
@@ -46,13 +48,14 @@ export const ModalRadioButton: FC<ChangeLanguageModalProps> = ({
         <Text textAlign='center' variant='header'>
           {title}
         </Text>
-        <Box marginTop='m'>
+        <Box marginTop='m' gap={'m'}>
           <RadioButton
             defaultValue={data?.[0]?.value}
             data={data}
             onItemPress={onItemPress}
             selectedItems={selectedItems}
           />
+          {multiple ? <Button label='Seleccionar' onPress={hideModal} /> : null}
         </Box>
       </Box>
     </BottomSheetModal>
@@ -141,6 +144,7 @@ export const ButtonModalGenerator: FC<{
                 : [],
             }
           : {})}
+        multiple={multiple}
         title={title}
       />
     </>

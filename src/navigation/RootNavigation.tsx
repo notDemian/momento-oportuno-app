@@ -9,6 +9,7 @@ import 'react-native-gesture-handler'
 import { PortalHost } from '@gorhom/portal'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { LoginModalPortal } from '@src/components'
 import { useAppSelector } from '@src/hooks'
 import {
   darkTheme,
@@ -16,6 +17,8 @@ import {
   theme as defaultTheme,
   ThemeContext,
 } from '@src/theme'
+import { T } from '@src/utils'
+import * as Updates from 'expo-updates'
 
 const RootStack = createNativeStackNavigator<RootStackParamList>()
 
@@ -26,6 +29,20 @@ export const RootNavigation = () => {
   const navigationTheme = React.useMemo(() => {
     return getNavigationTheme(theme)
   }, [theme])
+
+  const eventListener = React.useCallback((event: Updates.UpdateEvent) => {
+    if (event.type !== Updates.UpdateEventType.UPDATE_AVAILABLE) return
+
+    const message = 'Hay una actualización disponible, recargando...'
+    T.info(message, {
+      visibilityTime: 5000,
+      onHide() {
+        Updates.reloadAsync()
+      },
+    })
+  }, [])
+
+  Updates.useUpdateEvents(eventListener)
 
   return (
     <>
@@ -38,27 +55,29 @@ export const RootNavigation = () => {
           }
           barStyle={theme === 'light' ? 'dark-content' : 'light-content'}
         />
-        <RootStack.Navigator
-          screenOptions={{
-            presentation: 'modal',
-          }}
-        >
-          {userToken ? (
+        <LoginModalPortal>
+          <RootStack.Navigator
+            screenOptions={{
+              presentation: 'modal',
+            }}
+            initialRouteName={userToken ? 'MainStacks' : 'AuthenticationStacks'}
+          >
             <RootStack.Screen
               name='MainStacks'
               options={{ headerShown: false }}
               component={TabNavigation}
             />
-          ) : (
-            <RootStack.Screen
-              options={{
-                headerShown: false,
-              }}
-              name='AuthenticationStacks'
-              component={AuthenticationStack}
-            />
-          )}
-        </RootStack.Navigator>
+            {userToken ? null : (
+              <RootStack.Screen
+                options={{
+                  headerShown: false,
+                }}
+                name='AuthenticationStacks'
+                component={AuthenticationStack}
+              />
+            )}
+          </RootStack.Navigator>
+        </LoginModalPortal>
       </NavigationContainer>
       <PortalHost name='rootPortal' />
     </>

@@ -1,19 +1,22 @@
 import { memo, useCallback, useState } from 'react'
+import { Controller, SubmitHandler } from 'react-hook-form'
 import { Dimensions } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
+import { ChangePasswordParamsSchema } from '@src/api'
 import {
   AccordionItem,
   Box,
   Button,
-  CheckBox,
   Icon,
   Image,
   Text,
   TextField,
   Touchable,
 } from '@src/components'
+import { useChangePassword, useForm } from '@src/hooks'
 import { useUser } from '@src/hooks/useUser'
+import { T } from '@src/utils'
 import * as ImagePicker from 'expo-image-picker'
 
 const CAMBIAR_EMAIL_SECTION = memo(() => {
@@ -29,13 +32,14 @@ const CAMBIAR_EMAIL_SECTION = memo(() => {
         borderRadius={'m'}
         p={'m'}
       >
-        <Text>{user.name}</Text>
+        <Text>{user.email}</Text>
       </Box>
       <Text variant='header'>Nuevo email</Text>
       <Box>
         <TextField
           inputProps={{
             placeholder: 'Nuevo email',
+            keyboardType: 'email-address',
           }}
         />
       </Box>
@@ -48,27 +52,88 @@ const CAMBIAR_EMAIL_SECTION = memo(() => {
 })
 
 const CAMBIAR_CONTRASENA_SECTION = memo(() => {
+  const { mutateAsync, isLoading } = useChangePassword()
+
+  const { control, handleSubmit, formState, reset } = useForm({
+    schema: ChangePasswordParamsSchema,
+    defaultValues: {
+      password_confirmation: '',
+      password: '',
+    },
+  })
+
+  const onSubmit = useCallback<SubmitHandler<ChangePasswordParamsSchema>>(
+    async (data) => {
+      try {
+        await mutateAsync(data)
+        reset()
+        T.success('Contraseña cambiada con éxito')
+      } catch (error) {
+        T.error('Error al cambiar la contraseña')
+      }
+    },
+    [],
+  )
+
   return (
     <Box g={'m'}>
-      <Text variant='header'>Contraseña anterior</Text>
-      <Box>
-        <TextField
-          inputProps={{
-            placeholder: 'Escribe tu contraseña anterior',
-          }}
-        />
-      </Box>
       <Text variant='header'>Nueva contraseña</Text>
       <Box>
-        <TextField
-          inputProps={{
-            placeholder: 'Nueva contraseña',
+        <Controller
+          control={control}
+          name='password'
+          render={({
+            field: { onChange, onBlur, value },
+            fieldState: { error },
+          }) => {
+            return (
+              <TextField
+                inputProps={{
+                  placeholder: 'Tu nueva contraseña',
+                  // secureTextEntry: true,
+                  onChangeText: onChange,
+                  onBlur,
+                  value,
+                }}
+                error={error?.message}
+              />
+            )
           }}
         />
       </Box>
+      <Text variant='header'>Confirma tu contraseña</Text>
+      <Box>
+        <Controller
+          control={control}
+          name='password_confirmation'
+          render={({
+            field: { onChange, onBlur, value },
+            fieldState: { error },
+          }) => {
+            return (
+              <TextField
+                inputProps={{
+                  placeholder: 'Confirma tu nueva contraseña',
+                  // secureTextEntry: true,
+                  onChangeText: onChange,
+                  onBlur,
+                  value,
+                }}
+                error={error?.message}
+              />
+            )
+          }}
+        />
+      </Box>
+      {formState.errors.root && (
+        <Box>{/* <Text color={'secondary'}>{formState.errors}</Text> */}</Box>
+      )}
       <Button
         label='Cambiar contraseña'
-        leftIcon={<Icon type='Feather' name='check' color='white' />}
+        // leftIcon={<Icon type='Feather' name='check' color='white' />}
+        onPress={handleSubmit(onSubmit)}
+        isDisabled={!formState.isValid}
+        isLoading={isLoading}
       />
     </Box>
   )
@@ -244,50 +309,13 @@ const DETALLES_CUENTA_SECTION = memo(() => {
         />
       </Box>
       <Box gap={'s'}>
-        <Text variant={'subHeader'}>Apellidos</Text>
-        <TextField
-          inputProps={{
-            placeholder: 'Mostrar nombre',
-            value: apellido,
-          }}
-          borderColor={'orangy'}
-          borderWidth={1}
-        />
-      </Box>
-      <Box gap={'s'}>
         <Text variant={'subHeader'}>Número telefónico</Text>
         <TextField
           inputProps={{
             placeholder: 'Número telefónico	',
+            value: user.phone ?? '',
           }}
           leftIcon='call'
-          borderColor={'orangy'}
-          borderWidth={1}
-        />
-        <CheckBox label='WhatsApp' onChange={(a) => {}} />
-      </Box>
-      <Box gap={'s'}>
-        <Text variant={'subHeader'}>Descripción del perfil</Text>
-        <TextField
-          inputProps={{
-            placeholder: 'Escribe algo sobre ti',
-            multiline: true,
-            numberOfLines: 5,
-            style: {
-              textAlignVertical: 'top',
-            },
-          }}
-          borderColor={'orangy'}
-          borderWidth={1}
-          height={150}
-        />
-      </Box>
-      <Box gap={'s'}>
-        <Text variant={'subHeader'}>Dirección</Text>
-        <TextField
-          inputProps={{
-            placeholder: 'Escribe tu dirección',
-          }}
           borderColor={'orangy'}
           borderWidth={1}
         />

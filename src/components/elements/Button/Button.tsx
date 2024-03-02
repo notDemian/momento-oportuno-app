@@ -20,6 +20,7 @@ export const Button: React.FC<ButtonProps> = ({
   buttonSize,
   children,
   isDisabled = false,
+  isLoading = false,
   borderRadius = 'l',
   leftIcon,
   isModal = false,
@@ -87,7 +88,7 @@ export const Button: React.FC<ButtonProps> = ({
               color={modalColor}
             />
             <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
-              {!isDisabled ? (
+              {!isLoading ? (
                 label
               ) : (
                 <ActivityIndicator color={palette.blanquecino} />
@@ -104,7 +105,7 @@ export const Button: React.FC<ButtonProps> = ({
                   textAlign={textAlign}
                   fontSize={fontSize}
                 >
-                  {!isDisabled ? (
+                  {!isLoading ? (
                     label
                   ) : (
                     <ActivityIndicator color={palette.blanquecino} />
@@ -113,7 +114,7 @@ export const Button: React.FC<ButtonProps> = ({
               </Box>
             ) : (
               <Text color={textColor} textAlign={textAlign} fontSize={fontSize}>
-                {!isDisabled ? (
+                {!isLoading ? (
                   label
                 ) : (
                   <ActivityIndicator color={palette.blanquecino} />
@@ -131,7 +132,7 @@ export const Button: React.FC<ButtonProps> = ({
       borderRadius={borderRadius}
       overflow='hidden'
       width={isFullWidth ? '100%' : undefined}
-      opacity={isDisabled ? 0.75 : 1}
+      opacity={isDisabled || isLoading ? 0.75 : 1}
       {...spacingProps}
     >
       <Touchable

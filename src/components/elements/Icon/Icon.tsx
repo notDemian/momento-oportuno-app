@@ -1,6 +1,8 @@
 import { IconProps } from './Icon.type'
 
 import {
+  AntDesign,
+  Entypo,
   Feather,
   FontAwesome5,
   Fontisto,
@@ -25,6 +27,10 @@ const FeatherIcons = createBox<Theme>(Feather)
 const FontAwesome5Icons = createBox<Theme>(FontAwesome5)
 
 const SimpleLineIconsIcons = createBox<Theme>(SimpleLineIcons)
+
+const EntypoIcons = createBox<Theme>(Entypo)
+
+const AntDesignIcons = createBox<Theme>(AntDesign)
 
 export const Icon: React.FC<IconProps> = ({
   isPrimary,
@@ -57,6 +63,14 @@ export const Icon: React.FC<IconProps> = ({
 
     case 'SimpleLineIcons':
       ICon = SimpleLineIconsIcons
+      break
+
+    case 'Entypo':
+      ICon = EntypoIcons
+      break
+
+    case 'AntDesign':
+      ICon = AntDesignIcons
       break
 
     default:

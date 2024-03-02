@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
 import { Dimensions } from 'react-native'
-import { SceneMap,TabBar, TabView as RNTabView } from 'react-native-tab-view'
+import { SceneMap, TabBar, TabView as RNTabView } from 'react-native-tab-view'
 import { Icon } from '../Icon'
 
 import { useStyles } from './TabView.style'
@@ -17,7 +17,7 @@ export const TabView: React.FC<TabViewProps> = ({
   onTabPress,
 }) => {
   const {
-    colors: { card, yellow, primary, text },
+    colors: { card, yellow, primary, text, orangy },
   } = useAppTheme()
   const [navigationStateIndex, setNavigationStateIndex] = React.useState(0)
   const styles = useStyles()
@@ -83,12 +83,12 @@ export const TabView: React.FC<TabViewProps> = ({
               styles.tabBar,
               {
                 width: isFullWidth
-                  ? width / (tabData.length <= 3 ? tabData.length : 3.45)
+                  ? width / (tabData.length <= 3 ? tabData.length : 2.45)
                   : width,
               },
             ]}
             indicatorStyle={{
-              backgroundColor: yellow,
+              backgroundColor: orangy,
             }}
             scrollEnabled
             onTabPress={onTabPress}

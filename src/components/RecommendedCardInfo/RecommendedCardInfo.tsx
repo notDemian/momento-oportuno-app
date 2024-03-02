@@ -3,7 +3,7 @@ import { Box, Text } from '../elements'
 
 import { Ad } from '@src/api'
 import { fontSize } from '@src/theme'
-import { Constants } from '@src/utils'
+import { Constants, getPriceOrSalary } from '@src/utils'
 
 type RecommendedCardInfoProps = {
   data: Ad
@@ -17,17 +17,14 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
 }) => {
   const { attributes, category } = data
 
-  const price = useMemo(() => {
-    const price = attributes.find((a) => a.id === PRICE_ID)
-
-    return price?.value.toString() ?? null
-  }, [attributes])
-
-  const salary = useMemo(() => {
-    const salary = attributes.find((a) => a.id === SALARY_ID)
-
-    return salary?.value.toString() ?? null
-  }, [attributes])
+  const priceOrSalary = useMemo(
+    () =>
+      getPriceOrSalary({
+        attributes,
+        formatted: true,
+      }),
+    [attributes],
+  )
 
   return (
     <Box
@@ -38,38 +35,20 @@ export const RecommendedCardInfo: React.FC<RecommendedCardInfoProps> = ({
       minHeight={1000}
       height={'auto'}
     >
-      <Text color='primary' marginLeft='xs' fontSize={fontSize.m}>
-        {category.name}
-      </Text>
-
-      {/* {attributes.slice(0, 2).map((attribute) => {
-        const { name, value, id } = attribute
-
-        return (
-          <Box key={id}>
-            <Text color='naranjaClarito' marginLeft='xs' fontSize={fontSize.m}>
-              {name}
-            </Text>
-
-            {Array.isArray(value) ? (
-              value.map((v) => (
-                <Box key={v.id}>
-                  <Text>{v.name}</Text>
-                </Box>
-              ))
-            ) : (
-              <Text>{value}</Text>
-            )}
-          </Box>
-        )
-      })} */}
-      {price ? (
-        <Text color='naranjaClarito' marginLeft='xs' fontSize={fontSize.m}>
-          $ {price} MXN
+      <Box
+        backgroundColor={'secondary'}
+        p={'xs'}
+        borderRadius={'m'}
+        justifyContent={'center'}
+        alignItems={'center'}
+      >
+        <Text color='white' marginLeft='xs' fontSize={fontSize.m}>
+          {category.name}
         </Text>
-      ) : salary ? (
+      </Box>
+      {priceOrSalary ? (
         <Text color='naranjaClarito' marginLeft='xs' fontSize={fontSize.m}>
-          $ {price} MXN
+          {priceOrSalary}
         </Text>
       ) : null}
     </Box>

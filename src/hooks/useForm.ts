@@ -10,7 +10,7 @@ import { type z } from 'zod'
 export function useForm<
   TFieldValues extends FieldValues = FieldValues,
   TContext = unknown,
-  TSchema extends z.ZodSchema<TFieldValues> = z.ZodSchema<TFieldValues>,
+  TSchema extends z.ZodType<TFieldValues> = z.ZodType<TFieldValues>,
 >({
   schema,
   ...props

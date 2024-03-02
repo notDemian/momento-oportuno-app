@@ -14,7 +14,7 @@ export const DirectorioItem: React.FC<{
     email,
     phone,
     thumbnail,
-
+    media,
     state: { name: stateName },
   } = data
 
@@ -39,7 +39,10 @@ export const DirectorioItem: React.FC<{
       <Box flexDirection={'column'} gap={'s'} width={'35%'} maxWidth={'35%'}>
         <Image
           source={{
-            uri: getImageUrl({ url: thumbnail }),
+            uri: getImageUrl({
+              media: media?.[0],
+              str: thumbnail,
+            }),
           }}
           width={'100%'}
           height={120}

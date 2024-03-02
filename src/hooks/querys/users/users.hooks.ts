@@ -2,11 +2,11 @@ import { UseMutateFunction, useMutation, useQuery } from 'react-query'
 
 import { UsersQuerys } from './users.keys'
 
-import { UsuariosServices } from '@src/api'
+import { RegisterErrorSchema, UsuariosServices } from '@src/api'
 import type {
-  logInParams,
+  LoginParams,
   logInRes,
-  registerParams,
+  RegisterParams,
   registerRes,
   User,
 } from '@src/api/Usuarios'
@@ -17,24 +17,16 @@ import { T } from '@src/utils'
 import { AxiosError } from 'axios'
 
 type callbackFn = (data: registerRes) => void
-type IUseRegister = [
-  UseMutateFunction<registerRes, unknown, registerParams, unknown>,
-  {
-    isLoading: boolean
-    error: unknown
-  },
-]
 
-function useRegister(callbackFnOn?: callbackFn): IUseRegister {
+function useRegister(callbackFnOn?: callbackFn) {
   // const queryClient = useQueryClient()
   const nav = useAuthStackNavigation()
 
-  const {
-    mutate: signUpMutation,
-    isLoading,
-    error,
-  } = useMutation<registerRes, unknown, registerParams, unknown>(
-    (params) => UsuariosServices.register(params),
+  return useMutation<registerRes, unknown, RegisterParams, unknown>(
+    (params) => {
+      const { username, ...rest } = params
+      return UsuariosServices.register(rest)
+    },
     {
       onSuccess: (data) => {
         T.success('Registro exitoso', {
@@ -60,30 +52,42 @@ function useRegister(callbackFnOn?: callbackFn): IUseRegister {
           })
         }
 
+        if (response?.status === 422) {
+          const parsed = RegisterErrorSchema.safeParse(response.data)
+
+          if (!parsed.success) {
+            T.error('Error', {
+              text2: 'Error en los datos',
+            })
+            return
+          }
+
+          T.error('Error', {
+            text2: parsed.data.message
+              .replace(
+                'The phone has already been taken',
+                'El teléfono ya está registrado',
+              )
+              .replace(
+                'The email has already been taken',
+                'El correo ya está registrado',
+              )
+              .replace(/(and \d+ more error)/, ''),
+          })
+        }
+
         if (response?.status === 500) {
           T.error('Error', {
             text2: 'Error en el servidor',
           })
         }
-
-        T.error('Error', {
-          text2: 'Error en el servidor',
-        })
       },
     },
   )
-
-  return [
-    signUpMutation,
-    {
-      isLoading,
-      error,
-    },
-  ]
 }
 
 type IUseLogIn = [
-  UseMutateFunction<logInRes, AxiosError<unknown>, logInParams>,
+  UseMutateFunction<logInRes, AxiosError<unknown>, LoginParams>,
   { isLoading: boolean; error: unknown },
 ]
 
@@ -94,7 +98,7 @@ function useLogIn(_callbackOnSuccess?: (user: User) => void): IUseLogIn {
     mutate: signInMutation,
     isLoading,
     error,
-  } = useMutation<logInRes, AxiosError<unknown>, logInParams>(
+  } = useMutation<logInRes, AxiosError<unknown>, LoginParams>(
     (params) => UsuariosServices.logIn(params),
     {
       onSuccess: (data) => {
@@ -146,4 +150,11 @@ function useMe() {
   })
 }
 
-export { useLogIn, useMe, useRegister }
+function useChangePassword() {
+  return useMutation({
+    mutationFn: UsuariosServices.changePassword,
+    mutationKey: UsersQuerys.changePassword,
+  })
+}
+
+export { useChangePassword, useLogIn, useMe, useRegister }

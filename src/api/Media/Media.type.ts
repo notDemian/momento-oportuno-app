@@ -19,7 +19,7 @@ export const AppendImageResponseSchema = z.union([
     title: true,
     slug: true,
     status: true,
-    image: true,
+    thumbnail: true,
     description: true,
     is_featured: true,
     is_multistate: true,

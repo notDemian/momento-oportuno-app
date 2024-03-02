@@ -21,17 +21,39 @@ export type logInRes = GeneralLogIn
 
 export type registerRes = GeneralLogIn
 
-export type logInParams = {
-  email: string
-  password: string
-}
+export const LoginParamsSchema = z.object({
+  email: z.string().email('El email no es válido'),
+  password: z.string().min(8, 'La contraseña debe tener al menos 8 caracteres'),
+})
 
-export type registerParams = {
-  name: string
-  email: string
-  password: string
-  password_confirmation: string
-}
+export type LoginParams = z.infer<typeof LoginParamsSchema>
+
+export const RegisterParamsSchema = z
+  .object({
+    name: z.string().min(6, 'El nombre debe tener al menos 6 caracteres'),
+    email: z.string().email('El email no es válido'),
+    password: z
+      .string()
+      .min(8, 'La contraseña debe tener al menos 8 caracteres'),
+    password_confirmation: z
+      .string()
+      .min(8, 'La contraseña debe tener al menos 8 caracteres'),
+    phone: z.string().min(10, 'El teléfono debe tener al menos 10 caracteres'),
+    username: z
+      .string()
+      .min(6, 'El nombre de usuario debe tener al menos 6 caracteres'),
+  })
+  .superRefine((data, ctx) => {
+    if (data.password !== data.password_confirmation) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Las contraseñas no coinciden',
+        path: ['password_confirmation'],
+      })
+    }
+  })
+
+export type RegisterParams = z.infer<typeof RegisterParamsSchema>
 
 // export const DataSchema = z.object({
 //   id: z.number(),
@@ -49,38 +71,40 @@ export const GetMeResponseSchema = z.object({
 })
 export type GetMeResponse = z.infer<typeof GetMeResponseSchema>
 
-export interface WoocommerceMeta {
-  variable_product_tour_shown: string
-  activity_panel_inbox_last_read: string
-  activity_panel_reviews_last_read: string
-  categories_report_columns: string
-  coupons_report_columns: string
-  customers_report_columns: string
-  orders_report_columns: string
-  products_report_columns: string
-  revenue_report_columns: string
-  taxes_report_columns: string
-  variations_report_columns: string
-  dashboard_sections: string
-  dashboard_chart_type: string
-  dashboard_chart_interval: string
-  dashboard_leaderboard_rows: string
-  homepage_layout: string
-  homepage_stats: string
-  task_list_tracked_started_tasks: string
-  help_panel_highlight_shown: string
-  android_app_banner_dismissed: string
-}
-
 export const ChangePasswordParamsSchema = z
   .object({
-    password: z.string(),
-    password_confirmation: z.string(),
+    password: z
+      .string()
+      .min(8, 'La contraseña debe tener al menos 8 caracteres'),
+    password_confirmation: z
+      .string()
+      .min(8, 'La contraseña debe tener al menos 8 caracteres'),
   })
-  .refine((data) => data.password === data.password_confirmation, {
-    message: 'Las contraseñas deben coincidir',
+  .superRefine(({ password, password_confirmation }, ctx) => {
+    if (password !== password_confirmation) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Las contraseñas no coinciden',
+        path: ['password_confirmation'],
+      })
+    }
   })
 
 export type ChangePasswordParamsSchema = z.infer<
   typeof ChangePasswordParamsSchema
 >
+
+export const ChangePasswordResponseSchema = z.object({
+  message: z.string().optional(),
+})
+
+export type ChangePasswordResponse = z.infer<
+  typeof ChangePasswordResponseSchema
+>
+
+export const RegisterErrorSchema = z.object({
+  message: z.string(),
+  errors: z.record(z.array(z.string())),
+})
+
+export type RegisterError = z.infer<typeof RegisterErrorSchema>

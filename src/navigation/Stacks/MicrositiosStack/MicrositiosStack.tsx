@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { AddButtonComponent } from '@src/navigation/StacksComponents'
@@ -19,6 +19,10 @@ const Stack = createNativeStackNavigator<MicrositiosStackParamList>()
 export const MicrositiosStack: React.FC<MicrositiosScreenProps> = ({
   navigation,
 }) => {
+  const nav = useCallback(() => {
+    navigation.navigate('NewMicrositioForm')
+  }, [])
+
   return (
     <Stack.Navigator initialRouteName='Micrositios'>
       <Stack.Screen
@@ -31,11 +35,7 @@ export const MicrositiosStack: React.FC<MicrositiosScreenProps> = ({
             headerTitleStyle: {
               color: palette.white,
             },
-            headerRight: () => (
-              <AddButtonComponent
-                nav={() => navigation.navigate('NewMicrositioForm')}
-              />
-            ),
+            headerRight: () => <AddButtonComponent nav={nav} />,
           }
         }}
         name='Micrositios'

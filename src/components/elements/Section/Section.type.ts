@@ -3,7 +3,7 @@ import { Theme } from '@src/theme'
 
 export type SectionProps = {
   children?: React.ReactNode
-  title?: string
+  title?: string | React.ReactNode
   actionButtonText?: string
   hasDivider?: boolean
   onButtonActionPress?: () => void

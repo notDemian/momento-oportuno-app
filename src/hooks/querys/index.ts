@@ -1,5 +1,6 @@
 export * from './addons'
 export * from './anuncios'
+export * from './chats'
 export * from './directorios'
 export * from './favorites'
 export * from './listivos'

@@ -44,7 +44,7 @@ const AttributeAdSchema = AttributeSchema.omit({
   value: true,
 }).merge(
   z.object({
-    value: z.union([z.array(AttributeValueSchema), z.string()]),
+    value: z.union([z.array(AttributeValueSchema), z.string()]).nullable(),
   }),
 )
 
@@ -54,6 +54,7 @@ export const AdSchema = z.object({
   slug: z.string(),
   url: z.string().nullable().optional(),
   status: z.string(),
+  thumbnail: z.string().nullable().optional(),
   image: z.string().nullable().optional(),
   description: z.string().nullable().optional(),
   is_featured: z.coerce.boolean(),
@@ -69,6 +70,7 @@ export const AdSchema = z.object({
   create_at: z.coerce.date(),
   updated_at: z.coerce.date(),
   media: z.array(MediaSchema).nullable().optional(),
+  video_url: z.string().nullable().optional(),
 })
 export type Ad = z.infer<typeof AdSchema>
 
@@ -122,7 +124,6 @@ export type ListingAttribute = {
 }
 
 export type CreateAnuncioParams = GeneralCreateAnuncioParams & {
-  subcategory_id: number
   listingAttributes: ListingAttribute[]
 }
 

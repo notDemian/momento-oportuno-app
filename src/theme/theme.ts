@@ -120,6 +120,13 @@ export const theme = createTheme({
       borderWidth: 1,
       borderColor: 'primary',
     },
+
+    outlineSecondary: {
+      backgroundColor: 'white',
+      borderWidth: 1,
+      borderColor: 'secondary',
+      color: 'secondary',
+    },
     stripe: {
       backgroundColor: 'stripe',
       borderWidth: 1,

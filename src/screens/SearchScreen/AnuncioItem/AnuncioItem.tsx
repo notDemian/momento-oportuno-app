@@ -5,17 +5,17 @@ import { AnuncioProps } from './AnuncioItem.type'
 import { Box, Icon, Image, Text, Touchable } from '@src/components'
 import { useSearchStackNavigation } from '@src/hooks'
 import { fontSize } from '@src/theme'
-import { Constants, getImageUrl } from '@src/utils'
+import { getImageUrl, getPriceOrSalary } from '@src/utils'
 
 export const AnuncioItem: FC<AnuncioProps> = (props) => {
   let extraData = <></>
   if (!('isFav' in props)) {
     const { attributes, category, state } = props.data
 
-    const price = attributes
-      .find((a) => a.id === Constants.IDS.price)
-      ?.value.toString()
-
+    const price = getPriceOrSalary({
+      attributes,
+      formatted: true,
+    })
     extraData = (
       <>
         <Text
@@ -58,7 +58,7 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
             numberOfLines={3}
             fontWeight={'bold'}
           >
-            $ {price} MXN
+            {price}
           </Text>
         ) : null}
       </>
@@ -68,13 +68,21 @@ export const AnuncioItem: FC<AnuncioProps> = (props) => {
   const { title, is_featured } = props.data
 
   const image = getImageUrl({
-    url: props.data.image,
+    str: props.data.thumbnail,
     media: props.data.media?.[0],
   })
+
   const navigation = useSearchStackNavigation()
 
   const onPlaceItemPress = () => {
-    if ('isMyAds' in props) return
+    if ('isMyAds' in props) {
+      if (props.data.status !== 'published') return
+      return navigation.jumpTo('SearchTab', {
+        screen: 'AnuncioDetailsModal',
+        params: { data: { id: props.data.id } },
+        initial: false,
+      })
+    }
     if ('isFav' in props) {
       navigation.jumpTo('SearchTab', {
         screen: 'AnuncioDetailsModal',

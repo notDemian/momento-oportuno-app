@@ -1,10 +1,16 @@
 import Request from '../request'
 
-import type { GetMeResponse, logInParams, logInRes } from './Usuarios.type'
+import type {
+  ChangePasswordResponse,
+  GetMeResponse,
+  LoginParams,
+  logInRes,
+  RegisterParams,
+} from './Usuarios.type'
 import {
+  ChangePasswordResponseSchema,
   GeneralLogInSchema,
   GetMeResponseSchema,
-  registerParams,
   registerRes,
 } from './Usuarios.type'
 import { ChangePasswordParamsSchema } from './Usuarios.type'
@@ -14,14 +20,20 @@ import { Constants } from '@src/utils/constants'
 const api = Request(Constants.ENDPOINTS.INDEX)
 
 export class UsuariosServices {
-  static async logIn(params: logInParams): Promise<logInRes> {
+  static async logIn(params: LoginParams): Promise<logInRes> {
     const { data } = await api.post('/login', params)
     const parsed = GeneralLogInSchema.parse(data)
 
     return parsed
   }
-  static async register(params: registerParams): Promise<registerRes> {
-    const { data } = await api.post('/register', params)
+  static async register(
+    params: Omit<RegisterParams, 'username'>,
+  ): Promise<registerRes> {
+    const { data } = await api.post('/register', params, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    })
     const parsed = GeneralLogInSchema.parse(data)
 
     return parsed
@@ -36,13 +48,13 @@ export class UsuariosServices {
   }
   static async changePassword(
     props: ChangePasswordParamsSchema,
-  ): Promise<GetMeResponse> {
-    const res = await api.post(
+  ): Promise<ChangePasswordResponse> {
+    const { data } = await api.post(
       Constants.ENDPOINTS.USERS + '/change-password',
       props,
     )
 
-    const parsed = GetMeResponseSchema.parse(res.data)
+    const parsed = ChangePasswordResponseSchema.parse(data)
 
     return parsed
   }

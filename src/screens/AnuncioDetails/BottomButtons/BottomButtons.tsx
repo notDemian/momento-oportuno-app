@@ -5,26 +5,34 @@ import {
   ActivityIndicator,
   Box,
   Button,
+  Icon,
   SvgHeartFavorite,
-  SvgShare,
   SvgWarning,
   Text,
   Touchable,
+  useLoginModal,
 } from '@src/components'
-import { useAddFavorite, useMyFavorites, useRemoveFavorite } from '@src/hooks'
+import {
+  useAddFavorite,
+  useAppSelector,
+  useMyFavorites,
+  useRemoveFavorite,
+} from '@src/hooks'
 import { getShadowBoxProps, palette } from '@src/theme'
-import { getShareUrl, redirectToEmail } from '@src/utils'
+import { CLOG, getShareUrl, redirectToEmail } from '@src/utils'
 
 type BottomButtonsProps = {
-  slug: string | null | undefined
   id: number
 }
 
 export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
-  slug,
   id,
 }) => {
-  const { data: favorites } = useMyFavorites()
+  const userId = useAppSelector((s) => s.auth.user?.id)
+  const { open } = useLoginModal()
+  const { data: favorites } = useMyFavorites({
+    enabled: !!userId,
+  })
   const { mutate: addFav, isLoading } = useAddFavorite()
   const { mutate: rmFav, isLoading: loadRm } = useRemoveFavorite()
 
@@ -34,17 +42,21 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
     () => ({
       share: async () => {
         try {
-          if (!slug) return
-          const link = getShareUrl(slug)
+          if (!id) return
+          const link = getShareUrl(id)
           await Share.share({
             message: link,
             title: 'Compartir',
           })
         } catch (error) {
-          console.log(error)
+          CLOG.error(error)
         }
       },
       favorite: async () => {
+        if (!userId)
+          return open({
+            message: 'Para agregar a favoritos debes iniciar sesión',
+          })
         if (isFavorite) {
           rmFav(id)
           return
@@ -60,7 +72,7 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
         })
       },
     }),
-    [slug, id, isFavorite],
+    [id, isFavorite, userId],
   )
 
   return (
@@ -92,11 +104,8 @@ export const BottomButtons: FC<PropsWithChildren<BottomButtonsProps>> = ({
           )}
         </Button>
         <Button variant='outline' onPress={funcs.share} borderRadius={'xxxl'}>
-          <SvgShare />
+          <Icon name='share' type='Entypo' />
         </Button>
-        {/* <Button variant='outline' onPress={funcs.print} borderRadius={'xxxl'}>
-          <SvgPrint />
-        </Button> */}
       </Box>
       <Touchable
         variant={'transparent'}
