@@ -1,9 +1,20 @@
 import React, { useCallback } from 'react'
 import { Dimensions } from 'react-native'
-import { fontSize } from '../../../theme/theme.util'
+import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types'
+import { fontSize, getShadowBoxProps } from '../../../theme/theme.util'
 
-import { Images } from '@src/assets'
-import { Box, Image, LoadingPageModal, Text, Touchable } from '@src/components'
+import CarSvg from '@src/assets/svgs/Car'
+import CatSvg from '@src/assets/svgs/Cat'
+import FishingSvg from '@src/assets/svgs/Fishing'
+import HouseSvg from '@src/assets/svgs/House'
+import PersonSvg from '@src/assets/svgs/Person'
+import {
+  Box,
+  Carousel,
+  LoadingPageModal,
+  Text,
+  Touchable,
+} from '@src/components'
 import { mockCategories, mockCategoriesIcons } from '@src/data'
 import {
   useAppDispatch,
@@ -13,8 +24,6 @@ import {
 import { setCategory } from '@src/redux'
 
 export const PopularCategories: React.FC = () => {
-  const itemsPerRow = 3
-
   const nav = useExploreStackNavigation()
   const dispatch = useAppDispatch()
 
@@ -49,71 +58,102 @@ export const PopularCategories: React.FC = () => {
   const CustomIcon = useCallback((icon: mockCategoriesIcons) => {
     switch (icon) {
       case 'house':
-        return () => (
-          <Image source={Images.iconsRojos.inmueble} width={80} height={80} />
-        )
+        return () => <HouseSvg />
 
       case 'directions-car':
-        return () => (
-          <Image source={Images.iconsRojos.autos} width={80} height={80} />
-        )
+        return () => <CarSvg />
 
       case 'pets':
-        return () => (
-          <Image source={Images.iconsRojos.mascota} width={80} height={80} />
-        )
+        return () => <CatSvg />
 
       case 'work':
-        return () => (
-          <Image source={Images.iconsRojos.empleo} width={80} height={80} />
-        )
+        return () => <PersonSvg />
 
       case 'fishing':
-        return () => (
-          <Image source={Images.iconsRojos.pesca} width={80} height={80} />
-        )
+        return () => <FishingSvg />
 
       default:
         return () => <></>
     }
   }, [])
 
+  const renderItem = useCallback(
+    ({
+      item,
+    }: CarouselRenderItemInfo<
+      NonNullable<typeof filteredBymockCategoriesJointWithMocks>[number]
+    >) => {
+      const { id, icon, name } = item
+
+      const Icon = CustomIcon(icon)
+
+      return (
+        <Box {...getShadowBoxProps()} marginHorizontal={'m'} flex={1}>
+          <Box
+            flexDirection='column'
+            alignItems='center'
+            justifyContent={'space-around'}
+            borderRadius={'xxl'}
+            padding='s'
+            flex={1}
+          >
+            <Box flex={1} justifyContent={'center'} alignItems={'center'}>
+              <Icon />
+            </Box>
+            <Box>
+              <Text fontSize={fontSize.m} marginVertical='s' fontWeight='bold'>
+                {name}
+              </Text>
+            </Box>
+            <Box
+              flexDirection='row'
+              alignItems='center'
+              justifyContent='center'
+              marginTop='s'
+              paddingHorizontal={'s'}
+              backgroundColor={'primary'}
+              borderRadius={'xl'}
+              height={40}
+              width={'100%'}
+            >
+              <Touchable onPress={onCategoryItemPress(id)}>
+                <Text
+                  fontSize={fontSize.m}
+                  marginTop='s'
+                  fontWeight='bold'
+                  color={'white'}
+                >
+                  Ver Más
+                </Text>
+              </Touchable>
+            </Box>
+          </Box>
+        </Box>
+      )
+    },
+    [],
+  )
+
   return (
-    <Box
-      backgroundColor='transparent'
-      flexDirection='row'
-      flexWrap='wrap'
-      justifyContent={'center'}
-      marginTop={'l'}
-    >
+    <Box marginTop={'xl'} backgroundColor={'primary'} paddingVertical={'l'}>
+      <Text
+        fontSize={fontSize.l}
+        fontWeight='bold'
+        color={'white'}
+        marginBottom='m'
+        textAlign={'center'}
+      >
+        Categorías
+      </Text>
       {isLoading ? <LoadingPageModal loading={isLoading} /> : null}
-      {filteredBymockCategoriesJointWithMocks &&
-        filteredBymockCategoriesJointWithMocks?.map((category) => {
-          const { id, icon, name } = category
 
-          const Icon = CustomIcon(icon)
-
-          return (
-            <Touchable key={id} onPress={onCategoryItemPress(id)}>
-              <Box
-                flexDirection='column'
-                alignItems='center'
-                width={Dimensions.get('window').width / itemsPerRow}
-                borderRadius={'xxl'}
-                padding='s'
-              >
-                <Box width={80} height={80}>
-                  <Icon />
-                </Box>
-                <Box>
-                  <Text fontSize={fontSize.m} marginTop='s' fontWeight='bold'>
-                    {name}
-                  </Text>
-                </Box>
-              </Box>
-            </Touchable>
-          )
-        })}
+      <Carousel
+        data={filteredBymockCategoriesJointWithMocks ?? []}
+        numItemsPerSlide={1.4}
+        renderItem={renderItem}
+        width={Dimensions.get('window').width}
+        height={300}
+      />
     </Box>
   )
 }

@@ -1,5 +1,5 @@
-import { type FC, useCallback } from 'react'
-import { ListRenderItem } from 'react-native'
+import { type FC, useCallback, useRef } from 'react'
+import { FlatList, ListRenderItem } from 'react-native'
 
 import { MessageItem } from './MessageItem'
 
@@ -8,7 +8,6 @@ import {
   Box,
   Button,
   ChatInputComponent,
-  List,
   LoadingPageModal,
   RefreshControl,
   Text,
@@ -33,6 +32,8 @@ export const ChatScreen: FC<ChatScreenProps> = ({
   } = useGetChatMessages(id)
 
   const { colors } = useAppTheme()
+
+  const autoScrollRef = useRef<FlatList>(null)
 
   const renderItem = useCallback<ListRenderItem<BaseChatMessage>>(
     ({ item }) => {
@@ -78,7 +79,8 @@ export const ChatScreen: FC<ChatScreenProps> = ({
 
   return (
     <Box flex={1} backgroundColor={'background'}>
-      <List
+      <FlatList
+        ref={autoScrollRef}
         renderItem={renderItem}
         data={sorted}
         ListEmptyComponent={ListEmptyComponent}
@@ -93,6 +95,9 @@ export const ChatScreen: FC<ChatScreenProps> = ({
         refreshControl={
           <RefreshControl refreshing={isLoading} onRefresh={refetch} />
         }
+        onContentSizeChange={(item) => {
+          autoScrollRef.current?.scrollToEnd({ animated: true })
+        }}
       />
       <ChatInputComponent chatId={id} />
     </Box>

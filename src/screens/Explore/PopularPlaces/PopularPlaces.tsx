@@ -40,7 +40,7 @@ export const PopularPlaces: React.FC<{
         coverImageSize='m'
         title={name}
         titleProps={{
-          color: 'white',
+          color: 'primary',
         }}
         marginLeft='m'
         onPress={onPlaceItemPress(id)}
@@ -82,7 +82,7 @@ export const PopularPlaces: React.FC<{
           numItemsPerSlide={2.6}
           data={new Array(4).fill(null)}
           snapEnabled
-          renderItem={(props) => {
+          renderItem={() => {
             return (
               <Box p={'10%'}>
                 <ContentLoader />

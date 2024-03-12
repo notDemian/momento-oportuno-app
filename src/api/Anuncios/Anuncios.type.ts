@@ -109,6 +109,7 @@ export type GeneralCreateAnuncioParams = {
   state_id: number
   user_id: number
   category_id: number
+  date?: Date
 }
 export type a = {
   is_featured: boolean

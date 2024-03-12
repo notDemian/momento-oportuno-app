@@ -1,7 +1,16 @@
+import { useEffect, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { Constants } from '../../../utils/constants'
 
 import { ChatMutationsKeys, ChatQuerysKeys } from './chats.keys'
 
+import {
+  Pusher,
+  // PusherMember,
+  // PusherChannel,
+  // PusherEvent,
+  // PusherAuthorizerResult
+} from '@pusher/pusher-websocket-react-native'
 import { ChatsServices } from '@src/api'
 
 type EnableProps = {
@@ -32,15 +41,63 @@ const useInitChat = (listingId: number) => {
   })
 }
 
+const instance = Pusher.getInstance()
+
+const CHAT_PREFIX = 'chat.' as const
+
+function getChatChannel(chatId: number) {
+  return `${CHAT_PREFIX}${chatId}`
+}
+
+async function initialize({
+  channelName,
+  onEvent,
+}: Pick<Parameters<typeof instance.subscribe>[0], 'channelName' | 'onEvent'>) {
+  await instance.init({
+    apiKey: Constants.PUSHER.key,
+    cluster: Constants.PUSHER.cluster,
+  })
+
+  await instance.connect()
+
+  const channel = await instance.subscribe({
+    channelName,
+    onEvent,
+  })
+
+  return channel
+}
+
 const useGetChatMessages = (chatId: number, props?: EnableProps) => {
+  const [incomingMessage, setIncomingMessage] = useState<unknown>()
+
+  useEffect(() => {
+    async function init() {
+      const channelName = getChatChannel(chatId)
+      const channel = await initialize({
+        channelName,
+        onEvent: function (event) {
+          console.log('event', event)
+          setIncomingMessage(event)
+        },
+      })
+
+      return channel.unsubscribe
+    }
+    init()
+  }, [chatId])
+
   const { enabled = true } = props ?? {}
-  return useQuery({
+  const messageQuery = useQuery({
     queryFn: () => ChatsServices.getMessages(chatId),
     queryKey: ChatQuerysKeys.getMessages(chatId),
     enabled,
+
     // refetchInterval: 1000,
     refetchInterval: enabled ? ONE_MIN_MS : false,
   })
+
+  return { ...messageQuery, incomingMessage }
 }
 
 export type PostMessageBody = Parameters<typeof ChatsServices.postMessage>[0]

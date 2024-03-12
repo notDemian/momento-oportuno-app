@@ -56,6 +56,12 @@ export const Constants = {
     allStates: 5,
     variousCategory: 73,
   },
+  PUSHER: {
+    appId: '1761949',
+    key: '3a2e0e341fb8de7f79c5',
+    secret: 'af3457dda806b8934e29',
+    cluster: 'us3',
+  },
 } as const
 
 export type ENDPOINTS =

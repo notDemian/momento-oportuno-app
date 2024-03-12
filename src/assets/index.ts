@@ -10,4 +10,5 @@ export const Images = {
     mascota: require('./iconsRojos/MASCOTA1.png'),
     pesca: require('./iconsRojos/PESCA1.png'),
   },
+  info: require('./info.png'),
 } as const
