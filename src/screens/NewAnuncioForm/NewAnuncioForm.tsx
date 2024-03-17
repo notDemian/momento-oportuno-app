@@ -1,8 +1,15 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { GeneralCreateAnuncioParams } from '@src/api'
-import { Box, Button, NewRecursoLayout, Text, TextField } from '@src/components'
+import {
+  Box,
+  Button,
+  DateTimePicker,
+  NewRecursoLayout,
+  Text,
+  TextField,
+} from '@src/components'
 import {
   ButtonModalGenerator,
   ModalRadioButton,
@@ -37,6 +44,7 @@ export const NewAnuncioForm: React.FC<
     category_id: 0,
     state_id: 0,
     user_id: id,
+    date: undefined,
   })
 
   const setParamsFactory = useCallback(
@@ -48,13 +56,32 @@ export const NewAnuncioForm: React.FC<
     [],
   )
 
+  const [date, setDate] = useState<Date>()
+  const [showDate, setShowDate] = useState(false)
+  const minDate = useMemo(() => new Date(), [])
+
+  const DateComponent = useCallback(() => {
+    return showDate ? (
+      <DateTimePicker
+        value={new Date()}
+        onChange={(e, date) => {
+          if (e.type === 'set' && date) setDate(date)
+          setShowDate(false)
+        }}
+        mode={'date'}
+        minimumDate={minDate}
+      />
+    ) : null
+  }, [date, showDate])
+
   const dispatch = useDispatch()
 
   const showCategoriaModalHandler = useCallback(() => {
     if (
       params.description === '' ||
       params.title === '' ||
-      params.state_id === 0
+      params.state_id === 0 ||
+      params.date === undefined
     )
       return T.error('Debes llenar todos los campos')
 
@@ -97,6 +124,7 @@ export const NewAnuncioForm: React.FC<
               dispatch(
                 setInitialParams({
                   ...params,
+                  date,
                   category_id: catFound.id,
                 }),
               )
@@ -160,6 +188,18 @@ export const NewAnuncioForm: React.FC<
               title='Estado'
             />
           )}
+        </Box>
+        <Box>
+          <Text>Fecha de salida</Text>
+          <Button
+            label={
+              date ? date.toLocaleDateString() : 'Selecciona la fecha de salida'
+            }
+            onPress={() => setShowDate(true)}
+            paddingVertical={'m'}
+          />
+
+          <DateComponent />
         </Box>
       </Box>
     </NewRecursoLayout>

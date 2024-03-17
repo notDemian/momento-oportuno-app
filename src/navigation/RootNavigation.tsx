@@ -31,13 +31,16 @@ export const RootNavigation = () => {
   }, [theme])
 
   const eventListener = React.useCallback((event: Updates.UpdateEvent) => {
+    event.message && console.log(event.message)
     if (event.type !== Updates.UpdateEventType.UPDATE_AVAILABLE) return
 
-    const message = 'Hay una actualización disponible, recargando...'
+    const message =
+      'Hay una actualización disponible, cierra y vuelve a abrir la aplicación.'
     T.info(message, {
-      visibilityTime: 5000,
-      onHide() {
-        Updates.reloadAsync()
+      // visibilityTime: 5000,
+      autoHide: false,
+      async onHide() {
+        await Updates.reloadAsync()
       },
     })
   }, [])

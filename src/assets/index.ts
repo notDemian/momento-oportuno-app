@@ -10,4 +10,11 @@ export const Images = {
     mascota: require('./iconsRojos/MASCOTA1.png'),
     pesca: require('./iconsRojos/PESCA1.png'),
   },
+  info: require('./info.png'),
+  places: {
+    yucatan: require('./places/yucatan.jpeg'),
+    campeche: require('./places/campeche.jpeg'),
+    qroo: require('./places/qroo.jpeg'),
+  },
+  mainLogoCat: require('./mainLogoCat.png'),
 } as const

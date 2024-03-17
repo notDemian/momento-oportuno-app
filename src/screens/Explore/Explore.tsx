@@ -1,7 +1,9 @@
 import { useRef } from 'react'
 import { ScrollView } from 'react-native'
 
+import HowItWorks from './HowItWorks/HowItWorks'
 import { PopularCategories } from './PopularCategories/PopularCategories'
+import AboutUs from './AboutUs'
 import { ExploreProps } from './Explore.type'
 import { PopularPlaces } from './PopularPlaces'
 import { RecommendedByState } from './RecommendedByState'
@@ -25,8 +27,14 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
       contentContainerStyle={styles.contentContainer}
       stickyHeaderIndices={[1]}
     >
-      <Image source={Images.main_logo} height={'5%'} contentFit='scale-down' />
+      <Image source={Images.main_logo} height={'2%'} contentFit='scale-down' />
       <SearchHeader />
+      <Image
+        source={Images.mainLogoCat}
+        height={250}
+        contentFit='cover'
+        contentPosition={'left center'}
+      />
       <PopularCategories />
       <PopularPlaces estados={data?.data} />
       <Image source={Images.opcionesPasos} height={200} />
@@ -39,7 +47,9 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
               state={estado}
             />
           ))}
-      <Box height={100} />
+      <HowItWorks />
+      <AboutUs />
+      <Box height={300} />
     </ScrollView>
   )
 }
