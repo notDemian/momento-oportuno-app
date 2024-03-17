@@ -34,7 +34,8 @@ export const RootNavigation = () => {
     event.message && console.log(event.message)
     if (event.type !== Updates.UpdateEventType.UPDATE_AVAILABLE) return
 
-    const message = 'Hay una actualización disponible, recargando...'
+    const message =
+      'Hay una actualización disponible, cierra y vuelve a abrir la aplicación.'
     T.info(message, {
       // visibilityTime: 5000,
       autoHide: false,
