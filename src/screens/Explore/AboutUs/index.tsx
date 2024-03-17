@@ -69,7 +69,7 @@ const AboutUs: FC = () => {
         <Box flex={1} justifyContent='center' alignItems='center'>
           <Text
             variant='largeHeader'
-            marginBottom='xl'
+            marginVertical='xl'
             textAlign='left'
             color='black'
           >
@@ -81,10 +81,10 @@ const AboutUs: FC = () => {
           justifyContent='center'
           alignItems='center'
           marginBottom='m'
+          p={'s'}
         >
           <Text
             variant='subHeader'
-            textAlign='left'
             color='black'
             fontWeight={'normal'}
             marginBottom='m'
@@ -95,17 +95,12 @@ const AboutUs: FC = () => {
           </Text>
         </Box>
       </Box>
-      <Box
-        backgroundColor={'primary'}
-        marginVertical={'m'}
-        alignItems='center'
-        justifyContent='center'
-      >
+      <Box marginVertical={'m'} alignItems='center' justifyContent='center'>
         <Carousel
           data={InfoTabs}
           renderItem={renderCarouselItem}
           width={Dimensions.get('window').width}
-          height={500}
+          height={100}
         />
       </Box>
     </Section>

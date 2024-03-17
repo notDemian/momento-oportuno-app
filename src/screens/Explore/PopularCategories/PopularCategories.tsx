@@ -135,7 +135,7 @@ export const PopularCategories: React.FC = () => {
   )
 
   return (
-    <Box marginTop={'xl'} backgroundColor={'primary'} paddingVertical={'l'}>
+    <Box backgroundColor={'primary'} paddingVertical={'l'}>
       <Text
         fontSize={fontSize.l}
         fontWeight='bold'

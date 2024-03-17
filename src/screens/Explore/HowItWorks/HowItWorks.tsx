@@ -1,6 +1,12 @@
 import { FC } from 'react'
+import { Linking } from 'react-native'
 
-import { Box, Section, Text } from '@src/components'
+import { Box, Icon, Section, Text, Touchable } from '@src/components'
+import { getShadowBoxProps } from '@src/theme'
+
+const onYT = () => {
+  Linking.openURL('https://www.youtube.com/watch?v=e6vTGtWBrdY')
+}
 
 const HowItWorks: FC = () => {
   return (
@@ -22,25 +28,25 @@ const HowItWorks: FC = () => {
           Publicar un anuncio es fácil. Selecciona la categoría adecuada y
           realiza tu publicación de manera rápida y sencilla.
         </Text>
+        <Touchable onPress={onYT}>
+          <Box
+            marginVertical={'m'}
+            paddingHorizontal={'m'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            g={'m'}
+            flexDirection={'row'}
+            {...getShadowBoxProps({
+              elevation: 10,
+            })}
+          >
+            <Icon type='AntDesign' name='youtube' size={30} color='red' />
+            <Text variant={'subHeader'}>
+              Mira el video para más información
+            </Text>
+          </Box>
+        </Touchable>
       </Box>
-      {/* <Box marginVertical={'m'} paddingHorizontal={'m'}>
-        <YTFrame
-          height={200}
-          play={false}
-          videoId='e6vTGtWBrdY'
-          initialPlayerParams={{
-            //si=s-XoBKcSPWDG5Wys&controls=0
-            controls: false,
-            modestbranding: true,
-            rel: false,
-          }}
-          webViewProps={{
-            allowsFullscreenVideo: true,
-            allowsInlineMediaPlayback: true,
-            mediaPlaybackRequiresUserAction: false,
-          }}
-        />
-      </Box> */}
     </Section>
   )
 }

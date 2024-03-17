@@ -1,6 +1,6 @@
 EL MOMENTO OPORTUNO
-[ ] -Enviar imagen de gato (leslie)
-[ ] -Enviar imagen de Estados (leslie)
+[x] -Enviar imagen de gato (leslie)
+[x] -Enviar imagen de Estados (leslie)
 
 POR ENTREGAR 
 
@@ -13,5 +13,7 @@ CREAMEDIC DIGITAL
 -ENDPOINTS( LUIS PENDIENTE)
 -CONSIDERAR LOS DATOS DEL CERTIFICADO (TE ENVIE EL CORREO)
 -PENDIENTE LESLIE Y FABIAN ENVIO DE TEXTOS DE MAPFRE
+
+DONE:
 quitar campos rfc y estado civil
 agregar card seguros en ambas vistas, general y detallada

@@ -3,23 +3,30 @@ import { Dimensions } from 'react-native'
 import { CarouselRenderItemInfo } from 'react-native-reanimated-carousel/lib/typescript/types'
 
 import { State } from '@src/api'
+import { Images } from '@src/assets'
 import { Box, Card, Carousel, ContentLoader, Section } from '@src/components'
 import { useAppDispatch, useExploreStackNavigation } from '@src/hooks'
 import { setState } from '@src/redux'
 
 const images = [
-  'https://clicdelsureste.empresarialti.com/wp-content/uploads/assets/portada_qroo.jpeg',
-  'https://clicdelsureste.empresarialti.com/wp-content/uploads/assets/portada_campeche.jpeg',
-  'https://clicdelsureste.empresarialti.com/wp-content/uploads/assets/portada_yucatan.jpeg',
+  Images.places.qroo,
+  Images.places.campeche,
+  Images.places.yucatan,
 ]
+
+const FILTERED_STATES = {
+  'Quintana Roo': 'Quintana Roo',
+  Campeche: 'Campeche',
+  Yucatan: 'Yucatan',
+}
 
 const getImage = (name: string) => {
   switch (name) {
-    case 'Quintana Roo':
+    case FILTERED_STATES['Quintana Roo']:
       return images[0]
-    case 'Campeche':
+    case FILTERED_STATES.Campeche:
       return images[1]
-    case 'Yucatan':
+    case FILTERED_STATES.Yucatan:
       return images[2]
     default:
       return images[0]
@@ -40,7 +47,7 @@ export const PopularPlaces: React.FC<{
         coverImageSize='m'
         title={name}
         titleProps={{
-          color: 'primary',
+          color: 'white',
         }}
         marginLeft='m'
         onPress={onPlaceItemPress(id)}
@@ -71,7 +78,9 @@ export const PopularPlaces: React.FC<{
           width={Dimensions.get('window').width}
           height={300}
           numItemsPerSlide={2.6}
-          data={estados}
+          data={estados.filter((_, i) =>
+            Object.values(FILTERED_STATES).includes(estados[i]?.name as any),
+          )}
           snapEnabled
           renderItem={renderItem}
         />

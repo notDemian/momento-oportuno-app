@@ -27,10 +27,15 @@ export const Explore: React.FC<ExploreProps> = ({ navigation }) => {
       contentContainerStyle={styles.contentContainer}
       stickyHeaderIndices={[1]}
     >
-      <Image source={Images.main_logo} height={'5%'} contentFit='scale-down' />
+      <Image source={Images.main_logo} height={'2%'} contentFit='scale-down' />
       <SearchHeader />
+      <Image
+        source={Images.mainLogoCat}
+        height={250}
+        contentFit='cover'
+        contentPosition={'left center'}
+      />
       <PopularCategories />
-
       <PopularPlaces estados={data?.data} />
       <Image source={Images.opcionesPasos} height={200} />
       {isLoading || !data
