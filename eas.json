@@ -2,7 +2,7 @@
   "cli": {
     "version": ">= 3.13.2",
     "promptToConfigurePushNotifications": false,
-    "requireCommit": true,
+    "requireCommit": false,
     "appVersionSource": "remote"
   },
   "build": {
